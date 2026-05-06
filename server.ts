@@ -16,7 +16,7 @@ async function startServer() {
   });
 
   // Explicitly serve static files from /publish
-  app.use(express.static(path.join(process.cwd(), 'publish')));
+  app.use(express.static(path.join(process.cwd(), 'public')));
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
