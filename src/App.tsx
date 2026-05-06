@@ -33,7 +33,7 @@ const PROJECTS = [
     title: 'FastResume',
     type: 'AI TOOL · LIVE PRODUCT',
     description: 'An AI-powered resume builder that analyses job descriptions, optimises for ATS systems, and runs real-time voice mock interviews. Built and launched independently.',
-    image: '/ai-fast-resume.png',
+    image: '/ai fast resume.png',
     tags: ['Next.js', 'OpenAI', 'Python', 'Tailwind'],
     link: '#'
   }
@@ -43,62 +43,62 @@ const ILLUSTRATIONS = [
   {
     title: 'Botanical Linocut Print',
     description: 'A rustic, hand-pulled linocut-style illustration of a rose branch featuring peachy-pink flowers and light blue leaves, accompanied by the text "STILLNESS IN BLOOM" at the bottom.',
-    image: '/botanical-linocut.jpg'
+    image: '/A_crisp,_printmaking-like_aesthetic_with_202605061216.jpeg'
   },
   {
     title: 'Grumpy Cat on Books',
     description: 'A charming black-and-white ink illustration of a grumpy-looking tabby cat wearing a bowtie. The cat is sitting proudly atop a tall stack of playfully titled books, such as "Grumpy Tales" and "The Whisker."',
-    image: '/grumpy-cat.png'
+    image: '/Gemini_Generated_Image_9c3ozp9c3ozp9c3o.png'
   },
   {
     title: 'Minimalist Reader',
     description: 'A simple, black-and-white line art drawing of a person sitting cross-legged on a cozy floor cushion, wearing headphones and deeply focused on reading a book.',
-    image: '/minimalist-reader.jpg'
+    image: '/A_simple_black-and-white_illustration_of_202605061116.jpeg'
   },
   {
     title: 'Vibrant Kawaii Illustration',
     description: 'A highly colorful, anime-style illustration featuring a cute girl floating in a dreamy, surreal landscape. The background is filled with playful elements like rainbows, stars, onigiri (rice balls), and the Tokyo Tower, capturing a "Yume Kawaii" aesthetic.',
-    image: '/vibrant-kawaii.jpg'
+    image: '/Generate_a_vibrant_yet_surreal_202605061131.jpeg'
   },
   {
     title: 'Cozy Watercolor Scene',
     description: 'A soft watercolor painting depicting a relaxing moment of a woman wrapped in a knitted blanket, reading a book by a large window. A tabby cat sleeps peacefully beside her, with a beautiful view of a lush garden outside.',
-    image: '/watercolor-scene.jpg'
+    image: '/Hand-drawn_illustration_of_[subject],_delicate_202605061138.jpeg'
   },
   {
     title: 'Simplistic Digital Drawing',
     description: 'A charmingly crude, MS-Paint style digital drawing showing a red convertible car parked on a beach near the ocean and a cluster of white houses, with the text "MY RED CAR AN BEACH" written in the sky.',
-    image: '/digital-drawing-car.jpg'
+    image: '/Redraw_the_attached_image_in_202605061222.jpeg'
   },
   {
     title: 'Seasonal Retreat Illustration',
     description: 'A vibrant, illustrative flyer designed to promote a seasonal outdoor community gathering.',
-    image: '/camp-poster.jpg'
+    image: '/Camp Poster.jpg'
   },
   {
     title: 'Holiday Campaign Visuals',
     description: 'A targeted promotional graphic highlighting festive discounts for premium outdoor gear.',
-    image: '/camp-sales.jpg'
+    image: '/Camp Sales Poster.jpg'
   },
   {
     title: 'Restaurant Ordering Interface',
     description: 'A clear, step-by-step visual menu guide crafted for a seamless dining experience.',
-    image: '/malaysian-hotpot.jpg'
+    image: '/Malaysian hot pot.jpg'
   },
   {
     title: 'Character Concept Art',
     description: 'A stylized, character-driven illustration showcasing vibrant colors and modern digital aesthetics.',
-    image: '/character-concept.jpg'
+    image: '/2.jpg'
   },
   {
     title: 'Hyper-Realistic Avatar',
     description: 'A highly detailed, photorealistic digital portrait demonstrating advanced rendering techniques.',
-    image: '/avatar-realistic.png'
+    image: '/ChatGPT Image 2026年5月3日 16_33_47.png'
   },
   {
     title: 'Outdoor Equipment Showcase',
     description: 'A lifestyle product photograph emphasizing the durability and sleek design of camping furniture.',
-    image: '/outdoor-furniture.jpg'
+    image: '/Untitled design.jpg'
   }
 ];
 
@@ -106,52 +106,52 @@ const POSTERS = [
   {
     title: 'Futuristic Concept Car',
     description: 'A dynamic 3D render of a sleek, futuristic sports car speeding through a tunnel. It is highlighted by vibrant pink and blue neon light trails that emphasize a sense of high speed and advanced technology.',
-    image: '/futuristic-car.jpg'
+    image: '/[subject],_techno-futuristic,_motion_blur,_pink_202605061211.jpeg'
   },
   {
     title: 'Streetwear Fashion Poster',
     description: 'A dynamic, magazine-style poster featuring a model in modern urban streetwear (a puffer jacket, full face mask, and patchwork jeans) floating against a bright, cloudy sky. It includes the bold typography "AETHER" and "RISE ABOVE WITH FASHION".',
-    image: '/streetwear-poster.jpg'
+    image: '/一张高端潮流街头服装海报，画面主体是一位无脸的未来感模特漂浮跳跃在天空中，穿着超大号米色羽绒服、层叠兜帽和针织面罩，面部被完全遮住；下身穿白色宽松工装裤，裤腿.jpeg'
   },
   {
     title: 'Campsite Configuration',
     description: 'A multi-panel layout displaying functional outdoor seating and shelter setups.',
-    image: '/camp-config-1.jpg'
+    image: '/Camp 1.jpg'
   },
   {
     title: 'Stylized Pet Illustration',
     description: 'A clean, cartoon-style depiction of a Border Collie against a minimalist backdrop.',
-    image: '/pet-illustration.jpg'
+    image: '/Camp 3.jpg'
   },
   {
     title: 'Holiday Event Graphic',
     description: 'A heartwarming, hand-drawn promotional poster celebrating Father\'s Day with a playful layout.',
-    image: "/fathers-day.jpg"
+    image: "/Father's Day Poster.jpg"
   },
   {
     title: 'Mixed Media Urban Photography',
     description: 'An engaging blend of urban street photography enhanced by playful digital illustration overlays.',
-    image: '/urban-photography.jpg'
+    image: '/{__style_name____Metro_Doodle_Snapshot_202605041701.jpeg'
   },
   {
     title: 'Lifestyle Photo Collage',
     description: 'A curated grid of candid moments designed to evoke a strong sense of nostalgia and community.',
-    image: '/lifestyle-collage.jpg'
+    image: '/4x4_grid_of_candid_nostalgic_202605041705.jpeg'
   },
   {
     title: 'Editorial Behind-the-Scenes',
     description: 'A polished documentary-style photograph capturing the dynamic environment of a high-end fashion shoot.',
-    image: '/editorial-shoot.jpg'
+    image: '/我要时尚杂志拍摄_但是组办方是JZexY_拍的很高级_拍人_2K_202605041658.jpeg'
   }
 ];
 
 const RESOURCES = [
-  { name: 'MeBumi: Branding & Digital Communications Strategy', path: '/strategy-mebumi.pdf' },
-  { name: 'Shell: Sustainable Offshore Repurposing Strategy', path: '/strategy-shell.pdf' },
-  { name: 'Nibou: Nurturing Sustainability Initiatives Strategy', path: '/strategy-nibou.pdf' },
-  { name: 'ACQUABOSS: Summer Accessories Catalogue', path: '/catalogue-acquaboss.pdf' },
-  { name: 'Mozzigear: Outdoor Lifestyle Catalogue', path: '/catalogue-mozzigear.pdf' },
-  { name: 'Armor Trailer: Heavy Duty Trailer Catalogue', path: '/catalogue-armor-trailer.pdf' },
+  { name: 'MeBumi: Branding & Digital Communications Strategy', path: '/strategy-Mebumi Presentation.pdf.pdf' },
+  { name: 'Shell: Sustainable Offshore Repurposing Strategy', path: '/strategy-Team EASY McKinsey Presentation.pdf.pdf' },
+  { name: 'Nibou: Nurturing Sustainability Initiatives Strategy', path: '/strategy-TeamWork Nibou.pdf.pdf' },
+  { name: 'ACQUABOSS: Summer Accessories Catalogue', path: '/Product Catalogue - ACQUABOSS.pdf' },
+  { name: 'Mozzigear: Outdoor Lifestyle Catalogue', path: '/Product Catalogue.pdf' },
+  { name: 'Armor Trailer: Heavy Duty Trailer Catalogue', path: '/track catalogue _compressed.pdf' },
 ];
 
 // --- Components ---
@@ -248,7 +248,7 @@ export default function App() {
             className="flex items-center gap-4"
           >
             <div className="w-12 h-12 flex items-center justify-center">
-              <img src="/logo.png" alt="RabbitShark Logo" className="w-full h-full object-contain" />
+              <img src="/RabbitShark logo.png" alt="RabbitShark Logo" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tighter font-serif leading-none">RabbitShark</span>
@@ -500,11 +500,11 @@ export default function App() {
             </div>
             <div className="lg:w-1/2 grid grid-cols-2 gap-4 h-[600px]">
               <div className="space-y-4 pt-12">
-                <img src="/camp-config-1.jpg" alt="About 1" className="w-full h-[300px] object-cover rounded-xl shadow-lg" />
-                <img src="/malaysian-hotpot.jpg" alt="About 2" className="w-full h-full object-cover rounded-xl shadow-lg" />
+                <img src="/Camp 1.jpg" alt="About 1" className="w-full h-[300px] object-cover rounded-xl shadow-lg" />
+                <img src="/Malaysian hot pot.jpg" alt="About 2" className="w-full h-full object-cover rounded-xl shadow-lg" />
               </div>
               <div className="space-y-4">
-                <img src="/camp-poster.jpg" alt="About 3" className="w-full h-full object-cover rounded-xl shadow-lg" />
+                <img src="/Camp Poster.jpg" alt="About 3" className="w-full h-full object-cover rounded-xl shadow-lg" />
                 <img src="/kno.png" alt="About 4" className="w-full h-[250px] object-cover rounded-xl shadow-lg" />
               </div>
             </div>
@@ -547,7 +547,7 @@ export default function App() {
         <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-4">
             <div className="w-8 h-8 flex items-center justify-center">
-              <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+              <img src="/RabbitShark logo.png" alt="Logo" className="w-full h-full object-contain" />
             </div>
             <span className="font-serif font-bold italic">© 2026 RabbitShark Studio</span>
           </div>
