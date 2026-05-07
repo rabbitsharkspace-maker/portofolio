@@ -1065,7 +1065,7 @@
     <!-- 1. NAV -->
     <nav>
         <div class="logo" style="margin-left: -20px; display: flex; align-items: center;">
-            <img src="/logo.png" alt="RabbitShark Logo" style="height: 50px; width: auto; margin-top: -10px; margin-bottom: 30px;">
+            <img src="https://drive.google.com/thumbnail?id=1Dk4VHGazAzPXYwUj02_FBD3nitAdp-F4&sz=w1000" alt="RabbitShark Logo" style="height: 100px; width: auto; margin-top: -10px; margin-bottom: 20px;" referrerpolicy="no-referrer">
         </div>
         <div class="nav-links">
             <a href="#work">Work</a>
@@ -1074,6 +1074,43 @@
             <a href="#contact">Contact</a>
         </div>
     </nav>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdfModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="width: 90%; height: 85%; position: relative; background: #fff; border-radius: 8px; overflow: hidden;">
+            <button onclick="closePdf()" style="position: absolute; top: 15px; right: 20px; background: #333; color: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; z-index: 10001; font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">&times;</button>
+            <iframe id="pdfFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+        <p style="color: #fff; margin-top: 1.5rem; font-family: var(--font-body);">Press ESC or click &times; to close</p>
+    </div>
+
+    <script>
+        function openPdf(driveUrl) {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            
+            // Extract ID and convert to preview link
+            const fileId = driveUrl.match(/[-\w]{25,}/);
+            if (fileId) {
+                frame.src = `https://drive.google.com/file/d/${fileId[0]}/preview`;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            }
+        }
+
+        function closePdf() {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            modal.style.display = 'none';
+            frame.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on ESC
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePdf();
+        });
+    </script>
 
     <!-- 2. HERO -->
     <section class="hero container">
@@ -1113,7 +1150,7 @@
                 <div class="pricing-best-for">
                     <strong>Best for:</strong> Small businesses, local Melbourne businesses, community organisations, anyone who needs a professional website fast
                 </div>
-                <a href="https://calendly.com" target="_blank" class="button button-secondary" style="width: 100%; text-align: center;">Book a free call →</a>
+                <a href="mailto:rabbitshark.space@gmail.com" class="button button-secondary" style="width: 100%; text-align: center;">Email Us →</a>
             </div>
             
             <!-- Growth -->
@@ -1136,7 +1173,7 @@
                 <div class="pricing-best-for">
                     <strong>Best for:</strong> Businesses targeting both Australian and Chinese communities, brands needing genuine bilingual capability, companies wanting AI features built in
                 </div>
-                <a href="https://calendly.com" target="_blank" class="button" style="width: 100%; text-align: center;">Book a free call →</a>
+                <a href="mailto:rabbitshark.space@gmail.com" class="button" style="width: 100%; text-align: center;">Email Us →</a>
             </div>
 
             <!-- Studio -->
@@ -1159,7 +1196,7 @@
                 <div class="pricing-best-for">
                     <strong>Best for:</strong> Startups, growing businesses, enterprises needing a complete digital product or custom automation system built properly from day one
                 </div>
-                <a href="https://calendly.com" target="_blank" class="button button-secondary" style="width: 100%; text-align: center;">Book a free call →</a>
+                <a href="mailto:rabbitshark.space@gmail.com" class="button button-secondary" style="width: 100%; text-align: center;">Email Us →</a>
             </div>
         </div>
 
@@ -1183,7 +1220,7 @@
                     <h3>Strategy Consultation</h3>
                     <div class="alacarte-price">AUD $450/hour — first 30 min free</div>
                     <p>One-on-one strategy session via video call or in person in Melbourne. Bring your business challenge — we'll help you think it through clearly.</p>
-                    <div style="margin-top: 1rem;"><a href="https://calendly.com" target="_blank" class="inline-link" style="font-weight: 600; color: var(--accent-gold); text-decoration: none;">Book now →</a></div>
+                    <div style="margin-top: 1rem;"><a href="https://calendly.com/rabbitshark-space/60-minute-meeting" target="_blank" class="inline-link" style="font-weight: 600; color: var(--accent-gold); text-decoration: none;">Book now →</a></div>
                 </div>
                 <div class="alacarte-block">
                     <h3>Brand & Catalogue Design</h3>
@@ -1209,7 +1246,7 @@
                         <div class="talk-price">AUD $50</div>
                         <div class="talk-duration">30 minutes</div>
                         <p class="talk-desc">A focused intro call to understand your needs and see if we're the right fit. Come with your questions — we'll come with honest answers.</p>
-                        <a href="https://calendly.com" target="_blank" class="button" style="width: 100%; text-align: center;">Book now →</a>
+                        <a href="https://calendly.com/rabbitshark-space/30min" target="_blank" class="button" style="width: 100%; text-align: center;">Book now →</a>
                         <div class="talk-note">Credited toward your project if you proceed.</div>
                     </div>
                     
@@ -1220,7 +1257,7 @@
                         <div class="talk-price">AUD $100</div>
                         <div class="talk-duration">45 minutes</div>
                         <p class="talk-desc">Meet Jane in person over coffee in Melbourne CBD. Bring your idea, your challenge, or just your curiosity. No pitch — just a real conversation.</p>
-                        <a href="https://calendly.com" target="_blank" class="button" style="width: 100%; text-align: center;">Book now →</a>
+                        <a href="https://calendly.com/rabbitshark-space/45-minute-meeting" target="_blank" class="button" style="width: 100%; text-align: center;">Book now →</a>
                         <div class="talk-note">Credited toward your project if you proceed.</div>
                     </div>
                     
@@ -1231,7 +1268,7 @@
                         <div class="talk-price">AUD $450/hour</div>
                         <div class="talk-duration">60 minutes</div>
                         <p class="talk-desc">A deep dive into your specific business challenge. We'll analyse, advise, and give you a clear action plan you can use immediately — with or without us.</p>
-                        <a href="https://calendly.com" target="_blank" class="button" style="width: 100%; text-align: center;">Book now →</a>
+                        <a href="https://calendly.com/rabbitshark-space/60-minute-meeting" target="_blank" class="button" style="width: 100%; text-align: center;">Book now →</a>
                         <div class="talk-note">Credited toward your project if you proceed.</div>
                     </div>
                 </div>
@@ -1280,7 +1317,6 @@
             <h2 style="color: #fff; margin-bottom: 1rem; font-family: var(--font-heading); font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 400; letter-spacing: -0.02em;">Not sure where to start?</h2>
             <p style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 3rem; font-size: 1.1rem; line-height: 1.6;">Book a free 30-minute call — or meet Jane for a coffee in Melbourne. We'll figure out the right fit together.</p>
             <div class="cta-buttons">
-                <a href="https://calendly.com" target="_blank" class="button" style="background: var(--accent-gold); color: #fff;">Book a call →</a>
                 <a href="mailto:rabbitshark.space@gmail.com" class="button button-secondary" style="border-color: rgba(255,255,255,0.3); color: #fff;">Email us directly →</a>
             </div>
         </div>
@@ -1297,8 +1333,7 @@
             <!-- Card 1 -->
             <div class="card">
                 <div class="image-placeholder">
-                    
-                    
+                    <img src="https://drive.google.com/thumbnail?id=1tuJ_g8tAv9RK14qsRqaNCrY9AVUWHoAy&sz=w1000" alt="Kno" style="width: 100%; height: 100%; object-fit: cover;" referrerpolicy="no-referrer">
                 </div>
                 <div class="card-type">Knowledge Platform · Live Product</div>
                 <h3>Kno</h3>
@@ -1316,8 +1351,7 @@
             <!-- Card 2 -->
             <div class="card">
                 <div class="image-placeholder">
-                    
-                    
+                    <img src="https://drive.google.com/thumbnail?id=1ET4TcOpEnlTD05dkdaGrd1L2Gh3KYjDe&sz=w1000" alt="FastResume" style="width: 100%; height: 100%; object-fit: cover;" referrerpolicy="no-referrer">
                 </div>
                 <div class="card-type">AI Tool · Live Product</div>
                 <h3>FastResume</h3>
@@ -1420,6 +1454,22 @@
                 </div>
             </div>
 
+            <!-- Sports -->
+            <div class="card">
+                <div class="image-placeholder" style="aspect-ratio: 16/9; margin-bottom: 2rem; padding: 0; overflow: hidden; display: flex;">
+                    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="100%" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FT9U4YKKpmXbRpe3Vyadqse%2FSports%3Fnode-id%3D1-4" allowfullscreen></iframe>
+                </div>
+                
+                <div class="card-type">Mobile App Design</div>
+                <h3>Sports Game Versing</h3>
+                <p>A sports application prototype showcasing game scheduling, team versing interfaces, and match statistics. Designed with energetic visual components and clear information hierarchy.</p>
+                <div class="tags">
+                    <span class="tag">Figma</span>
+                    <span class="tag">Mobile UI</span>
+                    <span class="tag">Sports Tech</span>
+                </div>
+            </div>
+
             <!-- Sharon ECC -->
             <div class="card">
                 <div class="image-placeholder" style="aspect-ratio: 16/9; margin-bottom: 2rem; padding: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: var(--bg-color); border: 1px solid rgba(0,0,0,0.05);">
@@ -1438,22 +1488,6 @@
                     <span class="tag">E-Commerce</span>
                     <span class="tag">AI-Assisted</span>
                     <span class="tag">Web Development</span>
-                </div>
-            </div>
-
-            <!-- Sports -->
-            <div class="card">
-                <div class="image-placeholder" style="aspect-ratio: 16/9; margin-bottom: 2rem; padding: 0; overflow: hidden; display: flex;">
-                    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="100%" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FT9U4YKKpmXbRpe3Vyadqse%2FSports%3Fnode-id%3D1-4" allowfullscreen></iframe>
-                </div>
-                
-                <div class="card-type">Mobile App Design</div>
-                <h3>Sports Game Versing</h3>
-                <p>A sports application prototype showcasing game scheduling, team versing interfaces, and match statistics. Designed with energetic visual components and clear information hierarchy.</p>
-                <div class="tags">
-                    <span class="tag">Figma</span>
-                    <span class="tag">Mobile UI</span>
-                    <span class="tag">Sports Tech</span>
                 </div>
             </div>
         </div>
@@ -1477,9 +1511,9 @@
                     <span class="tag">Digital Marketing</span>
                     <span class="tag">Market Research</span>
                 </div>
-                <div>
-                    <a href="/mebumi_strategy.pdf" target="_blank" class="pdf-link">View PDF Presentation ↗</a>
-                </div>
+                    <div>
+                        <button onclick="openPdf('https://drive.google.com/file/d/1WC4WGLyOmC8aSORLyylOAIuJDDWmDhOD/view?usp=sharing')" class="button button-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; cursor: pointer; border: 1px solid #ddd; background: #fff;">View PDF Presentation ↗</button>
+                    </div>
             </div>
 
             <!-- Card 2 -->
@@ -1492,9 +1526,9 @@
                     <span class="tag">Sustainability</span>
                     <span class="tag">Financial Modelling</span>
                 </div>
-                <div>
-                    <a href="/shell_strategy.pdf" target="_blank" class="pdf-link">View PDF Presentation ↗</a>
-                </div>
+                    <div>
+                        <button onclick="openPdf('https://drive.google.com/file/d/1bYxpGblCcXK0S56F2ffUUXXPvKASYTUl/view?usp=sharing')" class="button button-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; cursor: pointer; border: 1px solid #ddd; background: #fff;">View PDF Presentation ↗</button>
+                    </div>
             </div>
 
             <!-- Card 3 -->
@@ -1507,9 +1541,9 @@
                     <span class="tag">FMCG</span>
                     <span class="tag">Cost Modelling</span>
                 </div>
-                <div>
-                    <a href="/nibou_sustainability.pdf" target="_blank" class="pdf-link">View PDF Presentation ↗</a>
-                </div>
+                    <div>
+                        <button onclick="openPdf('https://drive.google.com/file/d/1LmtFQBtG4wDE8T7_dm5cFMtQXZSFO1x2/view?usp=sharing')" class="button button-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; cursor: pointer; border: 1px solid #ddd; background: #fff;">View PDF Presentation ↗</button>
+                    </div>
             </div>
         </div>
     </section>
@@ -1527,7 +1561,7 @@
             <div class="grid-4" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/camp_poster.jpg" alt="Camp Poster" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1ElESlqy7Rp79UmHQq016drpqX_kCbGib&sz=w1000" alt="Camp Poster" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Seasonal Retreat Illustration</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A vibrant, illustrative flyer designed to promote a seasonal outdoor community gathering.</p>
@@ -1535,7 +1569,7 @@
                 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/camp_sales.jpg" alt="Camp Sales" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1j7Z8UrwhsPDwheLOk11NLI-1L0Fv9uFt&sz=w1000" alt="Camp Sales" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Holiday Campaign Visuals</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A targeted promotional graphic highlighting festive discounts for premium outdoor gear.</p>
@@ -1543,7 +1577,7 @@
                 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/hot_pot.jpg" alt="Hot Pot" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=168YUv2NbsEDc5K_puiofQYCKsHzAMLLo&sz=w1000" alt="Hot Pot" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Restaurant Ordering Interface</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A clear, step-by-step visual menu guide crafted for a seamless dining experience.</p>
@@ -1551,7 +1585,7 @@
                 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/character_art.png" alt="Character Art" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1Vv-gYvGvC5UGGsQPU3MPdzG6m9xFyQhL&sz=w1000" alt="Character Art" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Character Concept Art</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A stylized, character-driven illustration showcasing vibrant colors and modern digital aesthetics.</p>
@@ -1559,7 +1593,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/avatar_render.jpg" alt="Avatar Render" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1bB4S30dFZcHv5rBPj_T4Dgjv9BRawo3Q&sz=w1000" alt="Avatar Render" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Hyper-Realistic Avatar</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A highly detailed, photorealistic digital portrait demonstrating advanced rendering techniques.</p>
@@ -1567,7 +1601,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/camp_1.jpg" alt="Camp Setup" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1PQmAs1_iD2lGQ9RL2G8IyXNKUkNQSuqe&sz=w1000" alt="Camp Setup" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Outdoor Equipment Showcase</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A lifestyle product photograph emphasizing the durability and sleek design of camping furniture.</p>
@@ -1575,7 +1609,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/camp_3.jpg" alt="Camp Photo" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1PvRbjLJZYCdKSvRt06yxNdId7NaK2AnS&sz=w1000" alt="Camp Photo" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Campsite Configuration</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A multi-panel layout displaying functional outdoor seating and shelter setups.</p>
@@ -1583,7 +1617,7 @@
                 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/pet_illustration.jpg" alt="Pet Illustration" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1HJ1xZJwe_3Pn5kXRghVsc2lk2ry77UUb&sz=w1000" alt="Pet Illustration" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Stylized Pet Illustration</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A clean, cartoon-style depiction of a Border Collie against a minimalist backdrop.</p>
@@ -1591,7 +1625,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/fathers_day.jpg" alt="Father's Day" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1t0sHAShQW1Hg9YoSdTGUdT0GFR0LTeKm&sz=w1000" alt="Father's Day" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Holiday Event Graphic</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A heartwarming, hand-drawn promotional poster celebrating Father's Day with a playful layout.</p>
@@ -1599,7 +1633,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/urban_doodle.jpeg" alt="Urban Doodle" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1B4zt5TtDyAgepTefVUc2MouRn-nHe97o&sz=w1000" alt="Urban Doodle" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Mixed Media Urban Photography</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">An engaging blend of urban street photography enhanced by playful digital illustration overlays.</p>
@@ -1607,7 +1641,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/photo_collage.jpeg" alt="Photo Collage" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1SEn7cxvM42r1o1U-KCjF92MwTIkbOUjp&sz=w1000" alt="Photo Collage" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Lifestyle Photo Collage</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A curated grid of candid moments designed to evoke a strong sense of nostalgia and community.</p>
@@ -1615,7 +1649,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/fashion_editorial.jpeg" alt="Fashion Editorial" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1djW6iTY2B4JXlXJScWm1Xpss_wqxtx24&sz=w1000" alt="Fashion Editorial" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Editorial Behind-the-Scenes</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A polished documentary-style photograph capturing the dynamic environment of a high-end fashion shoot.</p>
@@ -1624,7 +1658,7 @@
                 <!-- New Uploads -->
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/futuristic_car.jpeg" alt="Futuristic Concept Car" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1dTsazZk0-iCQo78ac9tgn4ZTT0V6Ctnz&sz=w1000" alt="Futuristic Concept Car" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Futuristic Concept Car</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A dynamic 3D render of a sleek, futuristic sports car speeding through a tunnel with neon trails.</p>
@@ -1632,7 +1666,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/linocut_rose.jpeg" alt="Botanical Linocut Print" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1BSIbIcmQbIuJqt3u1ZAAQ25xtsIxJJ60&sz=w1000" alt="Botanical Linocut Print" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Botanical Linocut Print</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A rustic, hand-pulled linocut-style illustration of a rose branch with peachy-pink flowers.</p>
@@ -1640,7 +1674,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/grumpy_cat.png" alt="Grumpy Cat on Books" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1pelJ2X9yMfLs4dZGMiUGe-3MKkI6fqbB&sz=w1000" alt="Grumpy Cat on Books" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Grumpy Cat on Books</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A charming ink illustration of a cat wearing a bowtie atop a stack of books.</p>
@@ -1648,7 +1682,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/minimalist_reader.jpeg" alt="Minimalist Reader" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=11zfsctspT0WfF-j00pFKZXb69tqtwd6S&sz=w1000" alt="Minimalist Reader" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Minimalist Reader</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A simple line art drawing of a focused reader sitting cross-legged.</p>
@@ -1656,7 +1690,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/kawaii_illustration.jpeg" alt="Vibrant Kawaii Illustration" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1m-Fva0RtscB_CW_Y8ZYGy95fQZ6W_69F&sz=w1000" alt="Vibrant Kawaii Illustration" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Vibrant Kawaii Illustration</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">Anime-style illustration of a girl floating in a surreal landscape.</p>
@@ -1664,7 +1698,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/cozy_watercolor.jpeg" alt="Cozy Watercolor Scene" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1F9hxnafJ9bOQdUHeO5x_p63ZK5U8to6H&sz=w1000" alt="Cozy Watercolor Scene" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Cozy Watercolor Scene</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A soft watercolor painting of a woman reading by a garden window.</p>
@@ -1672,7 +1706,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/beach_car.jpeg" alt="Simplistic Digital Drawing" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1AA8-SjH81ZfGjk9jN8nfFseqWC2FnADf&sz=w1000" alt="Simplistic Digital Drawing" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Simplistic Digital Drawing</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">An MS-Paint style drawing of a red convertible on a beach.</p>
@@ -1680,7 +1714,7 @@
 
                 <div class="card" style="padding: 1.5rem;">
                     <div class="image-placeholder tall" style="padding: 0; overflow: hidden; display: flex;">
-                        <img src="/streetwear_poster.jpeg" alt="Streetwear Fashion Poster" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <img src="https://drive.google.com/thumbnail?id=1RSgO4XkCY9dJWMGg0nct1qz28DX-0vF1&sz=w1000" alt="Streetwear Fashion Poster" class="cursor-zoom-in image-link" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" referrerpolicy="no-referrer">
                     </div>
                     <h4 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem;">Streetwear Fashion Poster</h4>
                     <p style="font-size: 0.85rem; margin-bottom: 0;">A dynamic poster featuring urban streetwear against a cloudy sky.</p>
@@ -1697,7 +1731,7 @@
                     <h3>ACQUABOSS Product Catalogue</h3>
                     <p>Discover premium summer and water accessories from an Australian-owned brand dedicated to style, relaxation, and durability. This catalogue features a curated collection of UV-protected and mould-resistant inflatable lounges, water hammocks, and complementary accessories designed for an exceptional outdoor leisure experience.</p>
                     <div>
-                        <a href="/acquaboss_product_catalogue.pdf" target="_blank" class="pdf-link">View Catalogue PDF ↗</a>
+                        <button onclick="openPdf('https://drive.google.com/file/d/1rlpq1RREon0ioIv5q7fGfXMUZQ-0xgNT/view?usp=sharing')" class="button button-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; cursor: pointer; border: 1px solid #ddd; background: #fff;">View Catalogue PDF ↗</button>
                     </div>
                 </div>
                 
@@ -1706,7 +1740,7 @@
                     <h3>Mozzigear Product Catalogue</h3>
                     <p>This comprehensive guide showcases Mozzigear's innovative outdoor protection and comfort solutions. It highlights a premium range of APVMA-registered, DEET-free insect repellents, alongside practical travel accessories and thermo-comfort items designed to enhance everyday outdoor safety and convenience.</p>
                     <div>
-                        <a href="/mozzigear_catalogue.pdf" target="_blank" class="pdf-link">View Catalogue PDF ↗</a>
+                        <button onclick="openPdf('https://drive.google.com/file/d/1xXkKXQbSa1RYVP3MKal8f6rULqXxjdGB/view?usp=sharing')" class="button button-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; cursor: pointer; border: 1px solid #ddd; background: #fff;">View Catalogue PDF ↗</button>
                     </div>
                 </div>
 
@@ -1715,7 +1749,7 @@
                     <h3>Armor Trailers Catalogue</h3>
                     <p>Highlighting heavy-duty transport solutions built for demanding Australian conditions, this catalogue details Armor Trailers' premium product line. Engineered to exceed national road vehicle standards, these trailers feature ISO 9001-certified components, reinforced galvanised chassis, and purpose-driven designs for unparalleled durability on the job.</p>
                     <div>
-                        <a href="/armor_trailers.pdf" target="_blank" class="pdf-link">View Catalogue PDF ↗</a>
+                        <button onclick="openPdf('https://drive.google.com/file/d/13jUzqBu0OA2bDnsiaYvmPSpzp0yCWkD3/view?usp=sharing')" class="button button-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem; cursor: pointer; border: 1px solid #ddd; background: #fff;">View Catalogue PDF ↗</button>
                     </div>
                 </div>
             </div>
