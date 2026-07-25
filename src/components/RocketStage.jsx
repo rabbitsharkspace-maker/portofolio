@@ -247,8 +247,8 @@ export default function RocketStage() {
           /* The component ships at a fixed 200px in white; the hero needs it
              sized off the viewport and painted in the wordmark's green. */
           .hero-ring {
-            width: clamp(215px, 30vw, 380px);
-            height: clamp(215px, 30vw, 380px);
+            width: clamp(180px, 30vw, 380px);
+            height: clamp(180px, 30vw, 380px);
             margin: 0;
             color: var(--brand);
           }
