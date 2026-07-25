@@ -134,11 +134,24 @@ export default function WorkEmbeds({ works, accent }) {
   )
 }
 
+/*
+ * The logical width the framed sites are laid out at. An iframe lays its page
+ * out against its own pixel width, so at the wall's real width (~1000px and
+ * less on a laptop) these sites were rendering their tablet/cramped breakpoint
+ * and the hero copy ran off the edge. Framing at a desktop width and scaling
+ * the whole thing down instead shows the site as it is actually designed —
+ * the full screen, just smaller.
+ */
+const FRAME_W = 1440
+
 // The big screen: the live site or film, filling the wall behind a browser bar.
 function Screen({ work, index, total, lang }) {
   const c = work[lang]
   const url = work.embed ?? work.link
   const yt = useMemo(() => youtubeId(url), [url])
+  const box = useRef(null)
+  // scale 0 until measured, so the frame never flashes at full size first
+  const [fit, setFit] = useState({ scale: 0, h: 0 })
   const host = useMemo(() => {
     try {
       return new URL(url).hostname.replace(/^www\./, "")
@@ -146,6 +159,23 @@ function Screen({ work, index, total, lang }) {
       return url
     }
   }, [url])
+
+  // The wall's width sets the scale, and the wall's height (divided back out)
+  // sets how much page the frame has to render to fill it.
+  useEffect(() => {
+    const el = box.current
+    if (!el) return
+    const measure = () => {
+      const { width, height } = el.getBoundingClientRect()
+      if (!width || !height) return
+      const scale = width / FRAME_W
+      setFit({ scale, h: height / scale })
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
 
   return (
     <div className="w-full shrink-0">
@@ -175,7 +205,7 @@ function Screen({ work, index, total, lang }) {
         </div>
 
         {/* the screen */}
-        <div className="relative min-h-0 flex-1 bg-[#eef3f8]">
+        <div ref={box} className="relative min-h-0 flex-1 overflow-hidden bg-[#eef3f8]">
           {/* shows through if a site refuses to be framed */}
           <span
             aria-hidden
@@ -196,8 +226,16 @@ function Screen({ work, index, total, lang }) {
           ) : (
             <>
               <iframe
-                className="absolute inset-0 h-full w-full"
-                style={{ pointerEvents: "none" }}
+                className="absolute top-0 left-0 origin-top-left"
+                style={{
+                  pointerEvents: "none",
+                  width: FRAME_W,
+                  height: fit.h || "100%",
+                  transform: `scale(${fit.scale || 1})`,
+                  // hidden until measured — at scale 1 it would briefly paint a
+                  // 1440px frame overflowing the wall
+                  visibility: fit.scale ? "visible" : "hidden",
+                }}
                 src={url}
                 title={c.name}
                 loading="lazy"
@@ -259,15 +297,18 @@ function PlaqueFace({ work, lang, T, t, detail = false }) {
   const url = work.embed ?? work.link
   if (!detail) {
     return (
-      <div className="flex h-full flex-col justify-between bg-white p-5">
-        <div>
-          <p className="text-[10px] tracking-[0.16em] uppercase" style={{ color: t.ink }}>
-            {c.kind}
-          </p>
-          <h3 className="mt-2 text-[20px] leading-snug" style={{ color: "var(--ink)" }}>
-            {c.name}
-          </h3>
-        </div>
+      <div className="flex h-full flex-col bg-white p-5 text-center">
+        <p className="text-[10px] tracking-[0.16em] uppercase" style={{ color: t.ink }}>
+          {c.kind}
+        </p>
+        {/* the name owns the middle of the plaque — the kind and the credit are
+            the top and bottom rules it sits between */}
+        <h3
+          className="grid flex-1 place-items-center px-1 text-[22px] leading-snug text-balance"
+          style={{ color: "var(--ink)" }}
+        >
+          {c.name}
+        </h3>
         <div className="flex items-end justify-between text-[11px]" style={{ color: "var(--dim)" }}>
           <span>
             {T.builtBy} {OWNER[work.owner].label[lang]}

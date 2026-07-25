@@ -135,7 +135,7 @@ const MAX_PITCH = 0.1
 // Anchored at the mouth, tilted forward, stretches down on hover.
 // Anchored to the mouth in head-local units, so every distance here scales with
 // HEAD_H (tuned at 2.0, now 2.6 → ×1.3) to stay stuck to the lip as she grows.
-const TONGUE = { x: -0.052, y: -0.8, z: 0.78, w: 0.286, tilt: 0.34, restLen: 0.075, pullLen: 0.26 }
+const TONGUE = { x: -0.052, y: -0.8, z: 0.68, w: 0.286, tilt: 0.34, restLen: 0.075, pullLen: 0.26 }
 
 /*
  * useGLTF caches the parsed scene and `scene.clone()` shares its materials, so

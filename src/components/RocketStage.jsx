@@ -33,18 +33,18 @@ const LINE_3 = 0.78
 /*
  * The mark's journey, in three beats:
  *
- *   rest     it sits in the gap between RABBIT and SHARK, ringed by the spinning
- *            RABBITSHARK lettering — the two words and the mark read as one
- *            lockup. Its resting height is measured off the wordmark rather than
- *            hard-coded, see gapY below.
- *   step down as the copy comes in to take the middle, the mark drops out of the
- *            way into the empty lower half and waits there, under each line, for
- *            the whole read. The ring does not come with it: it belongs to the
- *            wordmark and fades out with it.
+ *   rest     nothing but the wordmark. The mark waits under the fold and the
+ *            ring has not faded in yet, so RABBIT and SHARK are clean.
+ *   arrive   as the copy takes the middle, the mark rises into the empty lower
+ *            half and settles inside the ring, which fades up around it. It
+ *            stays there, under each line, for the whole read.
  *   lift-off only once the last line is up does it climb, and it keeps going
- *            until it is clear off the top of the frame as the section hands over.
+ *            until it is clear off the top of the frame as the section hands
+ *            over. The ring is a launch pad, not a passenger: it is pinned at
+ *            LOW_Y and never moves, so the mark flies up out of it.
  */
-const LOW_Y = 0.3 // where it waits, in screens below centre, while the copy reads
+const START_Y = 0.86 // under the fold, where the mark waits before it is called
+const LOW_Y = 0.3 // where it settles, in screens below centre, ringed
 const OUT_Y = -0.78 // clear of the top edge — the mark leaves the frame entirely
 const FLY_START = LINE_3 // nothing moves it until the last line has landed
 const FLY_END = 1
@@ -55,6 +55,7 @@ export default function RocketStage() {
   const LINES = T.heroLines
   const outer = useRef(null)
   const rocket = useRef(null)
+  const ring = useRef(null)
   const trail = useRef(null)
   const word = useRef(null)
   const hint = useRef(null)
@@ -73,30 +74,21 @@ export default function RocketStage() {
         const p = travel > 0 ? Math.min(Math.max(-r.top / travel, 0), 1) : 0
 
         const vh = window.innerHeight
-        /*
-         * Where the mark rests: the seam between the two wordmark lines. Derived
-         * from layout (offsetHeight is untouched by the transforms this loop
-         * writes) rather than a magic fraction, so the mark stays in the gap at
-         * every width, where TextPressure sets its own line height off the
-         * container. The wordmark is centred in the frame, so the seam sits
-         * `first line height - half the block` from the middle.
-         */
-        let gap = 0
-        const w = word.current
-        if (w && w.children.length) gap = w.children[0].offsetHeight - w.offsetHeight / 2
-
-        // Two moves, and they don't overlap. `drop` steps the mark out of the
-        // middle as the copy arrives; `fly` takes it off the top once the last
-        // line is up. Smoothstep on both so it eases out of the gap and eases
-        // off the edge rather than jerking at either end.
-        const d = Math.min(Math.max(p / COPY_IN, 0), 1)
-        const drop = d * d * (3 - 2 * d)
+        // Two moves, and they don't overlap. `rise` walks the mark up from under
+        // the fold into the ring as the copy arrives; `fly` takes it off the top
+        // once the last line is up. Smoothstep on both so it eases into the ring
+        // and eases off the edge rather than jerking at either end.
+        const a = Math.min(Math.max(p / COPY_IN, 0), 1)
+        const rise = a * a * (3 - 2 * a)
         const t = Math.min(Math.max((p - FLY_START) / (FLY_END - FLY_START), 0), 1)
         const fly = t * t * (3 - 2 * t)
-        const y = gap * (1 - drop) + (drop * LOW_Y + fly * (OUT_Y - LOW_Y)) * vh
+        const y = (START_Y - rise * (START_Y - LOW_Y) + fly * (OUT_Y - LOW_Y)) * vh
         if (rocket.current) {
           rocket.current.style.transform = `translate3d(0, ${y}px, 0) scale(${1 - fly * 0.42})`
         }
+        // The ring holds station at LOW_Y and only fades — it comes up with the
+        // mark's arrival and stays lit after the mark has gone.
+        if (ring.current) ring.current.style.opacity = String(rise)
         if (trail.current) {
           // The exhaust belongs to the flight — it draws out under the mark as it
           // climbs and stays lit behind it once it is up there.
@@ -159,17 +151,6 @@ export default function RocketStage() {
               flies. Zero-height so it fills the existing gap instead of opening
               a new one — which also keeps children[0] the first line for the
               seam measurement above. */}
-          {/* z-10 so the lower arc paints over SHARK's letters instead of being
-              sliced by them — it is a sibling, so DOM order alone would put the
-              second word on top of it. */}
-          <div className="relative z-10 h-0" aria-hidden>
-            <CircularText
-              text="RABBITSHARK · RABBITSHARK · "
-              spinDuration={22}
-              onHover="speedUp"
-              className="hero-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            />
-          </div>
           <TextPressure
             text="SHARK"
             textColor="var(--brand)"
@@ -191,8 +172,23 @@ export default function RocketStage() {
           }}
         />
 
-        {/* The mark itself flies alone — it starts centred in the ring up in the
-            wordmark's gap, then leaves both behind. */}
+        {/* The ring is the pad the mark sits in and launches from: parked at
+            LOW_Y, spinning, and it stays put once the mark has left. */}
+        <div
+          ref={ring}
+          aria-hidden
+          className="col-start-1 row-start-1 self-center justify-self-center"
+          style={{ transform: `translate3d(0, ${LOW_Y * 100}vh, 0)`, opacity: 0 }}
+        >
+          <CircularText
+            text="RABBITSHARK · RABBITSHARK · "
+            spinDuration={22}
+            onHover="speedUp"
+            className="hero-ring"
+          />
+        </div>
+
+        {/* The mark flies alone — it rises into the ring, waits, then leaves it. */}
         <img
           ref={rocket}
           src="/ip/rocket.png"
