@@ -34,7 +34,7 @@ export const people = {
         { group: "Music", items: ["AMEB Grade 8 piano", "Songwriting", "Keyboardist"] },
       ],
       awards: [
-        "Google Vibe-a-thon 2026 — Top 6 Finalist, advanced from Top 100 and Top 30 (final placement pending)",
+        "Google Vibe-a-thon 2026 — Top 6 Finalist (final result pending)",
         "BAP × USYD × Monash × McKinsey Case Competition — Regional Round",
         "FMAA Management Consulting Case Competition 2024 — Campus Qualifier",
         "AMEB Grade 8 Piano (A)",
@@ -74,7 +74,7 @@ export const people = {
         { group: "音乐", items: ["AMEB 钢琴八级", "作曲", "键盘手"] },
       ],
       awards: [
-        "Google Vibe-a-thon 2026 — 六强决赛入围，历经 Top 100、Top 30 晋级（最终名次待公布）",
+        "Google Vibe-a-thon 2026 — 六强决赛入围（最终结果待公布）",
         "BAP × USYD × Monash × McKinsey 案例赛 — 区域赛",
         "FMAA 管理咨询案例赛 2024 — 校园赛晋级",
         "AMEB 钢琴八级 A",
@@ -121,8 +121,8 @@ export const people = {
         { group: "Front end", items: ["React", "Interface implementation", "Responsive design"] },
       ],
       awards: [
-        "RMIT Vice-Chancellor's List for Academic Excellence 2024 — top 2% of the university",
-        "Google Vibe-a-thon 2026 — Top 6 Finalist, advanced from Top 100 and Top 30 (final placement pending)",
+        "RMIT Vice-Chancellor's List 2024 — Top 2% university-wide",
+        "Google Vibe-a-thon 2026 — Top 6 Finalist (final result pending)",
       ],
       background: [
         "RMIT University — Bachelor of Business, Blockchain Enabled Business, 2022–2024",
@@ -158,7 +158,7 @@ export const people = {
       ],
       awards: [
         "RMIT 校长嘉许名单 2024 — 全校前 2%",
-        "Google Vibe-a-thon 2026 — 六强决赛入围，历经 Top 100、Top 30 晋级（最终名次待公布）",
+        "Google Vibe-a-thon 2026 — 六强决赛入围（最终结果待公布）",
       ],
       background: [
         "RMIT University｜商业学士，区块链商业方向 · 2022–2024",

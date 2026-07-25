@@ -96,7 +96,7 @@ export default function Home() {
       </Section>
 
       <Section label={T.contact} title={T.contactTitle}>
-        <p className="max-w-[50ch] text-[15px] leading-relaxed" style={{ color: "var(--dim)" }}>
+        <p className="max-w-[78ch] text-[15px] leading-relaxed" style={{ color: "var(--dim)" }}>
           {T.contactBody}
         </p>
         <a

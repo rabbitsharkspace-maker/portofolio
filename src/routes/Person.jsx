@@ -125,7 +125,7 @@ export default function Person() {
       </Section>
 
       <Section label={T.recognition} title={T.awards}>
-        <ul className="max-w-[62ch] space-y-3 text-[15px]">
+        <ul className="max-w-none space-y-3 text-[15px]">
           {c.awards.map((a) => (
             <li key={a} className="border-l-4 pl-4" style={{ borderColor: accent }}>
               {a}
