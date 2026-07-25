@@ -86,9 +86,14 @@ export default function RocketStage() {
         if (rocket.current) {
           rocket.current.style.transform = `translate3d(0, ${y}px, 0) scale(${1 - fly * 0.42})`
         }
-        // The ring holds station at LOW_Y and only fades — it comes up with the
-        // mark's arrival and stays lit after the mark has gone.
-        if (ring.current) ring.current.style.opacity = String(rise)
+        // The ring holds station at LOW_Y and only fades: up with the mark's
+        // arrival, then a long dissolve that starts once the second line is up
+        // and runs to the end, so it is gone by the time the section hands over
+        // rather than left burning under an empty frame.
+        if (ring.current) {
+          const out = Math.min(Math.max((p - LINE_2) / (FLY_END - LINE_2), 0), 1)
+          ring.current.style.opacity = String(rise * (1 - out))
+        }
         if (trail.current) {
           // The exhaust belongs to the flight — it draws out under the mark as it
           // climbs and stays lit behind it once it is up there.
@@ -243,8 +248,8 @@ export default function RocketStage() {
           /* The component ships at a fixed 200px in white; the hero needs it
              sized off the viewport and painted in the wordmark's green. */
           .hero-ring {
-            width: clamp(180px, 30vw, 380px);
-            height: clamp(180px, 30vw, 380px);
+            width: clamp(155px, 24vw, 310px);
+            height: clamp(155px, 24vw, 310px);
             margin: 0;
             color: var(--brand);
           }
