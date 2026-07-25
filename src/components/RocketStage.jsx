@@ -45,6 +45,8 @@ const LINE_3 = 0.78
  */
 const START_Y = 0.86 // under the fold, where the mark waits before it is called
 const LOW_Y = 0.3 // where it settles, in screens below centre, ringed
+const BOTTOM_AIR = 34 // px kept under the ring, whatever the window's height
+const COPY_CLEAR = 56 // px kept between the copy's middle and the ring's top edge
 const OUT_Y = -0.78 // clear of the top edge — the mark leaves the frame entirely
 const FLY_START = LINE_3 // nothing moves it until the last line has landed
 const FLY_END = 1
@@ -82,7 +84,30 @@ export default function RocketStage() {
         const rise = a * a * (3 - 2 * a)
         const t = Math.min(Math.max((p - FLY_START) / (FLY_END - FLY_START), 0), 1)
         const fly = t * t * (3 - 2 * t)
-        const y = (START_Y - rise * (START_Y - LOW_Y) + fly * (OUT_Y - LOW_Y)) * vh
+        /*
+         * Where the pair parks. LOW_Y is a fraction of the viewport but the ring
+         * is a fixed pixel size, so on a short window the ring ate the fraction
+         * and its bottom arc ran off the fold. Pull the station up far enough to
+         * keep BOTTOM_AIR under the ring whenever the proportional spot would
+         * not — tall windows are unaffected, short ones stop clipping.
+         */
+        const ringH = ring.current ? ring.current.offsetHeight : 0
+        // …but never so far up that it climbs into the copy, which owns the
+        // middle. Under about 640px of height the two cannot both be satisfied,
+        // and a ring grazing the bottom edge beats one sitting on the words.
+        const low = Math.max(
+          Math.min(LOW_Y * vh, vh / 2 - ringH / 2 - BOTTOM_AIR),
+          ringH / 2 + COPY_CLEAR,
+        )
+        /*
+         * Everything in the sticky grid shares one cell, so they all centre on
+         * the ROW — and the wordmark makes that row taller than the frame, which
+         * parks the row's middle below the screen's. Both offsets above are
+         * measured from the screen's middle, so take the difference back out or
+         * they land low by half the overflow.
+         */
+        const rowOff = ring.current ? ring.current.offsetTop + ringH / 2 - vh / 2 : 0
+        const y = START_Y * vh - rise * (START_Y * vh - low) + fly * (OUT_Y * vh - low) - rowOff
         if (rocket.current) {
           // It grows on the way up rather than shrinking: it sits small inside
           // the ring and comes toward the viewer as it climbs, so the mark is at
@@ -96,6 +121,7 @@ export default function RocketStage() {
         if (ring.current) {
           const out = Math.min(Math.max((p - LINE_2) / (FLY_END - LINE_2), 0), 1)
           ring.current.style.opacity = String(rise * (1 - out))
+          ring.current.style.transform = `translate3d(0, ${low - rowOff}px, 0)`
         }
         if (trail.current) {
           // The exhaust belongs to the flight — it draws out under the mark as it
@@ -186,7 +212,7 @@ export default function RocketStage() {
           ref={ring}
           aria-hidden
           className="col-start-1 row-start-1 self-center justify-self-center"
-          style={{ transform: `translate3d(0, ${LOW_Y * 100}vh, 0)`, opacity: 0 }}
+          style={{ transform: `translate3d(0, ${LOW_Y * 100}vh, 0)`, opacity: 0, willChange: "transform, opacity" }}
         >
           <CircularText
             text="RABBITSHARK · RABBITSHARK · "
