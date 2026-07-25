@@ -1,24 +1,106 @@
-export default function CircularText({ text = "RABBITSHARK · STUDIO · ", size = 190 }) {
-  const chars = text.split("")
-  const r = size / 2 - 12
+import { useEffect } from 'react';
+import { motion, useAnimation, useMotionValue } from 'motion/react';
+import './CircularText.css';
+
+const getRotationTransition = (duration, from, loop = true) => ({
+  from,
+  to: from + 360,
+  ease: 'linear',
+  duration,
+  type: 'tween',
+  repeat: loop ? Infinity : 0
+});
+
+const getTransition = (duration, from) => ({
+  rotate: getRotationTransition(duration, from),
+  scale: {
+    type: 'spring',
+    damping: 20,
+    stiffness: 300
+  }
+});
+
+const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className = '' }) => {
+  const letters = Array.from(text);
+  const controls = useAnimation();
+  const rotation = useMotionValue(0);
+
+  useEffect(() => {
+    const start = rotation.get();
+    controls.start({
+      rotate: start + 360,
+      scale: 1,
+      transition: getTransition(spinDuration, start)
+    });
+  }, [spinDuration, text, onHover, controls, rotation]);
+
+  const handleHoverStart = () => {
+    const start = rotation.get();
+    if (!onHover) return;
+    let transitionConfig;
+    let scaleVal = 1;
+    switch (onHover) {
+      case 'slowDown':
+        transitionConfig = getTransition(spinDuration * 2, start);
+        break;
+      case 'speedUp':
+        transitionConfig = getTransition(spinDuration / 4, start);
+        break;
+      case 'pause':
+        transitionConfig = {
+          rotate: { type: 'spring', damping: 20, stiffness: 300 },
+          scale: { type: 'spring', damping: 20, stiffness: 300 }
+        };
+        scaleVal = 1;
+        break;
+      case 'goBonkers':
+        transitionConfig = getTransition(spinDuration / 20, start);
+        scaleVal = 0.8;
+        break;
+      default:
+        transitionConfig = getTransition(spinDuration, start);
+    }
+
+    controls.start({
+      rotate: start + 360,
+      scale: scaleVal,
+      transition: transitionConfig
+    });
+  };
+
+  const handleHoverEnd = () => {
+    const start = rotation.get();
+    controls.start({
+      rotate: start + 360,
+      scale: 1,
+      transition: getTransition(spinDuration, start)
+    });
+  };
+
   return (
-    <div className="spin-slow relative" style={{ width: size, height: size }} aria-hidden>
-      {chars.map((ch, i) => {
-        const angle = (360 / chars.length) * i
+    <motion.div
+      className={`circular-text ${className}`}
+      style={{ rotate: rotation }}
+      initial={{ rotate: 0 }}
+      animate={controls}
+      onMouseEnter={handleHoverStart}
+      onMouseLeave={handleHoverEnd}
+    >
+      {letters.map((letter, i) => {
+        const rotationDeg = (360 / letters.length) * i;
+        const factor = Math.PI / letters.length;
+        const x = factor * i;
+        const y = factor * i;
+        const transform = `rotateZ(${rotationDeg}deg) translate3d(${x}px, ${y}px, 0)`;
+
         return (
-          <span
-            key={i}
-            className="absolute top-1/2 left-1/2 text-[11px] tracking-[0.2em]"
-            style={{
-              color: "var(--dim)",
-              transform: `rotate(${angle}deg) translateY(-${r}px)`,
-              transformOrigin: "0 0",
-            }}
-          >
-            {ch}
+          <span key={i} style={{ transform, WebkitTransform: transform }}>
+            {letter}
           </span>
-        )
+        );
       })}
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
+
+export default CircularText;

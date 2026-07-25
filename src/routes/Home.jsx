@@ -33,6 +33,16 @@ export default function Home() {
         >
           {T.manifesto}
         </ScrollReveal>
+
+        {/* The mark signs the manifesto — it lands once the paragraph has read
+            itself out, so the section ends on the logo rather than on text. */}
+        <img
+          src="/ip/logo.png"
+          alt="RabbitShark"
+          width="512"
+          height="512"
+          className="mx-auto mt-20 h-auto w-[clamp(220px,32vw,380px)] select-none"
+        />
       </section>
 
       <Section label={T.whoWeAre} title={T.whoWeAreTitle}>

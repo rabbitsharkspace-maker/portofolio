@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import TextPressure from "./TextPressure"
 import ScrollFloat from "./ScrollFloat"
+import CircularText from "./CircularText"
 import { ui } from "../data/ui"
 import { useLang } from "../lang"
 
@@ -26,19 +27,27 @@ import { useLang } from "../lang"
 // The section is tall (see height below) so each of these fractions is a long
 // stretch of scroll — the copy changes slowly enough to read, one line at a
 // time, rather than flicking past.
-const COPY_IN = 0.3 // first line arrives, and the logo starts drifting up
+const COPY_IN = 0.3 // first line arrives, and the mark clears out of its way
 const LINE_2 = 0.55
 const LINE_3 = 0.78
 /*
- * The logo's flight starts at the second line — "two people" — and then takes
- * the whole rest of the hero. It drifts up from under the fold while the first
- * line reads and waits low in the frame; from "two people" on, every notch of
- * scroll moves it, so the long stretch under the last line is the climb rather
- * than a blank screen, and it is still going up as the section hands over.
+ * The mark's journey, in three beats:
+ *
+ *   rest     it sits in the gap between RABBIT and SHARK, ringed by the spinning
+ *            RABBITSHARK lettering — the two words and the mark read as one
+ *            lockup. Its resting height is measured off the wordmark rather than
+ *            hard-coded, see gapY below.
+ *   step down as the copy comes in to take the middle, the mark drops out of the
+ *            way into the empty lower half and waits there, under each line, for
+ *            the whole read. The ring does not come with it: it belongs to the
+ *            wordmark and fades out with it.
+ *   lift-off only once the last line is up does it climb, and it keeps going
+ *            until it is clear off the top of the frame as the section hands over.
  */
-const HOLD_Y = 0.3 // resting height, in screens below centre, through line 1
-const TOP_Y = -0.38 // top of the frame, reached as the hero runs out
-const FLY_END = 1 // the flight owns everything from "two people" to the end
+const LOW_Y = 0.3 // where it waits, in screens below centre, while the copy reads
+const OUT_Y = -0.78 // clear of the top edge — the mark leaves the frame entirely
+const FLY_START = LINE_3 // nothing moves it until the last line has landed
+const FLY_END = 1
 
 export default function RocketStage() {
   const { lang } = useLang()
@@ -64,15 +73,27 @@ export default function RocketStage() {
         const p = travel > 0 ? Math.min(Math.max(-r.top / travel, 0), 1) : 0
 
         const vh = window.innerHeight
-        // Two moves, not one. `drift` walks it up into view under the first line;
-        // `fly` carries it from there to the top of the frame. Smoothstep rather
-        // than a plain ease-out: it leaves "two people" gently, spends the middle
-        // of the climb actually moving, and eases in at the top — so no part of
-        // the long last stretch reads as the logo standing still.
-        const drift = Math.min(Math.max((p - COPY_IN) / (LINE_2 - COPY_IN), 0), 1)
-        const t = Math.min(Math.max((p - LINE_2) / (FLY_END - LINE_2), 0), 1)
+        /*
+         * Where the mark rests: the seam between the two wordmark lines. Derived
+         * from layout (offsetHeight is untouched by the transforms this loop
+         * writes) rather than a magic fraction, so the mark stays in the gap at
+         * every width, where TextPressure sets its own line height off the
+         * container. The wordmark is centred in the frame, so the seam sits
+         * `first line height - half the block` from the middle.
+         */
+        let gap = 0
+        const w = word.current
+        if (w && w.children.length) gap = w.children[0].offsetHeight - w.offsetHeight / 2
+
+        // Two moves, and they don't overlap. `drop` steps the mark out of the
+        // middle as the copy arrives; `fly` takes it off the top once the last
+        // line is up. Smoothstep on both so it eases out of the gap and eases
+        // off the edge rather than jerking at either end.
+        const d = Math.min(Math.max(p / COPY_IN, 0), 1)
+        const drop = d * d * (3 - 2 * d)
+        const t = Math.min(Math.max((p - FLY_START) / (FLY_END - FLY_START), 0), 1)
         const fly = t * t * (3 - 2 * t)
-        const y = (0.86 - drift * (0.86 - HOLD_Y) - fly * (HOLD_Y - TOP_Y)) * vh
+        const y = gap * (1 - drop) + (drop * LOW_Y + fly * (OUT_Y - LOW_Y)) * vh
         if (rocket.current) {
           rocket.current.style.transform = `translate3d(0, ${y}px, 0) scale(${1 - fly * 0.42})`
         }
@@ -132,6 +153,23 @@ export default function RocketStage() {
             italic={false}
             minFontSize={52}
           />
+          {/* The ring rides in the seam between the two words, and belongs to the
+              wordmark rather than to the mark: it lives inside this group, so it
+              rises and fades with the lettering and is gone by the time the mark
+              flies. Zero-height so it fills the existing gap instead of opening
+              a new one — which also keeps children[0] the first line for the
+              seam measurement above. */}
+          {/* z-10 so the lower arc paints over SHARK's letters instead of being
+              sliced by them — it is a sibling, so DOM order alone would put the
+              second word on top of it. */}
+          <div className="relative z-10 h-0" aria-hidden>
+            <CircularText
+              text="RABBITSHARK · RABBITSHARK · "
+              spinDuration={22}
+              onHover="speedUp"
+              className="hero-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            />
+          </div>
           <TextPressure
             text="SHARK"
             textColor="var(--brand)"
@@ -153,14 +191,16 @@ export default function RocketStage() {
           }}
         />
 
+        {/* The mark itself flies alone — it starts centred in the ring up in the
+            wordmark's gap, then leaves both behind. */}
         <img
           ref={rocket}
           src="/ip/rocket.png"
           alt="RabbitShark"
           width="200"
           height="137"
-          className="col-start-1 row-start-1 h-auto w-[clamp(150px,22vw,270px)] select-none"
-          style={{ transform: "translate3d(0, 86vh, 0)", willChange: "transform" }}
+          className="col-start-1 row-start-1 h-auto w-[clamp(112px,16vw,190px)] select-none"
+          style={{ willChange: "transform" }}
         />
 
         {/* copy takes the middle once the rocket is out of it */}
@@ -203,6 +243,18 @@ export default function RocketStage() {
           @keyframes fadeUp {
             from { opacity: 0; transform: translateY(14px); }
             to   { opacity: 1; transform: none; }
+          }
+          /* The component ships at a fixed 200px in white; the hero needs it
+             sized off the viewport and painted in the wordmark's green. */
+          .hero-ring {
+            width: clamp(215px, 30vw, 380px);
+            height: clamp(215px, 30vw, 380px);
+            margin: 0;
+            color: var(--brand);
+          }
+          .hero-ring span {
+            font-size: clamp(11px, 1.35vw, 17px);
+            letter-spacing: 0.06em;
           }
         `}</style>
       </div>

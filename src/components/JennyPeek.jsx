@@ -64,8 +64,8 @@ const HANDS_DOWN_Y = -1.1
  * tone. The ratio between the two is what keeps face and hands matched; move one
  * and move the other with it.
  */
-const HEAD_TINT = 1.16
-const HAND_TINT = 0.94
+const HEAD_TINT = 1.52
+const HAND_TINT = 1.07
 /*
  * The hands travel in depth with their grip. Gripping, they sit in *front* of the
  * wordmark (HANDS_Z_GRIP > NAME_Z) so the fingers hooking over the top edge paint
@@ -135,7 +135,7 @@ const MAX_PITCH = 0.1
 // Anchored at the mouth, tilted forward, stretches down on hover.
 // Anchored to the mouth in head-local units, so every distance here scales with
 // HEAD_H (tuned at 2.0, now 2.6 → ×1.3) to stay stuck to the lip as she grows.
-const TONGUE = { x: -0.052, y: -0.845, z: 0.858, w: 0.286, tilt: 0.45, restLen: 0.117, pullLen: 0.39 }
+const TONGUE = { x: -0.052, y: -0.8, z: 0.78, w: 0.286, tilt: 0.34, restLen: 0.075, pullLen: 0.26 }
 
 /*
  * useGLTF caches the parsed scene and `scene.clone()` shares its materials, so
