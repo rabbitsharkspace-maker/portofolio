@@ -1,0 +1,27 @@
+.scroll-float {
+  /* the chars start 120% below their line, so the block has to clip them */
+  overflow: hidden;
+  margin: 0;
+}
+
+.scroll-float-text {
+  display: inline-block;
+  /*
+   * Upstream ships a display type scale here (clamp(1.6rem, 8vw, 10rem) / 900).
+   * Left to inherit instead: on this site the component is dropped inside copy
+   * that already sets its own size, and a font-size on this element would beat
+   * the utility class on the wrapper.
+   */
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+.scroll-float .char {
+  display: inline-block;
+}
+
+/* word gaps: not animated, and left inline so the line still has somewhere to wrap */
+.scroll-float .char-space {
+  display: inline;
+}

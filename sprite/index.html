@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jenny — sprite loop</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    gap: 22px;
+    font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: linear-gradient(165deg, #f6fbff 0%, #e6f6ff 55%, #dcf1ff 100%);
+    color: #33475b;
+    padding: 40px 16px;
+  }
+  h1 { font-size: 15px; font-weight: 600; letter-spacing: .04em; margin: 0; color: #0b2b45; }
+  .stage {
+    /* aspect ratio comes from the frame, height drives the size */
+    height: min(70vh, 560px);
+    aspect-ratio: var(--fw) / var(--fh);
+    background-image: var(--sheet);
+    background-repeat: no-repeat;
+    /* sheet is COLS wide and ROWS tall, in frame units */
+    background-size: calc(var(--cols) * 100%) calc(var(--rows) * 100%);
+    filter: drop-shadow(0 18px 26px rgba(69, 174, 242, .35));
+    transition: background-color .3s ease;
+  }
+  .panel {
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.6);
+    border: 1px solid rgba(69,174,242,.25);
+    backdrop-filter: blur(6px);
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  button {
+    font: inherit; cursor: pointer; border: 1px solid rgba(11,43,69,.2);
+    background: #fff; color: #0b2b45; border-radius: 999px; padding: 7px 14px;
+  }
+  button.on { background: #45aef2; color: #fff; border-color: #45aef2; }
+  .checker {
+    background-image:
+      var(--sheet),
+      conic-gradient(#e2e8ee 90deg, #f4f8fb 0 180deg, #e2e8ee 0 270deg, #f4f8fb 0);
+    background-repeat: no-repeat, repeat;
+    background-size: calc(var(--cols) * 100%) calc(var(--rows) * 100%), 28px 28px;
+  }
+  code { background: rgba(11,43,69,.06); padding: 1px 6px; border-radius: 5px; }
+</style>
+</head>
+<body>
+  <h1>JENNY · idle loop · background keyed to transparent</h1>
+  <div id="stage" class="stage" role="img" aria-label="Jenny idle animation"></div>
+  <div class="panel">
+    <button id="play" class="on">⏸ Pause</button>
+    <button id="checker">◻︎ Transparency check</button>
+    <span>frame <code id="fnum">0</code> / <code id="ftot">0</code> · <code id="fps">0</code> fps · ping-pong</span>
+  </div>
+
+<script>
+// --- sprite metadata (from meta.json) ---
+const META = { cols: 12, rows: 12, count: 143, frameW: 201, frameH: 440, fps: 20 };
+const PINGPONG = true;
+
+const stage = document.getElementById('stage');
+stage.style.setProperty('--sheet', "url('sprite.webp')");
+stage.style.setProperty('--cols', META.cols);
+stage.style.setProperty('--rows', META.rows);
+stage.style.setProperty('--fw', META.frameW);
+stage.style.setProperty('--fh', META.frameH);
+document.getElementById('ftot').textContent = META.count;
+document.getElementById('fps').textContent = META.fps;
+
+function cellPos(k) {
+  const c = k % META.cols, r = (k / META.cols) | 0;
+  // percentage positioning scales with the element, independent of display size
+  const px = META.cols > 1 ? (c / (META.cols - 1)) * 100 : 0;
+  const py = META.rows > 1 ? (r / (META.rows - 1)) * 100 : 0;
+  return `${px}% ${py}%`;
+}
+
+let k = 0, dir = 1, playing = true, acc = 0, last = 0;
+const fnum = document.getElementById('fnum');
+function draw() { stage.style.backgroundPosition = cellPos(k); fnum.textContent = k; }
+draw();
+
+function tick(t) {
+  if (last === 0) last = t;
+  const dt = t - last; last = t;
+  if (playing) {
+    acc += dt;
+    const step = 1000 / META.fps;
+    while (acc >= step) {
+      acc -= step;
+      k += dir;
+      if (PINGPONG) {
+        if (k >= META.count - 1) { k = META.count - 1; dir = -1; }
+        else if (k <= 0) { k = 0; dir = 1; }
+      } else {
+        if (k >= META.count) k = 0;
+      }
+    }
+    draw();
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+document.getElementById('play').addEventListener('click', (e) => {
+  playing = !playing;
+  e.target.classList.toggle('on', playing);
+  e.target.textContent = playing ? '⏸ Pause' : '▶ Play';
+});
+document.getElementById('checker').addEventListener('click', (e) => {
+  stage.classList.toggle('checker');
+  e.target.classList.toggle('on');
+});
+</script>
+</body>
+</html>

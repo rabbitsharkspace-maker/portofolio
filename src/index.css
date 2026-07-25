@@ -1,33 +1,263 @@
 @import "tailwindcss";
 
-@theme {
-  --color-brand-cream: #FAF7F2;
-  --color-brand-ink: #1A1714;
-  --color-brand-gold: #C8A97E;
-  --color-brand-green: #7A9B8A;
-  
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "DM Sans", sans-serif;
-  
-  --animate-float: float 6s ease-in-out infinite;
+/*
+ * Three worlds. A page sets these vars and nothing else in the site changes.
+ * --brand / --glow / --tint are fills and borders only.
+ * --ink / --dim / --accent-ink are the only values allowed on text.
+ */
+:root {
+  --bg: #fbfff4;
+  --surface: #ffffff;
+  --tint: #dcffe7;
+  --tint-2: #eeffe4;
+  --brand: #bae722;
+  --glow: #c5ff59;
+  --accent-ink: #5a7a06;
+  --ink: #1e2b10;
+  --dim: #5f6b4f;
+  --line: #dbe8c4;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+[data-world="jenny"] {
+  --bg: #f6fbff;
+  --surface: #ffffff;
+  --tint: #dcf1ff;
+  --tint-2: #e0ebff;
+  --brand: #45aef2;
+  --glow: #c5f3ff;
+  --accent-ink: #0b6ba8;
+  --ink: #0b2b45;
+  --dim: #52708a;
+  --line: #c4e5fc;
 }
 
-@layer base {
-  body {
-    @apply bg-brand-cream text-brand-ink font-sans antialiased selection:bg-brand-gold selection:text-white;
+[data-world="jane"] {
+  --bg: #fffdf3;
+  --surface: #ffffff;
+  --tint: #fff8dc;
+  --tint-2: #ffefae;
+  --brand: #ffd322;
+  --glow: #ffde59;
+  --accent-ink: #8a6a00;
+  --ink: #3a2d06;
+  --dim: #7c6a35;
+  --line: #ffe889;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background 600ms ease;
+}
+
+::selection {
+  background: var(--brand);
+  color: var(--ink);
+}
+
+/*
+ * Custom cursor. `cursor: none` on <html> alone is not enough — links and
+ * buttons carry cursor: pointer from the UA sheet, which beats an inherited
+ * value, so the native arrow reappears over every interactive element. The
+ * universal selector plus !important is what actually clears it.
+ */
+html[data-cursor="custom"],
+html[data-cursor="custom"] *,
+html[data-cursor="custom"] *::before,
+html[data-cursor="custom"] *::after {
+  cursor: none !important;
+}
+
+/* Gallery rail: drag sideways, no visible scrollbar. */
+.rail {
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+.rail > * {
+  scroll-snap-align: center;
+}
+
+/* The chevrons either side of the stage. Ghosted until the pointer finds them. */
+.stage-arrow {
+  border: 2px solid transparent;
+  opacity: 0.55;
+  transition: opacity 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+.stage-arrow:hover,
+.stage-arrow:focus-visible {
+  border-color: var(--accent);
+  opacity: 1;
+  outline: none;
+}
+/* Tailwind's -translate-y-1/2 rides on the `translate` property, so `transform`
+   is free for the nudge and the two never fight. */
+.stage-arrow[data-dir="prev"]:hover {
+  transform: translateX(-3px);
+}
+.stage-arrow[data-dir="next"]:hover {
+  transform: translateX(3px);
+}
+
+/*
+ * The stage breathes. The character rides a slow float while the shadow under
+ * her tightens and fades on the same clock, so she reads as lifting off the
+ * platform rather than sliding up a flat page. Arrival plays once, on the
+ * wrapper that remounts with the pick.
+ */
+@keyframes characterFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-medium;
+  50% {
+    transform: translateY(-11px) rotate(-0.7deg);
+  }
+}
+.character-float {
+  animation: characterFloat 5.5s ease-in-out infinite;
+}
+
+@keyframes stagePlatform {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.42;
+  }
+  50% {
+    transform: scale(0.88);
+    opacity: 0.28;
+  }
+}
+.stage-platform {
+  animation: stagePlatform 5.5s ease-in-out infinite;
+}
+
+@keyframes characterIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.character-in {
+  animation: characterIn 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * Name reveal. Both names occupy the same grid cell, so the box is as wide as
+ * the longer of the two and nothing shifts when they trade places.
+ */
+.name-swap {
+  display: inline-grid;
+  outline: none;
+}
+.name-swap > span {
+  grid-area: 1 / 1;
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.name-swap .name-real {
+  opacity: 0;
+  transform: translateY(5px);
+}
+.name-swap:hover .name-known,
+.name-swap:focus-visible .name-known {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+.name-swap:hover .name-real,
+.name-swap:focus-visible .name-real {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes characterCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.character-card-in {
+  animation: characterCardIn 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * Ring of works. A card hands the pointer to its own rim glow wherever it sits
+ * in the ring, so hover lights the border on side cards too; only the links of
+ * a card that isn't at the front are switched off, so tapping a side card spins
+ * it forward instead of navigating away.
+ */
+.ring-card[data-front="0"] a {
+  pointer-events: none;
+}
+
+/*
+ * Headline highlight. On a light background a shimmer of pale colour is
+ * invisible, so the sweep runs the other way — ink, with the accent ink
+ * passing through it.
+ */
+@keyframes shine {
+  from {
+    background-position: 200% center;
+  }
+  to {
+    background-position: -200% center;
   }
 }
 
-.perspective-1000 {
-  perspective: 1000px;
+.shiny {
+  background: linear-gradient(
+    110deg,
+    var(--ink) 42%,
+    var(--accent-ink) 50%,
+    var(--ink) 58%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 7s linear infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shiny {
+    animation: none;
+    color: var(--ink);
+  }
+  .spin-slow {
+    animation: none;
+  }
+  .character-float,
+  .stage-platform,
+  .character-in,
+  .character-card-in {
+    animation: none;
+  }
 }

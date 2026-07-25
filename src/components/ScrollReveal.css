@@ -1,0 +1,15 @@
+.sr {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.sr-char {
+  display: inline;
+  /*
+   * No colour transition here. The loop writes a new colour every frame, so a
+   * transition would restart on each one and the characters would always be
+   * chasing a value they never reach — which is what made the sweep feel stepped.
+   */
+}
