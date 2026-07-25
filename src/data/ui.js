@@ -38,7 +38,6 @@ export const ui = {
     builtBy: "Built by",
     plaqueHint: "detail →",
     visit: "Visit",
-    embedHint: "Live previews — tap any to open the real site.",
     // person sections
     whoIAm: "Who I am",
     capabilitiesLabel: "What I can do",
@@ -84,7 +83,6 @@ export const ui = {
     builtBy: "作者",
     plaqueHint: "详情 →",
     visit: "访问",
-    embedHint: "实时预览 — 点开任意一个访问网站。",
     whoIAm: "我是谁",
     capabilitiesLabel: "我会什么",
     capabilities: "能力",

@@ -33,13 +33,13 @@ const HEAD_H = 2.6
 const HEAD_Z = -0.25
 const HEAD_YAW0 = -Math.PI / 2 // export faces +X; turn her to face the camera
 /*
- * Head centre at the top of the page. This is as high as she goes: the export
- * stops just under her collar (the model's lowest point is HEAD_H/2 below this),
- * so anything above LEDGE_Y + HEAD_H/2 lifts that cut edge clear of the ledge
- * line and leaves her floating. At this value the cut lands exactly on the line
- * and the most neck the model has is showing.
+ * Head centre at the top of the page. The export's lowest point is HEAD_H/2
+ * below the centre (just under her collar), so seating the centre at
+ * LEDGE_Y + HEAD_H/2 lands the cut right on that collar — the most neck the model
+ * has, sitting on the ledge. Any higher and the cut edge lifts clear of the line
+ * and she floats. This tracks HEAD_H, so the neck stays on the line as she scales.
  */
-const HEAD_UP_Y = 0.18
+const HEAD_UP_Y = 0.48
 const HEAD_DOWN_Y = -2.6 // head centre once scrolled past the hero (hidden)
 const REVEAL_PX = 420 // scroll distance over which she ducks away
 
@@ -133,7 +133,9 @@ const MAX_PITCH = 0.1
 
 // tongue, parented to the head (in the mouse-follow frame, +Z = mouth-forward).
 // Anchored at the mouth, tilted forward, stretches down on hover.
-const TONGUE = { x: -0.04, y: -0.65, z: 0.66, w: 0.22, tilt: 0.45, restLen: 0.09, pullLen: 0.3 }
+// Anchored to the mouth in head-local units, so every distance here scales with
+// HEAD_H (tuned at 2.0, now 2.6 → ×1.3) to stay stuck to the lip as she grows.
+const TONGUE = { x: -0.052, y: -0.845, z: 0.858, w: 0.286, tilt: 0.45, restLen: 0.117, pullLen: 0.39 }
 
 /*
  * useGLTF caches the parsed scene and `scene.clone()` shares its materials, so

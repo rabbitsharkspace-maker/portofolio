@@ -123,7 +123,7 @@ export default function Person() {
             the DOM, and without this the rail keeps the scroll position from the
             wall you just left */}
         {who === "jenny" ? (
-          <WorkEmbeds works={mine} />
+          <WorkEmbeds works={mine} accent={accent} />
         ) : (
           <WorkGallery key={who} works={mine} accent={accent} />
         )}

@@ -1,18 +1,22 @@
-import { useMemo } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import PixelTransition from "./PixelTransition"
+import { OWNER } from "../data/works"
 import { OWNER_THEME as THEME } from "../theme"
 import { ui } from "../data/ui"
 import { useLang } from "../lang"
 
 /*
- * Jenny's work, shown live rather than as gallery plates: each piece is the real
- * site running in a framed browser window, or the actual film playing on YouTube.
- * This is Jenny-only — Person.jsx keeps everyone else on WorkGallery — so nothing
- * here touches Jane's page.
+ * Jenny's work in gallery mode: one project fills the wall as a live "big screen"
+ * — the real site running, or the film playing — and you walk the rail to the
+ * next (arrows, dots, keyboard, swipe; the rail snaps). The wall label rides over
+ * the bottom-right corner as a small card and dissolves between its name and its
+ * write-up on hover, using the same pixel effect as the studio gallery. Jenny-only
+ * — Person.jsx keeps everyone else on the framed-plate WorkGallery, so Jane's page
+ * is untouched.
  *
- * Websites are framed pointer-events-none, so they read as a live homepage screen
- * without trapping the page scroll; a full-card link over the top opens the real
- * thing (and is the way in for any site that refuses to be framed). Videos stay
- * interactive so they can be played in place.
+ * Websites are framed pointer-events-none so they read as a live screen without
+ * eating the rail's drag; a full-screen link opens the real thing (and is the way
+ * in for any site that refuses to be framed). Videos stay interactive.
  */
 function youtubeId(url) {
   try {
@@ -25,26 +29,114 @@ function youtubeId(url) {
   return null
 }
 
-export default function WorkEmbeds({ works }) {
+export default function WorkEmbeds({ works, accent }) {
   const { lang } = useLang()
   const T = ui[lang]
+  const rail = useRef(null)
+  const [i, setI] = useState(0)
+  const current = works[i]
+
+  const onScroll = () => {
+    const el = rail.current
+    if (!el) return
+    const idx = Math.round(el.scrollLeft / el.clientWidth)
+    setI(Math.min(Math.max(idx, 0), works.length - 1))
+  }
+
+  // Wraps, so the arrows never dead-end at either edge of the wall.
+  const go = useCallback(
+    (step) => {
+      const el = rail.current
+      if (!el) return
+      const idx = (i + step + works.length) % works.length
+      el.scrollTo({ left: idx * el.clientWidth, behavior: "smooth" })
+    },
+    [i, works.length],
+  )
+
+  // A resize changes the slide width, which would park the rail between two
+  // screens — put it back on the one that was showing.
+  useEffect(() => {
+    const el = rail.current
+    if (!el) return
+    const onResize = () => el.scrollTo({ left: i * el.clientWidth })
+    window.addEventListener("resize", onResize)
+    return () => window.removeEventListener("resize", onResize)
+  }, [i])
+
+  const onKeyDown = (e) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return
+    e.preventDefault()
+    go(e.key === "ArrowRight" ? 1 : -1)
+  }
+
   return (
     <div className="mx-auto max-w-[1180px] px-6">
-      <div className="grid gap-7 md:grid-cols-2">
-        {works.map((w) => (
-          <EmbedCard key={w.id} work={w} lang={lang} T={T} />
+      <div className="relative">
+        <div
+          ref={rail}
+          onScroll={onScroll}
+          onKeyDown={onKeyDown}
+          tabIndex={0}
+          role="region"
+          aria-label={T.work}
+          className="rail flex overflow-x-auto overscroll-x-contain rounded-[22px]"
+        >
+          {works.map((w, n) => (
+            <Screen key={w.id} work={w} index={n} total={works.length} lang={lang} />
+          ))}
+        </div>
+
+        {/* the wall label, over the bottom-right corner of the screen */}
+        <div className="pointer-events-none absolute inset-0 hidden md:block">
+          <div className="pointer-events-auto absolute right-6 bottom-6 w-[340px]">
+            <Plaque key={current.id} work={current} lang={lang} T={T} />
+          </div>
+        </div>
+
+        {/* bottom-left, the corner the label never reaches */}
+        <div className="absolute bottom-6 left-6 flex gap-2">
+          <Arrow label={T.prevWork} onClick={() => go(-1)}>
+            ‹
+          </Arrow>
+          <Arrow label={T.nextWork} onClick={() => go(1)}>
+            ›
+          </Arrow>
+        </div>
+      </div>
+
+      {/* under md the label cannot sit on the screen without hiding it */}
+      <div className="mt-5 md:hidden">
+        <Plaque key={current.id} work={current} lang={lang} T={T} />
+      </div>
+
+      <div className="mt-6 flex items-center justify-center gap-2">
+        {works.map((w, n) => (
+          <button
+            key={w.id}
+            type="button"
+            aria-label={w[lang].name}
+            aria-current={n === i}
+            onClick={() => go(n - i)}
+            className="h-2 rounded-full transition-all"
+            style={{
+              width: n === i ? 22 : 8,
+              background: n === i ? accent : "color-mix(in srgb, var(--ink) 18%, transparent)",
+            }}
+          />
         ))}
       </div>
-      <p className="mt-6 text-center text-[12px]" style={{ color: "var(--dim)" }}>
-        {T.embedHint}
+
+      <p className="mt-4 text-center text-[12px]" style={{ color: "var(--dim)" }}>
+        {T.swipeHint}
       </p>
     </div>
   )
 }
 
-function EmbedCard({ work, lang, T }) {
+// The big screen: the live site or film, filling the wall behind a browser bar.
+function Screen({ work, index, total, lang }) {
   const c = work[lang]
-  const t = THEME[work.owner] ?? THEME.jenny
   const url = work.embed ?? work.link
   const yt = useMemo(() => youtubeId(url), [url])
   const host = useMemo(() => {
@@ -56,98 +148,185 @@ function EmbedCard({ work, lang, T }) {
   }, [url])
 
   return (
-    <figure
-      className="flex flex-col overflow-hidden rounded-[16px] bg-white"
-      style={{
-        border: `1px solid color-mix(in srgb, ${t.fill} 40%, white)`,
-        boxShadow: "0 18px 40px -24px rgba(16,32,48,.5)",
-      }}
-    >
-      {/* browser chrome */}
-      <div
-        className="flex items-center gap-2 px-4 py-2.5"
-        style={{
-          background: `color-mix(in srgb, ${t.fill} 12%, white)`,
-          borderBottom: `1px solid color-mix(in srgb, ${t.fill} 22%, white)`,
-        }}
-      >
-        <span className="flex shrink-0 gap-1.5">
-          <i className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "#ff5f57" }} />
-          <i className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "#febc2e" }} />
-          <i className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: "#28c840" }} />
-        </span>
-        <span
-          className="ml-1 min-w-0 flex-1 truncate rounded-full px-3 py-1 text-[11px]"
-          style={{ background: "#fff", color: "var(--dim)", border: "1px solid rgba(16,32,48,.08)" }}
+    <div className="w-full shrink-0">
+      <div className="relative flex h-[clamp(360px,62vh,600px)] w-full flex-col overflow-hidden bg-white">
+        {/* browser chrome */}
+        <div
+          className="flex items-center gap-2 px-4 py-3"
+          style={{ background: "#f4f7fa", borderBottom: "1px solid rgba(16,32,48,.08)" }}
         >
-          {yt ? "youtube.com" : host}
-        </span>
-        <a
-          href={url}
-          target="_blank"
-          rel="noreferrer"
-          className="shrink-0 text-[12px] underline-offset-4 hover:underline"
-          style={{ color: t.ink }}
-        >
-          {T.visit} ↗
-        </a>
-      </div>
+          <span className="flex shrink-0 gap-1.5">
+            <i className="inline-block h-3 w-3 rounded-full" style={{ background: "#ff5f57" }} />
+            <i className="inline-block h-3 w-3 rounded-full" style={{ background: "#febc2e" }} />
+            <i className="inline-block h-3 w-3 rounded-full" style={{ background: "#28c840" }} />
+          </span>
+          <span
+            className="ml-1 min-w-0 flex-1 truncate rounded-full px-3 py-1 text-[12px]"
+            style={{ background: "#fff", color: "var(--dim)", border: "1px solid rgba(16,32,48,.08)" }}
+          >
+            {yt ? "youtube.com" : host}
+          </span>
+          <span
+            className="shrink-0 text-[11px] tracking-[0.16em]"
+            style={{ color: "color-mix(in srgb, var(--ink) 42%, transparent)" }}
+          >
+            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+        </div>
 
-      {/* live preview */}
-      <div className="relative w-full overflow-hidden bg-[#eef3f8]" style={{ aspectRatio: "16 / 10" }}>
-        {/* fallback behind the frame — shows through if a site refuses to be framed */}
-        <span
-          aria-hidden
-          className="absolute inset-0 flex items-center justify-center text-[13px]"
-          style={{ color: "var(--dim)" }}
-        >
-          {host}
-        </span>
-        {yt ? (
-          <iframe
-            className="absolute inset-0 h-full w-full"
-            src={`https://www.youtube.com/embed/${yt}`}
-            title={c.name}
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          <>
+        {/* the screen */}
+        <div className="relative min-h-0 flex-1 bg-[#eef3f8]">
+          {/* shows through if a site refuses to be framed */}
+          <span
+            aria-hidden
+            className="absolute inset-0 flex items-center justify-center text-[14px]"
+            style={{ color: "var(--dim)" }}
+          >
+            {host}
+          </span>
+          {yt ? (
             <iframe
               className="absolute inset-0 h-full w-full"
-              style={{ pointerEvents: "none" }}
-              src={url}
+              src={`https://www.youtube.com/embed/${yt}`}
               title={c.name}
               loading="lazy"
-              sandbox="allow-scripts allow-same-origin allow-popups"
-              referrerPolicy="no-referrer"
-              scrolling="no"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
             />
-            {/* opens the real site; also the way in when the frame is blank */}
-            <a
-              href={url}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`${T.visit} ${c.name}`}
-              className="absolute inset-0"
-            />
-          </>
+          ) : (
+            <>
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                style={{ pointerEvents: "none" }}
+                src={url}
+                title={c.name}
+                loading="lazy"
+                // allow-same-origin so the SPAs actually render (they read their own
+                // storage on boot); allow-scripts so they run. Crucially NO
+                // allow-top-navigation, so a frame-busting site cannot redirect the
+                // page out from under a visitor — standards browsers block that. The
+                // frames are cross-origin, so the allow-scripts+allow-same-origin
+                // sandbox-escape (removing your own sandbox) does not apply.
+                sandbox="allow-scripts allow-same-origin"
+                referrerPolicy="no-referrer"
+                scrolling="no"
+              />
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={c.name}
+                className="absolute inset-0"
+              />
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/*
+ * The small label over the corner of the screen — a gallery plaque that dissolves
+ * between its name and its write-up through a grid of squares in that person's
+ * colour (React Bits' pixel effect), the same one the studio gallery uses.
+ */
+function Plaque({ work, lang, T }) {
+  const t = THEME[work.owner] ?? THEME.jenny
+  return (
+    <PixelTransition
+      aspectRatio="0px"
+      gridSize={12}
+      pixelColor={t.fill}
+      animationStepDuration={0.34}
+      style={{
+        width: "100%",
+        height: 232,
+        background: "#ffffff",
+        border: `1px solid color-mix(in srgb, ${t.fill} 40%, white)`,
+        borderRadius: 16,
+        boxShadow: "0 18px 40px -22px rgba(16,32,48,.55)",
+        cursor: "pointer",
+      }}
+      firstContent={<PlaqueFace work={work} lang={lang} T={T} t={t} />}
+      secondContent={<PlaqueFace work={work} lang={lang} T={T} t={t} detail />}
+    />
+  )
+}
+
+function PlaqueFace({ work, lang, T, t, detail = false }) {
+  const c = work[lang]
+  const url = work.embed ?? work.link
+  if (!detail) {
+    return (
+      <div className="flex h-full flex-col justify-between bg-white p-5">
+        <div>
+          <p className="text-[10px] tracking-[0.16em] uppercase" style={{ color: t.ink }}>
+            {c.kind}
+          </p>
+          <h3 className="mt-2 text-[20px] leading-snug" style={{ color: "var(--ink)" }}>
+            {c.name}
+          </h3>
+        </div>
+        <div className="flex items-end justify-between text-[11px]" style={{ color: "var(--dim)" }}>
+          <span>
+            {T.builtBy} {OWNER[work.owner].label[lang]}
+          </span>
+          <span style={{ color: t.ink }}>{T.plaqueHint}</span>
+        </div>
+      </div>
+    )
+  }
+  return (
+    <div className="flex h-full flex-col bg-white p-5">
+      <p className="text-[12.5px] leading-relaxed" style={{ color: "var(--ink)" }}>
+        {c.what}
+      </p>
+      <p className="mt-2 text-[12px] leading-relaxed" style={{ color: "var(--dim)" }}>
+        {c.who}
+      </p>
+      <div className="mt-auto pt-3">
+        <div className="flex flex-wrap gap-1.5">
+          {work.stack.map((s) => (
+            <span
+              key={s}
+              className="rounded-full px-2.5 py-1 text-[10.5px]"
+              style={{ background: `color-mix(in srgb, ${t.fill} 30%, white)`, color: t.ink }}
+            >
+              {s}
+            </span>
+          ))}
+        </div>
+        {url && (
+          <a
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block text-[12px] underline-offset-4 hover:underline"
+            style={{ color: t.ink }}
+          >
+            {T.visit} ↗
+          </a>
         )}
       </div>
+    </div>
+  )
+}
 
-      {/* caption */}
-      <figcaption className="flex flex-col gap-1.5 p-5">
-        <p className="text-[10px] tracking-[0.16em] uppercase" style={{ color: t.ink }}>
-          {c.kind}
-        </p>
-        <h3 className="text-[18px] leading-snug" style={{ color: "var(--ink)" }}>
-          {c.name}
-        </h3>
-        <p className="text-[13px] leading-relaxed" style={{ color: "var(--dim)" }}>
-          {c.what}
-        </p>
-      </figcaption>
-    </figure>
+function Arrow({ label, onClick, children }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className="grid h-10 w-10 place-items-center rounded-full text-[18px] opacity-70 transition-opacity hover:opacity-100"
+      style={{
+        background: "rgba(255,255,255,.88)",
+        color: "var(--ink)",
+        boxShadow: "0 6px 18px -8px rgba(16,32,48,.55)",
+      }}
+    >
+      {children}
+    </button>
   )
 }
