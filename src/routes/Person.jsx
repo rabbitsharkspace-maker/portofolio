@@ -135,7 +135,7 @@ export default function Person() {
       </Section>
 
       <Section label={T.backgroundLabel} title={T.training}>
-        <ul className="max-w-[62ch] space-y-2 text-[14px]" style={{ color: "var(--dim)" }}>
+        <ul className="max-w-none space-y-2 text-[14px]" style={{ color: "var(--dim)" }}>
           {c.background.map((b) => (
             <li key={b}>{b}</li>
           ))}
