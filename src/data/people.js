@@ -14,7 +14,7 @@ export const people = {
     en: {
       animal: "Shark",
       line: "I turn complex problems into working products.",
-      sub: "From strategy and systems to code and launch.",
+      sub: "I find the operational problem beneath the requested feature.",
       // The roster bars on the home page. Self-declared, not a score anyone else
       // gave out — they exist to show the shape of each person at a glance.
       stats: [
@@ -24,7 +24,7 @@ export const people = {
         { label: "Automation & operations", value: 84 },
       ],
       about: [
-        "I lead product strategy, AI systems and full-stack engineering at RabbitShark. With a Bachelor of International Business and a self-taught path into engineering, I work across both business and technology — from diagnosing a process and shaping the strategy to building and launching the solution. My background in consulting, market research and cross-cultural communication helps me connect technical decisions to real commercial needs. I work in English and Mandarin, from Melbourne and remotely.",
+        "I lead product strategy, AI systems and full-stack engineering at RabbitShark. Clients often arrive asking for a feature; I work out what is actually slowing the business down, then design and build the simplest system that solves it. With a Bachelor of International Business and a self-taught path into engineering, I connect technical decisions to real commercial needs. I work in English and Mandarin, from Melbourne and remotely.",
       ],
       skills: [
         { group: "AI systems", items: ["AI integration", "n8n automation", "Encryption", "Supabase / Firebase"] },
@@ -56,7 +56,7 @@ export const people = {
     zh: {
       animal: "鲨鱼",
       line: "我把复杂的问题，变成可以运行的产品。",
-      sub: "从策略、系统到开发与上线。",
+      sub: "我寻找功能需求背后，真正需要解决的业务问题。",
       stats: [
         { label: "AI 系统", value: 92 },
         { label: "产品策略", value: 90 },
@@ -64,7 +64,7 @@ export const people = {
         { label: "自动化与业务流程", value: 84 },
       ],
       about: [
-        "我负责 RabbitShark 的产品策略、AI 系统设计与全栈开发。我拥有国际商务学士学位，之后通过自学进入软件开发领域，因此能够同时从商业与技术两个角度推进项目——从梳理流程、制定策略，到构建并上线解决方案。咨询、市场研究和跨文化沟通经历，也让我能把技术判断与真实的商业需求连接起来。我使用中文与英文工作，现居墨尔本，并支持远程合作。",
+        "我负责 RabbitShark 的产品策略、AI 系统设计与全栈开发。客户往往带着一个功能需求来找我；我会先判断真正拖慢业务的环节，再设计并构建能够解决它的最简系统。我拥有国际商务学士学位，并通过自学进入软件开发领域，因此能够把技术判断与真实的商业需求连接起来。我使用中文与英文工作，现居墨尔本，并支持远程合作。",
       ],
       skills: [
         { group: "AI 系统", items: ["AI 集成", "n8n 自动化", "数据加密", "Supabase / Firebase"] },
@@ -104,7 +104,7 @@ export const people = {
     en: {
       animal: "Rabbit",
       line: "I make technology clear, human and memorable.",
-      sub: "From interface and visual identity to content and launch.",
+      sub: "So users understand it faster, trust it sooner and keep using it.",
       stats: [
         { label: "Product & UI design", value: 92 },
         { label: "Brand & visual direction", value: 90 },
@@ -112,7 +112,7 @@ export const people = {
         { label: "Front-end experience", value: 82 },
       ],
       about: [
-        "I lead product experience, interface design, brand and creative direction at RabbitShark. With a degree in business and blockchain-enabled business, I bring together commercial thinking, design instinct and front-end implementation. My experience across healthcare, aged care, energy and community organisations shapes a practical, human-centred approach to every product. I work in English and Mandarin.",
+        "I lead product experience, interface design, brand and creative direction at RabbitShark. I turn complex product logic into experiences people understand quickly, trust confidently and want to keep using. With a degree in business and blockchain-enabled business, I bring together commercial thinking, design instinct and front-end implementation. I work in English and Mandarin.",
       ],
       skills: [
         { group: "Product experience", items: ["UI design", "User journeys", "Figma to production"] },
@@ -140,7 +140,7 @@ export const people = {
     zh: {
       animal: "兔子",
       line: "我让技术变得清晰、自然，也值得被记住。",
-      sub: "从界面、视觉到内容与上线。",
+      sub: "让用户更快理解、更早信任，并愿意持续使用。",
       stats: [
         { label: "产品与 UI 设计", value: 92 },
         { label: "品牌与视觉", value: 90 },
@@ -148,7 +148,7 @@ export const people = {
         { label: "前端体验", value: 82 },
       ],
       about: [
-        "我负责 RabbitShark 的产品体验、界面设计、品牌视觉与创意方向。我拥有商业及区块链商业学位，将商业思维、设计直觉和前端实现结合在一起。我在医疗、老年照护、能源和社区组织中的经历，让我在每个产品中都保持务实、以人为本的设计方式。我使用中文与英文工作。",
+        "我负责 RabbitShark 的产品体验、界面设计、品牌视觉与创意方向。我把复杂的产品逻辑转化为用户能够快速理解、放心信任并愿意持续使用的体验。我拥有商业及区块链商业学位，将商业思维、设计直觉和前端实现结合在一起。我使用中文与英文工作。",
       ],
       skills: [
         { group: "产品体验", items: ["UI 设计", "用户路径", "从 Figma 到上线"] },
@@ -184,21 +184,21 @@ export const studio = {
     { label: "Email", url: "mailto:rabbitshark.space@gmail.com" },
   ],
   en: {
-    line: "Two people. Every project built by the people you talk to.",
-    sub: "We find where AI saves you time and money, then we build it.",
+    line: "Two founders. Strategy, engineering and design in one team.",
+    sub: "We find the problem worth solving, then take the product all the way to launch.",
     offers: [
       { title: "We build it for you", body: "You describe the problem. We design, build and deploy the whole system." },
       { title: "We build it, you own it", body: "We hand everything over with training. No ongoing dependency on us." },
-      { title: "We teach you to build it", body: "One-on-one sessions. Every tool we use is free." },
+      { title: "We teach you to build it", body: "One-on-one guidance using tools that fit your budget, workflow and team." },
     ],
   },
   zh: {
-    line: "两个人。每个项目都由和你对话的人亲手做。",
-    sub: "我们找出 AI 能帮你省下时间和钱的地方,然后把它做出来。",
+    line: "两位创始人，把策略、工程与设计放在同一支团队里。",
+    sub: "我们先找到值得解决的问题，再把产品一路做到上线。",
     offers: [
       { title: "我们替你做", body: "你描述问题,我们设计、开发并上线整套系统。" },
       { title: "我们做,归你所有", body: "连同培训一起交付,之后不依赖我们。" },
-      { title: "我们教你做", body: "一对一教学。我们用的每个工具都是免费的。" },
+      { title: "我们教你做", body: "根据你的预算、流程和团队情况，提供一对一实用指导。" },
     ],
   },
 }
