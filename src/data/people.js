@@ -24,9 +24,7 @@ export const people = {
         { label: "Automation & operations", value: 84 },
       ],
       about: [
-        "I lead product strategy, AI systems and full-stack engineering at RabbitShark.",
-        "With a background in international business and a self-taught path into engineering, I work across both business and technology — from diagnosing a process to building and launching the solution.",
-        "Bilingual in English and Mandarin. Based in Melbourne and working remotely.",
+        "I lead product strategy, AI systems and full-stack engineering at RabbitShark. With a Bachelor of International Business and a self-taught path into engineering, I work across both business and technology — from diagnosing a process and shaping the strategy to building and launching the solution. My background in consulting, market research and cross-cultural communication helps me connect technical decisions to real commercial needs. I work in English and Mandarin, from Melbourne and remotely.",
       ],
       skills: [
         { group: "AI systems", items: ["AI integration", "n8n automation", "Encryption", "Supabase / Firebase"] },
@@ -43,10 +41,15 @@ export const people = {
         "VCE Music Performance (A)",
       ],
       background: [
-        "Monash University — International Business, 2022–2024",
+        "Monash University — Bachelor of International Business, 2022–2024",
         "Stanford University — Code in Place, 2023",
         "La Trobe University — Cybersecurity Fundamentals, 2023",
-        "Yunchen Futures — Internship, 2023–2024",
+        "LIFTwomen Group — Marketing Intern, 2024",
+        "MeBumi × Monash University — Consultant, brand and market strategy, 2024",
+        "Monash–Warwick TeamWork Program — Client strategy, 2024",
+        "Global Consulting Group — External Relations and Partnerships, 2023–2024",
+        "Yunchen Futures Brokerage — Market Research Intern, 2023–2024",
+        "Monash University — International Ambassador and Business School Ambassador, 2023–2024",
       ],
       replyNote: "We reply within 24 hours.",
     },
@@ -61,9 +64,7 @@ export const people = {
         { label: "自动化与业务流程", value: 84 },
       ],
       about: [
-        "我负责 RabbitShark 的产品策略、AI 系统设计与全栈开发。",
-        "我拥有国际商务背景，之后通过自学进入软件开发领域，因此能够同时从商业与技术两个角度思考问题——从梳理流程到构建并上线解决方案。",
-        "使用中文与英文工作，现居墨尔本，并支持远程合作。",
+        "我负责 RabbitShark 的产品策略、AI 系统设计与全栈开发。我拥有国际商务学士学位，之后通过自学进入软件开发领域，因此能够同时从商业与技术两个角度推进项目——从梳理流程、制定策略，到构建并上线解决方案。咨询、市场研究和跨文化沟通经历，也让我能把技术判断与真实的商业需求连接起来。我使用中文与英文工作，现居墨尔本，并支持远程合作。",
       ],
       skills: [
         { group: "AI 系统", items: ["AI 集成", "n8n 自动化", "数据加密", "Supabase / Firebase"] },
@@ -80,10 +81,15 @@ export const people = {
         "VCE Music Performance A",
       ],
       background: [
-        "Monash University｜国际商务 · 2022–2024",
+        "Monash University｜国际商务学士 · 2022–2024",
         "Stanford University｜Code in Place · 2023",
         "La Trobe University｜网络安全基础 · 2023",
-        "云辰期货｜实习 · 2023–2024",
+        "LIFTwomen Group｜市场实习 · 2024",
+        "MeBumi × Monash University｜品牌与市场策略顾问 · 2024",
+        "Monash–Warwick TeamWork Program｜客户策略项目 · 2024",
+        "Global Consulting Group｜外部关系与合作伙伴事务 · 2023–2024",
+        "云辰期货｜市场研究实习 · 2023–2024",
+        "Monash University｜国际学生大使、商学院大使 · 2023–2024",
       ],
       replyNote: "24 小时内回复。",
     },
@@ -106,9 +112,7 @@ export const people = {
         { label: "Front-end experience", value: 82 },
       ],
       about: [
-        "I lead product experience, interface design, brand and creative direction at RabbitShark.",
-        "With a degree in business and blockchain-enabled business, I bring together commercial thinking, design instinct and front-end implementation.",
-        "My experience across healthcare, aged care, energy and community organisations shapes a practical, human-centred approach. Bilingual in English and Mandarin.",
+        "I lead product experience, interface design, brand and creative direction at RabbitShark. With a degree in business and blockchain-enabled business, I bring together commercial thinking, design instinct and front-end implementation. My experience across healthcare, aged care, energy and community organisations shapes a practical, human-centred approach to every product. I work in English and Mandarin.",
       ],
       skills: [
         { group: "Product experience", items: ["UI design", "User journeys", "Figma to production"] },
@@ -144,9 +148,7 @@ export const people = {
         { label: "前端体验", value: 82 },
       ],
       about: [
-        "我负责 RabbitShark 的产品体验、界面设计、品牌视觉与创意方向。",
-        "我拥有商业及区块链商业学位，将商业思维、设计直觉和前端实现结合在一起。",
-        "我在医疗、老年照护、能源和社区组织中的经历，让我形成了更务实、更关注人的设计方式。使用中文与英文工作。",
+        "我负责 RabbitShark 的产品体验、界面设计、品牌视觉与创意方向。我拥有商业及区块链商业学位，将商业思维、设计直觉和前端实现结合在一起。我在医疗、老年照护、能源和社区组织中的经历，让我在每个产品中都保持务实、以人为本的设计方式。我使用中文与英文工作。",
       ],
       skills: [
         { group: "产品体验", items: ["UI 设计", "用户路径", "从 Figma 到上线"] },

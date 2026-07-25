@@ -10,17 +10,15 @@ import { people, studio } from "../data/people"
 import { works } from "../data/works"
 import { ui } from "../data/ui"
 import { useLang } from "../lang"
-import { BLUE, YELLOW, BLUE_INK, YELLOW_INK, CARD_COLORS } from "../theme"
+import { BLUE, YELLOW, CARD_COLORS } from "../theme"
 
 const ACCENT = { jenny: BLUE, jane: YELLOW }
-const ACCENT_INK = { jenny: BLUE_INK, jane: YELLOW_INK }
 
 export default function Person() {
   const { who } = useParams()
   const { lang } = useLang()
   const p = people[who]
   const accent = ACCENT[who]
-  const ink = ACCENT_INK[who]
   const T = ui[lang]
 
   useEffect(() => {
@@ -36,10 +34,7 @@ export default function Person() {
 
   const intro = (
     <div className={who === "jenny" ? "mx-auto max-w-[52ch] text-center" : "relative"}>
-      <p className="text-[11px] tracking-[0.18em] uppercase" style={{ color: ink }}>
-        {c.animal}
-      </p>
-      <h1 className="shiny mt-4 text-[clamp(30px,5vw,52px)] leading-[1.08]">{c.line}</h1>
+      <h1 className="shiny text-[clamp(30px,5vw,52px)] leading-[1.08]">{c.line}</h1>
       <p
         className={`mt-5 text-[15px] leading-relaxed ${who === "jenny" ? "" : "max-w-[46ch]"}`}
         style={{ color: "var(--dim)" }}
@@ -71,7 +66,7 @@ export default function Person() {
       )}
 
       <Section label={T.whoIAm} title={p.name}>
-        <div className="max-w-[58ch] space-y-3 text-[16px] leading-relaxed">
+        <div className="max-w-[1000px] text-[16px] leading-[1.8]">
           {c.about.map((line) => (
             <p key={line}>{line}</p>
           ))}

@@ -6,13 +6,13 @@ export const ui = {
   en: {
     // hero (rocket)
     heroLines: [
-      { title: "We build AI that actually gets used.", sub: "No jargon. No fluff. Just working systems." },
-      { title: "Two people. Everything built by them.", sub: "No outsourcing. No account managers." },
-      { title: "You own what we build.", sub: "We hand it over with training, then get out of the way." },
+      { title: "We build AI systems designed for real work.", sub: "Practical products, engineered from strategy to launch." },
+      { title: "Two founders. One accountable team.", sub: "Strategy, design and engineering — led and delivered by us." },
+      { title: "Built for you. Owned by you.", sub: "Clear handover, practical training and no forced dependency." },
     ],
     scroll: "scroll",
     manifesto:
-      "Two people. Every project built by the people you talk to. We find where AI saves you time and money — then we build it, hand it over, and get out of the way.",
+      "RabbitShark is a founder-led AI product studio. We turn complex business problems into clear, useful systems — combining strategy, engineering and design from the first decision to final handover.",
     // home sections
     whoWeAre: "Who we are",
     whoWeAreTitle: "One shark. One rabbit.",
@@ -53,13 +53,13 @@ export const ui = {
   },
   zh: {
     heroLines: [
-      { title: "我们做真正被用起来的 AI。", sub: "不讲术语,不整虚的,只有能跑的系统。" },
-      { title: "两个人。所有东西都他们亲手做。", sub: "不外包,没有客户经理。" },
-      { title: "我们做的,归你所有。", sub: "连培训一起交付,然后退到一边。" },
+      { title: "我们构建服务于真实工作的 AI 系统。", sub: "从策略到上线，把想法做成实用的产品。" },
+      { title: "两位创始人，一支全程负责的团队。", sub: "策略、设计与工程，均由我们亲自带领并交付。" },
+      { title: "为你构建，归你所有。", sub: "清晰交接、实用培训，不制造被迫依赖。" },
     ],
     scroll: "向下滚动",
     manifesto:
-      "两个人。每个项目都由和你对话的人亲手做。我们找出 AI 能帮你省时省钱的地方,把它做出来,交给你,然后退到一边。",
+      "RabbitShark 是一家由创始人亲自负责的 AI 产品工作室。我们把复杂的商业问题转化为清晰、实用的系统，从第一次判断到最终交付，把策略、工程与设计结合在一起。",
     whoWeAre: "我们是谁",
     whoWeAreTitle: "一条鲨鱼,一只兔子。",
     turnHint: "用箭头换角色,鼠标移到画上让 TA 转身。",

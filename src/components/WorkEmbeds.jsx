@@ -179,7 +179,7 @@ function Screen({ work, index, total, lang }) {
 
   return (
     <div className="w-full shrink-0">
-      <div className="relative flex h-[clamp(360px,62vh,600px)] w-full flex-col overflow-hidden bg-white">
+      <div className="relative flex h-[clamp(440px,72vh,760px)] w-full flex-col overflow-hidden bg-white">
         {/* browser chrome */}
         <div
           className="flex items-center gap-2 px-4 py-3"
