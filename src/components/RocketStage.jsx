@@ -84,7 +84,10 @@ export default function RocketStage() {
         const fly = t * t * (3 - 2 * t)
         const y = (START_Y - rise * (START_Y - LOW_Y) + fly * (OUT_Y - LOW_Y)) * vh
         if (rocket.current) {
-          rocket.current.style.transform = `translate3d(0, ${y}px, 0) scale(${1 - fly * 0.42})`
+          // It grows on the way up rather than shrinking: it sits small inside
+          // the ring and comes toward the viewer as it climbs, so the mark is at
+          // its largest just as it leaves the frame.
+          rocket.current.style.transform = `translate3d(0, ${y}px, 0) scale(${1 + fly * 0.72})`
         }
         // The ring holds station at LOW_Y and only fades: up with the mark's
         // arrival, then a long dissolve that starts once the second line is up
@@ -200,7 +203,7 @@ export default function RocketStage() {
           alt="RabbitShark"
           width="200"
           height="137"
-          className="col-start-1 row-start-1 h-auto w-[clamp(112px,16vw,190px)] select-none"
+          className="col-start-1 row-start-1 h-auto w-[clamp(76px,11vw,138px)] select-none"
           style={{ willChange: "transform" }}
         />
 
@@ -248,13 +251,13 @@ export default function RocketStage() {
           /* The component ships at a fixed 200px in white; the hero needs it
              sized off the viewport and painted in the wordmark's green. */
           .hero-ring {
-            width: clamp(155px, 24vw, 310px);
-            height: clamp(155px, 24vw, 310px);
+            width: clamp(125px, 18vw, 225px);
+            height: clamp(125px, 18vw, 225px);
             margin: 0;
             color: var(--brand);
           }
           .hero-ring span {
-            font-size: clamp(11px, 1.35vw, 17px);
+            font-size: clamp(9px, 1.05vw, 13px);
             letter-spacing: 0.06em;
           }
         `}</style>

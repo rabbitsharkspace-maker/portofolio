@@ -135,7 +135,10 @@ const MAX_PITCH = 0.1
 // Anchored at the mouth, tilted forward, stretches down on hover.
 // Anchored to the mouth in head-local units, so every distance here scales with
 // HEAD_H (tuned at 2.0, now 2.6 → ×1.3) to stay stuck to the lip as she grows.
-const TONGUE = { x: -0.052, y: -0.8, z: 0.68, w: 0.286, tilt: 0.34, restLen: 0.075, pullLen: 0.26 }
+// z is how far forward of the head's centre the root sits. Too far back and the
+// lip geometry punches through the tongue — 0.68 opened a hole right through it
+// — so this is the edge of that: tucked in, but still clear of the lip.
+const TONGUE = { x: -0.052, y: -0.8, z: 0.74, w: 0.286, tilt: 0.34, restLen: 0.075, pullLen: 0.26 }
 
 /*
  * useGLTF caches the parsed scene and `scene.clone()` shares its materials, so
