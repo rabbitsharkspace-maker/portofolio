@@ -121,8 +121,10 @@ export const works = [
     id: "sunrise",
     owner: "jane",
     stack: ["Care operations", "AI monitoring"],
-    link: null,
-    embed: "https://agecare-1.onrender.com/login", // live preview shown in the work section
+    // Same address as the preview, on purpose: the wall shows the sign-in
+    // screen, so a click lands exactly where the picture promised.
+    link: "https://agecare-1.onrender.com/login",
+    embed: "https://agecare-1.onrender.com/login",
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
       name: "Sunrise Care",
