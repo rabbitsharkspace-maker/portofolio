@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import CharacterModel from "./CharacterModel"
+import CharacterModel, { preloadCharacter } from "./CharacterModel"
 import { people } from "../data/people"
 import { ui } from "../data/ui"
 import { useLang } from "../lang"
@@ -11,39 +11,50 @@ import { BLUE, YELLOW } from "../theme"
  * bar width are drawn straight from it every frame, so they fill together and
  * neither depends on a CSS transition landing — that reliance was why the bar
  * used to read as fixed while the number counted.
+ *
+ * Written straight to the two nodes rather than held in state: four of these run
+ * at once, on the same section as the 3D stage, and a setState per bar per frame
+ * was re-rendering this whole block ~240 times a second while a WebGL canvas
+ * wanted the same frames. Nothing else on the page reads the number, so it has
+ * no business being React state.
  */
-function useCountUp(to, run, delay = 0, duration = 900) {
-  const [n, setN] = useState(0)
+function AnimatedStat({ label, value, run, delay, accent }) {
+  const num = useRef(null)
+  const bar = useRef(null)
+
   useEffect(() => {
+    const n = num.current
+    const b = bar.current
+    if (!n || !b) return
     if (!run) {
-      setN(0)
+      n.textContent = "0"
+      b.style.width = "0%"
       return
     }
-    let raf
+    let raf = 0
     let start = 0
     const step = (ts) => {
       if (!start) start = ts + delay
-      const t = Math.min(Math.max((ts - start) / duration, 0), 1)
-      const e = 1 - Math.pow(1 - t, 3)
-      setN(e * to)
+      const t = Math.min(Math.max((ts - start) / 900, 0), 1)
+      const v = (1 - Math.pow(1 - t, 3)) * value
+      n.textContent = Math.round(v)
+      b.style.width = `${v}%`
       if (t < 1) raf = requestAnimationFrame(step)
     }
     raf = requestAnimationFrame(step)
     return () => cancelAnimationFrame(raf)
-  }, [run, to, delay, duration])
-  return run ? n : 0
-}
+  }, [run, value, delay])
 
-function AnimatedStat({ label, value, run, delay, accent }) {
-  const n = useCountUp(value, run, delay)
   return (
     <li>
       <div className="flex items-baseline justify-between text-[11px]">
         <span style={{ color: "var(--ink)" }}>{label}</span>
-        <span style={{ color: "var(--dim)" }}>{Math.round(n)}</span>
+        <span ref={num} style={{ color: "var(--dim)" }}>
+          0
+        </span>
       </div>
       <div className="mt-1 h-2 overflow-hidden rounded-full" style={{ background: "var(--tint-2)" }}>
-        <div className="h-full rounded-full" style={{ width: `${n}%`, background: accent }} />
+        <div ref={bar} className="h-full rounded-full" style={{ width: 0, background: accent }} />
       </div>
     </li>
   )
@@ -107,6 +118,38 @@ export default function CharacterSelect() {
   const [armed, setArmed] = useState(false)
   const [inView, setInView] = useState(false)
   const box = useRef(null)
+  const stage = useRef(null)
+
+  /*
+   * The arrival animation is restarted by hand instead of by remounting the
+   * stage on `who`. Remounting took the canvas with it, so every switch tore
+   * down a WebGL context, built a new one and re-parsed a multi-megabyte GLB —
+   * which is what the stall on this section was. Removing the class, forcing a
+   * reflow and putting it back replays the same animation on a canvas that
+   * never goes away. Layout effect, so it lands on the frame the keyed shadow
+   * under her restarts on rather than one after it.
+   */
+  useLayoutEffect(() => {
+    const el = stage.current
+    if (!el) return
+    el.classList.remove("character-in")
+    void el.offsetWidth
+    el.classList.add("character-in")
+  }, [who])
+
+  /*
+   * The model that is not on the stage, fetched and parsed while the visitor is
+   * still reading this one. These files are megabytes apiece; doing it on the
+   * click is a visible freeze. Idle, so it never competes with the arrival.
+   */
+  useEffect(() => {
+    if (!inView) return
+    const src = people[ROSTER.find((r) => r.id !== who).id].model
+    const run = () => preloadCharacter(src)
+    const idle = window.requestIdleCallback
+    const id = idle ? idle(run, { timeout: 2000 }) : setTimeout(run, 600)
+    return () => (idle ? window.cancelIdleCallback(id) : clearTimeout(id))
+  }, [inView, who])
 
   useEffect(() => {
     const el = box.current
@@ -203,7 +246,7 @@ export default function CharacterSelect() {
               element can only be driven by one of them: the outer plays once on
               arrival (it remounts with `who`), the inner breathes forever.
             */}
-            <div key={who} className="character-in">
+            <div ref={stage} className="character-in">
               <div className="character-float">
                 {/*
                   Both characters are whole-body GLBs on the same 46:100 box at

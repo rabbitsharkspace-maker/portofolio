@@ -11,7 +11,7 @@ import { people, studio } from "../data/people"
 import { works } from "../data/works"
 import { ui } from "../data/ui"
 import { useLang } from "../lang"
-import { BLUE, YELLOW, CARD_COLORS, BG_KINDS } from "../theme"
+import { BLUE, YELLOW, CARD_COLORS, BG_KINDS, BG_ORDER, BG_INK } from "../theme"
 
 const ACCENT = { jenny: BLUE, jane: YELLOW }
 
@@ -132,12 +132,30 @@ export default function Person() {
       <Section label={T.whoIAm} title={p.name}>
         {/* the bio scrambles under the pointer — React Bits' effect, run over
             the page's own type rather than the demo's monospace */}
-        <div className="max-w-[1000px] text-[16px] leading-[1.8]">
+        <div className="max-w-[1000px] space-y-5 text-[16px] leading-[1.8]">
           {c.about.map((line) => (
             <ScrambledText key={line}>{line}</ScrambledText>
           ))}
         </div>
       </Section>
+
+      {/* The claims in the bio, as figures. Only whoever carries `numbers`. */}
+      {c.numbers && (
+        <Section label={T.numbersLabel} title={T.numbers}>
+          <dl className="grid gap-x-8 gap-y-9 sm:grid-cols-2 md:grid-cols-3">
+            {c.numbers.map((n) => (
+              <div key={n.label} className="border-t pt-4" style={{ borderColor: accent }}>
+                <dt className="text-[clamp(26px,3.2vw,38px)] leading-none" style={{ color: "var(--ink)" }}>
+                  {n.value}
+                </dt>
+                <dd className="mt-2.5 text-[13px] leading-snug" style={{ color: "var(--dim)" }}>
+                  {n.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Section>
+      )}
 
       <Section label={T.capabilitiesLabel} title={T.capabilities}>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -196,29 +214,31 @@ export default function Person() {
       </Section>
 
       <Section label={T.backgroundLabel} title={T.training}>
-        {/* colour-sorted by field: the tag and the rule down the left carry the
-            same swatch, so the businesses, the code, the design work and the
-            volunteering separate out at a glance */}
-        <ul className="max-w-none space-y-2.5 text-[14px]" style={{ color: "var(--dim)" }}>
-          {c.background.map((b) => {
-            const k = BG_KINDS[b.kind]
+        {/* Sorted by field and grouped under it, so the businesses sit with the
+            businesses and the code with the code. The field name is the only
+            thing carrying colour — Jenny's blues, Jane's golds — and the entries
+            themselves stay in the page's own reading ink. */}
+        <div className="max-w-none space-y-7">
+          {BG_ORDER.map((kind) => {
+            const rows = c.background.filter((b) => b.kind === kind)
+            if (!rows.length) return null
             return (
-              <li
-                key={b.text}
-                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-4 pl-3"
-                style={{ borderColor: k.color }}
-              >
-                <span
-                  className="rounded-full px-2.5 py-0.5 text-[11px] tracking-[0.08em] uppercase"
-                  style={{ background: k.color, color: "#12212e" }}
+              <div key={kind}>
+                <h3
+                  className="text-[11px] tracking-[0.2em] uppercase"
+                  style={{ color: BG_INK[who][kind] }}
                 >
-                  {k[lang]}
-                </span>
-                <span>{b.text}</span>
-              </li>
+                  {BG_KINDS[kind][lang]}
+                </h3>
+                <ul className="mt-2.5 space-y-1.5 text-[14px]" style={{ color: "var(--dim)" }}>
+                  {rows.map((b) => (
+                    <li key={b.text}>{b.text}</li>
+                  ))}
+                </ul>
+              </div>
             )
           })}
-        </ul>
+        </div>
         {c.photoNote && (
           <p className="mt-10 text-[13px]" style={{ color: "var(--dim)" }}>
             {c.photoNote}
@@ -226,7 +246,9 @@ export default function Person() {
         )}
       </Section>
 
-      <Section label={T.contactPerson} title={studio.email}>
+      {/* Jenny leads the section with a line and puts the address on the button;
+          without one the address is still the heading it always was. */}
+      <Section label={T.contactPerson} title={c.contactLine ?? studio.email}>
         <a
           href={`mailto:${studio.email}`}
           className="inline-block rounded-full px-6 py-3 text-[14px] transition-transform hover:scale-[1.03]"

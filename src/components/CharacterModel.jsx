@@ -29,6 +29,10 @@ const CAM_DIST = 1.68
 // megabytes apiece — the rest can load when someone actually switches to them.
 useGLTF.preload("/ip/jenny.glb")
 
+// The roster calls this on the one who isn't on stage, once the section is in
+// view and the browser is idle, so switching doesn't pay for the fetch.
+export const preloadCharacter = (src) => useGLTF.preload(src)
+
 function Model({ src, spin }) {
   const group = useRef(null)
   const { scene, animations } = useGLTF(src)

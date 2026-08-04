@@ -18,8 +18,8 @@ export const people = {
     short: "Jenny",
     en: {
       animal: "Shark",
-      line: "I turn complex problems into working products.",
-      sub: "I find the operational problem beneath the requested feature.",
+      line: "I build the system your business actually needs.",
+      sub: "Clients arrive with a feature request. I find the operational problem underneath it.",
       // The roster bars on the home page. Self-declared, not a score anyone else
       // gave out — they exist to show the shape of each person at a glance.
       stats: [
@@ -29,14 +29,29 @@ export const people = {
         { label: "Automation & operations", value: 84 },
       ],
       about: [
-        "I lead product strategy, AI systems and full-stack engineering at RabbitShark. Clients often arrive asking for a feature; I work out what is actually slowing the business down, then design and build the simplest system that solves it. With a Bachelor of International Business and a self-taught path into engineering, I connect technical decisions to real commercial needs. I work in English and Mandarin, from Melbourne and remotely.",
+        "I lead product strategy, AI systems and full-stack engineering at RabbitShark.",
+        "Clients usually arrive with a feature request. My first move isn't to build it — it's to work out what is actually slowing the business down, then ship the shortest system that fixes it.",
+        "Seven products shipped. Top 6 finalist at the Google Vibe-a-thon 2026. One automation handling 100+ maintenance requests a day, with response time down from hours to seconds.",
+        "A business degree and a self-taught engineering path — which means I know what every technical decision costs. I work in English and Mandarin, remote worldwide.",
+      ],
+      // The claims in the bio, pulled out as figures. Bilingual pairs; a value
+      // is set as written (7, 100+, Hours → seconds), not computed.
+      numbers: [
+        { value: "7", label: "products shipped" },
+        { value: "100+", label: "requests automated daily" },
+        { value: "Hours → seconds", label: "response time" },
+        { value: "2,254", label: "songs in a live production library" },
+        { value: "Top 6", label: "Google Vibe-a-thon 2026" },
+        { value: "2", label: "working languages" },
       ],
       skills: [
-        { group: "AI systems", items: ["AI integration", "n8n automation", "Encryption", "Supabase / Firebase"] },
+        {
+          group: "AI systems",
+          items: ["AI integration", "n8n automation", "Encryption & access control", "Supabase / Firebase"],
+        },
         { group: "Product strategy", items: ["Process diagnosis", "Market research", "Product logic"] },
         { group: "Engineering", items: ["React", "Full-stack development", "Figma to production"] },
         { group: "Creative", items: ["Animated shorts", "Storyboarding", "UI design"] },
-        { group: "Music", items: ["AMEB Grade 8 piano", "Songwriting", "Keyboardist"] },
       ],
       awards: [
         "Google Vibe-a-thon 2026 — Top 6 Finalist (final result pending)",
@@ -59,12 +74,13 @@ export const people = {
           text: "Monash University — International Ambassador and Business School Ambassador, 2023–2024",
         },
       ],
-      replyNote: "We reply within 24 hours.",
+      contactLine: "Bring us the problem worth solving.",
+      replyNote: "Tell us what's happening and what should change. We'll reply within 24 hours with clear next steps.",
     },
     zh: {
       animal: "鲨鱼",
-      line: "我把复杂的问题，变成可以运行的产品。",
-      sub: "我寻找功能需求背后，真正需要解决的业务问题。",
+      line: "把复杂的问题，做成能用的产品。",
+      sub: "客户带来的是一个功能需求；我找出它下面真正拖慢生意的那个问题。",
       stats: [
         { label: "AI 系统", value: 92 },
         { label: "产品策略", value: 90 },
@@ -72,14 +88,24 @@ export const people = {
         { label: "自动化与业务流程", value: 84 },
       ],
       about: [
-        "我负责 RabbitShark 的产品策略、AI 系统设计与全栈开发。客户往往带着一个功能需求来找我；我会先判断真正拖慢业务的环节，再设计并构建能够解决它的最简系统。我拥有国际商务学士学位，并通过自学进入软件开发领域，因此能够把技术判断与真实的商业需求连接起来。我使用中文与英文工作，现居墨尔本，并支持远程合作。",
+        "RabbitShark 的产品策略、AI 系统和全栈开发由我负责。",
+        "客户通常带着一个功能需求来找我。我做的第一件事不是开工，是先弄清楚到底是什么在拖慢这门生意——然后用最短的方案解决它，并且交付上线。",
+        "已上线七个产品。Google Vibe-a-thon 2026 全球 Top 6。做过一套自动化系统，每天自动处理 100 多条工单，响应从小时级压到秒级。",
+        "商科出身，工程自学，所以我清楚每一个技术决定背后对应多少钱。中英文都能直接开工，全球远程。",
+      ],
+      numbers: [
+        { value: "7", label: "已上线产品" },
+        { value: "100+", label: "每天全自动处理的工单" },
+        { value: "小时级 → 秒级", label: "响应时间" },
+        { value: "2,254", label: "生产环境曲库规模" },
+        { value: "Top 6", label: "Google Vibe-a-thon 2026" },
+        { value: "2", label: "工作语言" },
       ],
       skills: [
-        { group: "AI 系统", items: ["AI 集成", "n8n 自动化", "数据加密", "Supabase / Firebase"] },
-        { group: "产品策略", items: ["流程诊断", "市场研究", "产品逻辑"] },
-        { group: "工程开发", items: ["React", "全栈开发", "从 Figma 到上线"] },
+        { group: "AI 系统", items: ["AI 集成", "n8n 自动化", "加密与权限", "Supabase / Firebase"] },
+        { group: "产品策略", items: ["流程诊断", "市场调研", "产品逻辑"] },
+        { group: "工程", items: ["React", "全栈开发", "Figma 到上线"] },
         { group: "创意", items: ["动画短片", "分镜", "UI 设计"] },
-        { group: "音乐", items: ["AMEB 钢琴八级", "作曲", "键盘手"] },
       ],
       awards: [
         "Google Vibe-a-thon 2026 — 六强决赛入围（最终结果待公布）",
@@ -99,7 +125,8 @@ export const people = {
         { kind: "business", text: "云辰期货｜市场研究实习 · 2023–2024" },
         { kind: "community", text: "Monash University｜国际学生大使、商学院大使 · 2023–2024" },
       ],
-      replyNote: "24 小时内回复。",
+      contactLine: "带一个值得解决的问题来。",
+      replyNote: "说清楚现在发生了什么、你希望它变成什么样。24 小时内回复，附具体的下一步。",
     },
   },
 
@@ -136,7 +163,7 @@ export const people = {
       background: [
         { kind: "business", text: "RMIT University — Bachelor of Business, Blockchain Enabled Business, 2022–2024" },
         { kind: "business", text: "Yunchen Futures Brokerage — Market Research Intern, 2023–2024" },
-        { kind: "business", text: "China State Shipbuilding — Sales representative, 2023" },
+        { kind: "business", text: "CSSC — Sales representative, 2023" },
         { kind: "business", text: "Intelligent Health Systems — Marketing intern, 2024" },
         { kind: "tech", text: "HTP Smart Energy — Grid applications, site maintenance & design" },
         { kind: "community", text: "Dovida — In-home aged care" },

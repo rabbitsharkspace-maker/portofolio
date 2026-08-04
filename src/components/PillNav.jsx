@@ -12,9 +12,9 @@ import "./PillNav.css"
  * on Jane's, green on the studio's — so the nav belongs to the page under it.
  */
 const links = [
-  { to: "/", label: "Studio", end: true },
-  { to: "/jenny", label: "Jenny" },
-  { to: "/jane", label: "Jane" },
+  { to: "/", label: "Studio", end: true, color: GREEN },
+  { to: "/jenny", label: "Jenny", color: BLUE },
+  { to: "/jane", label: "Jane", color: YELLOW },
 ]
 
 const ease = "power3.easeOut"
@@ -75,9 +75,12 @@ export default function PillNav() {
 
   return (
     <nav className="pill-nav" aria-label="Primary" style={{ "--base": accent }}>
+      {/* Each tab owns its colour rather than borrowing the page's: hovering or
+          landing on Jenny turns that pill blue, Jane yellow, wherever you are.
+          Only the bar around them follows the page. */}
       <ul className="pill-list">
         {links.map((l, i) => (
-          <li key={l.to}>
+          <li key={l.to} style={{ "--base": l.color }}>
             <NavLink
               to={l.to}
               end={l.end}

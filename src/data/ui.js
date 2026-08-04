@@ -40,6 +40,8 @@ export const ui = {
     visit: "Visit",
     // person sections
     whoIAm: "Who I am",
+    numbersLabel: "Delivered",
+    numbers: "By the numbers",
     capabilitiesLabel: "What I can do",
     capabilities: "Capabilities",
     workLabel: "What I've built",
@@ -84,6 +86,8 @@ export const ui = {
     plaqueHint: "详情 →",
     visit: "访问",
     whoIAm: "我是谁",
+    numbersLabel: "交付",
+    numbers: "交付过的数字",
     capabilitiesLabel: "我会什么",
     capabilities: "能力",
     workLabel: "做过什么",

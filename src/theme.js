@@ -36,10 +36,26 @@ export const CARD_COLORS = [
  * so the four here are the strongest of their hue family.
  */
 export const BG_KINDS = {
-  business: { color: "#ffd322", en: "Business", zh: "商科" },
-  tech: { color: "#45aef2", en: "Tech", zh: "技术" },
-  creative: { color: "#c5ff59", en: "Creative", zh: "创意" },
-  community: { color: "#7ede8d", en: "Community", zh: "社区" },
+  business: { en: "Business", zh: "商科" },
+  tech: { en: "Tech", zh: "技术" },
+  creative: { en: "Creative", zh: "创意" },
+  community: { en: "Community", zh: "社区" },
+}
+
+// Fixed reading order, so the same field always sits in the same place on both
+// pages and in both languages.
+export const BG_ORDER = ["business", "tech", "creative", "community"]
+
+/*
+ * Each page groups its background by field and heads each group in its own
+ * world's family — Jenny's blues, Jane's golds. These are the darkened ends of
+ * those families rather than the card swatches themselves: #ffd322 as type on
+ * white is 1.6:1 and the label would be a stain rather than a word. Four hues
+ * per family, far enough apart to tell one group's heading from another's.
+ */
+export const BG_INK = {
+  jenny: { business: "#0b6ba8", tech: "#0e6f6f", creative: "#3d5aa8", community: "#073763" },
+  jane: { business: "#7a5a00", tech: "#5f6f0a", creative: "#8a4b12", community: "#6b4a2a" },
 }
 
 /*

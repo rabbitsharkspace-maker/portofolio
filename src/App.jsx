@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom"
 import PillNav from "./components/PillNav"
 import Aura from "./components/Aura"
@@ -27,6 +28,22 @@ const Router = import.meta.env.VITE_STANDALONE ? HashRouter : BrowserRouter
  */
 function Background() {
   const { pathname } = useLocation()
+  /*
+   * The fluid waits for an idle frame. Compiling its shaders on the same frame
+   * the route swaps is what made changing tabs stutter — the new page could not
+   * paint until the GPU program was built. The seawater gradient under it is
+   * already the right colour, so the page arrives instantly and the water fades
+   * up a beat later.
+   */
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    setReady(false)
+    const run = () => setReady(true)
+    const idle = window.requestIdleCallback
+    const id = idle ? idle(run, { timeout: 600 }) : setTimeout(run, 150)
+    return () => (idle ? window.cancelIdleCallback(id) : clearTimeout(id))
+  }, [pathname])
+
   if (pathname.startsWith("/jane")) return <Meadow />
   if (!pathname.startsWith("/jenny")) return <Aura />
   return (
@@ -35,6 +52,7 @@ function Background() {
       className="pointer-events-none fixed inset-0 -z-10"
       style={{ background: "linear-gradient(165deg, #f4fbff 0%, #e6f6ff 45%, #dcf1ff 80%, #e0ebff 100%)" }}
     >
+      {ready && (
       <Ferrofluid
         colors={["#45aef2", "#8fd0f8", "#c5f3ff"]}
         speed={0.16}
@@ -51,6 +69,7 @@ function Background() {
         mouseStrength={1}
         mouseRadius={0.32}
       />
+      )}
     </div>
   )
 }
