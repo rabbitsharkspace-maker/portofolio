@@ -7,6 +7,6 @@
 # the visitor sent intact.
 #
 # Everything else still falls through to the app, which routes it client-side.
-/jenny  /jenny/index.html  200
-/jane   /jane/index.html   200
-/*      /index.html        200
+/jenny  /jenny.html  200
+/jane   /jane.html   200
+/*      /index.html  200

@@ -63,7 +63,14 @@ if (!BLOCK.test(template)) throw new Error("index.html has no <!-- meta:start --
 
 for (const [route, page] of Object.entries(META)) {
   const html = template.replace(BLOCK, `<!-- meta:start -->\n    ${head(route, page)}\n    <!-- meta:end -->`)
-  const out = route === "/" ? join(dist, "index.html") : join(dist, route.slice(1), "index.html")
+  /*
+   * Flat files, not directories. Written as dist/jenny/index.html, Cloudflare
+   * Pages answers a request for /jenny with a 308 to /jenny/ before serving
+   * anything — so every shared link picked up a redirect and a trailing slash it
+   * was never sent with. As dist/jenny.html the same request is served directly,
+   * 200, at the URL the visitor actually has.
+   */
+  const out = route === "/" ? join(dist, "index.html") : join(dist, `${route.slice(1)}.html`)
   mkdirSync(dirname(out), { recursive: true })
   writeFileSync(out, html)
   console.log("prerendered", route, "→", out.replace(root + "/", ""))
