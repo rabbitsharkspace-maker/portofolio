@@ -336,24 +336,28 @@ function Screen({ work, index, total, lang, live }) {
                   scrolling="no"
                 />
               )}
-              {/*
-               * The way in, and only for a piece that has one. `link` is the
-               * public address; `embed` is just what the wall renders, and the
-               * two are not the same promise — several of these are previewed
-               * from a URL that is a staging box or opens straight onto a
-               * sign-in. Reading the door off `embed` handed those out as if
-               * they were finished work.
-               */}
-              {work.link && (
-                <a
-                  href={work.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={c.name}
-                  className="absolute inset-0"
-                />
-              )}
             </>
+          )}
+
+          {/*
+           * The way in, and only for a piece that has one. `link` is the public
+           * address; `embed` is just what the wall renders, and the two are not
+           * the same promise — several of these are previewed from a URL that is
+           * a staging box or opens straight onto a sign-in. Reading the door off
+           * `embed` handed those out as if they were finished work.
+           *
+           * Outside the branches: a screen showing a still is just as much a door
+           * as a live one, and the two products standing in as pictures were the
+           * only panels on the wall you could not click.
+           */}
+          {work.link && (
+            <a
+              href={work.link}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={c.name}
+              className="absolute inset-0"
+            />
           )}
         </div>
       </div>

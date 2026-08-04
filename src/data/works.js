@@ -38,8 +38,15 @@ export const works = [
     owner: "jane",
     stack: ["AI", "Full-stack", "Voice"],
     link: "https://fastresume.xyz",
-    embed: "https://www.fastresume.xyz/", // live preview shown in the work section
-    image: null, // artwork for the gallery plate — drop a path in when there is one
+    embed: "https://www.fastresume.xyz/", // unused while `image` stands in
+    /*
+     * A still of the landing page rather than the live site. Framed live, the app
+     * opens its email gate over the top on every load, so the wall showed a modal
+     * instead of the product. The frame is cross-origin — nothing here can reach
+     * in and close it — so until the app takes a flag to skip that on load, the
+     * homepage is shown as a picture and the plaque's link goes to the real thing.
+     */
+    image: "/ip/fastresume-home.webp",
     en: {
       name: "FastResume",
       kind: "AI career suite",
@@ -172,8 +179,10 @@ export const works = [
     owner: "both",
     stack: ["React 19", "Supabase", "pptxgenjs"],
     link: "https://liftppt.com",
-    embed: "https://liftppt.com/", // live preview shown in Jenny's work section
-    image: null, // artwork for the gallery plate — drop a path in when there is one
+    embed: "https://liftppt.com/", // unused while `image` stands in
+    // Same reason as FastResume: the live site opens its tutorial over the top
+    // every time it loads, so the wall shows the homepage as a still instead.
+    image: "/ip/liftppt-home.webp",
     en: {
       name: "LiftPPT",
       kind: "Worship projection tool",
