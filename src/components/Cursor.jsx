@@ -45,7 +45,7 @@ function Shape({ world }) {
       <img
         src="/ip/cursor-carrot.png"
         alt=""
-        className="block h-[54px] w-auto max-w-none"
+        className="block h-[40px] w-auto max-w-none"
         style={{ transform: "translate(-51%, -2%) rotate(-25deg)", transformOrigin: "51% 2%" }}
       />
     )
