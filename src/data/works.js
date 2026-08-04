@@ -78,14 +78,17 @@ export const works = [
     owner: "both",
     stack: ["Role-based access", "Fair Work", "Audit logs"],
     link: null,
-    embed: "https://hohoyo234.github.io/mkr/",
-    // The github.io host names the account, not the work — say the work.
+    // No `embed`, deliberately. Nothing renders it now that there is a still,
+    // and leaving it would ship the address in the bundle for anyone reading
+    // the source — which is the one thing hiding it from the browser bar was
+    // supposed to achieve.
     address: "My Kitchen Rules",
-    // Wants to be a still, not a frame: this one opens on a sign-in screen, and
-    // a live password box is not something to hang on a wall. Point this at the
-    // shot once there is one — `image` wins over `embed`, so nothing boots and
-    // the screen stops being a way in.
-    image: null,
+    // A still, not a frame. Live, this one opens on its sign-in screen, which
+    // is the least of what it does — and hanging a working password box on the
+    // wall says nothing about the work. The shot is the stock and costs view
+    // instead. `image` wins over `embed`, so no frame boots at all: the address
+    // never appears in the page, and there is nothing to click into.
+    image: "/ip/mkr.webp",
     en: {
       name: "My Kitchen Rules",
       kind: "Restaurant operations",
