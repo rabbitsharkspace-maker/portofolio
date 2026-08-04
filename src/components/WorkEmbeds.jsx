@@ -52,13 +52,20 @@ export default function WorkEmbeds({ works, accent }) {
     setI(Math.min(Math.max(idx, 0), works.length - 1))
   }
 
-  // Wraps, so the arrows never dead-end at either edge of the wall.
+  /*
+   * Wraps, so the arrows never dead-end at either edge of the wall — and a wrap
+   * is a continuation, not a rewind. Stepping off the last piece used to scroll
+   * smoothly all the way back across every screen, which reads as being sent
+   * home rather than as carrying on, so the ends are cut instead: off the last
+   * lands on the first with no travel between them.
+   */
   const go = useCallback(
     (step) => {
       const el = rail.current
       if (!el) return
       const idx = (i + step + works.length) % works.length
-      el.scrollTo({ left: idx * el.clientWidth, behavior: "smooth" })
+      const wrapped = idx !== i + step
+      el.scrollTo({ left: idx * el.clientWidth, behavior: wrapped ? "auto" : "smooth" })
     },
     [i, works.length],
   )

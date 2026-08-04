@@ -8,7 +8,7 @@ import { works } from "../data/works"
 import { studio } from "../data/people"
 import { ui } from "../data/ui"
 import { useLang } from "../lang"
-import { BLUE, YELLOW, GREEN, GREEN_INK, CARD_COLORS } from "../theme"
+import { BLUE, YELLOW, GREEN, CARD_COLORS } from "../theme"
 
 export default function Home() {
   const { lang } = useLang()
@@ -24,11 +24,9 @@ export default function Home() {
       <section className="mx-auto max-w-[900px] px-6 pt-48 pb-28">
         <ScrollReveal
           dim="#b3c197"
-          edge={GREEN_INK}
           lit="#1e2b10"
-          start={0.95}
-          end={0.05}
-          softness={18}
+          start={0.9}
+          end={0.35}
           className="text-[clamp(22px,3.4vw,40px)] leading-[1.4]"
         >
           {T.manifesto}

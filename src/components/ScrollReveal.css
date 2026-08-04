@@ -3,5 +3,11 @@
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: -0.01em;
-  will-change: transform, opacity, filter;
+}
+
+/* Only the colour animates now, so nothing needs promoting to its own layer —
+   the old will-change kept a full-width paragraph composited for the life of
+   the page and bought nothing back. */
+.sr span {
+  transition: none;
 }
