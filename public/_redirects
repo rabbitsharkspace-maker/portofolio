@@ -1,12 +1,11 @@
 # Cloudflare Pages routing.
 #
-# The two named routes are pinned to their own prerendered files first, before
-# the single-page fallback can swallow them — that fallback is what made every
-# URL answer with the studio's head, so link previews for /jenny and /jane came
-# out as the studio's card. Serving them as 200s, not redirects, keeps the URL
-# the visitor sent intact.
+# Only the single-page fallback belongs here. Pages resolves static assets before
+# it reads this file and already answers /jenny with the prerendered jenny.html,
+# so naming those routes explicitly is not just redundant — a rule pointing at
+# /jenny.html collides with the extension being stripped back to /jenny and the
+# two bounce off each other in a redirect loop.
 #
-# Everything else still falls through to the app, which routes it client-side.
-/jenny  /jenny.html  200
-/jane   /jane.html   200
-/*      /index.html  200
+# Anything that is not a file falls through to the app, which routes it in the
+# browser. A 200, not a redirect, so the URL the visitor arrived on survives.
+/*  /index.html  200
