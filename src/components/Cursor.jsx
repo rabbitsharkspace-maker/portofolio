@@ -12,7 +12,13 @@ import { useLocation } from "react-router-dom"
  *
  * Skipped entirely on touch and coarse-pointer devices, where there is no cursor
  * to replace and hiding the native one would strand the user.
+ *
+ * All three are drawn to the same 44px longest edge — the three worlds' pointers
+ * are the same object in different clothes, and the fin used to arrive half again
+ * as big as the rocket. Long edge rather than height, because the carrot is tall
+ * and narrow while the other two are wide.
  */
+const SIZE = 44
 
 function Shape({ world }) {
   if (world === "jenny") {
@@ -23,7 +29,7 @@ function Shape({ world }) {
       <img
         src="/ip/cursor-fin.png"
         alt=""
-        width="62"
+        width={SIZE}
         className="block h-auto max-w-none"
         style={{ transform: "translate(-50%, -50%) scaleX(-1)", transformOrigin: "50% 50%" }}
       />
@@ -45,7 +51,7 @@ function Shape({ world }) {
       <img
         src="/ip/cursor-carrot.png"
         alt=""
-        className="block h-[40px] w-auto max-w-none"
+        className="block h-[44px] w-auto max-w-none"
         style={{ transform: "translate(-51%, -2%) rotate(-25deg)", transformOrigin: "51% 2%" }}
       />
     )
@@ -67,7 +73,6 @@ export default function Cursor() {
   const dot = useRef(null)
   const { pathname } = useLocation()
   const [active, setActive] = useState(false)
-  const [over, setOver] = useState(false)
   const [onNav, setOnNav] = useState(false)
   const started = useRef(false)
 
@@ -90,9 +95,7 @@ export default function Cursor() {
         started.current = true
         setActive(true)
       }
-      const t = e.target
-      setOnNav(!!t.closest?.("nav"))
-      setOver(!!t.closest?.("a, button, [role='button'], .rail"))
+      setOnNav(!!e.target.closest?.("nav"))
     }
 
     function loop() {
@@ -122,20 +125,9 @@ export default function Cursor() {
       className="pointer-events-none fixed top-0 left-0 z-[60]"
       style={{ opacity: active ? 1 : 0, transition: "opacity 200ms ease" }}
     >
-      <div
-        style={{
-          transform: over ? "scale(1.4)" : "scale(1)",
-          // Pivot the hover scale on the pointer itself. Both the fin and the
-          // carrot already place their own hotspot — the fin's centre, the
-          // carrot's tip — on the wrapper's origin, so scaling about (0,0) grows
-          // them in place instead of letting the shape drift off the pointer.
-          // The rocket is the exception: it hangs from the middle of its top
-          // edge, so it pivots there.
-          transformOrigin: world === "studio" ? "50% 0" : "0px 0px",
-          transition: "transform 220ms cubic-bezier(.22,1,.36,1)",
-          filter: "drop-shadow(0 2px 3px rgba(0,0,0,.18))",
-        }}
-      >
+      {/* One size, always. The pointer used to swell over anything clickable,
+          which on a page this dense meant it was constantly resizing itself. */}
+      <div style={{ filter: "drop-shadow(0 2px 3px rgba(0,0,0,.18))" }}>
         <Shape world={world} />
       </div>
     </div>

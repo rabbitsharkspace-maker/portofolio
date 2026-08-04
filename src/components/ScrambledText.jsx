@@ -20,7 +20,9 @@ gsap.registerPlugin(SplitText, ScrambleTextPlugin)
  * size (the clamp) leaves them stale — re-split on resize if that ever shows.
  */
 export default function ScrambledText({
-  radius = 90,
+  // Barely wider than the pointer itself. At a hundred pixels the whole line
+  // churned and the paragraph read as broken rather than as responding.
+  radius = 34,
   duration = 1.1,
   speed = 0.45,
   scrambleChars = ".:",

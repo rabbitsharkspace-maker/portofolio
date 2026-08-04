@@ -77,6 +77,17 @@ html[data-cursor="custom"] *::after {
   cursor: none !important;
 }
 
+/*
+ * The language swap, cross-faded. Slower than the browser's default quarter
+ * second and eased at both ends, so the two languages dissolve through each
+ * other rather than blinking.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Gallery rail: drag sideways, no visible scrollbar. */
 .rail {
   scrollbar-width: none;

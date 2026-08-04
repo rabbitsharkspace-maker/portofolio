@@ -172,13 +172,13 @@ export const works = [
     embed: "https://liftppt.com/", // live preview shown in Jenny's work section
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
-      name: "liftppt",
+      name: "LiftPPT",
       kind: "Worship projection tool",
       what: "Lyrics paginate, choruses expand, pinyin annotates, exports to PPT pixel-for-pixel. 2,254 songs in the library.",
       who: "For whoever is up until midnight formatting slides.",
     },
     zh: {
-      name: "liftppt",
+      name: "LiftPPT",
       kind: "敬拜投影工具",
       what: "歌词自动排版、注音、导出 PPT,像素级还原。2254 首曲库。",
       who: "给每周熬夜排幻灯片的人。",

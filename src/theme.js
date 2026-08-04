@@ -36,15 +36,18 @@ export const CARD_COLORS = [
  * so the four here are the strongest of their hue family.
  */
 export const BG_KINDS = {
+  education: { en: "Education", zh: "教育" },
   business: { en: "Business", zh: "商科" },
   tech: { en: "Tech", zh: "技术" },
+  experience: { en: "Experience", zh: "工作经历" },
+  client: { en: "Client work", zh: "客户项目" },
   creative: { en: "Creative", zh: "创意" },
-  community: { en: "Community", zh: "社区" },
+  community: { en: "University & community", zh: "校园与社区" },
 }
 
 // Fixed reading order, so the same field always sits in the same place on both
-// pages and in both languages.
-export const BG_ORDER = ["business", "tech", "creative", "community"]
+// pages and in both languages. A page only shows the groups it has entries for.
+export const BG_ORDER = ["education", "business", "tech", "experience", "client", "creative", "community"]
 
 /*
  * Each page groups its background by field and heads each group in its own
@@ -54,8 +57,24 @@ export const BG_ORDER = ["business", "tech", "creative", "community"]
  * per family, far enough apart to tell one group's heading from another's.
  */
 export const BG_INK = {
-  jenny: { business: "#0b6ba8", tech: "#0e6f6f", creative: "#3d5aa8", community: "#073763" },
-  jane: { business: "#7a5a00", tech: "#5f6f0a", creative: "#8a4b12", community: "#6b4a2a" },
+  jenny: {
+    education: "#0b6ba8",
+    business: "#0b6ba8",
+    tech: "#0e6f6f",
+    experience: "#0e6f6f",
+    client: "#3d5aa8",
+    creative: "#3d5aa8",
+    community: "#073763",
+  },
+  jane: {
+    education: "#7a5a00",
+    business: "#7a5a00",
+    tech: "#5f6f0a",
+    experience: "#5f6f0a",
+    client: "#8a4b12",
+    creative: "#8a4b12",
+    community: "#6b4a2a",
+  },
 }
 
 /*

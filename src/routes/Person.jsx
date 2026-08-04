@@ -139,24 +139,6 @@ export default function Person() {
         </div>
       </Section>
 
-      {/* The claims in the bio, as figures. Only whoever carries `numbers`. */}
-      {c.numbers && (
-        <Section label={T.numbersLabel} title={T.numbers}>
-          <dl className="grid gap-x-8 gap-y-9 sm:grid-cols-2 md:grid-cols-3">
-            {c.numbers.map((n) => (
-              <div key={n.label} className="border-t pt-4" style={{ borderColor: accent }}>
-                <dt className="text-[clamp(26px,3.2vw,38px)] leading-none" style={{ color: "var(--ink)" }}>
-                  {n.value}
-                </dt>
-                <dd className="mt-2.5 text-[13px] leading-snug" style={{ color: "var(--dim)" }}>
-                  {n.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Section>
-      )}
-
       <Section label={T.capabilitiesLabel} title={T.capabilities}>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {c.skills.map((s, i) => {
@@ -232,7 +214,14 @@ export default function Person() {
                 </h3>
                 <ul className="mt-2.5 space-y-1.5 text-[14px]" style={{ color: "var(--dim)" }}>
                   {rows.map((b) => (
-                    <li key={b.text}>{b.text}</li>
+                    <li key={b.text}>
+                      {b.text}
+                      {/* what the role actually was, or who the client work was
+                          for — a second line rather than a longer first one */}
+                      {b.note && (
+                        <span className="mt-0.5 block text-[13px] opacity-75">{b.note}</span>
+                      )}
+                    </li>
                   ))}
                 </ul>
               </div>
