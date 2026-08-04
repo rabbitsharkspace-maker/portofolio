@@ -217,6 +217,17 @@ const Ferrofluid = ({
   const mouseTargetRef = useRef([0, 0]);
   const lastTimeRef = useRef(0);
 
+  /*
+   * Read through a ref inside the frame loop, and kept out of the setup effect's
+   * dependencies below. Pausing is meant to be free — as a dependency it tore the
+   * renderer down and recompiled the shader, a quarter-second of frozen main
+   * thread, every time the surface was hidden or shown again.
+   */
+  const pausedRef = useRef(paused);
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -315,7 +326,7 @@ const Ferrofluid = ({
       } else {
         lastTimeRef.current = t;
       }
-      if (!paused && programRef.current && meshRef.current) {
+      if (!pausedRef.current && programRef.current && meshRef.current) {
         try {
           renderer.render({ scene: meshRef.current });
         } catch (e) {
@@ -349,7 +360,6 @@ const Ferrofluid = ({
     };
   }, [
     dpr,
-    paused,
     colors,
     speed,
     scale,

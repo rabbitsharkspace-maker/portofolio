@@ -37,10 +37,6 @@ export const CARD_COLORS = [
  */
 export const BG_KINDS = {
   client: { en: "Clients", zh: "合作过的客户" },
-  // Not "volunteering". These are the two lines that answer why this studio and
-  // not another one: the tool for a job she actually works, the tool for a room
-  // she has sat in for eleven years.
-  whyus: { en: "Why us", zh: "为什么是我们" },
   experience: { en: "Experience", zh: "履历" },
   education: { en: "Education", zh: "教育" },
   business: { en: "Business", zh: "商科" },
@@ -56,7 +52,6 @@ export const BG_KINDS = {
  */
 export const BG_ORDER = [
   "client",
-  "whyus",
   "experience",
   "education",
   "business",
@@ -75,7 +70,6 @@ export const BG_ORDER = [
 export const BG_INK = {
   jenny: {
     client: "#3d5aa8",
-    whyus: "#0b6ba8",
     experience: "#0e6f6f",
     education: "#0b6ba8",
     business: "#0b6ba8",
@@ -85,7 +79,6 @@ export const BG_INK = {
   },
   jane: {
     client: "#8a4b12",
-    whyus: "#7a5a00",
     experience: "#5f6f0a",
     education: "#7d5b3a",
     business: "#7a5a00",

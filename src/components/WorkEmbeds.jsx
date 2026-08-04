@@ -402,12 +402,24 @@ function PlaqueFace({ work, lang, T, t, detail = false }) {
         </p>
         {/* the name owns the middle of the plaque — the kind and the credit are
             the top and bottom rules it sits between */}
-        <h3
-          className="grid flex-1 place-items-center px-1 text-[22px] leading-snug text-balance"
-          style={{ color: "var(--ink)" }}
-        >
-          {c.name}
-        </h3>
+        <div className="grid flex-1 place-items-center px-1">
+          <div>
+            <h3 className="text-[22px] leading-snug text-balance" style={{ color: "var(--ink)" }}>
+              {c.name}
+            </h3>
+            {/*
+             * Where the thing came from, when that is the strongest argument for
+             * it: Sunrise Care was built by someone who works the round, LiftPPT
+             * by people who have been in that church for eleven years. It belongs
+             * on the front of the label beside the name, not buried in a CV.
+             */}
+            {c.ground && (
+              <p className="mt-1.5 text-[11.5px] leading-snug" style={{ color: t.ink }}>
+                {c.ground}
+              </p>
+            )}
+          </div>
+        </div>
         <div className="flex items-end justify-between text-[11px]" style={{ color: "var(--dim)" }}>
           <span>
             {T.builtBy} {OWNER[work.owner].label[lang]}

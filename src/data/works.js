@@ -134,12 +134,15 @@ export const works = [
     en: {
       name: "Sunrise Care",
       kind: "AI caregiver support",
+      // Why this one and not a generic care app: Jane does the round herself.
+      ground: "Built by a caregiver, for the round she works.",
       what: "Hands the paperwork, monitoring and repetition to AI so carers can spend their time on people.",
       who: "For care teams losing hours to forms.",
     },
     zh: {
       name: "Sunrise Care",
       kind: "AI 照护支持平台",
+      ground: "护工做给自己这一行的工具。",
       what: "把文书、监测、重复的活儿交给 AI,让照护者有时间做人该做的事。",
       who: "给被表格吃掉时间的照护团队。",
     },
@@ -174,12 +177,16 @@ export const works = [
     en: {
       name: "LiftPPT",
       kind: "Worship projection tool",
+      // Eleven years in the room this is for: Jane has assisted Sunday school at
+      // Melbourne Bethel since 2015, and Jenny plays keys at the same church.
+      ground: "Eleven years in this church, then this.",
       what: "Lyrics paginate, choruses expand, pinyin annotates, exports to PPT pixel-for-pixel. 2,254 songs in the library.",
       who: "For whoever is up until midnight formatting slides.",
     },
     zh: {
       name: "LiftPPT",
       kind: "敬拜投影工具",
+      ground: "在同一间教会服事十一年，然后有了它。",
       what: "歌词自动排版、注音、导出 PPT,像素级还原。2254 首曲库。",
       who: "给每周熬夜排幻灯片的人。",
     },

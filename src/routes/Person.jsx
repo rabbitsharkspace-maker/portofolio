@@ -212,14 +212,19 @@ export default function Person() {
                 >
                   {BG_KINDS[kind][lang]}
                 </h3>
-                <ul className="mt-2.5 space-y-1.5 text-[14px]" style={{ color: "var(--dim)" }}>
+                {/* Reading ink, not the dim grey the small print uses: this is
+                    the body of the section, and over the watery background the
+                    dim value washed out to nearly nothing. */}
+                <ul className="mt-2.5 space-y-1.5 text-[14px]" style={{ color: "var(--ink)" }}>
                   {rows.map((b) => (
                     <li key={b.text}>
                       {b.text}
                       {/* what the role actually was, or who the client work was
                           for — a second line rather than a longer first one */}
                       {b.note && (
-                        <span className="mt-0.5 block text-[13px] opacity-75">{b.note}</span>
+                        <span className="mt-0.5 block text-[13px]" style={{ color: "var(--dim)" }}>
+                          {b.note}
+                        </span>
                       )}
                     </li>
                   ))}

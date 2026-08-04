@@ -42,10 +42,17 @@ export default function ScrambledText({
     const split = SplitText.create(el.querySelector("p"), { type: "chars", charsClass: "char" })
     const chars = split.chars
     chars.forEach((c) => gsap.set(c, { display: "inline-block", attr: { "data-content": c.innerHTML } }))
-    // second pass: the boxes only have a width once they are inline-block, and
-    // the width is kept sub-pixel exact so freezing it does not re-space the line
-    chars.forEach((c) => {
-      c.style.width = `${c.getBoundingClientRect().width}px`
+
+    /*
+     * Every width is measured first and only then written. Measuring and writing
+     * one character at a time asks the browser to re-lay-out the paragraph
+     * between each pair — three hundred forced reflows per page, which is what
+     * was freezing the tab for a fifth of a second on arrival. Read all, write
+     * all: one reflow.
+     */
+    const widths = chars.map((c) => c.getBoundingClientRect().width)
+    chars.forEach((c, i) => {
+      c.style.width = `${widths[i]}px`
       c.style.textAlign = "center"
     })
 

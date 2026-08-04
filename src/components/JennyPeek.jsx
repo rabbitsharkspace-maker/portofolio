@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useMemo, useRef } from "react"
+import { Suspense, useEffect, useMemo, useRef, useState } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { useGLTF } from "@react-three/drei"
 import * as THREE from "three"
@@ -416,7 +416,24 @@ function Rig() {
   )
 }
 
+/*
+ * The scene is held back until the browser has an idle frame. Building it is a
+ * WebGL context, five shader programs and three cloned models — a fifth of a
+ * second of blocked main thread — and doing that on the click meant the tab
+ * itself felt stuck. The page now arrives on time and she rises into it, which
+ * is the entrance the rig was written for anyway.
+ */
 export default function JennyPeek() {
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    const run = () => setReady(true)
+    const idle = window.requestIdleCallback
+    const id = idle ? idle(run, { timeout: 500 }) : setTimeout(run, 120)
+    return () => (idle ? window.cancelIdleCallback(id) : clearTimeout(id))
+  }, [])
+
+  if (!ready) return null
+
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden>
       <Canvas

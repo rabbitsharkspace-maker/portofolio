@@ -117,8 +117,17 @@ export default function CharacterSelect() {
   const [who, setWho] = useState("jenny")
   const [armed, setArmed] = useState(false)
   const [inView, setInView] = useState(false)
+  // Latched: the stage is four screens down, and building its WebGL context on
+  // arrival made landing on the studio page stall for something nobody is
+  // looking at yet. It comes up the first time the section is reached and then
+  // stays for as long as the page lives.
+  const [seen, setSeen] = useState(false)
   const box = useRef(null)
   const stage = useRef(null)
+
+  useEffect(() => {
+    if (inView) setSeen(true)
+  }, [inView])
 
   /*
    * The arrival animation is restarted by hand instead of by remounting the
@@ -255,11 +264,12 @@ export default function CharacterSelect() {
                   wrapper above is already keyed on the pick, so the canvas
                   remounts with it and needs no key of its own.
                 */}
-                <CharacterModel
-                  src={person.model}
-                  spin={person.spin ?? 0}
-                  height={STAGE_H}
-                />
+                {seen ? (
+                  <CharacterModel src={person.model} spin={person.spin ?? 0} height={STAGE_H} />
+                ) : (
+                  // holds the stage's box so nothing jumps when she arrives
+                  <div style={{ height: STAGE_H, width: `calc(${STAGE_H} * 0.46)` }} />
+                )}
               </div>
             </div>
           </div>
