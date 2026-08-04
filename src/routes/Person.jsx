@@ -6,11 +6,12 @@ import JennyPeek from "../components/JennyPeek"
 import JaneEyes from "../components/JaneEyes"
 import WorkEmbeds from "../components/WorkEmbeds"
 import GlareHover from "../components/GlareHover"
+import ScrambledText from "../components/ScrambledText"
 import { people, studio } from "../data/people"
 import { works } from "../data/works"
 import { ui } from "../data/ui"
 import { useLang } from "../lang"
-import { BLUE, YELLOW, CARD_COLORS } from "../theme"
+import { BLUE, YELLOW, CARD_COLORS, BG_KINDS } from "../theme"
 
 const ACCENT = { jenny: BLUE, jane: YELLOW }
 
@@ -129,9 +130,11 @@ export default function Person() {
       )}
 
       <Section label={T.whoIAm} title={p.name}>
+        {/* the bio scrambles under the pointer — React Bits' effect, run over
+            the page's own type rather than the demo's monospace */}
         <div className="max-w-[1000px] text-[16px] leading-[1.8]">
           {c.about.map((line) => (
-            <p key={line}>{line}</p>
+            <ScrambledText key={line}>{line}</ScrambledText>
           ))}
         </div>
       </Section>
@@ -193,10 +196,28 @@ export default function Person() {
       </Section>
 
       <Section label={T.backgroundLabel} title={T.training}>
-        <ul className="max-w-none space-y-2 text-[14px]" style={{ color: "var(--dim)" }}>
-          {c.background.map((b) => (
-            <li key={b}>{b}</li>
-          ))}
+        {/* colour-sorted by field: the tag and the rule down the left carry the
+            same swatch, so the businesses, the code, the design work and the
+            volunteering separate out at a glance */}
+        <ul className="max-w-none space-y-2.5 text-[14px]" style={{ color: "var(--dim)" }}>
+          {c.background.map((b) => {
+            const k = BG_KINDS[b.kind]
+            return (
+              <li
+                key={b.text}
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-l-4 pl-3"
+                style={{ borderColor: k.color }}
+              >
+                <span
+                  className="rounded-full px-2.5 py-0.5 text-[11px] tracking-[0.08em] uppercase"
+                  style={{ background: k.color, color: "#12212e" }}
+                >
+                  {k[lang]}
+                </span>
+                <span>{b.text}</span>
+              </li>
+            )
+          })}
         </ul>
         {c.photoNote && (
           <p className="mt-10 text-[13px]" style={{ color: "var(--dim)" }}>

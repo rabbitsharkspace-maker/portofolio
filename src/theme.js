@@ -29,6 +29,20 @@ export const CARD_COLORS = [
 ]
 
 /*
+ * Background, sorted by field rather than by date: the list is a mix of a
+ * business degree, coding courses, client work and volunteering, and reading it
+ * as one grey column tells you nothing. Each field carries one of the card's
+ * saturated swatches — the pale end of the palette washes out against the page,
+ * so the four here are the strongest of their hue family.
+ */
+export const BG_KINDS = {
+  business: { color: "#ffd322", en: "Business", zh: "商科" },
+  tech: { color: "#45aef2", en: "Tech", zh: "技术" },
+  creative: { color: "#c5ff59", en: "Creative", zh: "创意" },
+  community: { color: "#7ede8d", en: "Community", zh: "社区" },
+}
+
+/*
  * Per-owner card palette: the mesh-gradient rim colours, the glow hue in HSL
  * parts, and the fill/ink pair the cards and plaques paint with. Lives here
  * rather than in a component so both the card and the gallery plaque read the
