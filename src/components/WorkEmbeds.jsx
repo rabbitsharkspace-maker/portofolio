@@ -297,13 +297,23 @@ function Screen({ work, index, total, lang, live }) {
                   scrolling="no"
                 />
               )}
-              <a
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={c.name}
-                className="absolute inset-0"
-              />
+              {/*
+               * The way in, and only for a piece that has one. `link` is the
+               * public address; `embed` is just what the wall renders, and the
+               * two are not the same promise — several of these are previewed
+               * from a URL that is a staging box or opens straight onto a
+               * sign-in. Reading the door off `embed` handed those out as if
+               * they were finished work.
+               */}
+              {work.link && (
+                <a
+                  href={work.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={c.name}
+                  className="absolute inset-0"
+                />
+              )}
             </>
           )}
         </div>
@@ -342,9 +352,9 @@ function Plaque({ work, lang, T }) {
 
 function PlaqueFace({ work, lang, T, t, detail = false }) {
   const c = work[lang]
-  // A piece shown as a still is not on offer to visit — the screen is not a
-  // door, so the label should not be one either.
-  const url = work.image ? null : (work.embed ?? work.link)
+  // Only what has a public address is offered. Same rule as the screen: `embed`
+  // is what the wall shows, `link` is what a visitor may be sent to.
+  const url = work.link
   if (!detail) {
     return (
       <div className="flex h-full flex-col bg-white p-5 text-center">
