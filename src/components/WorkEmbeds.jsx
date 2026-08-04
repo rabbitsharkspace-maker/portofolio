@@ -45,40 +45,57 @@ export default function WorkEmbeds({ works, accent }) {
   const shell = useRef(null)
   const [live, setLive] = useState(false)
 
+  /*
+   * The wall runs in a ring: the last piece is cloned in front of the first and
+   * the first behind the last, so you can keep swiping the same way forever and
+   * come back round rather than hitting a wall and having to swipe back. Once
+   * the scroll settles on a clone the rail is teleported onto the real copy of
+   * that piece — same pixels, so the jump is invisible.
+   */
+  const n = works.length
+  const pad = n > 1 ? 1 : 0
+  const loop = pad ? [works[n - 1], ...works, works[0]] : works
+  const settle = useRef(0)
+
   const onScroll = () => {
     const el = rail.current
-    if (!el) return
-    const idx = Math.round(el.scrollLeft / el.clientWidth)
-    setI(Math.min(Math.max(idx, 0), works.length - 1))
+    if (!el || !el.clientWidth) return
+    const slot = Math.round(el.scrollLeft / el.clientWidth)
+    setI((((slot - pad) % n) + n) % n)
+    if (!pad) return
+    clearTimeout(settle.current)
+    settle.current = setTimeout(() => {
+      const at = Math.round(el.scrollLeft / el.clientWidth)
+      if (at === 0) el.scrollLeft = n * el.clientWidth
+      else if (at === n + 1) el.scrollLeft = el.clientWidth
+    }, 140)
   }
 
-  /*
-   * Wraps, so the arrows never dead-end at either edge of the wall — and a wrap
-   * is a continuation, not a rewind. Stepping off the last piece used to scroll
-   * smoothly all the way back across every screen, which reads as being sent
-   * home rather than as carrying on, so the ends are cut instead: off the last
-   * lands on the first with no travel between them.
-   */
-  const go = useCallback(
-    (step) => {
-      const el = rail.current
-      if (!el) return
-      const idx = (i + step + works.length) % works.length
-      const wrapped = idx !== i + step
-      el.scrollTo({ left: idx * el.clientWidth, behavior: wrapped ? "auto" : "smooth" })
-    },
-    [i, works.length],
-  )
+  useEffect(() => () => clearTimeout(settle.current), [])
+
+  // Start on the real first piece, one slot in past the head clone.
+  useEffect(() => {
+    const el = rail.current
+    if (el && pad) el.scrollLeft = el.clientWidth
+  }, [pad])
+
+  // Relative, so it walks straight off either end onto a clone and lets the
+  // teleport above put it back — no rewind across every screen.
+  const go = useCallback((step) => {
+    const el = rail.current
+    if (!el) return
+    el.scrollTo({ left: el.scrollLeft + step * el.clientWidth, behavior: "smooth" })
+  }, [])
 
   // A resize changes the slide width, which would park the rail between two
   // screens — put it back on the one that was showing.
   useEffect(() => {
     const el = rail.current
     if (!el) return
-    const onResize = () => el.scrollTo({ left: i * el.clientWidth })
+    const onResize = () => el.scrollTo({ left: (i + pad) * el.clientWidth })
     window.addEventListener("resize", onResize)
     return () => window.removeEventListener("resize", onResize)
-  }, [i])
+  }, [i, pad])
 
   const onKeyDown = (e) => {
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return
@@ -117,8 +134,15 @@ export default function WorkEmbeds({ works, accent }) {
           aria-label={T.work}
           className="rail flex overflow-x-auto overscroll-x-contain rounded-[22px]"
         >
-          {works.map((w, n) => (
-            <Screen key={w.id} work={w} index={n} total={works.length} lang={lang} live={live} />
+          {loop.map((w, slot) => (
+            <Screen
+              key={`${w.id}-${slot}`}
+              work={w}
+              index={(((slot - pad) % n) + n) % n}
+              total={n}
+              lang={lang}
+              live={live}
+            />
           ))}
         </div>
 
@@ -146,17 +170,17 @@ export default function WorkEmbeds({ works, accent }) {
       </div>
 
       <div className="mt-6 flex items-center justify-center gap-2">
-        {works.map((w, n) => (
+        {works.map((w, dot) => (
           <button
             key={w.id}
             type="button"
             aria-label={w[lang].name}
-            aria-current={n === i}
-            onClick={() => go(n - i)}
+            aria-current={dot === i}
+            onClick={() => go(dot - i)}
             className="h-2 rounded-full transition-all"
             style={{
-              width: n === i ? 22 : 8,
-              background: n === i ? accent : "color-mix(in srgb, var(--ink) 18%, transparent)",
+              width: dot === i ? 22 : 8,
+              background: dot === i ? accent : "color-mix(in srgb, var(--ink) 18%, transparent)",
             }}
           />
         ))}

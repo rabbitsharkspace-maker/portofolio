@@ -25,8 +25,11 @@ export default function Home() {
         <ScrollReveal
           dim="#b3c197"
           lit="#1e2b10"
-          start={0.9}
-          end={0.35}
+          /* The sweep runs while the paragraph crosses the middle of the screen,
+             not while it is entering from the bottom — arriving already half-lit
+             read as a rendering glitch rather than as an effect. */
+          start={0.62}
+          end={0.3}
           className="text-[clamp(22px,3.4vw,40px)] leading-[1.4]"
         >
           {T.manifesto}
