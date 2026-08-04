@@ -36,18 +36,34 @@ export const CARD_COLORS = [
  * so the four here are the strongest of their hue family.
  */
 export const BG_KINDS = {
+  client: { en: "Clients", zh: "合作过的客户" },
+  // Not "volunteering". These are the two lines that answer why this studio and
+  // not another one: the tool for a job she actually works, the tool for a room
+  // she has sat in for eleven years.
+  whyus: { en: "Why us", zh: "为什么是我们" },
+  experience: { en: "Experience", zh: "履历" },
   education: { en: "Education", zh: "教育" },
   business: { en: "Business", zh: "商科" },
   tech: { en: "Tech", zh: "技术" },
-  experience: { en: "Experience", zh: "工作经历" },
-  client: { en: "Client work", zh: "客户项目" },
   creative: { en: "Creative", zh: "创意" },
   community: { en: "University & community", zh: "校园与社区" },
 }
 
-// Fixed reading order, so the same field always sits in the same place on both
-// pages and in both languages. A page only shows the groups it has entries for.
-export const BG_ORDER = ["education", "business", "tech", "experience", "client", "creative", "community"]
+/*
+ * Reading order, strongest evidence first: named clients, then the domain a tool
+ * came out of, then the jobs, then the degree. A page only shows the groups it
+ * has entries for, so Jenny's page still reads business → tech → community.
+ */
+export const BG_ORDER = [
+  "client",
+  "whyus",
+  "experience",
+  "education",
+  "business",
+  "tech",
+  "creative",
+  "community",
+]
 
 /*
  * Each page groups its background by field and heads each group in its own
@@ -58,22 +74,24 @@ export const BG_ORDER = ["education", "business", "tech", "experience", "client"
  */
 export const BG_INK = {
   jenny: {
+    client: "#3d5aa8",
+    whyus: "#0b6ba8",
+    experience: "#0e6f6f",
     education: "#0b6ba8",
     business: "#0b6ba8",
     tech: "#0e6f6f",
-    experience: "#0e6f6f",
-    client: "#3d5aa8",
     creative: "#3d5aa8",
     community: "#073763",
   },
   jane: {
-    education: "#7a5a00",
+    client: "#8a4b12",
+    whyus: "#7a5a00",
+    experience: "#5f6f0a",
+    education: "#7d5b3a",
     business: "#7a5a00",
     tech: "#5f6f0a",
-    experience: "#5f6f0a",
-    client: "#8a4b12",
     creative: "#8a4b12",
-    community: "#6b4a2a",
+    community: "#7a6a4a",
   },
 }
 

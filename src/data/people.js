@@ -160,32 +160,37 @@ export const people = {
       ],
       background: [
         {
-          kind: "education",
-          text: "RMIT University — Bachelor of Business (Blockchain Enabled Business), 2022–2024",
+          kind: "client",
+          text: "Hi Fumi, 2026 · Snaptrek, 2025 · Pop Sushi, 2025 · Hotmart, 2024",
+          note: "Brand visuals and short-form video, four years running",
+        },
+        /*
+         * The two lines that connect a job to a product. Both tools on the wall
+         * came out of a room Jane is actually in — the aged-care round she works
+         * and the church she has served in since 2015 — and neither page said so
+         * anywhere.
+         */
+        {
+          kind: "whyus",
+          text: "Caregiver at Dovida, 2026 — the job Sunrise Care is built for",
+          note: "In-home aged care, worked not observed: the tool solves the round I do myself.",
         },
         {
-          kind: "experience",
-          text: "HTP Smart Energy — Admin & Marketing Assistant, 2026",
-          note: "Grid connection applications, site maintenance and design",
+          kind: "whyus",
+          text: "Melbourne Bethel Bread of Life — Sunday School Assistant since 2015",
+          note: "Eleven years in the room LiftPPT is built for. Jenny plays keys at the same church.",
         },
-        { kind: "experience", text: "Dovida — Caregiver, 2026" },
+        { kind: "experience", text: "HTP Smart Energy — Admin & Marketing Assistant, 2026" },
         { kind: "experience", text: "Intelligent Health Systems — Marketing Intern, 2024" },
         { kind: "experience", text: "Yunchen Futures Brokerage — Market Research Intern, 2023–2024" },
         { kind: "experience", text: "CSSC — Sales representative, 2023" },
         {
-          kind: "client",
-          text: "Brand visuals and short-form video",
-          note: "Hi Fumi, 2026 · Snaptrek, 2025 · Pop Sushi, 2025 · Hotmart, 2024",
+          kind: "education",
+          text: "RMIT University — Bachelor of Business (Blockchain Enabled Business), 2022–2024",
         },
         {
           kind: "community",
-          text: "Melbourne Bethel Bread of Life — Sunday School Assistant, since 2015",
-        },
-        { kind: "community", text: "Australian Red Cross — Volunteer, 2024" },
-        { kind: "community", text: "Gapper Aus — Committee Member, 2023–2024" },
-        {
-          kind: "community",
-          text: "RMIT University — Student Ambassador, Peer Mentor, SSCC Student Representative, 2022–2024",
+          text: "Australian Red Cross volunteer · Gapper Aus committee · RMIT student ambassador, peer mentor and SSCC representative, 2022–2024",
         },
       ],
       photoNote: "Interfaces, visuals, content — look at the work.",
@@ -215,25 +220,30 @@ export const people = {
         "Google Vibe-a-thon 2026 — 六强决赛入围（最终结果待公布）",
       ],
       background: [
-        { kind: "education", text: "RMIT University｜商业学士（区块链商业方向）· 2022–2024" },
         {
-          kind: "experience",
-          text: "HTP Smart Energy｜行政与市场助理 · 2026",
-          note: "并网申请、网站维护与设计",
+          kind: "client",
+          text: "Hi Fumi 2026 · Snaptrek 2025 · Pop Sushi 2025 · Hotmart 2024",
+          note: "品牌视觉与短视频，连续四年",
         },
-        { kind: "experience", text: "Dovida｜居家照护员 · 2026" },
+        {
+          kind: "whyus",
+          text: "Dovida｜居家照护员 · 2026 —— Sunrise Care 就是为这份工作做的",
+          note: "我自己在做居家养老护理，这个工具解决的是我每天要跑的那一趟。",
+        },
+        {
+          kind: "whyus",
+          text: "Melbourne Bethel Bread of Life｜主日学助教 · 2015 年至今",
+          note: "在 LiftPPT 服务的那个场景里待了十一年。Jenny 在同一间教会做键盘手。",
+        },
+        { kind: "experience", text: "HTP Smart Energy｜行政与市场助理 · 2026" },
         { kind: "experience", text: "Intelligent Health Systems｜市场实习 · 2024" },
         { kind: "experience", text: "云辰期货｜市场研究实习 · 2023–2024" },
         { kind: "experience", text: "中国船舶 CSSC｜业务员 · 2023" },
+        { kind: "education", text: "RMIT University｜商业学士（区块链商业方向）· 2022–2024" },
         {
-          kind: "client",
-          text: "品牌视觉与短视频",
-          note: "Hi Fumi 2026 · Snaptrek 2025 · Pop Sushi 2025 · Hotmart 2024",
+          kind: "community",
+          text: "Australian Red Cross 志愿者 · Gapper Aus 委员会成员 · RMIT 学生大使、朋辈导师、SSCC 学生代表 · 2022–2024",
         },
-        { kind: "community", text: "Melbourne Bethel Bread of Life｜主日学助教 · 2015 年至今" },
-        { kind: "community", text: "Australian Red Cross｜志愿者 · 2024" },
-        { kind: "community", text: "Gapper Aus｜委员会成员 · 2023–2024" },
-        { kind: "community", text: "RMIT University｜学生大使、朋辈导师、SSCC 学生代表 · 2022–2024" },
       ],
       photoNote: "界面、视觉、内容 —— 看东西就好。",
       replyNote: "24 小时内回复。",
