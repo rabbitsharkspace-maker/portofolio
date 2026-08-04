@@ -6,13 +6,11 @@ import { ui } from "../data/ui"
 import { useLang } from "../lang"
 
 /*
- * Jenny's work in gallery mode: one project fills the wall as a live "big screen"
+ * The work in gallery mode: one project fills the wall as a live "big screen"
  * — the real site running, or the film playing — and you walk the rail to the
  * next (arrows, dots, keyboard, swipe; the rail snaps). The wall label rides over
  * the bottom-right corner as a small card and dissolves between its name and its
- * write-up on hover, using the same pixel effect as the studio gallery. Jenny-only
- * — Person.jsx keeps everyone else on the framed-plate WorkGallery, so Jane's page
- * is untouched.
+ * write-up on hover, using the same pixel effect as the studio gallery.
  *
  * Websites are framed pointer-events-none so they read as a live screen without
  * eating the rail's drag; a full-screen link opens the real thing (and is the way

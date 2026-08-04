@@ -6,6 +6,11 @@ export const people = {
   jenny: {
     world: "jenny",
     art: "/ip/jenny.webp",
+    // The roster stage shows the GLB, not `art`. `spin` is the quarter turn a
+    // given export needs to face the camera — Jenny's comes out of Tripo
+    // sideways, Jane's comes out facing front, so only Jenny carries one.
+    model: "/ip/jenny.glb",
+    spin: -Math.PI / 2,
     name: "Jenny Zhang",
     // The name she goes by, and the one on her passport. The site shows the
     // first and only reveals the second on hover.
@@ -98,6 +103,7 @@ export const people = {
   jane: {
     world: "jane",
     art: "/ip/jane.webp",
+    model: "/ip/jane.glb",
     name: "Jane Zhang",
     realName: "Xinyu Zhang",
     short: "Jane",

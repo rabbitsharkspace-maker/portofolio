@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import CharacterStage from "./CharacterStage"
 import CharacterModel from "./CharacterModel"
 import { people } from "../data/people"
 import { ui } from "../data/ui"
@@ -207,23 +206,17 @@ export default function CharacterSelect() {
             <div key={who} className="character-in">
               <div className="character-float">
                 {/*
-                  Jenny is the whole-body GLB with its baked idle clip; Jane is
-                  the drawn still on the CSS stage. Both boxes are the same
-                  46:100 at STAGE_H, so she stands at the height Jane does and
-                  the flanking arrows land in the same place either way.
+                  Both characters are whole-body GLBs on the same 46:100 box at
+                  STAGE_H, so they stand at a matching height and the flanking
+                  arrows land in the same place whoever is on the stage. The
+                  wrapper above is already keyed on the pick, so the canvas
+                  remounts with it and needs no key of its own.
                 */}
-                {who === "jenny" ? (
-                  <CharacterModel height={STAGE_H} />
-                ) : (
-                  <CharacterStage
-                    bare
-                    src={person.art}
-                    alt={person.name}
-                    accent={slot.accent}
-                    height={STAGE_H}
-                    onClick={() => nav(`/${who}`)}
-                  />
-                )}
+                <CharacterModel
+                  src={person.model}
+                  spin={person.spin ?? 0}
+                  height={STAGE_H}
+                />
               </div>
             </div>
           </div>

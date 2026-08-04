@@ -30,16 +30,23 @@ function Shape({ world }) {
     )
   }
   if (world === "jane") {
-    // Real carrot, cut out. Its tip sits at the pointer, body angled up-left.
-    // Sized with an explicit class — Tailwind's reset forces img height:auto,
-    // which would otherwise ignore a height attribute and blow it up to full
-    // resolution.
+    /*
+     * Drawn carrot, cut out. Its tip sits at the pointer and the body hangs
+     * down-right, the way an arrow cursor does. The art is tip-up with the point
+     * at the top centre, so the origin goes on the tip (51% 2%) and the matching
+     * negative translate brings that point onto the pointer; the rotation then
+     * happens about the tip and leaves it pinned there.
+     *
+     * Sized with an explicit class — Tailwind's reset forces img height:auto,
+     * which would otherwise ignore a height attribute and blow it up to full
+     * resolution.
+     */
     return (
       <img
         src="/ip/cursor-carrot.png"
         alt=""
         className="block h-[54px] w-auto max-w-none"
-        style={{ transform: "translate(-20%, -90%) rotate(135deg)", transformOrigin: "20% 90%" }}
+        style={{ transform: "translate(-51%, -2%) rotate(-25deg)", transformOrigin: "51% 2%" }}
       />
     )
   }
@@ -118,11 +125,13 @@ export default function Cursor() {
       <div
         style={{
           transform: over ? "scale(1.4)" : "scale(1)",
-          // Pivot the hover scale on the pointer itself. The fin hangs from its
-          // own centre (translate -50%,-50%), so the pointer sits dead-centre of
-          // the shape — pivoting at the pointer (0,0) keeps that centre pinned
-          // instead of letting the fin drift off the hotspot as it grows.
-          transformOrigin: world === "studio" ? "50% 0" : world === "jenny" ? "0px 0px" : "4px 4px",
+          // Pivot the hover scale on the pointer itself. Both the fin and the
+          // carrot already place their own hotspot — the fin's centre, the
+          // carrot's tip — on the wrapper's origin, so scaling about (0,0) grows
+          // them in place instead of letting the shape drift off the pointer.
+          // The rocket is the exception: it hangs from the middle of its top
+          // edge, so it pivots there.
+          transformOrigin: world === "studio" ? "50% 0" : "0px 0px",
           transition: "transform 220ms cubic-bezier(.22,1,.36,1)",
           filter: "drop-shadow(0 2px 3px rgba(0,0,0,.18))",
         }}

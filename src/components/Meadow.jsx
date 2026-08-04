@@ -1,42 +1,23 @@
-import LiquidChrome from "./LiquidChrome"
-
 /*
- * Jane's world: a warm liquid-gold field. A LiquidChrome shader flows across the
- * background in Jane's yellow, the rabbit's counterpart to the shark's water.
- * The shader is opaque and fills the screen; the gradient wash sits under it as
- * the reduced-motion fallback (and while the canvas boots), so the colour stays
- * yellow either way.
+ * Jane's world: her own painted backdrop, fixed behind the page and cropped to
+ * cover whatever the viewport is. It replaces the liquid-gold shader — a still
+ * picture, so there is no reduced-motion branch left to make and nothing here
+ * costs a frame.
+ *
+ * The flat fill under the image is the picture's own centre colour, so the
+ * moment before it loads is the same cream rather than a flash of page white.
+ *
+ * The art carries its decoration around the edges — leaves top-left, a rabbit
+ * peeking over the hills bottom-right — with a wide empty middle. `cover`
+ * centres that empty middle and lets the edges crop away on narrow screens,
+ * which is the right thing to lose: the copy sits in the middle.
  */
-
-const reduce =
-  typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches
-
 export default function Meadow() {
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      {/* warm wash — the yellow, kept as the reduced-motion / boot fallback */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "linear-gradient(180deg, #fffdf3 0%, #fff6d8 46%, #fdeaa6 100%)" }}
-      />
-      {!reduce && (
-        <>
-          <div className="absolute inset-0">
-            <LiquidChrome
-              baseColor={[0.98, 0.8, 0.3]}
-              speed={0.4}
-              amplitude={0.4}
-              frequencyX={3}
-              frequencyY={3}
-              interactive={false}
-            />
-          </div>
-          {/* warm veil: mutes the shader's blown highlights so page copy stays
-              readable over it — the liquid motion still reads underneath */}
-          <div className="absolute inset-0" style={{ background: "rgba(255, 249, 224, 0.55)" }} />
-        </>
-      )}
-    </div>
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 -z-10"
+      style={{ background: "#fef2ed url(/ip/jane-bg.webp) center / cover no-repeat" }}
+    />
   )
 }

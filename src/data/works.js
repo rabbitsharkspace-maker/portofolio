@@ -38,6 +38,7 @@ export const works = [
     owner: "jane",
     stack: ["AI", "Full-stack", "Voice"],
     link: "https://fastresume.xyz",
+    embed: "https://www.fastresume.xyz/", // live preview shown in the work section
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
       name: "FastResume",
@@ -117,6 +118,7 @@ export const works = [
     owner: "jane",
     stack: ["Care operations", "AI monitoring"],
     link: null,
+    embed: "https://agecare-1.onrender.com/login", // live preview shown in the work section
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
       name: "Sunrise Care",
