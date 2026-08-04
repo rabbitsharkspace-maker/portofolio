@@ -140,7 +140,10 @@ export default function Person() {
       </Section>
 
       <Section label={T.capabilitiesLabel} title={T.capabilities}>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Four abreast from lg down to two on a tablet: both people carry
+            exactly four groups, and at three per row the fourth dropped onto a
+            line of its own and read as an afterthought. */}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {c.skills.map((s, i) => {
             // Each capability keeps its own colour off the card, as the card's
             // own rim — no electric edge on top of it.

@@ -39,18 +39,17 @@ export const people = {
           group: "AI systems",
           items: ["AI integration", "n8n automation", "Encryption & access control", "Supabase / Firebase"],
         },
-        { group: "Product strategy", items: ["Process diagnosis", "Market research", "Product logic"] },
-        { group: "Engineering", items: ["React", "Full-stack development", "Figma to production"] },
+        {
+          group: "Product strategy",
+          items: ["Process diagnosis", "Market research", "Product logic", "ROI modelling"],
+        },
+        {
+          group: "Engineering",
+          items: ["React", "Full-stack development", "Figma to production", "Deployment & handover"],
+        },
         {
           group: "Creative",
-          items: [
-            "Animated shorts",
-            "Storyboarding",
-            "UI design",
-            "AMEB Grade 8 piano",
-            "Songwriting",
-            "Keyboardist",
-          ],
+          items: ["Animated shorts", "Storyboarding", "UI design", "Original music & sound"],
         },
       ],
       awards: [
@@ -95,9 +94,9 @@ export const people = {
       ],
       skills: [
         { group: "AI 系统", items: ["AI 集成", "n8n 自动化", "加密与权限", "Supabase / Firebase"] },
-        { group: "产品策略", items: ["流程诊断", "市场调研", "产品逻辑"] },
-        { group: "工程", items: ["React", "全栈开发", "Figma 到上线"] },
-        { group: "创意", items: ["动画短片", "分镜", "UI 设计", "AMEB 钢琴八级", "作曲", "键盘手"] },
+        { group: "产品策略", items: ["流程诊断", "市场调研", "产品逻辑", "ROI 测算"] },
+        { group: "工程", items: ["React", "全栈开发", "Figma 到上线", "部署与交付"] },
+        { group: "创意", items: ["动画短片", "分镜", "UI 设计", "原创配乐"] },
       ],
       awards: [
         "Google Vibe-a-thon 2026 — 六强决赛入围（最终结果待公布）",
