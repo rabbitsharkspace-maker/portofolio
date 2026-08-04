@@ -2,21 +2,48 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!--
+      SVG first for anything modern, a 32px PNG behind it, and the 180px tile for
+      an iOS home screen. All three are the single-shape mark — the old one was a
+      shark holding a rabbit inside a rocket, which is a smudge at 16 pixels.
+    -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Everything between the two markers below is rewritten per route by
+      scripts/prerender.mjs after the build, so /jenny and /jane are served real
+      files carrying their own title, description, canonical and preview card.
+      What stands here is the studio page's version, and what a dev server shows.
+      The markers are how the script finds the block — leave them in place.
+    -->
+    <!-- meta:start -->
     <title>RabbitShark — AI systems, built by two people</title>
     <meta
       name="description"
-      content="RabbitShark is a two-person studio. We find where AI saves you time and money, then we build it. Every project handled by the people you talk to."
+      content="A two-person studio. You get a full product team — strategy, engineering, design — without hiring one. Eight products shipped."
     />
+    <link rel="canonical" href="https://rabbitshark.space" />
     <meta property="og:title" content="RabbitShark — AI systems, built by two people" />
     <meta
       property="og:description"
-      content="We find where AI saves you time and money, then we build it. No jargon, no fluff."
+      content="A two-person studio. You get a full product team — strategy, engineering, design — without hiring one. Eight products shipped."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RabbitShark" />
     <meta property="og:url" content="https://rabbitshark.space" />
+    <meta property="og:image" content="https://rabbitshark.space/og/studio.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RabbitShark — AI systems, built by two people" />
+    <meta
+      name="twitter:description"
+      content="A two-person studio. You get a full product team — strategy, engineering, design — without hiring one. Eight products shipped."
+    />
+    <meta name="twitter:image" content="https://rabbitshark.space/og/studio.png" />
+    <!-- meta:end -->
   </head>
   <body>
     <div id="root"></div>

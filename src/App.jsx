@@ -7,6 +7,7 @@ import Ferrofluid from "./components/Ferrofluid"
 import { useLocation } from "react-router-dom"
 import ClickSpark from "./components/ClickSpark"
 import Cursor from "./components/Cursor"
+import useDocumentMeta from "./useDocumentMeta"
 import Home from "./routes/Home"
 import Person from "./routes/Person"
 import { LangToggle } from "./lang"
@@ -102,9 +103,17 @@ function Background() {
   )
 }
 
+// Inside the router, so it can read the route; nothing rendered, it only writes
+// to <head>.
+function Meta() {
+  useDocumentMeta()
+  return null
+}
+
 export default function App() {
   return (
     <Router>
+      <Meta />
       <Background />
       <ClickSpark />
       <Cursor />
