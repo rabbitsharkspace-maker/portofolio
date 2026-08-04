@@ -176,7 +176,15 @@ const FRAME_W = 1440
 function Screen({ work, index, total, lang, live }) {
   const c = work[lang]
   const url = work.embed ?? work.link
-  const yt = useMemo(() => youtubeId(url), [url])
+  /*
+   * A still stands in for the site when `image` is set, and the frame is then a
+   * picture rather than a door: no iframe boots and the click-through overlay is
+   * left off. That is the point for anything behind a sign-in — a login form is
+   * not a portfolio piece, and framing one live puts a real password box on the
+   * page.
+   */
+  const still = work.image
+  const yt = useMemo(() => (still ? null : youtubeId(url)), [still, url])
   const box = useRef(null)
   // scale 0 until measured, so the frame never flashes at full size first
   const [fit, setFit] = useState({ scale: 0, h: 0 })
@@ -242,7 +250,15 @@ function Screen({ work, index, total, lang, live }) {
           >
             {host}
           </span>
-          {yt ? (
+          {still ? (
+            // top-aligned: a page shot is read from its header down, so if the
+            // wall's aspect crops it, the crop belongs at the bottom
+            <img
+              src={still}
+              alt={c.name}
+              className="absolute inset-0 h-full w-full object-cover object-top"
+            />
+          ) : yt ? (
             live && (
               <iframe
                 className="absolute inset-0 h-full w-full"
@@ -326,7 +342,9 @@ function Plaque({ work, lang, T }) {
 
 function PlaqueFace({ work, lang, T, t, detail = false }) {
   const c = work[lang]
-  const url = work.embed ?? work.link
+  // A piece shown as a still is not on offer to visit — the screen is not a
+  // door, so the label should not be one either.
+  const url = work.image ? null : (work.embed ?? work.link)
   if (!detail) {
     return (
       <div className="flex h-full flex-col bg-white p-5 text-center">
