@@ -20,11 +20,11 @@ export const META = {
   "/": {
     image: "/og/studio.png",
     en: {
-      title: "RabbitShark — AI systems, built by two people",
+      title: "RabbitShark — AI systems",
       desc: "A two-person studio. You get a full product team — strategy, engineering, design — without hiring one. Eight products shipped.",
     },
     zh: {
-      title: "RabbitShark — 两个人的 AI 产品工作室",
+      title: "RabbitShark — AI 系统",
       desc: "两个人的工作室。你拿到的是一支完整的产品团队——策略、工程、设计——但不用招人。八个产品已上线。",
     },
   },
