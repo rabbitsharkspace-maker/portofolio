@@ -188,13 +188,21 @@ function Screen({ work, index, total, lang, live }) {
   const box = useRef(null)
   // scale 0 until measured, so the frame never flashes at full size first
   const [fit, setFit] = useState({ scale: 0, h: 0 })
+  /*
+   * What the browser bar reads. Normally the host, because that is the honest
+   * label for a live site — but `address` overrides it for work whose hosting
+   * is not the point: a project parked on someone's github.io announces the
+   * account rather than the product.
+   */
   const host = useMemo(() => {
+    if (work.address) return work.address
+    if (yt) return "youtube.com"
     try {
       return new URL(url).hostname.replace(/^www\./, "")
     } catch {
       return url
     }
-  }, [url])
+  }, [work.address, yt, url])
 
   // The wall's width sets the scale, and the wall's height (divided back out)
   // sets how much page the frame has to render to fill it.
@@ -230,7 +238,7 @@ function Screen({ work, index, total, lang, live }) {
             className="ml-1 min-w-0 flex-1 truncate rounded-full px-3 py-1 text-[12px]"
             style={{ background: "#fff", color: "var(--dim)", border: "1px solid rgba(16,32,48,.08)" }}
           >
-            {yt ? "youtube.com" : host}
+            {host}
           </span>
           <span
             className="shrink-0 text-[11px] tracking-[0.16em]"
