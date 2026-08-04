@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react"
 /*
  * Jane's portrait, watching the pointer.
  *
- * The art ships in two pieces: jane-peek.webp is the whole figure with the eyes
+ * The art ships in two pieces: jane-peek-v2.webp is the whole figure with the eyes
  * left blank, and jane-iris.webp is one iris, drawn once and used for both. Each
  * socket is a hole punched in CSS — an ellipse with overflow hidden — and the
  * iris rides inside it. That is what keeps this honest: the iris cannot escape
@@ -14,7 +14,7 @@ import { useEffect, useRef } from "react"
  * scales with whatever box the portrait is dropped into.
  *
  * Traced off the white the artist left blank, not eyeballed: these are the
- * bounding boxes of the two blank patches in jane-peek.webp. Her head is tilted
+ * bounding boxes of the two blank patches in jane-peek-v2.webp. Her head is tilted
  * and the lower eye is half closed — 5.1% of the height against the upper eye's
  * 7.4% — so the two carry separate boxes rather than one shared size.
  */
@@ -125,7 +125,7 @@ export default function JaneEyes({ alt, className = "" }) {
 
   return (
     <div ref={box} className={`relative select-none ${className}`}>
-      <img src="/ip/jane-peek.webp" alt={alt} className="block h-auto w-full" />
+      <img src="/ip/jane-peek-v2.webp" alt={alt} className="block h-auto w-full" />
       {EYES.map((eye, i) => (
         <span
           key={i}

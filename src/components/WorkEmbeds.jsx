@@ -33,6 +33,17 @@ export default function WorkEmbeds({ works, accent }) {
   const rail = useRef(null)
   const [i, setI] = useState(0)
   const current = works[i]
+  /*
+   * The wall stays dark until it is nearly on screen. These are real sites, and
+   * one of them opens a dialog and puts the caret in it on load — a frame that
+   * takes focus drags the whole page down to show itself, which landed a visitor
+   * arriving at the top of the page in the middle of the work section. Nothing
+   * is fetched until the section is close, so there is no focus to steal while
+   * the hero is still the thing being read (and four live sites are not booting
+   * behind it).
+   */
+  const shell = useRef(null)
+  const [live, setLive] = useState(false)
 
   const onScroll = () => {
     const el = rail.current
@@ -68,8 +79,27 @@ export default function WorkEmbeds({ works, accent }) {
     go(e.key === "ArrowRight" ? 1 : -1)
   }
 
+  // One-way: once the wall has been reached the frames stay, so walking the
+  // rail never re-boots a site that is already running.
+  useEffect(() => {
+    const el = shell.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setLive(true)
+        io.disconnect()
+      },
+      // a screen's worth of warning, so the sites have booted by the time the
+      // wall is actually looked at rather than loading under the viewer
+      { rootMargin: "100% 0px" },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   return (
-    <div className="mx-auto max-w-[1180px] px-6">
+    <div ref={shell} className="mx-auto max-w-[1180px] px-6">
       <div className="relative">
         <div
           ref={rail}
@@ -81,7 +111,7 @@ export default function WorkEmbeds({ works, accent }) {
           className="rail flex overflow-x-auto overscroll-x-contain rounded-[22px]"
         >
           {works.map((w, n) => (
-            <Screen key={w.id} work={w} index={n} total={works.length} lang={lang} />
+            <Screen key={w.id} work={w} index={n} total={works.length} lang={lang} live={live} />
           ))}
         </div>
 
@@ -143,7 +173,7 @@ export default function WorkEmbeds({ works, accent }) {
 const FRAME_W = 1440
 
 // The big screen: the live site or film, filling the wall behind a browser bar.
-function Screen({ work, index, total, lang }) {
+function Screen({ work, index, total, lang, live }) {
   const c = work[lang]
   const url = work.embed ?? work.link
   const yt = useMemo(() => youtubeId(url), [url])
@@ -213,40 +243,44 @@ function Screen({ work, index, total, lang }) {
             {host}
           </span>
           {yt ? (
-            <iframe
-              className="absolute inset-0 h-full w-full"
-              src={`https://www.youtube.com/embed/${yt}`}
-              title={c.name}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : (
-            <>
+            live && (
               <iframe
-                className="absolute top-0 left-0 origin-top-left"
-                style={{
-                  pointerEvents: "none",
-                  width: FRAME_W,
-                  height: fit.h || "100%",
-                  transform: `scale(${fit.scale || 1})`,
-                  // hidden until measured — at scale 1 it would briefly paint a
-                  // 1440px frame overflowing the wall
-                  visibility: fit.scale ? "visible" : "hidden",
-                }}
-                src={url}
+                className="absolute inset-0 h-full w-full"
+                src={`https://www.youtube.com/embed/${yt}`}
                 title={c.name}
                 loading="lazy"
-                // allow-same-origin so the SPAs actually render (they read their own
-                // storage on boot); allow-scripts so they run. Crucially NO
-                // allow-top-navigation, so a frame-busting site cannot redirect the
-                // page out from under a visitor — standards browsers block that. The
-                // frames are cross-origin, so the allow-scripts+allow-same-origin
-                // sandbox-escape (removing your own sandbox) does not apply.
-                sandbox="allow-scripts allow-same-origin"
-                referrerPolicy="no-referrer"
-                scrolling="no"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
               />
+            )
+          ) : (
+            <>
+              {live && (
+                <iframe
+                  className="absolute top-0 left-0 origin-top-left"
+                  style={{
+                    pointerEvents: "none",
+                    width: FRAME_W,
+                    height: fit.h || "100%",
+                    transform: `scale(${fit.scale || 1})`,
+                    // hidden until measured — at scale 1 it would briefly paint a
+                    // 1440px frame overflowing the wall
+                    visibility: fit.scale ? "visible" : "hidden",
+                  }}
+                  src={url}
+                  title={c.name}
+                  loading="lazy"
+                  // allow-same-origin so the SPAs actually render (they read their own
+                  // storage on boot); allow-scripts so they run. Crucially NO
+                  // allow-top-navigation, so a frame-busting site cannot redirect the
+                  // page out from under a visitor — standards browsers block that. The
+                  // frames are cross-origin, so the allow-scripts+allow-same-origin
+                  // sandbox-escape (removing your own sandbox) does not apply.
+                  sandbox="allow-scripts allow-same-origin"
+                  referrerPolicy="no-referrer"
+                  scrolling="no"
+                />
+              )}
               <a
                 href={url}
                 target="_blank"
