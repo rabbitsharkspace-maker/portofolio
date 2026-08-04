@@ -7,6 +7,7 @@ import JaneEyes from "../components/JaneEyes"
 import WorkEmbeds from "../components/WorkEmbeds"
 import GlareHover from "../components/GlareHover"
 import ScrambledText from "../components/ScrambledText"
+import ContactForm from "../components/ContactForm"
 import { people, studio } from "../data/people"
 import { works } from "../data/works"
 import { ui } from "../data/ui"
@@ -246,16 +247,11 @@ export default function Person() {
       {/* Jenny leads the section with a line and puts the address on the button;
           without one the address is still the heading it always was. */}
       <Section label={T.contactPerson} title={c.contactLine ?? studio.email}>
-        <a
-          href={`mailto:${studio.email}`}
-          className="inline-block rounded-full px-6 py-3 text-[14px] transition-transform hover:scale-[1.03]"
-          style={{ background: accent, color: "#12212e" }}
-        >
-          {studio.email}
-        </a>
-        <p className="mt-6 text-[13px]" style={{ color: "var(--dim)" }}>
+        <p className="max-w-[60ch] text-[14px] leading-relaxed" style={{ color: "var(--dim)" }}>
           {c.replyNote}
         </p>
+        {/* the same three boxes as the studio page, in this world's colour */}
+        <ContactForm accent={accent} />
       </Section>
 
       <footer className="mx-auto max-w-[1100px] px-6 pb-16 text-[12px]" style={{ color: "var(--dim)" }}>

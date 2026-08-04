@@ -4,6 +4,7 @@ import CircularGallery from "../components/CircularGallery"
 import GlareHover from "../components/GlareHover"
 import RocketStage from "../components/RocketStage"
 import ScrollReveal from "../components/ScrollReveal"
+import ContactForm from "../components/ContactForm"
 import { works } from "../data/works"
 import { studio } from "../data/people"
 import { ui } from "../data/ui"
@@ -21,19 +22,30 @@ export default function Home() {
 
       {/* extra air up top: the hero's last line needs somewhere to land before
           this one starts reading itself out */}
-      <section className="mx-auto max-w-[900px] px-6 pt-48 pb-28">
-        <ScrollReveal
-          dim="#b3c197"
-          lit="#1e2b10"
-          /* The sweep runs while the paragraph crosses the middle of the screen,
-             not while it is entering from the bottom — arriving already half-lit
-             read as a rendering glitch rather than as an effect. */
-          start={0.62}
-          end={0.3}
-          className="text-[clamp(22px,3.4vw,40px)] leading-[1.4]"
-        >
-          {T.manifesto}
-        </ScrollReveal>
+      {/* The claim, then the receipts — read out a paragraph at a time, the
+          second set smaller so the numbers land as evidence under the line
+          rather than as a second announcement. */}
+      <section className="mx-auto max-w-[900px] space-y-10 px-6 pt-48 pb-28">
+        {T.manifesto.map((para, i) => (
+          <ScrollReveal
+            key={para}
+            dim="#b3c197"
+            lit="#1e2b10"
+            /* The sweep runs while the paragraph crosses the middle of the
+               screen, not while it is entering from the bottom — arriving
+               already half-lit read as a rendering glitch rather than as an
+               effect. */
+            start={0.62}
+            end={0.3}
+            className={
+              i === 0
+                ? "text-[clamp(22px,3.4vw,40px)] leading-[1.4]"
+                : "text-[clamp(17px,2.2vw,26px)] leading-[1.5]"
+            }
+          >
+            {para}
+          </ScrollReveal>
+        ))}
       </section>
 
       <Section label={T.whoWeAre} title={T.whoWeAreTitle}>
@@ -100,13 +112,8 @@ export default function Home() {
         <p className="max-w-[78ch] text-[15px] leading-relaxed" style={{ color: "var(--dim)" }}>
           {T.contactBody}
         </p>
-        <a
-          href={`mailto:${studio.email}`}
-          className="mt-8 inline-block rounded-full px-6 py-3 text-[14px] transition-transform hover:scale-[1.03]"
-          style={{ background: "var(--brand)", color: "var(--ink)" }}
-        >
-          {studio.email}
-        </a>
+        {/* three boxes rather than an address — see ContactForm */}
+        <ContactForm />
         <div className="mt-10 flex gap-6 text-[13px]">
           {studio.socials.map((s) => (
             <a key={s.label} href={s.url} target="_blank" rel="noreferrer" style={{ color: "var(--dim)" }}>

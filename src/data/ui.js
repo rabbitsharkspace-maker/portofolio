@@ -11,8 +11,11 @@ export const ui = {
       { title: "Built for you. Owned by you.", sub: "Clear handover, practical training and no forced dependency." },
     ],
     scroll: "scroll",
-    manifesto:
-      "We build complete AI products for founder-led businesses, small teams and organisations that need a product team without hiring one. Strategy, engineering and design stay together from the first decision to final handover.",
+    // Read out to the scroll, a paragraph at a time.
+    manifesto: [
+      "We're a two-person studio. You get a full product team — strategy, engineering, design — without hiring one.",
+      "Eight products shipped. One automation handling 100+ requests a day, response time down from hours to seconds. Top 6 finalist, Google Vibe-a-thon 2026.",
+    ],
     // home sections
     whoWeAre: "Who we are",
     whoWeAreTitle: "Two founders. One complete product team.",
@@ -29,7 +32,17 @@ export const ui = {
     contact: "Contact",
     contactTitle: "Bring us the problem worth solving.",
     contactBody: "Share what’s happening and what should change. We’ll reply within 24 hours with clear next steps.",
-    footer: "© 2026 RabbitShark Studio · Melbourne & remote · English and Mandarin",
+    footer: "© 2026 RabbitShark Studio · Remote worldwide · English & Mandarin",
+    // contact form
+    formName: "Your name",
+    formProblem: "What's the problem? A couple of sentences is plenty.",
+    formEmail: "Where should we reply?",
+    formSend: "Send it →",
+    formSubject: "New enquiry —",
+    formIncomplete: "All three, please.",
+    formBadEmail: "That address doesn't look right.",
+    formSent: "Your mail is composed and ready to send.",
+    formDirect: "Or write to us directly:",
     // gallery
     spinHint: "drag or two-finger swipe to spin",
     swipeHint: "swipe, drag or use the arrows to walk the wall",
@@ -58,8 +71,10 @@ export const ui = {
       { title: "为你构建，归你所有。", sub: "清晰交接、实用培训，不制造被迫依赖。" },
     ],
     scroll: "向下滚动",
-    manifesto:
-      "我们为需要完整产品团队、但暂时不想自行组建团队的创业公司、小型企业和组织构建 AI 产品。从第一次判断到最终交付，策略、工程与设计始终由我们共同负责。",
+    manifesto: [
+      "两个人的工作室。你拿到的是一支完整的产品团队——策略、工程、设计——但不用招人。",
+      "八个产品已上线。一套自动化每天处理 100 多条工单，响应从小时级压到秒级。Google Vibe-a-thon 2026 全球 Top 6。",
+    ],
     whoWeAre: "我们是谁",
     whoWeAreTitle: "两位创始人，一支完整的产品团队。",
     turnHint: "Jenny 让产品运行，Jane 让产品与人产生连接。每个项目都由两位创始人共同判断并亲自交付。",
@@ -75,7 +90,16 @@ export const ui = {
     contact: "联系",
     contactTitle: "把值得解决的问题交给我们。",
     contactBody: "告诉我们目前的情况和你希望改变什么。我们会在 24 小时内给出清晰的下一步建议。",
-    footer: "© 2026 RabbitShark Studio · 墨尔本 & 远程 · 中文与英文",
+    footer: "© 2026 RabbitShark Studio · 全球远程 · 中英双语",
+    formName: "怎么称呼你",
+    formProblem: "现在遇到的问题是什么？两三句话就够。",
+    formEmail: "回信寄到哪里",
+    formSend: "发出去 →",
+    formSubject: "新的咨询 —",
+    formIncomplete: "三格都要填。",
+    formBadEmail: "这个邮箱地址好像不对。",
+    formSent: "邮件已经写好，发送即可。",
+    formDirect: "或者直接写信给我们：",
     spinHint: "拖动或双指滑动来旋转",
     swipeHint: "滑动、拖动或用左右箭头看下一件",
     prevWork: "上一个",
