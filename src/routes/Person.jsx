@@ -59,8 +59,13 @@ export default function Person() {
           c.line
         )}
       </h1>
+      {big && (
+        <p className="mt-6 max-w-[34ch] text-[clamp(20px,2.2vw,30px)] leading-snug" style={{ color: "var(--ink)" }}>
+          {c.line}
+        </p>
+      )}
       <p
-        className={`mt-5 leading-relaxed ${big ? "max-w-[34ch] text-[17px]" : "text-[15px]"} ${
+        className={`${big ? "mt-3 max-w-[34ch] text-[17px]" : "mt-5 text-[15px]"} leading-relaxed ${
           who === "jenny" ? "" : big ? "" : "max-w-[46ch]"
         }`}
         style={{ color: "var(--dim)" }}

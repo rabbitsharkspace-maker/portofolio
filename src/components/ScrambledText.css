@@ -1,0 +1,7 @@
+/* React Bits ships this block with its own margin, monospace face and white
+   type — all of which belong to its demo page. Here the paragraph inherits the
+   page's type and the section's width; only the per-character box is ours. */
+.char {
+  display: inline-block;
+  will-change: contents;
+}

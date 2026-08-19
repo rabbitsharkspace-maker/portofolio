@@ -1,0 +1,108 @@
+/*
+ * React Bits' PillNav, trimmed to what this site's three tabs need: no logo, no
+ * hamburger — the bar is short enough to stay whole on a phone. --base is the
+ * current world's colour and is handed in from the component.
+ */
+.pill-nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  z-index: 50;
+  --nav-h: 38px;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--base) 18%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--base) 45%, transparent);
+  transform: translateX(-50%);
+  transition:
+    background 500ms ease,
+    border-color 500ms ease;
+}
+
+.pill-list {
+  list-style: none;
+  display: flex;
+  align-items: stretch;
+  gap: 3px;
+  margin: 0;
+  padding: 3px;
+  height: 100%;
+}
+
+.pill-list > li {
+  display: flex;
+  height: 100%;
+}
+
+.pill {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 16px;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 13px;
+  /* the label rides in .label-stack, which carries its own line-height */
+  line-height: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 400ms ease,
+    color 400ms ease;
+}
+
+.pill.is-active {
+  background: var(--base);
+  color: var(--ink);
+}
+
+.pill .hover-circle {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-radius: 50%;
+  background: var(--base);
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pill .label-stack {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  z-index: 2;
+}
+
+.pill .pill-label {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  line-height: 1;
+  will-change: transform;
+}
+
+.pill .pill-label-hover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--ink);
+  z-index: 3;
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill .hover-circle {
+    display: none;
+  }
+}

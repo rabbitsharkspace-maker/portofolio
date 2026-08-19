@@ -1,0 +1,87 @@
+.electric-border {
+  --electric-light-color: oklch(from var(--electric-border-color) l c h);
+  position: relative;
+  border-radius: inherit;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.eb-canvas-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.eb-canvas {
+  display: block;
+}
+
+.eb-content {
+  position: relative;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.eb-layers {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.eb-glow-1,
+.eb-glow-2,
+.eb-background-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.eb-glow-1 {
+  border: 2px solid oklch(from var(--electric-border-color) l c h / 0.6);
+  filter: blur(1px);
+}
+
+.eb-glow-2 {
+  border: 2px solid var(--electric-light-color);
+  filter: blur(4px);
+}
+
+.eb-background-glow {
+  z-index: -1;
+  transform: scale(1.1);
+  filter: blur(32px);
+  opacity: 0.3;
+  background: linear-gradient(-30deg, var(--electric-light-color), transparent, var(--electric-border-color));
+}
+
+/*
+ * Upstream is built for dark pages, where a blurred halo reads as light. On this
+ * cream background the same halo reads as dirt, so the outer bloom is dropped and
+ * the two rims are pulled back to a hairline.
+ */
+.electric-border[data-tone="light"] .eb-background-glow {
+  display: none;
+}
+.electric-border[data-tone="light"] .eb-glow-1 {
+  border-width: 1.5px;
+  filter: blur(0.5px);
+}
+.electric-border[data-tone="light"] .eb-glow-2 {
+  border-width: 1.5px;
+  filter: blur(3px);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* the arcing canvas is the whole animation — leave the static rim behind */
+  .electric-border .eb-canvas-container {
+    display: none;
+  }
+}

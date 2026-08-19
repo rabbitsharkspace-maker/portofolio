@@ -152,8 +152,8 @@ export const people = {
         { group: "Front end", items: ["React", "Responsive layout", "Design-to-code handoff"] },
       ],
       awards: [
+        "Best Vibe Coding Work — Google AI Vibe-a-thon 2026, GDG Hangzhou\nSelected through three rounds: Top 100 → Top 30 → six award winners",
         "RMIT Vice-Chancellor's List 2024 — Top 2% university-wide",
-        "Google Vibe-a-thon 2026 — Top 6 Finalist (final result pending)",
       ],
       background: [
         {
@@ -205,8 +205,8 @@ export const people = {
         { group: "前端", items: ["React", "响应式布局", "设计到代码交付"] },
       ],
       awards: [
+        "最佳 Vibe Coding 作品奖 —— Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou\n三轮筛选：Top 100 → Top 30 → 六个获奖席位",
         "RMIT 校长嘉许名单 2024 — 全校前 2%",
-        "Google Vibe-a-thon 2026 — 六强决赛入围（最终结果待公布）",
       ],
       background: [
         {
@@ -235,11 +235,17 @@ export const people = {
 export const studio = {
   email: "rabbitshark.space@gmail.com",
   socials: [
+    { label: "GitHub", url: "https://github.com/rabbitsharkspace-maker" },
     { label: "Instagram", url: "https://www.instagram.com/rabbitshark_space/" },
     { label: "YouTube", url: "https://www.youtube.com/channel/UCZ9bDkBShaIQKoNq-sz9hDA" },
     { label: "Email", url: "mailto:rabbitshark.space@gmail.com" },
   ],
   en: {
+    recognition: {
+      event: "Google AI Vibe-a-thon 2026 · GDG Hangzhou",
+      path: "Top 100 → Top 30 → six award winners. Two of the six from the same two-person studio.",
+      awards: "Jane — Best Vibe Coding Work · Jenny — Best Google AI Technology Application",
+    },
     line: "Two founders. Strategy, engineering and design in one team.",
     sub: "We find the problem worth solving, then take the product all the way to launch.",
     offers: [
@@ -249,6 +255,11 @@ export const studio = {
     ],
   },
   zh: {
+    recognition: {
+      event: "Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou",
+      path: "Top 100 → Top 30 → 六个获奖席位，其中两个来自同一个两人工作室。",
+      awards: "Jane —— 最佳 Vibe Coding 作品奖 · Jenny —— 最佳 Google AI 技术应用奖",
+    },
     line: "两位创始人，把策略、工程与设计放在同一支团队里。",
     sub: "我们先找到值得解决的问题，再把产品一路做到上线。",
     offers: [
