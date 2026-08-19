@@ -192,7 +192,7 @@ export default function Person() {
       <Section label={T.recognition} title={T.awards}>
         <ul className="max-w-none space-y-3 text-[15px]">
           {c.awards.map((a) => (
-            <li key={a} className="border-l-4 pl-4" style={{ borderColor: accent }}>
+            <li key={a} className="whitespace-pre-line border-l-4 pl-4" style={{ borderColor: accent }}>
               {a}
             </li>
           ))}

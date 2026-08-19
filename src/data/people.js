@@ -31,7 +31,7 @@ export const people = {
       about: [
         "I lead product strategy, AI systems and full-stack engineering at RabbitShark.",
         "Clients usually arrive with a feature request. My first move isn't to build it — it's to work out what is actually slowing the business down, then ship the shortest system that fixes it.",
-        "Seven products shipped. Top 6 finalist at the Google Vibe-a-thon 2026. One automation handling 100+ maintenance requests a day, with response time down from hours to seconds.",
+        "Seven products shipped. Best Google AI Technology Application at the Google AI Vibe-a-thon 2026 — one of six award winners from a field of 100 finalists. One automation handling 100+ maintenance requests a day, with response time down from hours to seconds.",
         "A business degree and a self-taught engineering path — which means I know what every technical decision costs. I work in English and Mandarin, remote worldwide.",
       ],
       skills: [
@@ -53,11 +53,10 @@ export const people = {
         },
       ],
       awards: [
-        "Google Vibe-a-thon 2026 — Top 6 Finalist (final result pending)",
+        "Best Google AI Technology Application — Google AI Vibe-a-thon 2026, GDG Hangzhou\nSelected through three rounds: Top 100 → Top 30 → six award winners",
         "BAP × USYD × Monash × McKinsey Case Competition — Regional Round",
         "FMAA Management Consulting Case Competition 2024 — Campus Qualifier",
         "AMEB Grade 8 Piano (A)",
-        "VCE Music Performance (A)",
       ],
       background: [
         { kind: "business", text: "Monash University — Bachelor of International Business, 2022–2024" },
@@ -89,7 +88,7 @@ export const people = {
       about: [
         "RabbitShark 的产品策略、AI 系统和全栈开发由我负责。",
         "客户通常带着一个功能需求来找我。我做的第一件事不是开工，是先弄清楚到底是什么在拖慢这门生意——然后用最短的方案解决它，并且交付上线。",
-        "已上线七个产品。Google Vibe-a-thon 2026 全球 Top 6。做过一套自动化系统，每天自动处理 100 多条工单，响应从小时级压到秒级。",
+        "已上线七个产品。获 Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou 最佳 Google AI 技术应用奖——从 100 强选手中经过三轮筛选产生的六个获奖席位之一。做过一套自动化系统，每天自动处理 100 多条工单，响应从小时级压到秒级。",
         "商科出身，工程自学，所以我清楚每一个技术决定背后对应多少钱。中英文都能直接开工，全球远程。",
       ],
       skills: [
@@ -99,11 +98,10 @@ export const people = {
         { group: "创意", items: ["动画短片", "分镜", "UI 设计", "原创配乐"] },
       ],
       awards: [
-        "Google Vibe-a-thon 2026 — 六强决赛入围（最终结果待公布）",
+        "最佳 Google AI 技术应用奖 —— Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou\n三轮筛选：Top 100 → Top 30 → 六个获奖席位",
         "BAP × USYD × Monash × McKinsey 案例赛 — 区域赛",
         "FMAA 管理咨询案例赛 2024 — 校园赛晋级",
         "AMEB 钢琴八级 A",
-        "VCE Music Performance A",
       ],
       background: [
         { kind: "business", text: "Monash University｜国际商务学士 · 2022–2024" },

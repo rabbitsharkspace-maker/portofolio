@@ -14,6 +14,27 @@ export const OWNER = {
 // frame empty rather than breaking the layout.
 export const works = [
   {
+    id: "serene",
+    owner: "jenny",
+    stack: ["Gemini Vision", "Firebase", "Server-side AI"],
+    link: null,
+    embed: "https://serene-msmi.onrender.com/", // live preview shown in Jenny's work section
+    address: "Serene — AI advocacy assistant for new migrants in Australia",
+    image: null, // artwork for the gallery plate — drop a path in when there is one
+    en: {
+      name: "Serene",
+      kind: "AI advocacy assistant",
+      what: "Photograph an English fine or warning letter. It reads it and writes your formal appeal.",
+      who: "For migrants and international students in Australia.",
+    },
+    zh: {
+      name: "Serene",
+      kind: "AI 维权助手",
+      what: "拍下英文罚单,自动生成申诉信。",
+      who: "给在澳洲的移民和留学生。",
+    },
+  },
+  {
     id: "kno",
     owner: "jenny",
     stack: ["Gemini", "Knowledge graph", "Full-stack"],
@@ -61,26 +82,6 @@ export const works = [
     },
   },
   {
-    id: "serene",
-    owner: "jenny",
-    stack: ["Gemini Vision", "Firebase", "Server-side AI"],
-    link: null,
-    embed: "https://serene-msmi.onrender.com/", // live preview shown in Jenny's work section
-    image: null, // artwork for the gallery plate — drop a path in when there is one
-    en: {
-      name: "Serene",
-      kind: "AI advocacy assistant",
-      what: "Photograph an English fine or warning letter. It reads it and writes your formal appeal.",
-      who: "For migrants and international students in Australia.",
-    },
-    zh: {
-      name: "Serene",
-      kind: "AI 维权助手",
-      what: "拍下英文罚单,自动生成申诉信。",
-      who: "给在澳洲的移民和留学生。",
-    },
-  },
-  {
     id: "mkr",
     owner: "both",
     stack: ["Role-based access", "Fair Work", "Audit logs"],
@@ -115,6 +116,7 @@ export const works = [
     stack: ["Storyboard", "Animation", "Sound"],
     link: null,
     embed: "https://youtu.be/3z5-F9V2XIQ?si=pfH0UMzDAd9pUwc1", // YouTube, embedded in Jenny's work section
+    address: "The 8th Annual Human Disturbance Championship — animated short",
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
       name: "The 8th Annual Human Disturbance Championship",
@@ -160,6 +162,7 @@ export const works = [
     stack: ["n8n", "Gemini", "WeCom API", "AES"],
     link: null,
     embed: "https://youtu.be/6UMtuA_LSOs?si=QnDXTTMBFvvPZO94", // YouTube, embedded in Jenny's work section
+    address: "Community Ticketing — workflow automation",
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
       name: "Community Ticketing",
