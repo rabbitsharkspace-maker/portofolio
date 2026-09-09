@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>方向 A — 一体两面 · RabbitShark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f5f1;
+    --ink:#14160f;
+    --dim:#6c6f63;
+    --line:#d9d7cd;
+    --jane:#e0642f;      /* 暖 — 设计 / 体验 */
+    --jenny:#1d5fb5;     /* 冷 — 系统 / 工程 */
+    --both:#3f7d38;      /* 两人共同 */
+    --seam:#14160f;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter Tight","Noto Sans SC",system-ui,sans-serif;
+    font-size:15px;line-height:1.6;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative}
+
+  /* ——— 中缝：全站唯一的结构元素 ——— */
+  .seam{position:fixed;left:50%;top:0;bottom:0;width:1px;background:var(--line);z-index:0}
+  .seam::before{content:"";position:absolute;left:0;top:0;width:1px;height:38vh;background:var(--seam);opacity:.55}
+
+  header.top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;
+    padding:22px 0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  header.top b{color:var(--ink);font-weight:600;letter-spacing:.06em;text-transform:none;font-size:14px}
+  nav a{color:var(--dim);text-decoration:none;margin-left:20px}
+  nav a:hover{color:var(--ink)}
+
+  /* ——— HERO ——— */
+  .hero{position:relative;z-index:1;padding:9vh 0 12vh}
+  .names{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:end}
+  .side{padding-bottom:14px}
+  .side.l{text-align:right;padding-right:34px}
+  .side.r{text-align:left;padding-left:34px}
+  .side .who{font-size:clamp(30px,4.6vw,58px);font-weight:600;letter-spacing:-.02em;line-height:1}
+  .side.l .who{color:var(--jane)}
+  .side.r .who{color:var(--jenny)}
+  .side .role{margin-top:8px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+
+  .claim{margin:46px 0 0;text-align:center;font-size:clamp(28px,4.4vw,54px);
+    line-height:1.14;letter-spacing:-.02em;font-weight:500;max-width:16ch;margin-inline:auto}
+  .claim em{font-style:normal;position:relative}
+  .claim em::after{content:"";position:absolute;left:0;right:0;bottom:.08em;height:.09em;background:var(--both);opacity:.35}
+  .sub{text-align:center;color:var(--dim);margin:20px auto 0;max-width:46ch;font-size:16px}
+
+  /* ——— 证据条：横跨中缝 ——— */
+  .proof{position:relative;z-index:1;margin:0 0 12vh;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:26px 0;display:grid;grid-template-columns:1fr 1fr}
+  .proof .cell{padding:0 34px}
+  .proof .cell:first-child{text-align:right}
+  .proof .k{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .proof .v{margin-top:6px;font-size:17px;font-weight:500}
+  .proof .v span{color:var(--dim);font-weight:400}
+  .proof-note{grid-column:1/-1;text-align:center;margin-top:22px;padding-top:20px;border-top:1px dashed var(--line);
+    font-size:14px;color:var(--dim)}
+  .proof-note b{color:var(--ink);font-weight:600}
+
+  /* ——— 作品：每条横跨中缝，署名落在主导的一侧 ——— */
+  .sec-label{position:relative;z-index:1;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+  .sec-title{position:relative;z-index:1;font-size:clamp(24px,3vw,36px);font-weight:600;letter-spacing:-.02em;margin:0 0 34px}
+
+  .work{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--line);padding:30px 0;gap:0;align-items:center}
+  .work:last-of-type{border-bottom:1px solid var(--line)}
+  .work .art{padding-right:34px}
+  .work .art img{width:100%;display:block;border:1px solid var(--line);background:#fff}
+  .work .body{padding-left:34px}
+  .work.flip .art{order:2;padding-right:0;padding-left:34px}
+  .work.flip .body{order:1;padding-left:0;padding-right:34px;text-align:right}
+  .work h3{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-.02em}
+  .work .kind{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  .work p{margin:12px 0 0;color:var(--dim);max-width:44ch}
+  .work.flip p{margin-left:auto}
+  .metric{margin-top:16px;font-size:26px;font-weight:600;letter-spacing:-.02em}
+  .metric small{display:block;font-size:12px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:2px}
+
+  /* 署名条：两半的宽度就是两人各自的投入，跨缝 = 合作 */
+  .split{margin-top:18px;display:flex;height:5px;width:100%;background:var(--line)}
+  .split i{display:block;height:100%}
+  .split i.j{background:var(--jane)}
+  .split i.n{background:var(--jenny)}
+  .by{margin-top:8px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+  /* ——— 服务 ——— */
+  .offers{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:14vh}
+  .offer{padding:30px 34px;border-bottom:1px solid var(--line)}
+  .offer:nth-child(odd){text-align:right;border-right:0}
+  .offer h4{margin:0;font-size:19px;font-weight:600}
+  .offer p{margin:8px 0 0;color:var(--dim);font-size:14px}
+
+  footer{position:relative;z-index:1;padding:10vh 0 8vh;text-align:center;color:var(--dim);font-size:13px}
+
+  .tag{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line);border-radius:2px;color:var(--dim)}
+
+  @media (max-width:760px){
+    .seam{display:none}
+    .names,.proof,.work,.offers{grid-template-columns:1fr}
+    .side.l,.side.r,.work .art,.work .body,.work.flip .art,.work.flip .body,.proof .cell{padding:0;text-align:left}
+    .side.l{margin-bottom:18px}
+    .work.flip .body{text-align:left}
+    .work.flip .art{order:0}
+    .work .body{margin-top:18px}
+    .proof .cell:first-child{text-align:left;margin-bottom:18px}
+    .offer:nth-child(odd){text-align:left}
+  }
+</style>
+</head>
+<body>
+<div class="seam"></div>
+
+<div class="wrap">
+  <header class="top">
+    <b>RabbitShark</b>
+    <nav><a href="#">作品</a><a href="#">Jane</a><a href="#">Jenny</a><a href="#">联系</a><a href="#">EN</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="names">
+      <div class="side l">
+        <div class="who">Jane</div>
+        <div class="role">设计 · 体验 · 品牌</div>
+      </div>
+      <div class="side r">
+        <div class="who">Jenny</div>
+        <div class="role">系统 · 工程 · 策略</div>
+      </div>
+    </div>
+
+    <h1 class="claim">两个人，两种专业，<em>一次交付</em>。</h1>
+    <p class="sub">我们先找到值得解决的那个问题，再把产品一路做到上线。八个已上线，全部两人完成。</p>
+  </section>
+
+  <section class="proof">
+    <div class="cell">
+      <div class="k">Jane</div>
+      <div class="v">最佳 Vibe Coding 作品奖</div>
+    </div>
+    <div class="cell">
+      <div class="k">Jenny</div>
+      <div class="v">最佳 Google AI 技术应用奖</div>
+    </div>
+    <div class="proof-note">
+      Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou —— Top 100 → Top 30 →
+      <b>六个获奖席位，其中两个来自同一个两人工作室</b>。
+    </div>
+  </section>
+
+  <div class="sec-label">已上线</div>
+  <h2 class="sec-title">八件东西，全部交付。</h2>
+
+  <article class="work">
+    <div class="art"><img src="img/mkr.webp" alt="My Kitchen Rules"></div>
+    <div class="body">
+      <div class="kind">餐厅运营系统</div>
+      <h3>My Kitchen Rules</h3>
+      <p>收银、后厨、对账、排班合成一套。老板、经理、员工三套界面——不出事的时候它完全不吵你。</p>
+      <div class="metric">4 → 1<small>一个人原本干四份活</small></div>
+      <div class="split"><i class="j" style="width:42%"></i><i class="n" style="width:58%"></i></div>
+      <div class="by"><span>Jane · 三套界面</span><span>Jenny · 权限与对账</span></div>
+    </div>
+  </article>
+
+  <article class="work flip">
+    <div class="art"><img src="img/serene.webp" alt="Serene"></div>
+    <div class="body">
+      <div class="kind">AI 维权助手</div>
+      <h3>Serene</h3>
+      <p>拍下一张看不懂的英文罚单，它读懂，然后替你写出正式申诉信。给在澳洲的移民和留学生。</p>
+      <div class="metric">5 步<small>从慌张到搞定</small></div>
+      <div class="split"><i class="n" style="width:100%"></i></div>
+      <div class="by"><span></span><span>Jenny</span></div>
+    </div>
+  </article>
+
+  <article class="work">
+    <div class="art"><img src="img/kno.webp" alt="Kno"></div>
+    <div class="body">
+      <div class="kind">AI 知识平台</div>
+      <h3>Kno</h3>
+      <p>PDF、链接、语音备忘——什么都能丢进去，出来是一张能走进去的知识图谱。给什么都存下来、却从不打开的人。</p>
+      <div class="metric">100%<small>本地优先，数据不出设备</small></div>
+      <div class="split"><i class="n" style="width:100%"></i></div>
+      <div class="by"><span></span><span>Jenny</span></div>
+    </div>
+  </article>
+
+  <article class="work flip">
+    <div class="art"><img src="img/fastresume-home.webp" alt="FastResume"></div>
+    <div class="body">
+      <div class="kind">AI 求职平台</div>
+      <h3>FastResume</h3>
+      <p>ATS 打分、STAR 法改写、翻成 8 种语言，还能做语音模拟面试。给跨国求职的人。</p>
+      <div class="metric">8 种语言<small>简历一次改写，全球投递</small></div>
+      <div class="split"><i class="j" style="width:100%"></i></div>
+      <div class="by"><span>Jane</span><span></span></div>
+    </div>
+  </article>
+
+  <article class="work">
+    <div class="art"><img src="img/liftppt-home.webp" alt="LiftPPT"></div>
+    <div class="body">
+      <div class="kind">敬拜投影工具</div>
+      <h3>LiftPPT</h3>
+      <p>歌词自动分页、副歌展开、拼音注音，导出 PPT 像素级还原。给熬到半夜排版幻灯片的人。</p>
+      <div class="metric">2,254<small>首曲库</small></div>
+      <div class="split"><i class="j" style="width:55%"></i><i class="n" style="width:45%"></i></div>
+      <div class="by"><span>Jane · 排版与导出</span><span>Jenny · 曲库与引擎</span></div>
+    </div>
+  </article>
+
+  <article class="work flip">
+    <div class="art" style="display:flex;align-items:center;justify-content:center;min-height:180px;border:1px solid var(--line);background:#fff">
+      <span class="tag">社区智能工单</span>
+    </div>
+    <div class="body">
+      <div class="kind">企业自动化</div>
+      <h3>Community Ticketing</h3>
+      <p>每天 100+ 条报修，AI 自动分类、定级、派单。人不再做转发这件事。</p>
+      <div class="metric">小时 → 秒<small>响应时间</small></div>
+      <div class="split"><i class="n" style="width:100%"></i></div>
+      <div class="by"><span></span><span>Jenny</span></div>
+    </div>
+  </article>
+
+  <section class="offers">
+    <div class="offer">
+      <h4>我们替你做</h4>
+      <p>你描述问题，我们设计、开发并上线整套系统。</p>
+    </div>
+    <div class="offer">
+      <h4>我们做，归你所有</h4>
+      <p>连同培训一起交付，之后不依赖我们。</p>
+    </div>
+    <div class="offer">
+      <h4>我们教你做</h4>
+      <p>按你的预算、流程和团队情况，一对一带着做。</p>
+    </div>
+    <div class="offer" style="display:flex;align-items:center">
+      <div>
+        <h4>带一个值得解决的问题来</h4>
+        <p>说清楚现在发生了什么、你希望它变成什么样。24 小时内回复，附具体的下一步。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>RabbitShark · 墨尔本 · 全球远程 · 中文 / English</footer>
+</div>
+</body>
+</html>

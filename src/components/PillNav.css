@@ -1,0 +1,15 @@
+.site-header { max-width:1180px; margin:auto; padding:22px 24px; display:flex; align-items:center; justify-content:space-between; gap:24px; border-bottom:1px solid var(--line); }
+.studio-wordmark { font-size:22px; font-weight:750; letter-spacing:-1px; line-height:1.2; }
+.studio-wordmark > span:first-child { color:var(--accent); font-weight:400; }
+.wordmark-studio { display:block; margin-top:6px; font-size:9px; letter-spacing:3px; font-weight:500; }
+.site-header nav { display:flex; gap:8px; }
+.nav-link { display:flex; align-items:center; min-height:44px; padding:0 16px; font-size:14px; border-bottom:2px solid transparent; }
+.nav-link.is-active { border-color:var(--accent); font-weight:650; }
+.nav-link:hover { color:var(--accent); }
+.site-header button { min-height:32px; min-width:28px; }
+@media(max-width:600px) {
+ .site-header { padding:16px 20px 8px; gap:12px; flex-wrap:wrap; }
+ .studio-wordmark { font-size:21px; }
+ .site-header nav { order:3; width:100%; justify-content:center; gap:12px; }
+ .nav-link { padding:0 22px; }
+}
