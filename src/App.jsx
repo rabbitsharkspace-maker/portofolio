@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react"
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom"
+import { useEffect } from "react"
+import { BrowserRouter, HashRouter, Route, Routes, useLocation } from "react-router-dom"
 import PillNav from "./components/PillNav"
-import Aura from "./components/Aura"
-import Meadow from "./components/Meadow"
-import Ferrofluid from "./components/Ferrofluid"
-import { useLocation } from "react-router-dom"
-import ClickSpark from "./components/ClickSpark"
-import Cursor from "./components/Cursor"
 import useDocumentMeta from "./useDocumentMeta"
 import Home from "./routes/Home"
 import Person from "./routes/Person"
-import { LangToggle } from "./lang"
 
 /*
  * The standalone single-file build is opened straight off disk, where there is
@@ -18,95 +11,61 @@ import { LangToggle } from "./lang"
  */
 const Router = import.meta.env.VITE_STANDALONE ? HashRouter : BrowserRouter
 
-// Out here, not inline in the props: the surface rebuilds itself whenever this
-// array's identity changes, and a fresh literal per render meant recompiling the
-// shader on every navigation.
-const SEA = ["#45aef2", "#8fd0f8", "#c5f3ff"]
-
 /*
- * Shark's world gets the ferrofluid; the other two keep the soft wash. Only one
- * background renders at a time — the WebGL surface is the most expensive thing
- * on the page and stacking it under the aura would pay for both.
+ * No background layer any more.
  *
- * The wrapper carries a seawater gradient so the space between the fluid's
- * contours reads as deep water, not white page. The fluid drifts slowly on top
- * in brighter blues, like light moving through the surface.
+ * There used to be three, one per world: a WebGL ferrofluid on Jenny's page, a
+ * meadow on Jane's, an aura on the studio's. Each was a quarter-second of frozen
+ * main thread to compile, each ran a GPU context for the whole visit, and
+ * between them they were the main reason the site read as three unrelated
+ * places rather than one studio. The paper ground in index.css is the
+ * background now, and every screenshot on the page sits on it cleanly.
+ *
+ * The custom cursor and the click sparks went with them. Both replaced something
+ * the operating system already does well, and both were noise laid over work
+ * that needed the attention.
  */
-function Background() {
-  const { pathname } = useLocation()
-  const jenny = pathname.startsWith("/jenny")
-  const jane = pathname.startsWith("/jane")
-
-  /*
-   * The fluid is built once and then never taken down. Compiling its shader is a
-   * quarter of a second of frozen main thread, and mounting it per visit meant
-   * paying that every single time Jenny's tab was clicked — the stutter people
-   * kept hitting. Off her page it is hidden and `paused`, so it holds a GPU
-   * context and does no work; coming back is free.
-   *
-   * The first build still waits for an idle frame, so arriving on her page paints
-   * against the seawater gradient underneath and the water fades up a beat later.
-   */
-  const [fluid, setFluid] = useState(false)
-  useEffect(() => {
-    if (!jenny || fluid) return
-    const run = () => setFluid(true)
-    const idle = window.requestIdleCallback
-    const id = idle ? idle(run, { timeout: 600 }) : setTimeout(run, 150)
-    return () => (idle ? window.cancelIdleCallback(id) : clearTimeout(id))
-  }, [jenny, fluid])
-
-  return (
-    <>
-      {jane ? (
-        <Meadow />
-      ) : jenny ? (
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-0 -z-10"
-          style={{ background: "linear-gradient(165deg, #f4fbff 0%, #e6f6ff 45%, #dcf1ff 80%, #e0ebff 100%)" }}
-        />
-      ) : (
-        <Aura />
-      )}
-
-      {fluid && (
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-0 -z-10"
-          style={{
-            opacity: jenny ? 1 : 0,
-            visibility: jenny ? "visible" : "hidden",
-            transition: "opacity 500ms ease",
-          }}
-        >
-          <Ferrofluid
-            colors={SEA}
-            speed={0.16}
-            scale={1.5}
-            turbulence={0.9}
-            fluidity={0.13}
-            rimWidth={0.26}
-            sharpness={2.3}
-            shimmer={1.1}
-            glow={1.5}
-            flowDirection="up"
-            opacity={0.4}
-            paused={!jenny}
-            mouseInteraction
-            mouseStrength={1}
-            mouseRadius={0.32}
-          />
-        </div>
-      )}
-    </>
-  )
-}
 
 // Inside the router, so it can read the route; nothing rendered, it only writes
 // to <head>.
 function Meta() {
   useDocumentMeta()
+  const { pathname, hash } = useLocation()
+
+  /*
+   * Arriving at a page puts you at the top of it — unless the address named a
+   * section, in which case that is where you meant to arrive.
+   *
+   * A plain <a href="#work"> works once the page is up, because the section is
+   * in the DOM by the time the click happens. Opening or sharing /#work did not:
+   * the browser looks for the anchor while parsing the HTML, React has not
+   * rendered anything yet, and it never tries again — so every shared link to a
+   * section landed silently at the top.
+   *
+   * Two frames of grace before giving up. The first lets React commit; the
+   * second covers a section whose own content arrives a beat later. Longer than
+   * that and it would fight a reader who has already started scrolling.
+   */
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+      return
+    }
+
+    let frame
+    let tries = 0
+    const find = () => {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)))
+      if (target) {
+        target.scrollIntoView({ behavior: "instant", block: "start" })
+        return
+      }
+      if (tries++ < 2) frame = requestAnimationFrame(find)
+    }
+    frame = requestAnimationFrame(find)
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, hash])
+
   return null
 }
 
@@ -114,15 +73,14 @@ export default function App() {
   return (
     <Router>
       <Meta />
-      <Background />
-      <ClickSpark />
-      <Cursor />
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <PillNav />
-      <LangToggle className="fixed top-5 right-5 z-50" />
+      <main id="main-content">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:who" element={<Person />} />
       </Routes>
+      </main>
     </Router>
   )
 }

@@ -1,47 +1,40 @@
 @import "tailwindcss";
 
 /*
- * Three worlds. A page sets these vars and nothing else in the site changes.
- * --brand / --glow / --tint are fills and borders only.
- * --ink / --dim / --accent-ink are the only values allowed on text.
+ * One ground for the whole site.
+ *
+ * The site used to run three separate worlds — a green home, a blue Jenny, a
+ * cream Jane — each with its own background, its own ink and its own animated
+ * surface. Three worlds is what stopped it reading as one studio. Now the paper,
+ * the type and the rules are shared everywhere and the only thing a person's
+ * page changes is --accent: Jenny cool, Jane warm.
+ *
+ * --accent is dark enough to set type in, so there is no second "ink" value
+ * shadowing it the way the old fills needed.
  */
 :root {
-  --bg: #fbfff4;
+  --paper: #f7f6f2;
   --surface: #ffffff;
-  --tint: #dcffe7;
-  --tint-2: #eeffe4;
-  --brand: #bae722;
-  --glow: #c5ff59;
-  --accent-ink: #5a7a06;
-  --ink: #1e2b10;
-  --dim: #5f6b4f;
-  --line: #dbe8c4;
+  --ink: #16180f;
+  --dim: #6b6d61;
+  --line: #e0ddd2;
+  --line-strong: #c9c5b6;
+
+  --accent: #3f6b4a; /* the studio's own voice, used only where neither person owns the page */
+  --wash: #e9eee9;
+
+  --jenny: #1d5fb5;
+  --jane: #d1552b;
 }
 
 [data-world="jenny"] {
-  --bg: #f6fbff;
-  --surface: #ffffff;
-  --tint: #dcf1ff;
-  --tint-2: #e0ebff;
-  --brand: #45aef2;
-  --glow: #c5f3ff;
-  --accent-ink: #0b6ba8;
-  --ink: #0b2b45;
-  --dim: #52708a;
-  --line: #c4e5fc;
+  --accent: #1d5fb5;
+  --wash: #e8effa;
 }
 
 [data-world="jane"] {
-  --bg: #fef2ed;
-  --surface: #ffffff;
-  --tint: #fff8dc;
-  --tint-2: #ffefae;
-  --brand: #ffd322;
-  --glow: #ffde59;
-  --accent-ink: #8a6a00;
-  --ink: #3a2d06;
-  --dim: #7c6a35;
-  --line: #ffe889;
+  --accent: #d1552b;
+  --wash: #fbeae2;
 }
 
 html,
@@ -52,29 +45,17 @@ body,
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--paper);
   color: var(--ink);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
-  transition: background 600ms ease;
+  font-size: 16px;
+  line-height: 1.65;
 }
 
 ::selection {
-  background: var(--brand);
-  color: var(--ink);
-}
-
-/*
- * Custom cursor. `cursor: none` on <html> alone is not enough — links and
- * buttons carry cursor: pointer from the UA sheet, which beats an inherited
- * value, so the native arrow reappears over every interactive element. The
- * universal selector plus !important is what actually clears it.
- */
-html[data-cursor="custom"],
-html[data-cursor="custom"] *,
-html[data-cursor="custom"] *::before,
-html[data-cursor="custom"] *::after {
-  cursor: none !important;
+  background: var(--accent);
+  color: #fff;
 }
 
 /*
@@ -88,44 +69,32 @@ html[data-cursor="custom"] *::after {
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Gallery rail: drag sideways, no visible scrollbar. */
-.rail {
-  scrollbar-width: none;
-  scroll-snap-type: x mandatory;
-}
-.rail::-webkit-scrollbar {
-  display: none;
-}
-.rail > * {
-  scroll-snap-align: center;
+/*
+ * Display type. One step of contrast against the body face rather than a second
+ * family: the page is carrying two accent colours and two characters already,
+ * and a display serif on top of that was one voice too many.
+ */
+.display {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
 }
 
-/* The chevrons either side of the stage. Ghosted until the pointer finds them. */
-.stage-arrow {
-  border: 2px solid transparent;
-  opacity: 0.55;
-  transition: opacity 200ms ease, border-color 200ms ease, transform 200ms ease;
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
 }
-.stage-arrow:hover,
-.stage-arrow:focus-visible {
-  border-color: var(--accent);
-  opacity: 1;
-  outline: none;
-}
-/* Tailwind's -translate-y-1/2 rides on the `translate` property, so `transform`
-   is free for the nudge and the two never fight. */
-.stage-arrow[data-dir="prev"]:hover {
-  transform: translateX(-3px);
-}
-.stage-arrow[data-dir="next"]:hover {
-  transform: translateX(3px);
+
+/* Long-form copy never runs wider than this, whatever box it lands in. */
+.measure {
+  max-width: 68ch;
 }
 
 /*
- * The stage breathes. The character rides a slow float while the shadow under
- * her tightens and fades on the same clock, so she reads as lifting off the
- * platform rather than sliding up a flat page. Arrival plays once, on the
- * wrapper that remounts with the pick.
+ * The character float. Kept — it is one of the two motions worth having, and it
+ * is what makes a flat cut-out read as a character rather than a sticker.
  */
 @keyframes characterFloat {
   0%,
@@ -144,11 +113,11 @@ html[data-cursor="custom"] *::after {
   0%,
   100% {
     transform: scale(1);
-    opacity: 0.42;
+    opacity: 0.3;
   }
   50% {
     transform: scale(0.88);
-    opacity: 0.28;
+    opacity: 0.18;
   }
 }
 .stage-platform {
@@ -196,79 +165,152 @@ html[data-cursor="custom"] *::after {
   transform: none;
 }
 
-@keyframes characterCardIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.character-card-in {
-  animation: characterCardIn 480ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 /*
- * Ring of works. A card hands the pointer to its own rim glow wherever it sits
- * in the ring, so hover lights the border on side cards too; only the links of
- * a card that isn't at the front are switched off, so tapping a side card spins
- * it forward instead of navigating away.
+ * The annotation pin on a case screenshot. The ring pulses only until it is
+ * first opened — a permanent pulse on three pins at once is a page that will
+ * not sit still.
  */
-.ring-card[data-front="0"] a {
-  pointer-events: none;
-}
-
-/*
- * Headline highlight. On a light background a shimmer of pale colour is
- * invisible, so the sweep runs the other way — ink, with the accent ink
- * passing through it.
- */
-@keyframes shine {
-  from {
-    background-position: 200% center;
+@keyframes pinPulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--pin) 55%, transparent);
   }
-  to {
-    background-position: -200% center;
+  70% {
+    box-shadow: 0 0 0 12px color-mix(in srgb, var(--pin) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--pin) 0%, transparent);
   }
 }
-
-.shiny {
-  background: linear-gradient(
-    110deg,
-    var(--ink) 42%,
-    var(--accent-ink) 50%,
-    var(--ink) 58%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shine 7s linear infinite;
-}
-
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.spin-slow {
-  animation: spin-slow 22s linear infinite;
+.pin-idle {
+  animation: pinPulse 2.6s ease-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shiny {
-    animation: none;
-    color: var(--ink);
-  }
-  .spin-slow {
-    animation: none;
-  }
   .character-float,
   .stage-platform,
   .character-in,
-  .character-card-in {
+  .pin-idle {
     animation: none;
   }
+}
+
+/* Shared editorial grid: Jane's warm half, Jenny's cool half. */
+:root { --jane:#b84627; }
+[data-world="jane"] { --accent:#b84627; }
+html { scroll-behavior:smooth; scroll-padding-top:24px; }
+body { overflow-wrap:break-word; word-break:normal; }
+button, summary, a { -webkit-tap-highlight-color:transparent; }
+button, summary { cursor:pointer; }
+a, button, summary { touch-action:manipulation; }
+:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
+.skip-link { position:absolute; left:20px; top:-100px; padding:12px; background:var(--surface); z-index:100; }
+.skip-link:focus { top:12px; }
+.studio-hero { max-width:1180px; margin:auto; padding:54px 24px 0; }
+.hero-grid { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:0; }
+.hero-copy { padding-right:42px; }
+.hero-title { font-size:clamp(38px,4.6vw,64px); margin-top:20px; max-width:12ch; font-weight:650; letter-spacing:-.045em; }
+:lang(zh) .hero-title { max-width:9em; line-height:1.16; letter-spacing:-.04em; }
+.hero-description { color:var(--dim); max-width:48ch; margin-top:24px; font-size:16px; line-height:1.8; }
+.hero-actions { display:flex; align-items:center; gap:25px; margin-top:26px; }
+.primary-link { display:inline-flex; padding:12px 20px; background:var(--ink); color:white; font-size:14px; border-radius:3px; }
+.text-link { display:inline-block; font-size:14px; border-bottom:1px solid currentColor; padding-bottom:3px; }
+.founder-signatures { display:grid; grid-template-columns:1fr 1fr; margin-top:32px; border-top:1px solid var(--line); }
+.signature { display:flex; align-items:center; gap:8px; padding:16px 10px 0 0; min-width:0; }
+.signature + .signature { padding-left:12px; border-left:1px solid var(--line); }
+.signature img { width:40px; height:40px; object-fit:contain; }
+.signature strong { font-size:15px; }
+.signature div span { display:block; font-size:10px; color:var(--dim); }
+.signature-jane { color:var(--jane); }
+.signature-jenny { color:var(--jenny); }
+.hero-project { display:block; min-width:0; padding:18px 0 20px 32px; border-left:1px solid var(--line-strong); }
+.project-caption { display:flex; justify-content:space-between; font-size:10px; letter-spacing:.15em; margin-bottom:16px; color:var(--accent); }
+.hero-image { padding:20px 12px; background:#e6e9e2; border:1px solid #d5d9d0; }
+.hero-image img { width:100%; height:auto; display:block; box-shadow:0 8px 22px #16180f15; }
+.project-summary { margin-top:20px; }
+.project-summary h2 { font-size:25px; letter-spacing:-.035em; font-weight:600; }
+.project-summary p { font-size:13px; margin-top:5px; color:var(--dim); max-width:45ch; }
+.project-credit { display:grid; grid-template-columns:1fr 1fr; gap:16px; font-size:10px; margin-top:20px; }
+.project-credit span { padding-top:8px; border-top:2px solid var(--jane); color:var(--jane); }
+.project-credit span + span { border-color:var(--jenny); color:var(--jenny); }
+.proof-strip { display:grid; grid-template-columns:1fr 1fr 1fr; border-block:1px solid var(--line-strong); margin-top:42px; }
+.proof-strip a { display:flex; align-items:center; gap:16px; padding:24px 22px; }
+.proof-strip a:first-child { padding-left:0; }
+.proof-strip a + a { border-left:1px solid var(--line); }
+.proof-strip strong { font-size:32px; font-weight:500; letter-spacing:-.05em; white-space:nowrap; }
+.proof-strip span { font-size:11px; color:var(--dim); max-width:23ch; }
+.editorial-section { padding-top:72px; padding-bottom:36px; }
+.case-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
+.case-study { scroll-margin-top:24px; }
+.case-byline { display:flex; gap:24px; flex-shrink:0; }
+.case-byline > span { border-top:2px solid; padding-top:7px; min-width:110px; }
+.case-byline strong { display:block; font-size:12px; font-weight:500; }
+.case-byline small { display:block; color:var(--dim); font-size:11px; }
+.case-tabs { display:flex; gap:24px; margin-top:28px; border-bottom:1px solid var(--line); }
+.case-tabs button { min-height:44px; padding:8px 0; border-bottom:2px solid transparent; font-size:13px; color:var(--dim); }
+.case-tabs button[aria-selected="true"] { color:var(--tab-color); border-color:var(--tab-color); font-weight:600; }
+.case-image { margin-top:20px; padding:24px; background:#e9eae4; border:1px solid var(--line); }
+.case-image img { display:block; width:100%; object-fit:contain; height:auto; box-shadow:0 6px 22px #16180f12; }
+.case-notes { padding:24px 0 0; }
+.case-notes > div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin-top:12px; }
+.case-notes details { border-top:2px solid var(--note-color); padding-top:14px; }
+.case-notes summary { font-size:14px; min-height:44px; color:var(--note-color); }
+.case-notes summary span { margin-right:10px; font-size:11px; }
+.case-notes details p { font-size:14px; margin-top:12px; color:var(--dim); line-height:1.8; }
+.case-description { display:grid; grid-template-columns:1.25fr 1fr .65fr; gap:32px; margin-top:28px; padding-bottom:30px; border-bottom:1px solid var(--line); }
+.case-description p:not(.eyebrow) { font-size:14px; line-height:1.8; margin-top:10px; max-width:52ch; }
+.case-description .text-link { margin-top:16px; }
+.case-metric { border-left:1px solid var(--line); padding-left:24px; }
+.case-metric strong { display:block; font-size:34px; line-height:1.3; font-weight:500; letter-spacing:-.04em; }
+.case-metric span { display:block; font-size:12px; color:var(--dim); margin-top:10px; }
+.ticketing-proof { max-width:1132px; margin:72px auto 0; display:grid; grid-template-columns:1fr 1fr; background:#e8eff5; padding:40px; gap:50px; }
+.ticketing-proof h2 { font-size:clamp(28px,4vw,44px); margin-top:18px; }
+.ticketing-proof p:not(.eyebrow) { font-size:15px; color:var(--dim); margin:20px 0; max-width:48ch; }
+.ticketing-number { align-self:center; text-align:center; font-size:100px; font-weight:500; letter-spacing:-.08em; color:var(--jenny); border-left:1px solid #b4c8dd; line-height:1.1; }
+.ticketing-number span { display:block; font-size:12px; letter-spacing:0; margin-top:16px; }
+.person-hero { padding-top:44px; padding-bottom:30px; border-bottom:1px solid var(--line); }
+.person-proof { margin-top:24px; border-left:2px solid var(--accent); padding:10px 18px; font-size:15px; max-width:58ch; background:var(--wash); }
+@media(max-width:900px) {
+ .hero-copy { padding-right:24px; }
+ .hero-project { padding-left:24px; }
+ .founder-signatures { grid-template-columns:1fr; }
+ .signature + .signature { border-left:0; padding-left:0; }
+ .proof-strip a { gap:12px; padding:20px 14px; }
+ .proof-strip strong { font-size:27px; }
+ .case-notes > div { grid-template-columns:1fr 1fr; }
+ .ticketing-proof { margin-inline:24px; }
+}
+@media(max-width:640px) {
+ .studio-hero { padding:30px 20px 0; }
+ .hero-grid { grid-template-columns:1fr; }
+ .hero-copy { padding:0; }
+ .hero-title { font-size:44px; max-width:13ch; }
+ .hero-description { margin-top:18px; font-size:15px; }
+ .founder-signatures { grid-template-columns:1fr 1fr; margin-top:24px; }
+ .signature + .signature { border-left:1px solid var(--line); padding-left:10px; }
+ .signature div span { font-size:9px; }
+ .signature { gap:5px; }
+ .signature > span { display:none; }
+ .hero-project { margin-top:28px; padding:20px 0 0; border-left:0; border-top:1px solid var(--line); }
+ .hero-image { padding:14px 8px; }
+ .project-summary h2 { font-size:24px; }
+ .proof-strip { grid-template-columns:1fr; margin-top:28px; }
+ .proof-strip a, .proof-strip a:first-child { padding:16px 0; }
+ .proof-strip a + a { border-left:0; border-top:1px solid var(--line); }
+ .proof-strip strong { min-width:85px; }
+ .proof-strip span { max-width:28ch; font-size:12px; }
+ .editorial-section { padding-top:50px; padding-bottom:20px; }
+ .case-heading { align-items:flex-start; flex-direction:column; gap:18px; }
+ .case-tabs { gap:18px; }
+ .case-tabs button { font-size:12px; }
+ .case-image { padding:8px; }
+ .case-description { grid-template-columns:1fr; gap:22px; }
+ .case-metric { border-left:0; border-top:1px solid var(--line); padding:18px 0 0; }
+ .case-notes > div { grid-template-columns:1fr; }
+ .ticketing-proof { grid-template-columns:1fr; padding:24px; gap:24px; margin:40px 24px 0; }
+ .ticketing-number { text-align:left; border-left:0; border-top:1px solid #b4c8dd; padding-top:24px; font-size:70px; }
+ .person-hero { padding-top:30px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ html { scroll-behavior:auto; }
+ *, *::before, *::after { animation:none !important; transition:none !important; }
 }

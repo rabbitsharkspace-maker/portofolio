@@ -39,7 +39,18 @@ export default function ScrambledText({
     // spans there buys nothing.
     if (!window.matchMedia("(hover: hover)").matches) return
 
-    const split = SplitText.create(el.querySelector("p"), { type: "chars", charsClass: "char" })
+    /*
+     * Split into words as well as characters. Characters alone are inline-block
+     * boxes with nothing holding them together, so the paragraph wrapped between
+     * any two of them — bios were breaking mid-word ("Mandarin" over two lines).
+     * The word span is the thing that must not break; the characters churn
+     * inside it.
+     */
+    const split = SplitText.create(el.querySelector("p"), {
+      type: "words,chars",
+      wordsClass: "word",
+      charsClass: "char",
+    })
     const chars = split.chars
     chars.forEach((c) => gsap.set(c, { display: "inline-block", attr: { "data-content": c.innerHTML } }))
 

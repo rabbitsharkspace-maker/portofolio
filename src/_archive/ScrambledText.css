@@ -5,3 +5,11 @@
   display: inline-block;
   will-change: contents;
 }
+
+/* The word is what wraps; the characters inside it never do. Without this the
+   per-character inline-blocks are each their own break opportunity and words
+   split across lines. */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
