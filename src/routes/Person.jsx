@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { PersonPlayground } from '../components/Playground'
-import CaseStudy from '../components/CaseStudy'
+import ProjectGallery from '../components/ProjectGallery'
 import { Chapter, WorkShelf, Recognition, PersonNotebook, BackgroundFolder, ContactLetter, StudioFooter } from '../components/StudioSections'
 import { people } from '../data/people'
 import { cases } from '../data/cases'
@@ -24,7 +24,7 @@ export default function Person() {
   return <>
     <PersonPlayground key={who} who={who} />
     <div className={`desk-body desk-body-${who}`}>
-      <section id="personal-work" className="work-collection"><Chapter number="01" label={zh?`${p.short} 的作品档案`:`FROM ${p.short.toUpperCase()}’S DESK`} title={who==='jane'?(zh?<>让点子，<em>有自己的样子。</em></>:<>Ideas with<br /><em>a personality.</em></>):(zh?<>把复杂，<em>理出头绪。</em></>:<>Making sense<br /><em>of the moving parts.</em></>)} note={zh?'作品在这里，细节在笔记里。':'the work, and the notes behind it.'}/><div className="project-collection">{mine.map((item,i)=><CaseStudy key={`${who}-${item.id}`} item={item} index={i} defaultView={who} />)}</div></section>
+      <section id="personal-work" className="work-collection"><Chapter number="01" label={zh?`${p.short} 的作品档案`:`FROM ${p.short.toUpperCase()}’S DESK`} title={who==='jane'?(zh?<>让点子，<em>有自己的样子。</em></>:<>Ideas with<br /><em>a personality.</em></>):(zh?<>把复杂，<em>理出头绪。</em></>:<>Making sense<br /><em>of the moving parts.</em></>)} note={zh?'作品在这里，细节在笔记里。':'the work, and the notes behind it.'}/><ProjectGallery key={who} items={mine} /></section>
       <WorkShelf key={who} items={other} />
       <PersonNotebook key={`notebook-${who}`} who={who} />
       <Recognition who={who} />

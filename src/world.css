@@ -1,0 +1,48 @@
+.project-gallery.gallery-mode-world { background:transparent; color:var(--ink); border:1px solid #c2c8ba; padding:18px; border-radius:18px; }
+.gallery-mode-world .gallery-toolbar { color:#7e8672; padding:0 8px 16px; }
+.gallery-mode-world .gallery-toolbar button { color:#6d725f; }
+.gallery-mode-world .gallery-toolbar button[aria-pressed=true] { border-color:#a2af97; color:#3e4d35; background:#e6ecd9; }
+.gallery-mode-world .gallery-endnote { border-color:#cbd0c1; color:#77806b; padding:16px 6px 0; margin-top:16px; }
+.studio-world { position:relative; background:#dee8df; border-radius:13px; overflow:hidden; isolation:isolate; }
+.world-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; position:absolute; top:25px; left:30px; right:30px; z-index:2; pointer-events:none; }
+.world-heading p { font:8px ui-monospace,monospace; letter-spacing:.13em; color:#788c78; }
+.world-heading h3 { font:italic 26px/1.2 Georgia,"Songti SC",serif; color:#52634e; margin-top:8px; }
+.world-heading > span { font:italic 12px Georgia,"Songti SC",serif; color:#81917c; transform:rotate(-5deg); max-width:22ch; }
+.world-canvas { height:620px; min-height:450px; position:relative; background:radial-gradient(ellipse at 50% 60%,#eef0db 0%,#dce8df 75%); }
+.world-canvas canvas { display:block; touch-action:none; cursor:grab; }
+.world-canvas canvas:active { cursor:grabbing; }
+.world-expanded .world-canvas { height:82dvh; min-height:600px; }
+.world-instructions { position:absolute; bottom:15px; left:50%; transform:translateX(-50%); background:#f6f7eadb; border:1px solid #c2ccba; border-radius:30px; padding:9px 20px; font:9px/1.5 ui-monospace,monospace; color:#728269; width:max-content; max-width:90%; text-align:center; pointer-events:none; }
+.world-controls { padding:14px 20px; display:flex; justify-content:space-between; gap:12px; border-top:1px solid #c0cfbb; background:#edf0e3; }
+.world-controls > div { display:flex; gap:8px; flex-wrap:wrap; }
+.world-controls button { display:flex; align-items:center; gap:8px; font:10px Arial,sans-serif; color:#546749; border:1px solid #bac8b0; padding:10px 12px; min-height:40px; border-radius:25px; background:#f7f7ee; transition:background .25s,transform .25s; scroll-margin-top:30px; }
+.world-controls button:hover { background:#dce5c9; transform:translateY(-2px); }
+.world-controls button > span { font:8px ui-monospace,monospace; color:#92a484; }
+.world-controls > div:last-child button { border-color:transparent; background:transparent; font-size:9px; padding-inline:6px; }
+.world-speech { position:absolute; top:100px; left:50%; transform:translateX(-50%) rotate(-2deg); display:flex; gap:15px; align-items:center; width:max-content; max-width:85%; background:#fff8e9; border:1px solid #c4b5ce; box-shadow:4px 5px 0 #69755e14; border-radius:20px 20px 20px 2px; padding:13px 15px; font:italic 14px/1.5 Georgia,"Songti SC",serif; color:#80718a; }
+.world-speech button { font:20px Arial,sans-serif; min-width:28px; min-height:28px; }
+.world-loading { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#849678; }
+.world-loading > span { font-size:60px; }
+.world-loading p { font:italic 15px Georgia,"Songti SC",serif; margin-top:20px; }
+.world-fallback { min-height:450px; display:flex; gap:15px; flex-wrap:wrap; align-content:center; justify-content:center; background:#e0e9dc; border-radius:12px; }
+.world-fallback p { width:100%; text-align:center; font:italic 22px Georgia,"Songti SC",serif; color:#7d8a70; }
+.world-fallback button { padding:13px 20px; border:1px solid #b4c3a9; background:#f2f3e7; border-radius:30px; font-size:12px; }
+@media(max-width:1000px){.world-canvas {height:550px}.world-controls {flex-direction:column;align-items:center}.world-controls > div {justify-content:center}.world-heading {top:20px;left:20px;right:20px}}
+@media(max-width:700px){
+ .project-gallery.gallery-mode-world {padding:10px;border-radius:15px;margin-inline:-3%}
+ .gallery-mode-world .gallery-toolbar {padding:3px 3px 12px;gap:4px;font-size:6px}
+ .gallery-mode-world .gallery-toolbar button {font-size:9px;padding:7px 8px}
+ .world-canvas {height:470px;min-height:430px}
+ .world-heading {top:22px;left:20px;right:20px;display:block}
+ .world-heading h3 {font-size:23px;margin-top:7px}
+ .world-heading > span {display:none}
+ .world-controls {padding:10px;gap:5px}
+ .world-controls button {font-size:9px;padding:9px;min-height:38px;gap:5px}
+ .world-controls > div {gap:5px}
+ .world-controls button > span {display:none}
+ .world-instructions {bottom:20px;width:87%;font-size:8px;padding:8px 12px}
+ .world-speech {top:95px;font-size:12px;padding:9px 12px}
+ .world-expanded .world-canvas {height:75dvh;min-height:470px}
+ .world-fallback {min-height:400px;padding:20px}
+}
+@media(prefers-reduced-motion:reduce){.world-controls button {transition:none}}
