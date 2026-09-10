@@ -1,118 +1,155 @@
 /*
  * Interface copy in both languages — section labels, home page lines, the small
- * words around the content. Data (bios, works) live in their own files.
+ * words around the content. Data (bios, works, cases) live in their own files.
  */
 export const ui = {
   en: {
-    // hero (rocket)
-    heroLines: [
-      { title: "We build AI systems designed for real work.", sub: "Practical products, engineered from strategy to launch." },
-      { title: "Two founders. One accountable team.", sub: "Strategy, design and engineering — led and delivered by us." },
-      { title: "Built for you. Owned by you.", sub: "Clear handover, practical training and no forced dependency." },
-    ],
-    scroll: "scroll",
-    // Read out to the scroll, a paragraph at a time.
-    manifesto: [
-      "We're a two-person studio. You get a full product team — strategy, engineering, design — without hiring one.",
-      "Eight products shipped. One automation handling 100+ requests a day, response time down from hours to seconds. At the Google AI Vibe-a-thon 2026, two of the six award winners came from this two-person studio.",
-    ],
-    // home sections
+    // ——— home hero ———
+    heroTitle: "Two people. Ideas taken all the way to launch.",
+    heroBody:
+      "We're Jenny and Jane. Product strategy, AI systems and experience design — from working out the real problem to shipping the thing that fixes it, done by the two of us.",
+    heroJenny: "Systems · engineering · strategy",
+    heroJane: "Design · experience · brand",
+    seeWork: "See the work",
+    meetUs: "Meet us",
+    heroShotNote: "One screen from My Kitchen Rules — the case below opens it up.",
+
+    // ——— featured cases ———
+    workLabel: "Selected work",
+    workTitle: "Real problems. Working products.",
+    workIntro:
+      "Three products, from the problem to the interface. Explore the design and systems details; each project credits its contributors.",
+    caseViews: "Case views",
+    viewFinished: "The finished thing",
+    viewThinking: (who) => `${who} · walkthrough`,
+    pinHint: "Click a marker to read why it was built that way.",
+    caseProblem: "The problem",
+    caseDid: "What we did",
+    close: "Close",
+    allWork: "All eight projects →",
+
+    // ——— recognition ———
+    recognition: "Recognition",
+    recognitionEvent: "Google AI Vibe-a-thon 2026 · GDG Hangzhou",
+
+    // ——— founders ———
     whoWeAre: "Who we are",
     whoWeAreTitle: "Two founders. One complete product team.",
-    turnHint: "Jenny makes it work. Jane makes it connect. Every project is shaped and delivered by both founders.",
-    statsLabel: "Expertise",
-    prevCharacter: "Previous character",
-    nextCharacter: "Next character",
-    enterSide: (who) => `Enter ${who}'s side →`,
-    builtLabel: "What we've built",
-    builtTitle: "Eight things, all shipped.",
-    both: "Both",
-    howWeWork: "How we work",
-    howWeWorkTitle: "Three ways to work with us.",
+    turnHint: "Design and engineering in one studio. Joint and independent projects are credited individually.",
+    evidenceLabel: "What that looks like",
+    enterSide: (who) => `${who}'s work in full →`,
+
+    // ——— services ———
+    howWeWork: "What you might need",
+    howWeWorkTitle: "Three problems we take on.",
+    servicesNote: "Start with the problem. We’ll work out the scope together.",
+
+    // ——— contact ———
     contact: "Contact",
-    contactTitle: "Bring us the problem worth solving.",
-    contactBody: "Share what’s happening and what should change. We’ll reply within 24 hours with clear next steps.",
+    contactTitle: "What are you trying to solve?",
+    contactBody:
+      "Tell us roughly where things stand and what you want to be different. We reply within 24 hours with concrete next steps.",
     footer: "© 2026 RabbitShark Studio · Remote worldwide · English & Mandarin",
-    // contact form
+
+    // ——— contact form ———
     formName: "Your name",
     formProblem: "What's the problem? A couple of sentences is plenty.",
     formEmail: "Where should we reply?",
-    formSend: "Send it →",
+    formSend: "Compose email ↗",
     formSubject: "New enquiry —",
     formIncomplete: "All three, please.",
     formBadEmail: "That address doesn't look right.",
-    formSent: "Your mail is composed and ready to send.",
+    formSent: "Continue in your email app to send your enquiry.",
     formDirect: "Or write to us directly:",
-    // gallery
-    spinHint: "drag or two-finger swipe to spin",
-    swipeHint: "swipe, drag or use the arrows to walk the wall",
-    prevWork: "Previous work",
-    nextWork: "Next work",
+
+    // ——— shared small words ———
     builtBy: "Built by",
-    plaqueHint: "detail →",
     visit: "Visit",
-    // person sections
+    both: "Both",
+
+    // ——— person pages ———
     whoIAm: "Who I am",
+    judgementLabel: "Inside the work",
+    judgementTitle: "Selected work, in detail.",
     capabilitiesLabel: "What I can do",
     capabilities: "Capabilities",
-    workLabel: "What I've built",
     work: "Work",
-    recognition: "Recognition",
     awards: "Awards",
     backgroundLabel: "Background",
     training: "Track record",
     contactPerson: "Contact",
     studioFooter: "© 2026 RabbitShark Studio",
   },
+
   zh: {
-    heroLines: [
-      { title: "我们构建服务于真实工作的 AI 系统。", sub: "从策略到上线，把想法做成实用的产品。" },
-      { title: "两位创始人，一支全程负责的团队。", sub: "策略、设计与工程，均由我们亲自带领并交付。" },
-      { title: "为你构建，归你所有。", sub: "清晰交接、实用培训，不制造被迫依赖。" },
-    ],
-    scroll: "向下滚动",
-    manifesto: [
-      "两个人的工作室。你拿到的是一支完整的产品团队——策略、工程、设计——但不用招人。",
-      "八个产品已上线。一套自动化每天处理 100 多条工单，响应从小时压到秒。Google AI 出海创想赛 2026，六个获奖席位里有两个来自这个两人工作室。",
-    ],
+    // ——— 首屏 ———
+    heroTitle: "两个人，把想法做到上线。",
+    heroBody:
+      "我们是 Jenny 和 Jane。产品策略、AI 系统与体验设计——从把真正的问题找出来，到把解决它的东西交付上线，都由我们两个人完成。",
+    heroJenny: "系统 · 工程 · 策略",
+    heroJane: "设计 · 体验 · 品牌",
+    seeWork: "看作品",
+    meetUs: "认识我们",
+    heroShotNote: "My Kitchen Rules 的一屏——下面那个案例会把它拆开讲。",
+
+    // ——— 精选案例 ———
+    workLabel: "代表作品",
+    workTitle: "真实问题，已交付的产品。",
+    workIntro: "从问题到界面，展开三个产品。切换视角查看功能细节，合作与独立作品分别署名。",
+    caseViews: "案例视角",
+    viewFinished: "成品",
+    viewThinking: (who) => `${who} · 解读`,
+    pinHint: "点开标记，看当时为什么这么做。",
+    caseProblem: "要解决的问题",
+    caseDid: "我们做了什么",
+    close: "收起",
+    allWork: "全部八个项目 →",
+
+    // ——— 外部核验 ———
+    recognition: "外部核验",
+    recognitionEvent: "Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou",
+
+    // ——— 两位创始人 ———
     whoWeAre: "我们是谁",
     whoWeAreTitle: "两位创始人，一支完整的产品团队。",
-    turnHint: "Jenny 让产品运行，Jane 让产品与人产生连接。每个项目都由两位创始人共同判断并亲自交付。",
-    statsLabel: "专业能力",
-    prevCharacter: "上一个角色",
-    nextCharacter: "下一个角色",
-    enterSide: (who) => `进入 ${who} 的世界 →`,
-    builtLabel: "我们做过什么",
-    builtTitle: "八件事,全部上线。",
-    both: "两人",
-    howWeWork: "怎么合作",
-    howWeWorkTitle: "三种和我们合作的方式。",
+    turnHint: "设计与工程，在同一个工作室。合作项目和独立作品，分别标注真实归属。",
+    evidenceLabel: "具体是什么样",
+    enterSide: (who) => `${who} 的完整作品 →`,
+
+    // ——— 服务 ———
+    howWeWork: "你可能需要什么",
+    howWeWorkTitle: "我们接的三类问题。",
+    servicesNote: "从你遇到的问题开始，一起确定需要交付什么。",
+
+    // ——— 联系 ———
     contact: "联系",
-    contactTitle: "把值得解决的问题交给我们。",
-    contactBody: "告诉我们目前的情况和你希望改变什么。我们会在 24 小时内给出清晰的下一步建议。",
+    contactTitle: "你正在解决什么问题？",
+    contactBody: "大致说说现在是什么情况、你希望它变成什么样。24 小时内回复，附具体的下一步。",
     footer: "© 2026 RabbitShark Studio · 全球远程 · 中英双语",
+
+    // ——— 表单 ———
     formName: "怎么称呼你",
     formProblem: "现在遇到的问题是什么？两三句话就够。",
     formEmail: "回信寄到哪里",
-    formSend: "发出去 →",
+    formSend: "打开邮件撰写 ↗",
     formSubject: "新的咨询 —",
     formIncomplete: "三格都要填。",
     formBadEmail: "这个邮箱地址好像不对。",
-    formSent: "邮件已经写好，发送即可。",
+    formSent: "请在你的邮件应用中完成发送。",
     formDirect: "或者直接写信给我们：",
-    spinHint: "拖动或双指滑动来旋转",
-    swipeHint: "滑动、拖动或用左右箭头看下一件",
-    prevWork: "上一个",
-    nextWork: "下一个",
+
+    // ——— 通用 ———
     builtBy: "作者",
-    plaqueHint: "详情 →",
     visit: "访问",
+    both: "两人",
+
+    // ——— 个人页 ———
     whoIAm: "我是谁",
+    judgementLabel: "作品解读",
+    judgementTitle: "从作品，看专业。",
     capabilitiesLabel: "我会什么",
     capabilities: "能力",
-    workLabel: "做过什么",
     work: "作品",
-    recognition: "获得过什么",
     awards: "奖项",
     backgroundLabel: "背景",
     training: "履历与背景",

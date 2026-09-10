@@ -115,7 +115,45 @@ const TextPressure = ({
     return () => window.removeEventListener('resize', debouncedSetSize);
   }, [setSize]);
 
+  /*
+   * setSize guesses the size from the character count — it assumes each glyph is
+   * about half the font size wide, which only holds at the demo's hairline-
+   * condensed resting width. This wordmark rests much wider (see the floors in
+   * the frame loop), so on a phone the guess overflowed and RABBIT ran off the
+   * right edge. Measure what actually rendered and pull it back to fit.
+   *
+   * The line is nowrap, so scrollWidth is the true text width even though the
+   * heading itself is 100% of the container. Only ever shrinks, so it settles.
+   */
   useEffect(() => {
+    const el = titleRef.current;
+    const box = containerRef.current;
+    if (!el || !box) return;
+
+    const containerW = box.getBoundingClientRect().width;
+    const textW = el.scrollWidth;
+    if (!containerW || !textW || textW <= containerW + 1) return;
+
+    const applied = parseFloat(getComputedStyle(el).fontSize) || fontSize;
+    const fitted = Math.max((applied * containerW) / textW, 1);
+    if (Math.abs(fitted - applied) > 0.5) setFontSize(fitted);
+  }, [fontSize, chars.length]);
+
+  useEffect(() => {
+    /*
+     * No pointer, no pressure. On touch the cursor never moves off the centre it
+     * is seeded at, so the effect freezes with the middle letters permanently
+     * fat and the outer ones permanently thin — the wordmark reads as broken
+     * rather than as responding, and the uneven widths overflowed the screen.
+     * Set one even weight across the line and skip the frame loop entirely.
+     */
+    if (!window.matchMedia('(hover: hover)').matches) {
+      spansRef.current.forEach(span => {
+        if (span) span.style.fontVariationSettings = "'wght' 700, 'wdth' 100, 'ital' 0";
+      });
+      return;
+    }
+
     let rafId;
     const animate = () => {
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
@@ -136,8 +174,13 @@ const TextPressure = ({
 
           const d = dist(mouseRef.current, charCenter);
 
-          const wdth = width ? Math.floor(getAttr(d, maxDist, 5, 200)) : 100;
-          const wght = weight ? Math.floor(getAttr(d, maxDist, 100, 900)) : 400;
+          // Floors, not the demo's 5 and 100. Away from the pointer those bottom
+          // out at hairline-condensed, and the wordmark is brand green on an
+          // almost-white page — the far letters all but vanished. Starting the
+          // ramp at a readable weight and width keeps RABBIT SHARK legible when
+          // nothing is hovering it, which is how most people see it.
+          const wdth = width ? Math.floor(getAttr(d, maxDist, 62, 200)) : 100;
+          const wght = weight ? Math.floor(getAttr(d, maxDist, 320, 900)) : 400;
           const italVal = italic ? getAttr(d, maxDist, 0, 1).toFixed(2) : 0;
           const alphaVal = alpha ? getAttr(d, maxDist, 0, 1).toFixed(2) : 1;
 
@@ -157,7 +200,7 @@ const TextPressure = ({
 
     animate();
     return () => cancelAnimationFrame(rafId);
-  }, [width, weight, italic, alpha]);
+  }, [width, weight, italic, alpha, chars.length]);
 
   const styleElement = useMemo(() => {
     return (

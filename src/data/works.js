@@ -1,11 +1,5 @@
-// owner drives the card border colour. Nothing else needs to know who built what.
-import { BLUE, YELLOW, GREEN } from "../theme"
-
-export const OWNER = {
-  jenny: { label: { en: "Jenny", zh: "Jenny" }, color: BLUE },
-  jane: { label: { en: "Jane", zh: "Jane" }, color: YELLOW },
-  both: { label: { en: "Jenny & Jane", zh: "Jenny 与 Jane" }, color: GREEN },
-}
+// `owner` is "jenny" | "jane" | "both". Who made what is painted from the two
+// accents in theme.js — nothing in the data needs to carry a colour.
 
 // Interleaved on purpose: Jenny, Jane, Jenny, both, ... The ring wraps, so
 // the last entry sits next to the first — keep that pair different too.
@@ -18,9 +12,14 @@ export const works = [
     owner: "jenny",
     stack: ["Gemini Vision", "Firebase", "Server-side AI"],
     link: null,
-    embed: "https://serene-msmi.onrender.com/", // live preview shown in Jenny's work section
+    embed: "https://serene-msmi.onrender.com/", // unused while `image` stands in
     address: "Serene — AI advocacy assistant for new migrants in Australia",
-    image: null, // artwork for the gallery plate — drop a path in when there is one
+    /*
+     * A still, not the live frame. The app sleeps on a free Render dyno, so a
+     * cold visit hung the wall on a black rectangle for the better part of a
+     * minute — the frame was showing a loading state, not the product.
+     */
+    image: "/ip/serene.webp",
     en: {
       name: "Serene",
       kind: "AI advocacy assistant",
@@ -39,8 +38,10 @@ export const works = [
     owner: "jenny",
     stack: ["Gemini", "Knowledge graph", "Full-stack"],
     link: "https://knoko.space",
-    embed: "https://knoko.space/", // live preview shown in Jenny's work section
-    image: null, // artwork for the gallery plate — drop a path in when there is one
+    embed: "https://knoko.space/", // unused while `image` stands in
+    // A still for the same reason as the rest of the wall: three live frames on
+    // one screen is three third-party page loads before anything is readable.
+    image: "/ip/kno.webp",
     en: {
       name: "Kno",
       kind: "AI knowledge platform",

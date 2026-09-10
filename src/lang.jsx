@@ -8,7 +8,7 @@ import { flushSync } from "react-dom"
 const LangCtx = createContext({ lang: "en", setLang: () => {} })
 
 export function LangProvider({ children }) {
-  const [lang, setLangState] = useState(() => localStorage.getItem("rs-lang") || "en")
+  const [lang, setLangState] = useState(() => localStorage.getItem("rs-lang") === "zh" ? "zh" : "en")
 
   /*
    * The whole page changes language at once, and swapping every word on one
@@ -38,6 +38,11 @@ export function useLang() {
 /*
  * Toggle. Reads "中文 / English" with the inactive language dimmed — the same
  * wording the bios use.
+ *
+ * On a phone it shortens to 中 / EN. The nav is a fixed pill centred on the
+ * viewport and this sits fixed in the top-right corner; at full width the two
+ * collided under about 420px and the toggle covered the third tab, which made
+ * Jane's page unreachable from a phone.
  */
 export function LangToggle({ className = "" }) {
   const { lang, setLang } = useLang()
@@ -50,17 +55,23 @@ export function LangToggle({ className = "" }) {
       }}
     >
       <button
+        aria-label="切换为中文"
+        aria-pressed={lang === "zh"}
         onClick={() => setLang("zh")}
         style={{ color: lang === "zh" ? "var(--ink)" : "var(--dim)", fontWeight: lang === "zh" ? 600 : 400 }}
       >
-        中文
+        <span className="sm:hidden">中</span>
+        <span className="hidden sm:inline">中文</span>
       </button>
       <span style={{ color: "var(--line)" }}>/</span>
       <button
+        aria-label="Switch to English"
+        aria-pressed={lang === "en"}
         onClick={() => setLang("en")}
         style={{ color: lang === "en" ? "var(--ink)" : "var(--dim)", fontWeight: lang === "en" ? 600 : 400 }}
       >
-        English
+        <span className="sm:hidden">EN</span>
+        <span className="hidden sm:inline">English</span>
       </button>
     </div>
   )

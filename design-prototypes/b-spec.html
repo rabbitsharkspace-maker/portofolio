@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>方向 B — 规格书 · RabbitShark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0f0e;
+    --panel:#141715;
+    --ink:#e8eae6;
+    --dim:#7e857d;
+    --line:#262a27;
+    --signal:#c6f24e;
+    --jane:#f0a04b;
+    --jenny:#5aa9e6;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"JetBrains Mono","Noto Sans SC",ui-monospace,monospace;
+    font-size:13px;line-height:1.65}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit}
+
+  .rule{border:0;border-top:1px solid var(--line);margin:0}
+  .k{color:var(--dim);text-transform:uppercase;letter-spacing:.12em;font-size:11px}
+
+  header{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  header b{color:var(--signal);font-weight:700;letter-spacing:.2em}
+
+  /* ——— 标题块：像一张规格书封面 ——— */
+  .cover{padding:8vh 0 6vh}
+  .cover h1{margin:0;overflow-wrap:anywhere;font-size:clamp(30px,5.6vw,64px);line-height:1.04;font-weight:700;letter-spacing:-.03em}
+  .cover h1 span{color:var(--signal)}
+  .cover .sub{margin-top:20px;color:var(--dim);max-width:52ch;font-size:14px}
+
+  .meta{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
+  .meta div{padding:14px 16px;border-right:1px solid var(--line)}
+  .meta div:last-child{border-right:0}
+  .meta .n{font-size:clamp(20px,2.6vw,30px);font-weight:700;letter-spacing:-.02em;margin-top:4px}
+  .meta .n em{font-style:normal;color:var(--signal)}
+
+  /* ——— 人员：两列规格 ——— */
+  .sec{padding:7vh 0 0}
+  .sec > .k{display:block;margin-bottom:14px}
+  .people{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}
+  .person{padding:22px;border-right:1px solid var(--line)}
+  .person:last-child{border-right:0}
+  .person h2{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}
+  .person .id{font-size:11px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
+  .person.j h2{color:var(--jane)}
+  .person.n h2{color:var(--jenny)}
+  .person ul{list-style:none;margin:18px 0 0;padding:0}
+  .person li{display:flex;justify-content:space-between;gap:14px;padding:5px 0;border-bottom:1px dotted var(--line);color:var(--dim)}
+  .person li b{color:var(--ink);font-weight:500}
+
+  /* ——— 出货表 ——— */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{width:100%;min-width:520px;border-collapse:collapse;margin-top:6px;font-size:13px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:400;border-bottom:1px solid var(--line)}
+  tbody tr:hover{background:var(--panel)}
+  td.name{font-weight:700;white-space:nowrap}
+  td.desc{color:var(--dim)}
+  td.num{font-weight:700;color:var(--signal);white-space:nowrap}
+  .own{display:inline-block;width:8px;height:8px;border-radius:1px;margin-right:7px;vertical-align:1px}
+  .own.j{background:var(--jane)}
+  .own.n{background:var(--jenny)}
+  .own.b{background:linear-gradient(90deg,var(--jane) 50%,var(--jenny) 50%)}
+  .status{color:var(--signal);font-size:11px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+
+  .legend{margin-top:14px;display:flex;gap:22px;font-size:11px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+
+  /* ——— 获奖：像一条日志 ——— */
+  .log{margin-top:6px;border:1px solid var(--line);background:var(--panel)}
+  .log div{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;gap:16px;flex-wrap:wrap}
+  .log div:last-child{border-bottom:0}
+  .log .ts{color:var(--dim);white-space:nowrap}
+  .log .hit{color:var(--signal)}
+
+  .offers{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin-top:6px}
+  .offers div{padding:20px 18px;border-right:1px solid var(--line)}
+  .offers div:last-child{border-right:0}
+  .offers h4{margin:0 0 8px;font-size:15px;font-weight:700}
+  .offers p{margin:0;color:var(--dim);font-size:12.5px}
+
+  .cta{margin:8vh 0 0;border:1px solid var(--signal);padding:26px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .cta b{font-size:clamp(18px,2.4vw,26px);letter-spacing:-.02em}
+  .cta a{color:var(--signal);text-decoration:none;border-bottom:1px solid var(--signal);white-space:nowrap}
+
+  footer{padding:7vh 0 6vh;color:var(--dim);font-size:11px;letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  @media (max-width:820px){
+    .meta{grid-template-columns:1fr 1fr}
+    .meta div{border-bottom:1px solid var(--line)}
+    .people,.offers{grid-template-columns:1fr}
+    .person,.offers div{border-right:0;border-bottom:1px solid var(--line)}
+    td.desc{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <b>RABBITSHARK</b>
+    <span>MELBOURNE / REMOTE · EN / 中文</span>
+  </header>
+  <hr class="rule">
+
+  <section class="cover">
+    <h1>两个人的工作室。<br><span>八个已上线的系统。</span></h1>
+    <p class="sub">策略、工程、设计在同一支团队里。我们先找到值得解决的问题，再把产品一路做到上线——没有外包环节，没有交接损耗。</p>
+
+    <div class="meta">
+      <div><div class="k">团队规模</div><div class="n">2 人</div></div>
+      <div><div class="k">已上线</div><div class="n">8 个</div></div>
+      <div><div class="k">获奖 / 六席</div><div class="n"><em>2</em> / 6</div></div>
+      <div><div class="k">工作语言</div><div class="n">中 / EN</div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <span class="k">01 — 人员规格</span>
+    <div class="people">
+      <div class="person j">
+        <h2>Jane Zhang</h2>
+        <div class="id">设计 · 体验 · 品牌 · 前端</div>
+        <ul>
+          <li><b>产品与界面</b><span>UI · 用户路径 · Figma→上线</span></li>
+          <li><b>品牌与视觉</b><span>视觉识别 · 印刷 · 插画</span></li>
+          <li><b>内容</b><span>脚本 · 短视频 · 社媒</span></li>
+          <li><b>前端</b><span>React · 响应式 · 设计交付</span></li>
+          <li><b>学历</b><span>RMIT 商业（区块链方向）</span></li>
+        </ul>
+      </div>
+      <div class="person n">
+        <h2>Jenny Zhang</h2>
+        <div class="id">系统 · 工程 · AI · 策略</div>
+        <ul>
+          <li><b>AI 系统</b><span>集成 · n8n · 加密与权限</span></li>
+          <li><b>产品策略</b><span>流程诊断 · ROI 测算</span></li>
+          <li><b>工程</b><span>React · 全栈 · 部署交付</span></li>
+          <li><b>创意</b><span>动画短片 · 分镜 · 配乐</span></li>
+          <li><b>学历</b><span>Monash 国际商务 · Stanford CIP</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <span class="k">02 — 出货记录</span>
+    <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>产品</th><th>类别</th><th class="desc">做了什么</th><th>关键指标</th><th>状态</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="name"><i class="own b"></i>My Kitchen Rules</td><td>餐厅运营</td><td class="desc">收银 / 后厨 / 对账 / 排班，三套角色界面</td><td class="num">4 岗 → 1 套</td><td class="status">已上线</td></tr>
+        <tr><td class="name"><i class="own n"></i>Community Ticketing</td><td>企业自动化</td><td class="desc">报修自动分类、定级、派单</td><td class="num">小时 → 秒</td><td class="status">已上线</td></tr>
+        <tr><td class="name"><i class="own n"></i>Serene</td><td>AI 维权</td><td class="desc">拍下英文罚单，生成正式申诉信</td><td class="num">5 步</td><td class="status">已上线</td></tr>
+        <tr><td class="name"><i class="own n"></i>Kno</td><td>AI 知识平台</td><td class="desc">任意输入 → 可漫游的知识图谱</td><td class="num">100% 本地</td><td class="status">已上线</td></tr>
+        <tr><td class="name"><i class="own j"></i>FastResume</td><td>AI 求职</td><td class="desc">ATS 打分 · STAR 改写 · 语音模拟面试</td><td class="num">8 语言</td><td class="status">已上线</td></tr>
+        <tr><td class="name"><i class="own j"></i>Sunrise Care</td><td>AI 照护支持</td><td class="desc">文书、监测、重复流程交给 AI</td><td class="num">—</td><td class="status">已上线</td></tr>
+        <tr><td class="name"><i class="own b"></i>LiftPPT</td><td>投影工具</td><td class="desc">歌词排版 · 注音 · 像素级 PPT 导出</td><td class="num">2,254 首</td><td class="status">已上线</td></tr>
+        <tr><td class="name"><i class="own n"></i>Human Disturbance Championship</td><td>动画短片</td><td class="desc">分镜、动画、原创配乐</td><td class="num">—</td><td class="status">已发布</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="legend">
+      <span><i class="own j"></i>Jane</span>
+      <span><i class="own n"></i>Jenny</span>
+      <span><i class="own b"></i>两人共同</span>
+    </div>
+  </section>
+
+  <section class="sec">
+    <span class="k">03 — 外部核验</span>
+    <div class="log">
+      <div><span class="ts">2026</span><span>Google AI 出海创想赛 Vibe-a-thon · GDG Hangzhou</span><span class="hit">Top 100 → Top 30 → 6 席</span></div>
+      <div><span class="ts">↳</span><span>Jane</span><span class="hit">最佳 Vibe Coding 作品奖</span></div>
+      <div><span class="ts">↳</span><span>Jenny</span><span class="hit">最佳 Google AI 技术应用奖</span></div>
+      <div><span class="ts">2024</span><span>RMIT 校长嘉许名单</span><span class="hit">全校前 2%</span></div>
+      <div><span class="ts">2024</span><span>BAP × USYD × Monash × McKinsey 案例赛</span><span class="hit">区域赛</span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <span class="k">04 — 合作方式</span>
+    <div class="offers">
+      <div><h4>我们替你做</h4><p>你描述问题，我们设计、开发并上线整套系统。</p></div>
+      <div><h4>我们做，归你所有</h4><p>连同培训一起交付，之后不依赖我们。</p></div>
+      <div><h4>我们教你做</h4><p>按你的预算、流程和团队，一对一带着做。</p></div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <b>带一个值得解决的问题来。</b>
+    <a href="#">rabbitshark.space@gmail.com →</a>
+  </div>
+
+  <footer>
+    <span>RabbitShark · 2 people · 8 shipped</span>
+    <span>GitHub · Instagram · YouTube</span>
+  </footer>
+</div>
+</body>
+</html>

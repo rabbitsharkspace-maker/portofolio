@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>方向 C — 编辑部 · RabbitShark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfaf7;
+    --ink:#1a1a18;
+    --dim:#77756e;
+    --line:#e3e0d8;
+    --accent:#8a5a2b;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter","Noto Serif SC",system-ui,sans-serif;font-size:16px;line-height:1.7}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  .serif{font-family:"Fraunces","Noto Serif SC",Georgia,serif}
+
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line)}
+  header .mark{font-family:"Fraunces",Georgia,serif;font-size:20px;font-weight:600;letter-spacing:-.01em}
+  header nav a{color:var(--dim);text-decoration:none;margin-left:26px;font-size:14px}
+  header nav a:hover{color:var(--ink)}
+
+  /* ——— HERO：一句话，一行证据 ——— */
+  .hero{padding:14vh 0 12vh;max-width:min(940px,92%)}
+  .hero h1{font-family:"Fraunces","Noto Serif SC",Georgia,serif;font-weight:300;
+    font-size:clamp(40px,7.4vw,96px);line-height:1.04;letter-spacing:-.03em;margin:0}
+  .hero h1 b{font-weight:600}
+  .hero p{margin:34px 0 0;max-width:min(480px,100%);color:var(--dim);font-size:17px}
+  .credit{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);max-width:min(660px,100%);
+    font-size:14px;color:var(--dim)}
+  .credit b{color:var(--ink);font-weight:500}
+
+  /* ——— 作品：大图 + 边注 ——— */
+  .label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+  .piece{padding:9vh 0;border-top:1px solid var(--line)}
+  .piece .head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;margin-bottom:34px}
+  .piece h2{font-family:"Fraunces","Noto Serif SC",Georgia,serif;font-weight:500;
+    font-size:clamp(28px,4vw,50px);line-height:1.05;letter-spacing:-.025em;margin:0}
+  .piece .byline{font-size:13px;color:var(--dim);letter-spacing:.06em;white-space:nowrap}
+  .piece figure{margin:0}
+  .piece img{width:100%;display:block;border:1px solid var(--line)}
+  .cols{display:grid;grid-template-columns:1.55fr 1fr;gap:52px;margin-top:34px;align-items:start}
+  .cols p{margin:0;max-width:min(620px,100%)}
+  .cols .lead{font-size:19px;line-height:1.6}
+  .aside{border-top:2px solid var(--ink);padding-top:14px}
+  .aside dt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+  .aside dd{margin:2px 0 16px;font-family:"Fraunces",Georgia,serif;font-size:26px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
+  .aside dd small{display:block;font-family:inherit;font-size:13px;font-weight:400;color:var(--dim);letter-spacing:0;margin-top:2px}
+
+  /* ——— 两个人：并排的作者简介 ——— */
+  .authors{display:grid;grid-template-columns:1fr 1fr;gap:52px;padding:10vh 0;border-top:1px solid var(--line)}
+  .author h3{font-family:"Fraunces","Noto Serif SC",Georgia,serif;font-weight:500;font-size:32px;margin:8px 0 0;letter-spacing:-.02em}
+  .author p{color:var(--dim);max-width:min(500px,100%)}
+  .author .disc{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .author ul{list-style:none;padding:0;margin:18px 0 0;font-size:14px;color:var(--dim)}
+  .author li{padding:7px 0;border-bottom:1px solid var(--line)}
+
+  .offers{padding:9vh 0;border-top:1px solid var(--line)}
+  .offers .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-top:34px}
+  .offers h4{font-family:"Fraunces",Georgia,serif;font-size:22px;font-weight:500;margin:0 0 10px;letter-spacing:-.01em}
+  .offers p{margin:0;color:var(--dim);font-size:15px}
+  .offers .num{font-family:"Fraunces",Georgia,serif;color:var(--accent);font-size:14px;letter-spacing:.1em}
+
+  .contact{padding:12vh 0;border-top:1px solid var(--line);text-align:center}
+  .contact h2{font-family:"Fraunces","Noto Serif SC",Georgia,serif;font-weight:300;font-size:clamp(30px,5vw,64px);letter-spacing:-.03em;margin:0}
+  .contact a{display:inline-block;margin-top:28px;color:var(--ink);font-size:19px;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:3px}
+  .contact p{color:var(--dim);max-width:min(460px,100%);margin:18px auto 0;font-size:15px}
+
+  footer{padding:5vh 0 7vh;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--dim);font-size:13px;flex-wrap:wrap;gap:12px}
+
+  @media (max-width:860px){
+    .wrap{padding:0 22px}
+    .cols,.authors,.offers .grid{grid-template-columns:1fr;gap:30px}
+    .hero{max-width:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="mark">RabbitShark</span>
+    <nav><a href="#">作品</a><a href="#">两位创始人</a><a href="#">合作方式</a><a href="#">联系</a><a href="#">EN</a></nav>
+  </header>
+
+  <section class="hero">
+    <h1>先找到<b>值得解决</b>的<br>那个问题。</h1>
+    <p>一个两人工作室。策略、工程与设计在同一支团队里，从第一张线框图做到上线。</p>
+    <div class="credit">
+      <b>Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou</b> —— Top 100 → Top 30 → 六个获奖席位，
+      其中两个来自同一个两人工作室。
+    </div>
+  </section>
+
+  <section class="piece">
+    <div class="head">
+      <div>
+        <div class="label">餐厅运营系统 · 2025</div>
+        <h2>My Kitchen Rules</h2>
+      </div>
+      <div class="byline">Jane &amp; Jenny</div>
+    </div>
+    <figure><img src="img/mkr.webp" alt="My Kitchen Rules"></figure>
+    <div class="cols">
+      <div>
+        <p class="lead">收银、后厨显示、盲对账和排班合成一套系统，老板、经理、员工各有一套界面。它平时完全安静，只有真的需要老板的时候才出声。</p>
+        <p style="color:var(--dim);margin-top:18px">给一个人同时干四份活的小餐厅老板——他们缺的不是又一个 App，是少开四个 App。</p>
+      </div>
+      <dl class="aside">
+        <dt>解决的问题</dt>
+        <dd>4 岗 → 1 套<small>一人身兼收银、后厨、账务、排班</small></dd>
+        <dt>技术</dt>
+        <dd style="font-size:16px">角色权限 · Fair Work 合规 · 审计日志</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="piece">
+    <div class="head">
+      <div>
+        <div class="label">AI 维权助手 · 2026</div>
+        <h2>Serene</h2>
+      </div>
+      <div class="byline">Jenny</div>
+    </div>
+    <figure><img src="img/serene.webp" alt="Serene"></figure>
+    <div class="cols">
+      <div>
+        <p class="lead">拍下一张看不懂的英文罚单或警告信，它读懂内容、核验依据，然后替你写出一封正式申诉信。</p>
+        <p style="color:var(--dim);margin-top:18px">给在澳洲的移民和留学生——收到一封信，最难的不是申诉，是看懂它到底在说什么。</p>
+      </div>
+      <dl class="aside">
+        <dt>路径</dt>
+        <dd>5 步<small>从慌张到搞定</small></dd>
+        <dt>技术</dt>
+        <dd style="font-size:16px">Gemini Vision · Search Grounding · Firebase</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="piece">
+    <div class="head">
+      <div>
+        <div class="label">企业自动化 · 2026</div>
+        <h2>Community Ticketing</h2>
+      </div>
+      <div class="byline">Jenny</div>
+    </div>
+    <div class="cols">
+      <div>
+        <p class="lead">每天 100+ 条报修工单，自动分类、定级、派单。原本有人整天在做转发这件事。</p>
+        <p style="color:var(--dim);margin-top:18px">这是最能说明我们做事方式的一个例子：客户来的时候要的是一个表单，最后交付的是一套不需要人转发的流程。</p>
+      </div>
+      <dl class="aside">
+        <dt>响应时间</dt>
+        <dd>小时 → 秒<small>每天 100+ 条</small></dd>
+        <dt>技术</dt>
+        <dd style="font-size:16px">n8n · AI 分类 · 权限与审计</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="authors">
+    <div class="author">
+      <div class="disc">设计 · 体验 · 品牌</div>
+      <h3>Jane Zhang</h3>
+      <p>我负责产品体验、界面设计与品牌方向，一块屏从第一张线框图一直做到上线的 React。学位是商业与区块链商业方向，所以看一个界面时，除了视觉，我也会算商业账——它要证明什么、向谁证明、按什么顺序。</p>
+      <ul>
+        <li>最佳 Vibe Coding 作品奖 · Vibe-a-thon 2026</li>
+        <li>RMIT 校长嘉许名单 2024 · 全校前 2%</li>
+        <li>品牌视觉与短视频，连续四年客户</li>
+      </ul>
+    </div>
+    <div class="author">
+      <div class="disc">系统 · 工程 · 策略</div>
+      <h3>Jenny Zhang</h3>
+      <p>我负责产品策略、AI 系统和全栈开发。客户通常带着一个功能需求来，我做的第一件事不是开工，是先弄清楚到底什么在拖慢这门生意——然后用最短的方案解决它，并且交付上线。</p>
+      <ul>
+        <li>最佳 Google AI 技术应用奖 · Vibe-a-thon 2026</li>
+        <li>Monash 国际商务 · Stanford Code in Place</li>
+        <li>七个已上线产品</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="offers">
+    <div class="label">合作方式</div>
+    <div class="grid">
+      <div><div class="num">01</div><h4>我们替你做</h4><p>你描述问题，我们设计、开发并上线整套系统。</p></div>
+      <div><div class="num">02</div><h4>我们做，归你所有</h4><p>连同培训一起交付，之后不依赖我们。</p></div>
+      <div><div class="num">03</div><h4>我们教你做</h4><p>按你的预算、流程和团队情况，一对一带着做。</p></div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>带一个值得解决的问题来。</h2>
+    <p>说清楚现在发生了什么、你希望它变成什么样。24 小时内回复，附具体的下一步。</p>
+    <a href="#">rabbitshark.space@gmail.com</a>
+  </section>
+
+  <footer>
+    <span>RabbitShark · 墨尔本 · 全球远程</span>
+    <span>GitHub · Instagram · YouTube · 中文 / English</span>
+  </footer>
+</div>
+</body>
+</html>
