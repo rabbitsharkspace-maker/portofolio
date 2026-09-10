@@ -51,7 +51,10 @@ body { font-family:Arial,Helvetica,"PingFang SC","Microsoft YaHei",sans-serif; }
 .desk-jane { left:0; transform:rotate(-7deg); }
 .desk-jenny { left:25%; transform:rotate(5deg); }
 .desk-sticker { position:absolute; top:303px; left:49%; width:75px; height:75px; background:#eea07f; border-radius:50%; font:11px/1.15 Georgia,serif; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; transform:rotate(-15deg); z-index:7; pointer-events:none; }
-.desk-controls { position:absolute; bottom:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:9px 15px; border-top:1px solid #bfb4cc; gap:12px; }
+/* Above the objects on the desk, not under them. The polaroid is z-index 4 and
+   hangs low enough to cover this bar, which left the tidy-up button visible but
+   not clickable — a hit test at its centre returned the polaroid's caption. */
+.desk-controls { position:absolute; z-index:7; bottom:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:9px 15px; border-top:1px solid #bfb4cc; gap:12px; }
 .desk-controls > span { font:8px ui-monospace,monospace; letter-spacing:.08em; }
 .desk-controls button { border:1px solid #9b8da6; border-radius:30px; background:#f4eff7; padding:7px 11px; font-size:11px; }
 .studio-ticker { grid-column:1/-1; margin-top:40px; border-block:1px solid var(--line-strong); padding:15px 0; display:flex; align-items:center; justify-content:space-around; gap:18px; font:10px ui-monospace,monospace; letter-spacing:.1em; }

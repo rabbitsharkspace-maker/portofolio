@@ -16,7 +16,11 @@ export function WorkShelf({ items, id = 'all-work' }) {
   const [selected,setSelected] = useState(items[0]?.id)
   const active = items.find(w=>w.id === selected) || items[0]
   if (!active) return null
-  const link = active.link || (active.id === 'ticketing' ? 'https://youtu.be/6UMtuA_LSOs' : active.id === 'championship' ? 'https://youtu.be/3z5-F9V2XIQ' : null)
+  // Whatever the work itself says it is reachable at. This used to be a map of
+  // two ids to two literal YouTube URLs, which were already sitting in works.js
+  // as `embed` — so the address existed twice and only one of the two would have
+  // been updated. `embed` is the address for the ones with no public homepage.
+  const link = active.link || active.embed || null
   return <section id={id} className="work-cabinet">
     <div className="cabinet-index"><p className="micro-label">{zh ? '还在桌上的那些点子' : 'ALSO ON THE DESK'}</p><h2>{zh ? <>继续，<em>随便翻翻。</em></> : <>A few more<br /><em>curiosities.</em></>}</h2><div className="cabinet-list" role="group" aria-label={zh ? '选择作品' : 'Choose a project'}>{items.map((w,i)=><button key={w.id} aria-pressed={active.id === w.id} aria-controls={`${id}-preview`} onClick={()=>setSelected(w.id)}><span>{String(i+1).padStart(2,'0')}</span><strong>{w[lang].name}</strong><span>↗</span></button>)}</div></div>
     <div className={`cabinet-preview preview-${active.id}`} id={`${id}-preview`} aria-live="polite">
@@ -41,7 +45,8 @@ export function Recognition({ who }) {
 export function AutomationReceipt() {
   const { lang } = useLang()
   const zh = lang === 'zh'
-  return <section id="ticketing-proof" className="automation-scene"><div className="automation-story"><p className="micro-label">JENNY / {zh ? '社区智能工单' : 'COMMUNITY TICKETING'}</p><h2>{zh ? <>少一点手忙脚乱。<br /><em>多一点井井有条。</em></> : <>Less chasing.<br /><em>More living.</em></>}</h2><p>{works.find(w=>w.id==='ticketing')[lang].what}</p><a href="https://youtu.be/6UMtuA_LSOs" className="ink-button" target="_blank" rel="noreferrer">{zh ? '看看它怎么工作' : 'See it in motion'} ↗</a></div><div className="automation-receipt"><p className="micro-label">RABBITSHARK / DAILY OPERATIONS</p><strong>100<span>+</span></strong><p>{zh ? '条报修 / 每天自动处理' : 'maintenance requests / handled daily'}</p><div className="receipt-rule" />{(zh ? ['收到报修','分类与优先级','派给对应人员'] : ['Request received','Classified & prioritised','Assigned to the right team']).map((label,i)=><div className="receipt-step" key={label}><span>0{i+1}</span><span>{label}</span><span>✓</span></div>)}<div className="receipt-rule" /><div className="receipt-total"><span>{zh ? '响应时间' : 'RESPONSE TIME'}</span><strong>{zh ? '小时 → 秒' : 'hours → seconds'}</strong></div><span className="receipt-signature">a little less manual. — Jenny</span></div></section>
+  const ticketing = works.find(w => w.id === 'ticketing')
+  return <section id="ticketing-proof" className="automation-scene"><div className="automation-story"><p className="micro-label">JENNY / {zh ? '社区智能工单' : 'COMMUNITY TICKETING'}</p><h2>{zh ? <>少一点手忙脚乱。<br /><em>多一点井井有条。</em></> : <>Less chasing.<br /><em>More living.</em></>}</h2><p>{ticketing[lang].what}</p><a href={ticketing.link || ticketing.embed} className="ink-button" target="_blank" rel="noreferrer">{zh ? '看看它怎么工作' : 'See it in motion'} ↗</a></div><div className="automation-receipt"><p className="micro-label">RABBITSHARK / DAILY OPERATIONS</p><strong>100<span>+</span></strong><p>{zh ? '条报修 / 每天自动处理' : 'maintenance requests / handled daily'}</p><div className="receipt-rule" />{(zh ? ['收到报修','分类与优先级','派给对应人员'] : ['Request received','Classified & prioritised','Assigned to the right team']).map((label,i)=><div className="receipt-step" key={label}><span>0{i+1}</span><span>{label}</span><span>✓</span></div>)}<div className="receipt-rule" /><div className="receipt-total"><span>{zh ? '响应时间' : 'RESPONSE TIME'}</span><strong>{zh ? '小时 → 秒' : 'hours → seconds'}</strong></div><span className="receipt-signature">a little less manual. — Jenny</span></div></section>
 }
 
 export function Services() {

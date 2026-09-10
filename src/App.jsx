@@ -30,8 +30,42 @@ const Router = import.meta.env.VITE_STANDALONE ? HashRouter : BrowserRouter
 // to <head>.
 function Meta() {
   useDocumentMeta()
-  const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "instant" }) }, [pathname])
+  const { pathname, hash } = useLocation()
+
+  /*
+   * Arriving at a page puts you at the top of it — unless the address named a
+   * section, in which case that is where you meant to arrive.
+   *
+   * A plain <a href="#work"> works once the page is up, because the section is
+   * in the DOM by the time the click happens. Opening or sharing /#work did not:
+   * the browser looks for the anchor while parsing the HTML, React has not
+   * rendered anything yet, and it never tries again — so every shared link to a
+   * section landed silently at the top.
+   *
+   * Two frames of grace before giving up. The first lets React commit; the
+   * second covers a section whose own content arrives a beat later. Longer than
+   * that and it would fight a reader who has already started scrolling.
+   */
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+      return
+    }
+
+    let frame
+    let tries = 0
+    const find = () => {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)))
+      if (target) {
+        target.scrollIntoView({ behavior: "instant", block: "start" })
+        return
+      }
+      if (tries++ < 2) frame = requestAnimationFrame(find)
+    }
+    frame = requestAnimationFrame(find)
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, hash])
+
   return null
 }
 

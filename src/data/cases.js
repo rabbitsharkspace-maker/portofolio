@@ -1,4 +1,8 @@
 // Interface walkthroughs describe visible controls, not unverified founder interviews.
+//
+// Notes carry no coordinates. They were pinned to points on the screenshot while
+// the case was a spread with markers on the image; the exhibition modal lists
+// them instead, and x/y/side had been dead weight since.
 export const cases = [
   {
     id: "mkr",
@@ -28,9 +32,6 @@ export const cases = [
     notes: [
       {
         by: "jenny",
-        x: 90,
-        y: 5.5,
-        side: "left",
         en: {
           q: "Sync status",
           a: "The header includes an offline-safe indicator and a queued-write count. These make connection and synchronisation status visible beside the operational controls.",
@@ -42,9 +43,6 @@ export const cases = [
       },
       {
         by: "jenny",
-        x: 88.5,
-        y: 72,
-        side: "left",
         en: {
           q: "Price comparison",
           a: "The cost view places price changes alongside delivery records, giving the reader a dated reference for the comparison.",
@@ -56,9 +54,6 @@ export const cases = [
       },
       {
         by: "jane",
-        x: 7.5,
-        y: 94,
-        side: "right",
         en: {
           q: "Role switching",
           a: "The role-switching control sits in the navigation rail. It provides a visible entry point to the different operational views.",
@@ -70,9 +65,6 @@ export const cases = [
       },
       {
         by: "jane",
-        x: 32,
-        y: 94,
-        side: "right",
         en: {
           q: "Familiar document structure",
           a: "The docket view groups supplier information and delivery details above the line items, following the structure of a delivery document.",
@@ -111,9 +103,6 @@ export const cases = [
     notes: [
       {
         by: "jenny",
-        x: 50,
-        y: 53,
-        side: "right",
         en: {
           q: "A visible five-step flow",
           a: "The landing screen lays out the document-to-appeal journey before the visitor starts. Each stage has its own place in the sequence.",
@@ -125,9 +114,6 @@ export const cases = [
       },
       {
         by: "jenny",
-        x: 50,
-        y: 65,
-        side: "right",
         en: {
           q: "A separate verification stage",
           a: "Verification is presented as a distinct stage in the workflow, making the source-checking step visible alongside document reading and drafting.",
@@ -139,9 +125,6 @@ export const cases = [
       },
       {
         by: "jenny",
-        x: 84,
-        y: 3.6,
-        side: "left",
         en: {
           q: "State and language controls",
           a: "State and language selectors sit together in the header, keeping both choices accessible from the start.",
@@ -180,9 +163,6 @@ export const cases = [
     notes: [
       {
         by: "jane",
-        x: 50,
-        y: 69,
-        side: "right",
         en: {
           q: "AI and manual entry",
           a: "The start screen offers both AI assistance and a manual builder, giving visitors two visible ways to begin.",
@@ -194,9 +174,6 @@ export const cases = [
       },
       {
         by: "jane",
-        x: 46,
-        y: 82,
-        side: "right",
         en: {
           q: "Side-by-side comparison",
           a: "The two-panel layout places the job description and CV next to each other, making it easier to refer to both while editing.",
@@ -208,9 +185,6 @@ export const cases = [
       },
       {
         by: "jane",
-        x: 75.5,
-        y: 4.4,
-        side: "left",
         en: {
           q: "Visible usage allowance",
           a: "The header displays the remaining free tries, so the allowance can be read before starting another rewrite.",
