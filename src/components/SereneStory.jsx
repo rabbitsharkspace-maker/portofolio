@@ -44,27 +44,23 @@ export default function SereneStory({ scenes, root }) {
            * happens where it can be read.
            */
           /*
-           * The heading floats up a character at a time, and the scroll drives it.
+           * The heading is set line by line, each line rising out from behind its
+           * own clipped edge. It is the biggest type on the page and it used to
+           * arrive the way the small print does — one block, faded.
            *
-           * Not a fixed 0.85s that fires once at a threshold — the progress is the
-           * scroll position, so it advances exactly as far as the reader moves and
-           * holds wherever they stop. Each character starts stretched tall and
-           * narrow and settles back to its own proportions on the way up, which is
-           * what reads as floating rather than sliding.
-           *
-           * Split by words as well as characters: characters alone would let a line
-           * break in the middle of a word. `autoSplit` re-splits when the webfont
-           * lands or the column changes width, and the animation is created inside
-           * `onSplit` and returned so SplitText can resync it when that happens.
+           * `autoSplit` re-splits when the webfont lands or the column changes
+           * width, so lines never break against a measurement that has since
+           * moved; the animation is made inside `onSplit` and returned, which is
+           * what lets SplitText resync it across a re-split.
            */
           const heading = act.querySelector('.serene-copy h3')
           if (heading) SplitText.create(heading, {
-            type: 'words, chars', autoSplit: true,
+            type: 'lines', mask: 'lines', autoSplit: true,
             onSplit(self) {
-              return gsap.fromTo(self.chars,
-                { willChange: 'opacity, transform', opacity: 0, yPercent: 120, scaleY: 2.2, scaleX: .75, transformOrigin: '50% 0%' },
-                { opacity: 1, yPercent: 0, scaleY: 1, scaleX: 1, ease: 'back.inOut(2)', stagger: .028,
-                  scrollTrigger: { trigger: heading, scroller: root.current, start: 'top bottom-=60', end: 'top center+=40', scrub: .6 } })
+              return gsap.from(self.lines, {
+                yPercent: 115, duration: .85, stagger: .11, ease: 'power3.out',
+                scrollTrigger: { trigger: heading, scroller: root.current, start: 'top bottom-=70', toggleActions: 'play none none none' },
+              })
             },
           })
           act.querySelectorAll('.serene-enter').forEach(el => {
@@ -78,12 +74,27 @@ export default function SereneStory({ scenes, root }) {
           })
         })
         /*
-         * The dialog is built when the case opens and its contents settle a beat
-         * later, so every trigger above was measured against a height that no
-         * longer holds. Without this the writing can sit at the opacity:0 that
-         * `from` wrote inline and never be played back in.
+         * Measured again once the case has actually stopped moving.
+         *
+         * Every trigger above was worked out against the dialog the instant it
+         * opened — before its images had arrived and before the fonts had been
+         * applied — so the whole story was shorter then than it is a moment
+         * later, and each start position was computed too near the top. Every
+         * trigger then reads as already passed, all of it plays at once while
+         * the case is still opening, and by the time anyone scrolls there is
+         * nothing left to see: the words are simply sitting there.
+         *
+         * It showed up in production and not in dev for the reason that makes it
+         * hard to catch — served from cache the page arrives all at once and the
+         * triggers are built before anything has settled, while Vite hands over
+         * module by module and the layout is already still by then.
          */
-        ScrollTrigger.refresh()
+        const settle = () => ScrollTrigger.refresh()
+        requestAnimationFrame(()=>requestAnimationFrame(settle))
+        document.fonts?.ready.then(settle).catch(()=>{})
+        stage.current.querySelectorAll('img').forEach(img => {
+          if (!img.complete) img.addEventListener('load', settle, { once: true })
+        })
       }, stage)
       return () => ctx.revert()
     })
