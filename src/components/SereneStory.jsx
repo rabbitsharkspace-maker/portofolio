@@ -30,9 +30,15 @@ export default function SereneStory({ scenes, root }) {
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const ctx = gsap.context(() => {
         stage.current.querySelectorAll('.serene-act').forEach(act => {
+          /*
+           * Fired off the act's middle, not its top edge. The writing sits in the
+           * middle of the act, so `top 85%` started it while the heading was still
+           * 138px below the fold — the whole 1.45s of it played out of sight, and
+           * the words were simply there by the time anyone could see them.
+           */
           gsap.from(act.querySelectorAll('.serene-enter'), {
             y: 38, opacity: 0, duration: .85, stagger: .12, ease: 'power2.out',
-            scrollTrigger: { trigger: act, scroller: root.current, start: 'top 85%', toggleActions: 'play none none none' },
+            scrollTrigger: { trigger: act, scroller: root.current, start: 'center 85%', toggleActions: 'play none none none' },
           })
           gsap.fromTo(act.querySelector('.serene-figure'), { y: 18 }, {
             y: -18, ease: 'none', scrollTrigger: { trigger: act, scroller: root.current, start: 'top bottom', end: 'bottom top', scrub: .5 },
