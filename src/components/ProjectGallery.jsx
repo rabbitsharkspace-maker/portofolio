@@ -1,5 +1,9 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { gsap } from 'gsap'
+import { Flip } from 'gsap/Flip'
+
+gsap.registerPlugin(Flip)
 import { useLang } from '../lang'
 import { Byline } from './CaseStudy'
 import { ACCENT } from '../theme'
@@ -14,6 +18,9 @@ export default function ProjectGallery({ items }) {
   const reduced = useReducedMotion()
   const dialog = useRef(null)
   const opener = useRef(null)
+  // The rectangle the reader actually clicked, so the case can open out of it.
+  const cameFrom = useRef(null)
+  const figure = useRef(null)
   const [selected,setSelected] = useState(null)
   const [mode,setMode] = useState('world')
   const [notes,setNotes] = useState('all')
@@ -25,6 +32,32 @@ export default function ProjectGallery({ items }) {
   const film = item?.film
   const ourCut = film?.[lang]
   const poster = typeof item?.poster === 'string' ? item.poster : item?.poster?.[lang]
+  /*
+   * The case opens out of the card that was clicked.
+   *
+   * Before, a card and the case that followed it were two unrelated pictures
+   * appearing one after the other, and the reader had to work out for
+   * themselves that the second was the inside of the first. Flip carries the
+   * frame across: it is measured where the card sits in the grid, put there,
+   * and let go. A card and its case need not hold the same picture — Serene's
+   * card is the product and its case opens on the film's cover — so what
+   * travels is the frame, and the picture inside it crossfades.
+   *
+   * Layout effect, because this has to happen in the same frame the dialog is
+   * painted; a tick later and the case has already been seen in its final place.
+   */
+  useLayoutEffect(()=>{
+    const from = cameFrom.current, target = figure.current
+    cameFrom.current = null
+    if (reduced || !from || !target) return
+    const ctx = gsap.context(()=>{
+      Flip.fit(target, from, { scale: true })
+      const state = Flip.getState(target)
+      gsap.set(target, { clearProps: 'transform,width,height' })
+      Flip.from(state, { duration: .5, ease: 'power2.inOut', scale: true })
+    })
+    return ()=>ctx.revert()
+  },[selected,reduced])
   useEffect(()=>{
     if (selected === null) return
     if (!dialog.current.open) dialog.current.showModal()
@@ -32,7 +65,18 @@ export default function ProjectGallery({ items }) {
     document.body.style.overflow = 'hidden'
     return ()=>{document.body.style.overflow = previous}
   },[selected])
-  function open(index,e) {opener.current = e?.currentTarget instanceof HTMLElement ? e.currentTarget : document.activeElement;setNotes('all');setPlaying(false);setSelected(index)}
+  function open(index,e) {
+    const el = e?.currentTarget instanceof HTMLElement ? e.currentTarget : document.activeElement
+    opener.current = el
+    /*
+     * Measured now, while the thing clicked is still where the reader is
+     * looking at it. A gallery card offers its artwork; the index offers only
+     * the row of type, and opening out of that reads just as well. Anything
+     * that hands us nothing at all falls through to the plain fade.
+     */
+    cameFrom.current = el?.querySelector?.('.exhibit-art') ?? el ?? null
+    setNotes('all');setPlaying(false);setSelected(index)
+  }
   function close() {dialog.current.close()}
   function move(direction) {setNotes('all');setPlaying(false);setSelected(i=>(i+direction+items.length)%items.length);dialog.current.scrollTop=0}
   function tilt(e) {
@@ -55,10 +99,10 @@ export default function ProjectGallery({ items }) {
       if(e.key==='ArrowRight' || e.key==='ArrowLeft'){e.preventDefault();move(e.key==='ArrowRight'?1:-1)}
     }}>
       <div className="exhibition-nav"><span>RABBITSHARK / {zh?'作品展台':'EXHIBITION'}</span><div><button onClick={()=>move(-1)} aria-label={zh?'上一件作品':'Previous project'}>←</button><span>{selected===null?'01':String(selected+1).padStart(2,'0')} / {String(items.length).padStart(2,'0')}</span><button onClick={()=>move(1)} aria-label={zh?'下一件作品':'Next project'}>→</button><button className="exhibition-close" autoFocus onClick={close}>{zh?'退出展台':'Close'} ×</button></div></div>
-      <AnimatePresence mode="wait" initial={false}>{item && <motion.div key={item.id} className={`exhibition-content exhibition-${item.id}`} initial={reduced?false:{opacity:0,y:16}} animate={{opacity:1,y:0}} exit={reduced?{}:{opacity:0,y:-8}} transition={{duration:.2}}>
+      <AnimatePresence mode="wait" initial={false}>{item && <motion.div key={item.id} className={`exhibition-content exhibition-${item.id}`} initial={reduced?false:{opacity:0}} animate={{opacity:1}} exit={reduced?{}:{opacity:0}} transition={{duration:.2}}>
         <header className="exhibition-title"><p className="micro-label">{item[lang].kind}</p><h2>{item[lang].name}</h2>{item[lang].ground && <p className="work-ground" style={ACCENT[item.owner] ? {'--ground-ink':ACCENT[item.owner]} : undefined}>{item[lang].ground}</p>}<Byline split={item.split} /></header>
         {/* Cover and cut both follow the page's language. */}
-        <figure className={`exhibition-image${film ? ' has-film' : ''}`}>{playing && film
+        <figure ref={figure} className={`exhibition-image${film ? ' has-film' : ''}`}>{playing && film
           ? (ourCut
             ? <video src={ourCut} poster={poster} controls autoPlay playsInline />
             : <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${item[lang].name} — ${zh?'影片':'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />)
