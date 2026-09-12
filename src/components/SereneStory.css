@@ -18,8 +18,16 @@
  * stretched right by the umbrella, so a frame centred on the box left her body
  * sitting 6% to the left of centre in every act. The crop is built around her
  * feet now, which land in the same place in all four.
+ *
+ * Centred by auto margins rather than translateX(-50%), because the parallax
+ * writes `transform` on this same element and owns the whole property. GSAP
+ * bakes the percentage into a pixel measured when it first parses, so anything
+ * that changes the element's size afterwards — an image arriving over a real
+ * network rather than instantly off localhost — leaves it centred against a
+ * width it no longer has. It was 79px off in production and exactly right in
+ * dev for that reason. Layout and animation do not share a property here.
  */
-.serene-figure { position:absolute; z-index:2; bottom:10%; height:77%; aspect-ratio:548/1100; left:50%; transform:translateX(-50%); }
+.serene-figure { position:absolute; z-index:2; bottom:10%; height:77%; aspect-ratio:548/1100; left:0; right:0; margin-inline:auto; }
 .serene-character { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 12px 9px #20312a19); }
 .serene-floor { position:absolute; bottom:10%; left:24%; width:55%; height:20px; background:#223c3733; filter:blur(12px); border-radius:50%; }
 .serene-caption { position:absolute; z-index:3; left:24px; right:24px; bottom:20px; background:#faf9efed; border:1px solid #ffffff99; padding:13px 18px; box-shadow:0 5px 15px #293a2910; transform:rotate(-2deg); }
