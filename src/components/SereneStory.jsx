@@ -30,19 +30,14 @@ export default function SereneStory({ scenes, root }) {
     const media = gsap.matchMedia()
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const ctx = gsap.context(() => {
-        stage.current.querySelectorAll('.serene-act').forEach(act => {
-          /*
-           * Every line watches for itself, rather than the whole column waiting on
-           * one trigger somewhere in the act.
-           *
-           * Shared, the column could only be all hidden or all shown, and both
-           * settings were wrong: fired off the act's top edge it finished below the
-           * fold and nobody saw it happen; fired off the act's middle you sat and
-           * watched an empty column until it caught up. A line of its own only ever
-           * holds at nought while it is still under the fold, and rises as it
-           * crosses in — so there is never a hole on screen, and the movement
-           * happens where it can be read.
-           */
+        /*
+         * `refreshPriority` is the act's own number, so a refresh recalculates the
+         * four in the order they are read. They happen to be created that way, but
+         * that is luck rather than design — anything inserted into the story later,
+         * or built out of order, would refresh against positions that had not been
+         * worked out yet.
+         */
+        stage.current.querySelectorAll('.serene-act').forEach((act, i) => {
           /*
            * The heading is set line by line, each line rising out from behind its
            * own clipped edge. It is the biggest type on the page and it used to
@@ -59,18 +54,30 @@ export default function SereneStory({ scenes, root }) {
             onSplit(self) {
               return gsap.from(self.lines, {
                 yPercent: 115, duration: .85, stagger: .11, ease: 'power3.out',
-                scrollTrigger: { trigger: heading, scroller: root.current, start: 'top bottom-=70', toggleActions: 'play none none none' },
+                scrollTrigger: { trigger: heading, scroller: root.current, refreshPriority: i, start: 'top bottom-=70', toggleActions: 'play none none none' },
               })
             },
           })
+          /*
+           * Every line watches for itself, rather than the whole column waiting on
+           * one trigger somewhere in the act.
+           *
+           * Shared, the column could only be all hidden or all shown, and both
+           * settings were wrong: fired off the act's top edge it finished below the
+           * fold and nobody saw it happen; fired off the act's middle you sat and
+           * watched an empty column until it caught up. A line of its own only ever
+           * holds at nought while it is still under the fold, and rises as it
+           * crosses in — so there is never a hole on screen, and the movement
+           * happens where it can be read.
+           */
           act.querySelectorAll('.serene-enter').forEach(el => {
             gsap.from(el, {
               y: 26, opacity: 0, duration: .7, ease: 'power2.out',
-              scrollTrigger: { trigger: el, scroller: root.current, start: 'top bottom-=70', toggleActions: 'play none none none' },
+              scrollTrigger: { trigger: el, scroller: root.current, refreshPriority: i, start: 'top bottom-=70', toggleActions: 'play none none none' },
             })
           })
           gsap.fromTo(act.querySelector('.serene-figure'), { y: 18 }, {
-            y: -18, ease: 'none', scrollTrigger: { trigger: act, scroller: root.current, start: 'top bottom', end: 'bottom top', scrub: .5 },
+            y: -18, ease: 'none', scrollTrigger: { trigger: act, scroller: root.current, refreshPriority: i, start: 'top bottom', end: 'bottom top', scrub: .5 },
           })
         })
         /*
