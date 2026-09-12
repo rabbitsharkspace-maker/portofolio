@@ -12,7 +12,14 @@
  * point at; in scene percentages they drift, because the still's share of the
  * scene's width changes with the window while its height does not.
  */
-.serene-figure { position:absolute; z-index:2; bottom:10%; height:77%; aspect-ratio:489/1100; left:50%; transform:translateX(-50%); }
+/*
+ * The box is the still's own rectangle, and the still is framed on her rather
+ * than on its own bounding box — the four share one crop, and that crop is
+ * stretched right by the umbrella, so a frame centred on the box left her body
+ * sitting 6% to the left of centre in every act. The crop is built around her
+ * feet now, which land in the same place in all four.
+ */
+.serene-figure { position:absolute; z-index:2; bottom:10%; height:77%; aspect-ratio:548/1100; left:50%; transform:translateX(-50%); }
 .serene-character { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 12px 9px #20312a19); }
 .serene-floor { position:absolute; bottom:10%; left:24%; width:55%; height:20px; background:#223c3733; filter:blur(12px); border-radius:50%; }
 .serene-caption { position:absolute; z-index:3; left:24px; right:24px; bottom:20px; background:#faf9efed; border:1px solid #ffffff99; padding:13px 18px; box-shadow:0 5px 15px #293a2910; transform:rotate(-2deg); }
