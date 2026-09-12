@@ -287,17 +287,6 @@ export const cases = [
       },
       {
         by: "jenny",
-        en: {
-          q: "Why three models",
-          a: "Reading an image or checking a source goes to Gemini. Plain text goes to Gemma. Offline falls back to Gemini Nano on the phone, where it answers from constants and phrasing only and never guesses at a statute. Around eight in ten requests take the cheaper path. Building for harm is a low-resource setting by nature: no signal is low-resource, no English is low-resource, and three in the morning with nobody to ask is low-resource too.",
-        },
-        zh: {
-          q: "为什么要三个模型",
-          a: "要读图、要联网核实的走 Gemini；纯文本走 Gemma；断网时走手机本地的 Gemini Nano——断网只答常量和话术，法条不猜。八成的请求走的是更省的那条。「善」这条赛道本来就是低资源环境：断网是，不会英文是，凌晨三点身边没人可问也是。",
-        },
-      },
-      {
-        by: "jenny",
         /*
          * Four languages of the same screen, because one of them proves nothing.
          * The app does not translate the sentence — it swaps which language it
@@ -314,6 +303,17 @@ export const cases = [
           q: "它不是翻译工具",
           shotNote: "同一屏，中文、印地语、越南语、阿拉伯语。它递给你的那句话是你自己语言的名字，不是把界面翻译一遍。",
           a: "翻译只回答「这上面写了什么」。真正卡住人的是下一句：那我现在该干什么。被车撞了、脑子一片空白的时候，它给的是现场清单——第一句是 Mandarin Chinese, please，因为澳洲的 000 有免费中文口译，但很多人不知道开口该说什么。",
+        },
+      },
+      {
+        by: "jenny",
+        en: {
+          q: "Why three models",
+          a: "Reading an image or checking a source goes to Gemini. Plain text goes to Gemma. Offline falls back to Gemini Nano on the phone, where it answers from constants and phrasing only and never guesses at a statute. Around eight in ten requests take the cheaper path. Building for harm is a low-resource setting by nature: no signal is low-resource, no English is low-resource, and three in the morning with nobody to ask is low-resource too.",
+        },
+        zh: {
+          q: "为什么要三个模型",
+          a: "要读图、要联网核实的走 Gemini；纯文本走 Gemma；断网时走手机本地的 Gemini Nano——断网只答常量和话术，法条不猜。八成的请求走的是更省的那条。「善」这条赛道本来就是低资源环境：断网是，不会英文是，凌晨三点身边没人可问也是。",
         },
       },
     ],
