@@ -41,13 +41,13 @@ export const people = {
         },
         {
           claim: "Externally checked",
-          proof: "Best Google AI Technology Application, Vibe-a-thon 2026 — 395 entries, three rounds, six winners.",
+          proof: "Best of the Year · Google AI Technology Application for Serene, Vibe-a-thon 2026 — 395 entries, three rounds, six winners.",
         },
       ],
       about: [
         "I lead product strategy, AI systems and full-stack engineering at RabbitShark.",
         "Clients usually arrive with a feature request. My first move isn't to build it — it's to work out what is actually slowing the business down, then ship the shortest system that fixes it.",
-        "Seven products shipped. Best Google AI Technology Application at the Google AI Vibe-a-thon 2026 — one of six winners from 395 entries. One automation handling 100+ maintenance requests a day, with response time down from hours to seconds.",
+        "Seven products shipped. Best of the Year for Google AI Technology Application at the Google AI Vibe-a-thon 2026, for Serene — one of six winners from 395 entries. One automation handling 100+ maintenance requests a day, with response time down from hours to seconds.",
         "A business degree and a self-taught engineering path — which means I know what every technical decision costs. I work in English and Mandarin, remote worldwide.",
       ],
       skills: [
@@ -69,7 +69,14 @@ export const people = {
         },
       ],
       awards: [
-        "Best Google AI Technology Application — Google AI Vibe-a-thon 2026, run by GDG Hangzhou, awarded at the Google Developer Conference in Shanghai\n395 entries → Top 100 → Top 30 → six winners",
+        /*
+         * Worded as the two certificates are printed, both of them for Serene.
+         * "Best of the Year" is the line they carry above the award's own name;
+         * "Top 30 Finalists Award" is printed in English on the certificate, so
+         * it stays in English on the Chinese side too.
+         */
+        "Best of the Year · Google AI Technology Application — Serene\nGoogle AI Vibe-a-thon 2026, run by GDG Hangzhou, awarded at the Google Developer Conference in Shanghai, 13 Aug 2026",
+        "Best of the Year · Top 30 Finalists Award — Serene\n395 entries → Top 100 → Top 30 → six winners",
         "BAP × USYD × Monash × McKinsey Case Competition — Regional Round",
         "FMAA Management Consulting Case Competition 2024 — Campus Qualifier",
         "AMEB Grade 8 Piano (A)",
@@ -110,13 +117,13 @@ export const people = {
         },
         {
           claim: "有外部核验",
-          proof: "最佳 Google AI 技术应用奖 · Vibe-a-thon 2026 —— 395 队/人参赛，三轮筛选，六个席位。",
+          proof: "年度最佳 · Google AI 技术应用（作品 Serene）· Vibe-a-thon 2026 —— 395 队/人参赛，三轮筛选，六个席位。",
         },
       ],
       about: [
         "RabbitShark 的产品策略、AI 系统和全栈开发由我负责。",
         "客户通常带着一个功能需求来找我。我做的第一件事不是开工，是先弄清楚到底是什么在拖慢这门生意——然后用最短的方案解决它，并且交付上线。",
-        "已上线七个产品。获 Google AI 出海创想赛 Vibe-a-thon 2026（GDG 杭州主办）最佳 Google AI 技术应用奖——395 队/人参赛，三轮筛选后六个获奖席位之一。做过一套自动化系统，每天自动处理 100 多条工单，响应从小时级压到秒级。",
+        "已上线七个产品。作品 Serene 获 Google AI 出海创想赛 Vibe-a-thon 2026（GDG 杭州主办）年度最佳 · Google AI 技术应用——395 队/人参赛，三轮筛选后六个获奖席位之一。做过一套自动化系统，每天自动处理 100 多条工单，响应从小时级压到秒级。",
         "商科出身，工程自学，所以我清楚每一个技术决定背后对应多少钱。中英文都能直接开工，全球远程。",
       ],
       skills: [
@@ -126,7 +133,8 @@ export const people = {
         { group: "创意", items: ["动画短片", "分镜", "UI 设计", "原创配乐"] },
       ],
       awards: [
-        "最佳 Google AI 技术应用奖 —— Google AI 出海创想赛 Vibe-a-thon 2026 · GDG 杭州主办，颁奖于上海谷歌开发者大会\n395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位",
+        "年度最佳 · Google AI 技术应用 —— 作品 Serene（安心副驾）\nGoogle AI 出海创想赛 Vibe-a-thon 2026 · GDG 杭州主办，颁奖于上海谷歌开发者大会 · 2026 年 8 月 13 日",
+        "年度最佳 · Top 30 Finalists Award —— 作品 Serene（安心副驾）\n395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位",
         "BAP × USYD × Monash × McKinsey 案例赛 — 区域赛",
         "FMAA 管理咨询案例赛 2024 — 校园赛晋级",
         "AMEB 钢琴八级 A",
@@ -314,7 +322,7 @@ export const studio = {
       sourceLabel: "GDG Hangzhou's official recap, 24 Aug 2026 (WeChat, in Chinese)",
       event: "Google AI Vibe-a-thon 2026 · organised by GDG Hangzhou · awarded at the Google Developer Conference, Shanghai",
       path: "395 entries → Top 100 → Top 30 → six winners. Two of the six came from the same two-person studio.",
-      awards: "Jane — Best Vibe Coding Work · Jenny — Best Google AI Technology Application",
+      awards: "Jane — Best Vibe Coding Work · Jenny — Best of the Year, Google AI Technology Application",
     },
     line: "Two founders. Strategy, engineering and design in one team.",
     sub: "We find the problem worth solving, then take the product all the way to launch.",
@@ -355,7 +363,10 @@ export const studio = {
       sourceLabel: "GDG 杭州官方战报 · 2026 年 8 月 24 日",
       event: "Google AI 出海创想赛 Vibe-a-thon 2026 · GDG 杭州主办 · 颁奖于谷歌开发者大会（上海）",
       path: "395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位，其中两个来自同一个两人工作室。",
-      awards: "Jane —— 最佳 Vibe Coding 作品奖 · Jenny —— 最佳 Google AI 技术应用奖",
+      /*
+       * Split on " · " to make the two lines, so neither half may contain one.
+       */
+      awards: "Jane —— 最佳 Vibe Coding 作品奖 · Jenny —— 年度最佳 Google AI 技术应用",
     },
     line: "两位创始人，把策略、工程与设计放在同一支团队里。",
     sub: "我们先找到值得解决的问题，再把产品一路做到上线。",
