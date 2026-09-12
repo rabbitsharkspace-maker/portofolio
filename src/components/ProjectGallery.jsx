@@ -2,6 +2,9 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useLang } from '../lang'
 import { Byline } from './CaseStudy'
+import { ACCENT } from '../theme'
+import CaseScroller from './CaseScroller'
+import SereneStory from './SereneStory'
 
 const StudioWorld = lazy(() => import('./StudioWorld'))
 
@@ -14,7 +17,14 @@ export default function ProjectGallery({ items }) {
   const [selected,setSelected] = useState(null)
   const [mode,setMode] = useState('world')
   const [notes,setNotes] = useState('all')
+  // The film loads only once it is asked for: a third-party player on every open
+  // would be a YouTube request for readers who never press play.
+  const [playing,setPlaying] = useState(false)
   const item = selected === null ? null : items[selected]
+  // A cut we serve ourselves beats one we embed; see the note on `film` in cases.js.
+  const film = item?.film
+  const ourCut = film?.[lang]
+  const poster = typeof item?.poster === 'string' ? item.poster : item?.poster?.[lang]
   useEffect(()=>{
     if (selected === null) return
     if (!dialog.current.open) dialog.current.showModal()
@@ -22,9 +32,9 @@ export default function ProjectGallery({ items }) {
     document.body.style.overflow = 'hidden'
     return ()=>{document.body.style.overflow = previous}
   },[selected])
-  function open(index,e) {opener.current = e?.currentTarget instanceof HTMLElement ? e.currentTarget : document.activeElement;setNotes('all');setSelected(index)}
+  function open(index,e) {opener.current = e?.currentTarget instanceof HTMLElement ? e.currentTarget : document.activeElement;setNotes('all');setPlaying(false);setSelected(index)}
   function close() {dialog.current.close()}
-  function move(direction) {setNotes('all');setSelected(i=>(i+direction+items.length)%items.length);dialog.current.scrollTop=0}
+  function move(direction) {setNotes('all');setPlaying(false);setSelected(i=>(i+direction+items.length)%items.length);dialog.current.scrollTop=0}
   function tilt(e) {
     if (reduced || e.pointerType !== 'mouse') return
     const r=e.currentTarget.getBoundingClientRect()
@@ -46,9 +56,16 @@ export default function ProjectGallery({ items }) {
     }}>
       <div className="exhibition-nav"><span>RABBITSHARK / {zh?'作品展台':'EXHIBITION'}</span><div><button onClick={()=>move(-1)} aria-label={zh?'上一件作品':'Previous project'}>←</button><span>{selected===null?'01':String(selected+1).padStart(2,'0')} / {String(items.length).padStart(2,'0')}</span><button onClick={()=>move(1)} aria-label={zh?'下一件作品':'Next project'}>→</button><button className="exhibition-close" autoFocus onClick={close}>{zh?'退出展台':'Close'} ×</button></div></div>
       <AnimatePresence mode="wait" initial={false}>{item && <motion.div key={item.id} className={`exhibition-content exhibition-${item.id}`} initial={reduced?false:{opacity:0,y:16}} animate={{opacity:1,y:0}} exit={reduced?{}:{opacity:0,y:-8}} transition={{duration:.2}}>
-        <header className="exhibition-title"><p className="micro-label">{item[lang].kind}</p><h2>{item[lang].name}</h2><Byline split={item.split} /></header>
-        <figure className="exhibition-image"><img src={item.image} alt={`${item[lang].name} — ${item[lang].kind}`} /></figure>
+        <header className="exhibition-title"><p className="micro-label">{item[lang].kind}</p><h2>{item[lang].name}</h2>{item[lang].ground && <p className="work-ground" style={ACCENT[item.owner] ? {'--ground-ink':ACCENT[item.owner]} : undefined}>{item[lang].ground}</p>}<Byline split={item.split} /></header>
+        {/* Cover and cut both follow the page's language. */}
+        <figure className={`exhibition-image${film ? ' has-film' : ''}`}>{playing && film
+          ? (ourCut
+            ? <video src={ourCut} poster={poster} controls autoPlay playsInline />
+            : <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${item[lang].name} — ${zh?'影片':'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />)
+          : <><img src={poster || item.image} alt={poster ? `${item[lang].name} — ${zh?'影片封面':'film cover'}` : `${item[lang].name} — ${item[lang].kind}`} />{film && <button className="exhibition-play" onClick={()=>setPlaying(true)}><span aria-hidden="true">▶</span>{zh?'播放影片':'Play the film'}</button>}</>}</figure>
+        {film?.youtube && <p className="film-elsewhere"><a className="quiet-link" href={`https://youtu.be/${film.youtube}`} target="_blank" rel="noreferrer">{zh?'也可以在 YouTube 上看':'Also on YouTube'} ↗</a></p>}
         <div className="exhibition-story"><div><p className="micro-label">{zh?'起点 / 问题':'THE STARTING POINT'}</p><p>{item[lang].problem}</p></div><div><p className="micro-label">{zh?'交付 / 成品':'WHAT WE DELIVERED'}</p><p>{item[lang].did}</p>{item.link && <a href={item.link} target="_blank" rel="noreferrer" className="quiet-link">{zh?'体验产品':'Visit the product'} ↗</a>}</div><div className="exhibition-metric"><strong>{item[lang].metric.value}</strong><span>{item[lang].metric.label}</span></div></div>
+        {item.id === 'serene' ? <SereneStory scenes={item.scenes} root={dialog} /> : <CaseScroller scenes={item.scenes} root={dialog} />}
         <section className="exhibition-notes"><div className="exhibition-notes-heading"><h3>{zh?'近一点，看细节。':'A closer look.'}</h3><div role="group" aria-label={zh?'筛选界面解读':'Filter interface notes'}>{['all','jane','jenny'].filter(who=>who==='all'||item.notes.some(n=>n.by===who)).map(who=><button key={who} aria-pressed={notes===who} onClick={()=>setNotes(who)}>{who==='all'?(zh?'全部':'All'):who==='jane'?'Jane':'Jenny'}</button>)}</div></div><div className="exhibition-note-grid">{item.notes.filter(n=>notes==='all'||notes===n.by).map((n,i)=><details key={n.en.q}><summary><span>0{i+1} / {n.by==='jane'?'Jane':'Jenny'}</span><h4>{n[lang].q}</h4><b aria-hidden="true">＋</b></summary><p>{n[lang].a}</p></details>)}</div></section>
       </motion.div>}</AnimatePresence>
     </dialog>

@@ -202,10 +202,9 @@ export const people = {
           note: "Brand visuals and short-form video, four years running",
         },
         /*
-         * The two jobs that produced two of the tools on the wall stay here as
-         * plain history — the argument they make now sits on the work itself,
-         * on Sunrise Care's and LiftPPT's labels, where the thing being argued
-         * for is in front of you.
+         * The round that produced Sunrise Care stays here as plain history — the
+         * argument it makes now sits on the work itself, on Sunrise Care's own
+         * label, where the thing being argued for is in front of you.
          */
         { kind: "experience", text: "Dovida — Caregiver, in-home aged care, 2026" },
         { kind: "experience", text: "HTP Smart Energy — Admin & Marketing Assistant, 2026" },

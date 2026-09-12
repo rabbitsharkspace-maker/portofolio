@@ -81,57 +81,215 @@ export const cases = [
     id: "serene",
     owner: "jenny",
     image: "/ip/serene.webp",
+    // The live app sleeps on a free Render dyno, so the screenshot stands in for
+    // it. The film does the job the live site can't — it is the artifact.
+    //
+    // Served from here rather than embedded, wherever we hold the cut. YouTube
+    // decides on its own when to put a "sign in to confirm you're not a bot"
+    // wall in front of an embed, and a visitor behind a VPN, a office network
+    // or a hardened browser then meets a login screen where the work should be.
+    // That is the one artifact on the page we cannot afford to hand to someone
+    // else. `youtube` stays as the outward link, and as the fallback for any
+    // language whose cut we do not hold.
+    //
+    // The English file here is the render before four legibility fixes landed
+    // (the explainer's size and timing, lyrics dropped to a subtitle band, an
+    // ON THE PHONE tag on the scam line, an English Gmail capture at 1:49).
+    // Replacing it is one file at the same path. A film with rough labels beats
+    // a login wall, and English is what a visitor gets by default.
+    film: {
+      youtube: "AUUurypUerY",
+      en: "/media/serene-en-720p.mp4",
+      zh: "/media/serene-cn-720p.mp4",
+    },
+    // The film's own cover, not a product shot. A play button over a screenshot
+    // reads as "this screenshot will play"; the umbrella in the rain reads as a
+    // film, and it is the same umbrella the fourth beat ends on. Kept local, so
+    // nothing reaches YouTube until someone presses play.
+    // One per language: the two covers carry the same rainy street and the same
+    // closing line in the language the page is reading in.
+    poster: { en: "/ip/serene-film.webp", zh: "/ip/serene-film-zh.webp" },
     ratio: "1440 / 900",
     split: { jane: 0, jenny: 100 },
     link: null,
+    /*
+     * Four beats of Jenny's own talk, in the order she gives them.
+     *
+     * The four stills were rendered on one magenta plate at one camera, and are
+     * cropped to a single shared box — so she holds her size and her place while
+     * the scene under the reader changes, and the swap reads as one person
+     * moving rather than four pictures cutting.
+     */
+    scenes: [
+      {
+        art: "/ip/serene-01-notice.webp",
+        en: {
+          title: "A notice you can't read",
+          word: "Unreadable",
+          label: "Melbourne, day one",
+          stamp: "01 / MELBOURNE",
+          caption: "Can you park here, or not?",
+          aside: "A question off a real street. The beginning of a product.",
+          body: "It asks something of you, and there are consequences if you don't. Two parking signs on one Melbourne street: fifteen minutes on the left, GoGet share cars only on the right. Not knowing is the normal case.",
+        },
+        zh: {
+          title: "一条你看不懂的通知",
+          word: "看不懂",
+          label: "落地第一天",
+          stamp: "01 / 墨尔本",
+          caption: "这里，到底能不能停？",
+          aside: "一条真实街道上的问题，成了一个产品的起点。",
+          body: "它要你做一件事，做不到会有后果。墨尔本街边两块停车牌：左边只能停十五分钟，右边只有 GoGet 共享车可以停。答不上来是正常的。",
+        },
+      },
+      {
+        art: "/ip/serene-02-photo.webp",
+        en: {
+          title: "Photograph it. It does the rest.",
+          word: "Verified",
+          label: "Read and verify",
+          stamp: "02 / SERENE",
+          caption: "Photograph it first.",
+          captionAfter: "Every citation opens to its source.",
+          action: "Photograph the letter",
+          actionAfter: "Back to the letter",
+          body: "Reading and verification happen in the same call, and every citation opens to its source. Whether an appeal succeeds is the authority's decision — this only makes sure you know the Infringements Act 2006 leaves that road open.",
+        },
+        zh: {
+          title: "拍张照，剩下的它替你做",
+          word: "核实了",
+          label: "读信与核验",
+          stamp: "02 / SERENE",
+          caption: "先拍下来。",
+          captionAfter: "每一条依据，都能点开查原文。",
+          action: "拍下这封信",
+          actionAfter: "看回原信",
+          body: "读信和联网核验在同一次调用里完成，每一条依据都能点开查原文。批不批是官方定的——这里只负责让你知道，《2006 年违章法》里还有申请复审这条路。",
+        },
+      },
+      {
+        art: "/ip/serene-03-call.webp",
+        en: {
+          title: "“Don’t tell your family.”",
+          word: "Cut off",
+          label: "The call",
+          stamp: "03 / INCOMING CALL",
+          caption: "“Don’t tell your family or your friends.”",
+          captionAfter: "The first move is not the money. It is cutting you off from anyone who could warn you.",
+          action: "What Serene says",
+          actionAfter: "Back to the call",
+          body: "Four agencies warning at once, and the target named plainly. The most dangerous line in that call is not about the money: the first move is to cut you off from everyone who could warn you. Serene does one simple thing — at the moment you are cut off, it is the one who warns you.",
+        },
+        zh: {
+          title: "「不许告诉家人朋友。」",
+          word: "切断",
+          label: "那通电话",
+          stamp: "03 / 来电",
+          caption: "「不许告诉家人朋友。」",
+          captionAfter: "第一步不是骗钱，是先把你和所有能提醒你的人切断。",
+          action: "Serene 会说什么",
+          actionAfter: "回到那通电话",
+          body: "四家官方同时在预警，目标写得很明确。那段话里最危险的不是钱——诈骗的第一步是先把你和所有能提醒你的人切断。Serene 做的事很简单：在你被切断的那一刻，当那个提醒你的人。",
+        },
+      },
+      {
+        art: "/ip/serene-04-umbrella.webp",
+        en: {
+          title: "An umbrella in your hand",
+          word: "Shelter",
+          label: "Ordinary days",
+          stamp: "04 / EVERYDAY LIFE",
+          caption: "On the night it happens.",
+          captionAfter: "And on the days nothing happens, it is still there.",
+          action: "The days it doesn’t rain",
+          actionAfter: "Back to that night",
+          body: "Emergencies are rare, so on the days nothing happens it is still there — what is on near your suburb, who is sharing a meal, what is going second-hand. I can't keep anyone from getting rained on abroad. But on the night it happens, I want there to be an umbrella in your hand.",
+        },
+        zh: {
+          title: "手里有一把伞",
+          word: "有伞",
+          label: "不出事的日子",
+          stamp: "04 / 日常",
+          caption: "出事的那个晚上。",
+          captionAfter: "不出事的日子，它也在。",
+          action: "不下雨的日子",
+          actionAfter: "回到那个晚上",
+          body: "出事是低频的，所以不出事的日子它也在——你住的 suburb 附近有什么活动、谁在拼饭、什么在出二手。我没办法让大家在国外不淋雨。但你出事的那个晚上，我想让你手里有一把伞。",
+        },
+      },
+    ],
     en: {
       name: "Serene",
-      kind: "AI advocacy assistant · 2026",
+      kind: "A landing copilot for newcomers · 2026",
+      ground: "I have had that phone call myself. More than once.",
       problem:
-        "A migrant or international student in Australia opens an official English letter — a fine, a show-cause notice — and the hard part is not appealing it. The hard part is working out what it is even saying.",
-      did: "Product strategy, Gemini Vision pipeline, verification against official sources, full-stack build.",
+        "In a country you don't know, what you lose isn't the language. It's knowing what to do next. A notice arrives that you can't read, it asks something of you, and there are consequences if you don't.",
+      did: "Product strategy, the read-and-verify pipeline, three-tier model routing, the permissions and privacy design, full-stack build and deploy.",
       metric: { value: "5 steps", label: "photograph → filed appeal" },
     },
     zh: {
       name: "Serene",
-      kind: "AI 维权助手 · 2026",
+      kind: "落地安心副驾 · 2026",
+      ground: "这通电话，我也接到过，而且不止一次。",
       problem:
-        "在澳洲的移民和留学生收到一封官方英文信——罚单、Show Cause 通知——最难的不是申诉，是先弄明白它到底在说什么。",
-      did: "产品策略、Gemini Vision 识别链路、依据核验、全栈开发。",
+        "在陌生的国家，你真正失去的不是语言，是「知道下一步该做什么」的能力。手机上跳出一条看不懂的通知，它要你做一件事，做不到会有后果。",
+      did: "产品策略、读图与联网核验链路、三层模型路由、权限与隐私设计、全栈开发与部署。",
       metric: { value: "5 步", label: "拍照 → 递出申诉" },
     },
     notes: [
       {
         by: "jenny",
         en: {
-          q: "A visible five-step flow",
-          a: "The landing screen lays out the document-to-appeal journey before the visitor starts. Each stage has its own place in the sequence.",
+          q: "Why verification is its own step",
+          a: "Ask a model directly and it will invent the statute, convincingly. So reading and verification happen in one call, through Gemini's Search Grounding, and every citation opens to its source. Whether an appeal succeeds is the authority's decision — this only makes sure you know the option exists.",
         },
         zh: {
-          q: "五步流程预览",
-          a: "入口先展示从文件到申诉的完整路径，各阶段在流程中有明确的位置。",
+          q: "为什么核验要单独占一步",
+          a: "直接问模型，它会编法条，而且编得特别像真的。所以读信和核验在同一次调用里完成，走 Gemini 的 Search Grounding，每一条依据都能点开查原文。批不批是官方定的——这里只负责让你知道，这条路存在。",
         },
       },
       {
         by: "jenny",
         en: {
-          q: "A separate verification stage",
-          a: "Verification is presented as a distinct stage in the workflow, making the source-checking step visible alongside document reading and drafting.",
+          q: "Why it drafts but never sends",
+          a: "A fine carries your name, your plate and your address. The letter opens as a Gmail draft with the subject and body already filled in, and the send button stays yours. Case files are isolated by owner UID; Firestore rules deny by default, so a leaked link reads nothing. The first rule of building for an emergency: don't harm the person a second time.",
         },
         zh: {
-          q: "独立的核验阶段",
-          a: "流程把依据核验单独列为一个阶段，与读信、起草等环节并列展示。",
+          q: "为什么只建草稿，不代发",
+          a: "罚单上有姓名、车牌、住址。信写好后打开 Gmail 草稿，主题和正文都填好，但发送键永远留给你自己按。申诉档案按 UID 属主隔离，Firestore 规则默认全拒，别人拿到链接也读不到。做应急产品的第一条是：不能再害你一次。",
         },
       },
       {
         by: "jenny",
         en: {
-          q: "State and language controls",
-          a: "State and language selectors sit together in the header, keeping both choices accessible from the start.",
+          q: "The state selector is a boundary",
+          a: "The config table holds only what doesn't change in a decade: country, emergency number, currency, the list of states. Switch to London and it is the same component on the same code path, plus one line of config. Which council, which statute, which appeal portal — none of that is written in the code. It is retrieved at the moment you ask.",
         },
         zh: {
-          q: "州与语言选择",
-          a: "州和语言的选择器并排放在顶部，让使用者从入口就能找到两项设置。",
+          q: "州和国家的选择器，划的是一条边界",
+          a: "配置表里只放十年不变的常量：国名、急救电话、货币、州省列表。换到伦敦，同一个组件、同一条代码路径，只多一条配置。具体是哪个 council、哪条法条、从哪个入口申诉——一个字都没写在代码里，全是当场检索的。",
+        },
+      },
+      {
+        by: "jenny",
+        en: {
+          q: "Why three models",
+          a: "Reading an image or checking a source goes to Gemini. Plain text goes to Gemma. Offline falls back to Gemini Nano on the phone, where it answers from constants and phrasing only and never guesses at a statute. Around eight in ten requests take the cheaper path. Building for harm is a low-resource setting by nature: no signal is low-resource, no English is low-resource, and three in the morning with nobody to ask is low-resource too.",
+        },
+        zh: {
+          q: "为什么要三个模型",
+          a: "要读图、要联网核实的走 Gemini；纯文本走 Gemma；断网时走手机本地的 Gemini Nano——断网只答常量和话术，法条不猜。八成的请求走的是更省的那条。「善」这条赛道本来就是低资源环境：断网是，不会英文是，凌晨三点身边没人可问也是。",
+        },
+      },
+      {
+        by: "jenny",
+        en: {
+          q: "Not a translation tool",
+          a: "Translation answers “what does this say”. The sentence that actually stops you is the next one: so what do I do now. After a crash, when your head is empty, it hands you a script for the scene — and the first line is “Mandarin Chinese, please”, because Australia's 000 has free Mandarin interpreting and most people don't know how to open the call.",
+        },
+        zh: {
+          q: "它不是翻译工具",
+          a: "翻译只回答「这上面写了什么」。真正卡住人的是下一句：那我现在该干什么。被车撞了、脑子一片空白的时候，它给的是现场清单——第一句是 Mandarin Chinese, please，因为澳洲的 000 有免费中文口译，但很多人不知道开口该说什么。",
         },
       },
     ],

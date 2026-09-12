@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLang } from '../lang'
 import { people, studio } from '../data/people'
 import { works } from '../data/works'
-import { BG_KINDS, BG_ORDER } from '../theme'
+import { ACCENT, BG_KINDS, BG_ORDER } from '../theme'
 import ContactForm from './ContactForm'
 
 export function Chapter({ number, label, title, note, id }) {
@@ -26,7 +26,7 @@ export function WorkShelf({ items, id = 'all-work' }) {
     <div className={`cabinet-preview preview-${active.id}`} id={`${id}-preview`} aria-live="polite">
       <span className="cabinet-paperclip" aria-hidden="true" />
       <div className="cabinet-photo" key={active.id}>{active.image ? <img src={active.image} alt={active[lang].name} loading="lazy" /> : <div className="cabinet-type-cover"><span>{active[lang].kind}</span><strong aria-hidden="true">{active.id === 'ticketing' ? '100+' : active.id === 'championship' ? '▶' : '✳'}</strong><p>{active[lang].name}</p></div>}<div className="cabinet-photo-caption"><span>{active[lang].name}</span><small>{active.owner === 'both' ? 'Jane + Jenny' : active.owner === 'jane' ? 'Jane' : 'Jenny'}</small></div></div>
-      <p className="cabinet-description">{active[lang].what}</p>{link && <a className="quiet-link" href={link} target="_blank" rel="noreferrer">{active.id === 'ticketing' || active.id === 'championship' ? (zh ? '播放影片' : 'Watch the film') : (zh ? '打开作品' : 'Open the project')} ↗</a>}
+      {active[lang].ground && <p className="work-ground" style={ACCENT[active.owner] ? {'--ground-ink':ACCENT[active.owner]} : undefined}>{active[lang].ground}</p>}<p className="cabinet-description">{active[lang].what}</p>{link && <a className="quiet-link" href={link} target="_blank" rel="noreferrer">{active.id === 'ticketing' || active.id === 'championship' ? (zh ? '播放影片' : 'Watch the film') : (zh ? '打开作品' : 'Open the project')} ↗</a>}
     </div>
   </section>
 }
