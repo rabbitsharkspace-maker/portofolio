@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SplitText } from 'gsap/SplitText'
 import { useLang } from '../lang'
 import './SereneStory.css'
 
@@ -25,7 +26,7 @@ export default function SereneStory({ scenes, root }) {
   const turn = i => setOpen(o => ({ ...o, [i]: !o[i] }))
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
+    gsap.registerPlugin(ScrollTrigger, SplitText)
     const media = gsap.matchMedia()
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const ctx = gsap.context(() => {
@@ -42,6 +43,30 @@ export default function SereneStory({ scenes, root }) {
            * crosses in — so there is never a hole on screen, and the movement
            * happens where it can be read.
            */
+          /*
+           * The heading floats up a character at a time, and the scroll drives it.
+           *
+           * Not a fixed 0.85s that fires once at a threshold — the progress is the
+           * scroll position, so it advances exactly as far as the reader moves and
+           * holds wherever they stop. Each character starts stretched tall and
+           * narrow and settles back to its own proportions on the way up, which is
+           * what reads as floating rather than sliding.
+           *
+           * Split by words as well as characters: characters alone would let a line
+           * break in the middle of a word. `autoSplit` re-splits when the webfont
+           * lands or the column changes width, and the animation is created inside
+           * `onSplit` and returned so SplitText can resync it when that happens.
+           */
+          const heading = act.querySelector('.serene-copy h3')
+          if (heading) SplitText.create(heading, {
+            type: 'words, chars', autoSplit: true,
+            onSplit(self) {
+              return gsap.fromTo(self.chars,
+                { willChange: 'opacity, transform', opacity: 0, yPercent: 120, scaleY: 2.2, scaleX: .75, transformOrigin: '50% 0%' },
+                { opacity: 1, yPercent: 0, scaleY: 1, scaleX: 1, ease: 'back.inOut(2)', stagger: .028,
+                  scrollTrigger: { trigger: heading, scroller: root.current, start: 'top bottom-=60', end: 'top center+=40', scrub: .6 } })
+            },
+          })
           act.querySelectorAll('.serene-enter').forEach(el => {
             gsap.from(el, {
               y: 26, opacity: 0, duration: .7, ease: 'power2.out',
@@ -95,7 +120,10 @@ export default function SereneStory({ scenes, root }) {
         </div>
         <div className="serene-copy">
           <div className="serene-act-label serene-enter"><span>0{i + 1}</span><span>{c.label}</span><i>✳</i></div>
-          <h3 className="serene-enter">{c.title}</h3>
+          {/* Keyed on the language: SplitText replaces this element's children and
+              restores the text it cached when it split, which would put the old
+              language back over the new one. A fresh element each time instead. */}
+          <h3 key={lang}>{c.title}</h3>
           <p className="serene-body serene-enter">{c.body}</p>
           {c.action
             ? <><button className="serene-interact serene-enter" aria-pressed={turned} onClick={() => turn(i)}>
