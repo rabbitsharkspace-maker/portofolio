@@ -69,7 +69,7 @@ export const people = {
         },
       ],
       awards: [
-        "Best Google AI Technology Application — Google AI Vibe-a-thon 2026, GDG Hangzhou\n395 entries → Top 100 → Top 30 → six winners",
+        "Best Google AI Technology Application — Google AI Vibe-a-thon 2026, run by GDG Hangzhou, awarded at the Google Developer Conference in Shanghai\n395 entries → Top 100 → Top 30 → six winners",
         "BAP × USYD × Monash × McKinsey Case Competition — Regional Round",
         "FMAA Management Consulting Case Competition 2024 — Campus Qualifier",
         "AMEB Grade 8 Piano (A)",
@@ -116,7 +116,7 @@ export const people = {
       about: [
         "RabbitShark 的产品策略、AI 系统和全栈开发由我负责。",
         "客户通常带着一个功能需求来找我。我做的第一件事不是开工，是先弄清楚到底是什么在拖慢这门生意——然后用最短的方案解决它，并且交付上线。",
-        "已上线七个产品。获 Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou 最佳 Google AI 技术应用奖——395 队/人参赛，三轮筛选后六个获奖席位之一。做过一套自动化系统，每天自动处理 100 多条工单，响应从小时级压到秒级。",
+        "已上线七个产品。获 Google AI 出海创想赛 Vibe-a-thon 2026（GDG 杭州主办）最佳 Google AI 技术应用奖——395 队/人参赛，三轮筛选后六个获奖席位之一。做过一套自动化系统，每天自动处理 100 多条工单，响应从小时级压到秒级。",
         "商科出身，工程自学，所以我清楚每一个技术决定背后对应多少钱。中英文都能直接开工，全球远程。",
       ],
       skills: [
@@ -126,7 +126,7 @@ export const people = {
         { group: "创意", items: ["动画短片", "分镜", "UI 设计", "原创配乐"] },
       ],
       awards: [
-        "最佳 Google AI 技术应用奖 —— Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou\n395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位",
+        "最佳 Google AI 技术应用奖 —— Google AI 出海创想赛 Vibe-a-thon 2026 · GDG 杭州主办，颁奖于上海谷歌开发者大会\n395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位",
         "BAP × USYD × Monash × McKinsey 案例赛 — 区域赛",
         "FMAA 管理咨询案例赛 2024 — 校园赛晋级",
         "AMEB 钢琴八级 A",
@@ -192,7 +192,7 @@ export const people = {
         { group: "Front end", items: ["React", "Responsive layout", "Design-to-code handoff"] },
       ],
       awards: [
-        "Best Vibe Coding Work — Google AI Vibe-a-thon 2026, GDG Hangzhou\n395 entries → Top 100 → Top 30 → six winners",
+        "Best Vibe Coding Work — Google AI Vibe-a-thon 2026, run by GDG Hangzhou, awarded at the Google Developer Conference in Shanghai\n395 entries → Top 100 → Top 30 → six winners",
         "RMIT Vice-Chancellor's List 2024 — Top 2% university-wide",
       ],
       background: [
@@ -256,7 +256,7 @@ export const people = {
         { group: "前端", items: ["React", "响应式布局", "设计到代码交付"] },
       ],
       awards: [
-        "最佳 Vibe Coding 作品奖 —— Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou\n395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位",
+        "最佳 Vibe Coding 作品奖 —— Google AI 出海创想赛 Vibe-a-thon 2026 · GDG 杭州主办，颁奖于上海谷歌开发者大会\n395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位",
         "RMIT 校长嘉许名单 2024 — 全校前 2%",
       ],
       background: [
@@ -300,6 +300,11 @@ export const studio = {
        * and the Top 6 list — Serene and Sunrise Care both appear on it, which
        * is where "two of the six" stops being our word for it.
        *
+       * Two places, and both belong: GDG Hangzhou ran the contest, and the
+       * awards were given at the Google Developer Conference in Shanghai on
+       * 13 Aug, eleven days before the recap was published. Naming only the
+       * organiser read as though the whole thing happened in one city.
+       *
        * Public, and no login wall: it opens for a reader outside China too,
        * which is the only reason it is worth linking at all. Flagged as WeChat
        * in the label so an overseas client knows what they are clicking into
@@ -307,7 +312,7 @@ export const studio = {
        */
       source: "https://mp.weixin.qq.com/s/g_1y5QxLG7nVxMZr_ND1Pw",
       sourceLabel: "GDG Hangzhou's official recap, 24 Aug 2026 (WeChat, in Chinese)",
-      event: "Google AI Vibe-a-thon 2026 · GDG Hangzhou",
+      event: "Google AI Vibe-a-thon 2026 · organised by GDG Hangzhou · awarded at the Google Developer Conference, Shanghai",
       path: "395 entries → Top 100 → Top 30 → six winners. Two of the six came from the same two-person studio.",
       awards: "Jane — Best Vibe Coding Work · Jenny — Best Google AI Technology Application",
     },
@@ -348,7 +353,7 @@ export const studio = {
     recognition: {
       source: "https://mp.weixin.qq.com/s/g_1y5QxLG7nVxMZr_ND1Pw",
       sourceLabel: "GDG 杭州官方战报 · 2026 年 8 月 24 日",
-      event: "Google AI 出海创想赛 Vibe-a-thon 2026 · GDG Hangzhou",
+      event: "Google AI 出海创想赛 Vibe-a-thon 2026 · GDG 杭州主办 · 颁奖于谷歌开发者大会（上海）",
       path: "395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位，其中两个来自同一个两人工作室。",
       awards: "Jane —— 最佳 Vibe Coding 作品奖 · Jenny —— 最佳 Google AI 技术应用奖",
     },
