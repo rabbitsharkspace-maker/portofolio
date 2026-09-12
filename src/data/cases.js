@@ -236,9 +236,22 @@ export const cases = [
       did: "产品策略、读图与联网核验链路、三层模型路由、权限与隐私设计、全栈开发与部署。",
       metric: { value: "5 步", label: "拍照 → 递出申诉" },
     },
+    /*
+     * Why an English reader is looking at a Mandarin interface.
+     *
+     * Serene ships in zh / es / hi / vi / ar and deliberately not in English —
+     * the letter is already in English, and a person who could read the
+     * interface in it would not need the product. Worth saying once, rather
+     * than leaving the screens looking like an oversight on the English side.
+     */
+    notesNote: {
+      en: "The screens are shown in English. Serene also ships in Mandarin, Spanish, Hindi, Vietnamese and Arabic — the interface follows whoever is reading it.",
+      zh: "截图里的界面是中文。Serene 还提供 English、Español、हिन्दी、Tiếng Việt、العربية —— 界面跟着看它的人走。",
+    },
     notes: [
       {
         by: "jenny",
+        shot: { en: "/ip/serene-ui-legal-en.webp", zh: "/ip/serene-ui-legal.webp" },   // 法援站 — "AI 实时校证官方渠道"
         en: {
           q: "Why verification is its own step",
           a: "Ask a model directly and it will invent the statute, convincingly. So reading and verification happen in one call, through Gemini's Search Grounding, and every citation opens to its source. Whether an appeal succeeds is the authority's decision — this only makes sure you know the option exists.",
@@ -250,6 +263,7 @@ export const cases = [
       },
       {
         by: "jenny",
+        shot: { en: "/ip/serene-ui-desk-en.webp", zh: "/ip/serene-ui-desk.webp" },    // 我的案头 — "一键生成官方英文邮件草稿"
         en: {
           q: "Why it drafts but never sends",
           a: "A fine carries your name, your plate and your address. The letter opens as a Gmail draft with the subject and body already filled in, and the send button stays yours. Case files are isolated by owner UID; Firestore rules deny by default, so a leaked link reads nothing. The first rule of building for an emergency: don't harm the person a second time.",
@@ -261,6 +275,7 @@ export const cases = [
       },
       {
         by: "jenny",
+        shot: { en: "/ip/serene-ui-letter-en.webp", zh: "/ip/serene-ui-letter.webp" },  // 信件官 — 顶栏 澳大利亚 / Victoria / 中文
         en: {
           q: "The state selector is a boundary",
           a: "The config table holds only what doesn't change in a decade: country, emergency number, currency, the list of states. Switch to London and it is the same component on the same code path, plus one line of config. Which council, which statute, which appeal portal — none of that is written in the code. It is retrieved at the moment you ask.",
@@ -283,12 +298,21 @@ export const cases = [
       },
       {
         by: "jenny",
+        /*
+         * Four languages of the same screen, because one of them proves nothing.
+         * The app does not translate the sentence — it swaps which language it
+         * asks the operator for, and in English it would ask for English, which
+         * is the one thing nobody dialling 000 in Australia has ever needed.
+         */
+        shot: "/ip/serene-ui-aid-langs.webp",     // 急救包 — "Mandarin Chinese, Please!"
         en: {
           q: "Not a translation tool",
+          shotNote: "The same screen in Mandarin, Hindi, Vietnamese and Arabic. The phrase it puts in your mouth is the name of your language, not a translation of the interface.",
           a: "Translation answers “what does this say”. The sentence that actually stops you is the next one: so what do I do now. After a crash, when your head is empty, it hands you a script for the scene — and the first line is “Mandarin Chinese, please”, because Australia's 000 has free Mandarin interpreting and most people don't know how to open the call.",
         },
         zh: {
           q: "它不是翻译工具",
+          shotNote: "同一屏，中文、印地语、越南语、阿拉伯语。它递给你的那句话是你自己语言的名字，不是把界面翻译一遍。",
           a: "翻译只回答「这上面写了什么」。真正卡住人的是下一句：那我现在该干什么。被车撞了、脑子一片空白的时候，它给的是现场清单——第一句是 Mandarin Chinese, please，因为澳洲的 000 有免费中文口译，但很多人不知道开口该说什么。",
         },
       },
