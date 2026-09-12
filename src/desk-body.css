@@ -76,6 +76,19 @@
 .cabinet-photo-caption small { font:8px ui-monospace,monospace; white-space:nowrap; }
 .cabinet-paperclip { width:22px; height:65px; border:2px solid #958692; border-radius:20px; position:absolute; top:-18px; right:25px; z-index:2; transform:rotate(13deg); box-shadow:inset 3px 0 0 #fff9; }
 .cabinet-description { font-size:13px; line-height:1.85; color:var(--dim); margin-top:30px; }
+/*
+ * `ground` — why this person made this thing, in their own voice.
+ *
+ * Set apart from the product description on purpose: that paragraph says what
+ * the thing does, this line says who was standing there when it started. Italic
+ * serif and the owner's accent, so it reads as spoken rather than specified.
+ * Absent on most works until they are written; nothing renders when empty.
+ */
+.work-ground { font:italic 17px/1.5 Georgia,"Songti SC",serif; color:var(--ground-ink,var(--ink)); margin-top:22px; max-width:30ch; }
+.work-ground::before { content:"\201C"; }
+.work-ground::after { content:"\201D"; }
+.exhibition-title .work-ground { margin:18px 0 20px; font-size:20px; max-width:34ch; }
+
 .cabinet-preview .quiet-link { margin-top:15px; display:inline-block; }
 .cabinet-type-cover { min-height:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#d6cbe5; text-align:center; padding:24px; }
 .cabinet-type-cover > span { font:10px ui-monospace,monospace; }
@@ -282,6 +295,8 @@
  .cabinet-photo-caption { font-size:17px; }
  .cabinet-photo-caption small { font-size:7px; }
  .cabinet-description { font-size:12px; margin-top:25px; }
+ .work-ground { font-size:15px; margin-top:18px; }
+ .exhibition-title .work-ground { font-size:17px; }
  .cabinet-type-cover { min-height:210px; }
  .recognition-ticket { grid-template-columns:1fr; margin-top:65px; transform:none; }
  .recognition-stub { border-right:0; border-bottom:1px dashed #999574; padding:25px; display:grid; grid-template-columns:85px 1fr; column-gap:18px; align-items:center; text-align:left; }

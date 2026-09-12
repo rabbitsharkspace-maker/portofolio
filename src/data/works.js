@@ -1,8 +1,8 @@
 // `owner` is "jenny" | "jane" | "both". Who made what is painted from the two
 // accents in theme.js — nothing in the data needs to carry a colour.
 
-// Interleaved on purpose: Jenny, Jane, Jenny, both, ... The ring wraps, so
-// the last entry sits next to the first — keep that pair different too.
+// Interleaved on purpose: two entries by the same person should not sit next to
+// each other in the cabinet list, which is read straight down.
 // name/kind/what/who are bilingual; id/owner/stack/link/image are shared.
 // `image` is what hangs in the gallery frame on a person's page; null leaves the
 // frame empty rather than breaking the layout.
@@ -22,13 +22,15 @@ export const works = [
     image: "/ip/serene.webp",
     en: {
       name: "Serene",
-      kind: "AI advocacy assistant",
+      kind: "A landing copilot for newcomers",
+      ground: "I have had that phone call myself. More than once.",
       what: "Photograph an English fine or warning letter. It reads it and writes your formal appeal.",
       who: "For migrants and international students in Australia.",
     },
     zh: {
       name: "Serene",
-      kind: "AI 维权助手",
+      kind: "AI 应急与维权助手",
+      ground: "这通电话，我也接到过，而且不止一次。",
       what: "拍下英文罚单,自动生成申诉信。",
       who: "给在澳洲的移民和留学生。",
     },
@@ -177,32 +179,6 @@ export const works = [
       kind: "企业自动化",
       what: "每天 100+ 条报修,AI 自动分类派单。响应从几小时变成几秒。",
       who: "给淹没在手工录入里的社区。",
-    },
-  },
-  {
-    id: "liftppt",
-    owner: "both",
-    stack: ["React 19", "Supabase", "pptxgenjs"],
-    link: "https://liftppt.com",
-    embed: "https://liftppt.com/", // unused while `image` stands in
-    // Same reason as FastResume: the live site opens its tutorial over the top
-    // every time it loads, so the wall shows the homepage as a still instead.
-    image: "/ip/liftppt-home.webp",
-    en: {
-      name: "LiftPPT",
-      kind: "Worship projection tool",
-      // Eleven years in the room this is for: Jane has assisted Sunday school at
-      // Melbourne Bethel since 2015, and Jenny plays keys at the same church.
-      ground: "Eleven years in this church, then this.",
-      what: "Lyrics paginate, choruses expand, pinyin annotates, exports to PPT pixel-for-pixel. 2,254 songs in the library.",
-      who: "For whoever is up until midnight formatting slides.",
-    },
-    zh: {
-      name: "LiftPPT",
-      kind: "敬拜投影工具",
-      ground: "在同一间教会服事十一年，然后有了它。",
-      what: "歌词自动排版、注音、导出 PPT,像素级还原。2254 首曲库。",
-      who: "给每周熬夜排幻灯片的人。",
     },
   },
 ]

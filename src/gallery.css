@@ -39,7 +39,7 @@
 .gallery-mode-index .exhibit-number,.gallery-mode-index .exhibit-medium,.gallery-mode-index .exhibit-explore { display:none; }
 .gallery-mode-index .exhibit-label { padding:0; }
 .gallery-mode-index .exhibit-result { display:block !important; }
-.gallery-dialog { width:min(1400px,97vw); max-width:97vw; height:94dvh; max-height:94dvh; margin:auto; padding:0; border:1px solid #60516a; border-radius:8px; background:#f3efe7; color:#352b3e; overscroll-behavior:contain; scrollbar-color:#b1a0be #f3efe7; }
+.gallery-dialog { width:min(1400px,97vw); max-width:97vw; height:94dvh; max-height:94dvh; margin:auto; padding:0; border:1px solid #60516a; border-radius:8px; background:#f3efe7; color:#352b3e; overscroll-behavior:contain; scrollbar-color:#b1a0be #f3efe7; scroll-snap-type:y proximity; }
 .gallery-dialog::backdrop { background:#17121ceb; backdrop-filter:blur(10px); }
 .exhibition-nav { display:flex; align-items:center; justify-content:space-between; gap:18px; position:sticky; top:0; z-index:5; background:#f3efe7f5; backdrop-filter:blur(12px); border-bottom:1px solid #d0c5d6; padding:12px 28px; font:9px ui-monospace,monospace; letter-spacing:.08em; }
 .exhibition-nav > div { display:flex; align-items:center; gap:14px; }
@@ -53,13 +53,36 @@
 .exhibition-serene .exhibition-image { background:#dae0cc; border-color:#bfcaaa; }
 .exhibition-fastresume .exhibition-image { background:#e9cdbb; border-color:#d2b7a5; }
 .exhibition-image img { display:block; width:100%; height:auto; box-shadow:0 12px 28px #302b3a1a; }
+/* A still with a play button until asked; then the player, in the frame the
+ * still was holding, so the dialog does not jump when the film arrives. */
+.exhibition-image.has-film { position:relative; }
+.exhibition-image iframe,.exhibition-image video { display:block; width:100%; aspect-ratio:16/9; border:0; background:#151119; box-shadow:0 12px 28px #302b3a1a; }
+/* The cover is the film's own 16:9, so pressing play swaps the player in without
+ * the page jumping under the button that was just pressed. */
+.exhibition-image.has-film img { aspect-ratio:16/9; object-fit:cover; }
+.exhibition-play { position:absolute; inset:0; margin:auto; width:max-content; height:max-content; display:flex; align-items:center; gap:11px; padding:14px 24px; border:1px solid #2f2a38; border-radius:40px; background:#fffffff2; backdrop-filter:blur(3px); font:12px Arial,sans-serif; letter-spacing:.02em; color:#2f2a38; box-shadow:0 8px 22px #302b3a26; }
+.exhibition-play span { font-size:15px; line-height:1; }
+.exhibition-play:hover { background:#fff; transform:scale(1.03); }
+@media (prefers-reduced-motion:reduce) { .exhibition-play:hover { transform:none; } }
+.film-elsewhere { padding:11px 5% 0; text-align:right; }
 .exhibition-story { display:grid; grid-template-columns:1fr 1fr .6fr; gap:35px; padding:32px 0; border-bottom:1px solid #c9bccf; }
 .exhibition-story > div > p:not(.micro-label) { font-size:14px; line-height:1.85; margin-top:14px; }
 .exhibition-story .quiet-link { display:inline-block; margin-top:20px; }
 .exhibition-metric { border-left:1px solid #c9bccf; padding-left:28px; }
 .exhibition-metric strong { font:italic 42px Georgia,"Songti SC",serif; display:block; }
 .exhibition-metric span { display:block; font-size:11px; line-height:1.7; margin-top:13px; }
-.exhibition-notes { margin-top:30px; }
+/*
+ * The way out of the story is a stop of its own. With no snap point here the
+ * fourth beat was the last one and the next flick had nothing below to catch
+ * on, so the ending slid straight past into the notes. Now it is one flick per
+ * stop the whole way down: 01, 02, 03, 04, then here.
+ *
+ * The gap above is what makes the fourth beat an ending. At 30px the heading
+ * sat 31px under the fold while the umbrella was still centred — the story and
+ * what comes after it shared a screen, so nothing landed. Now the beat gets the
+ * screen to itself, and the snap carries the empty stretch in one flick.
+ */
+.exhibition-notes { margin-top:40dvh; scroll-snap-align:start; scroll-snap-stop:always; scroll-margin-top:78px; }
 .exhibition-notes-heading { display:flex; justify-content:space-between; gap:20px; align-items:center; }
 .exhibition-notes-heading h3 { font:italic 35px Georgia,"Songti SC",serif; }
 .exhibition-notes-heading > div { display:flex; gap:5px; }
@@ -176,4 +199,65 @@
  .letter-phase-tearing .tear-sheet { opacity:0;animation:none !important; }
  .letter-phase-tearing .letter-envelope-scene { opacity:1;animation:none !important; }
  .letter-envelope-scene * { animation:none !important; }
+}
+
+/* ---- the scroll story inside a case ---------------------------------- */
+/* One beat, one scrollport — every other length here is derived from these two. */
+.case-scroller { --beat:min(70vh,600px); --port:94dvh; display:grid; grid-template-columns:minmax(240px,.78fr) 1fr; gap:5%; padding-top:8px; }
+/*
+ * `grid-template-rows` has to be stated. Left implicit the row is `auto`, the
+ * 1100px still sizes it, and the img's own `max-height:100%` then resolves
+ * against that same 1100px — so she rendered at full size and overflowed the
+ * stage by double. The explicit minmax(0,1fr) pins the row to the height set
+ * here, and object-fit does the rest.
+ */
+/*
+ * The stage is the whole scrollport, and she is centred inside it — not a
+ * 600px box pinned near the top. Pinned, her middle sat 167px above the middle
+ * of the sentence being read, because the panel centres its text on the
+ * scrollport centre and the stage centred on itself. Same height as the dialog,
+ * so `paint()`'s reading line and her eye line are the same number.
+ */
+.scroller-stage { position:sticky; top:0; height:var(--port); display:grid; grid-template-rows:minmax(0,1fr); place-items:center; align-self:start; }
+/*
+ * All four stills share one crop box, so a fixed height and `contain` put her
+ * feet on the same line in every one of them without anchoring anything.
+ * No transition: the scroll handler writes opacity and transform every frame,
+ * and a CSS transition would be a second animation fighting it for the same
+ * two properties. Compositor-only properties, so the frames stay cheap.
+ */
+.scroller-stage img { grid-area:1/1; width:100%; height:var(--beat); object-fit:contain; opacity:0; will-change:opacity,transform; }
+/*
+ * Half a scrollport of air at each end. Without it the first and last beats
+ * centre themselves while the stage is still in flow — sticky only bites once
+ * the scroller's top has passed the scrollport's, and lets go once its bottom
+ * comes up — so she sat low on beat 01 and low again on beat 04, and only the
+ * two in the middle landed on the reading line.
+ */
+.scroller-beats { list-style:none; margin:0; padding:0; padding-block:calc(var(--port)/2 - var(--beat)/2); }
+/*
+ * One flick, one beat. `align:center` puts the settle point on the beat's middle
+ * — the same line paint() reads from — so it never rests half-dissolved.
+ * `stop:always` is the part that matters: a hard fling has to stop at the next
+ * beat instead of sailing past two of them. Both are the browser's own scrolling,
+ * so the wheel, the trackpad, Page Down and the scrollbar all still behave.
+ */
+.scroller-beats li { min-height:var(--beat); display:flex; flex-direction:column; justify-content:center; opacity:.26; scroll-snap-align:center; scroll-snap-stop:always; }
+.beat-index { font:10px ui-monospace,monospace; letter-spacing:.14em; color:var(--accent); }
+.beat-index small { color:#8b7d93; }
+.scroller-beats h4 { font:400 clamp(23px,2.6vw,33px)/1.25 Georgia,"Songti SC",serif; letter-spacing:-.03em; margin:13px 0 15px; }
+.scroller-beats p { font-size:15px; line-height:1.9; color:#4e4456; max-width:36ch; }
+@media (max-width:760px) {
+ .case-scroller { --beat:min(52vh,420px); grid-template-columns:1fr; gap:0; }
+ .scroller-stage { top:50px; height:min(38vh,290px); }
+ .scroller-stage img { height:100%; }
+ /* Stacked on a phone: the stage is a band at the top, not the whole port. */
+ .scroller-beats { padding-block:0; }
+ .scroller-beats li { min-height:var(--beat); }
+ .scroller-beats p { font-size:13px; }
+}
+@media (prefers-reduced-motion:reduce) {
+ /* The handler already snaps instead of blending; this covers it before JS runs. */
+ .scroller-stage img { transform:none !important; }
+ .scroller-beats li { opacity:1 !important; }
 }
