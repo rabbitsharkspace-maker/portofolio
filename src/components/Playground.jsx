@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { motion, useDragControls, useReducedMotion } from "motion/react"
 import { useLang } from "../lang"
 import { people, studio } from "../data/people"
+import Mascot from "./Mascot"
 
 function DeskObject({ children, className, bounds, angle, label }) {
   const controls = useDragControls()
@@ -103,7 +104,7 @@ export function PersonPlayground({ who }) {
       <div className="person-intro-links"><a className="ink-button" href="#personal-work">{zh ? '打开我的作品' : 'Explore my work'} ↗</a><a className="quiet-link" href="#about-me">{zh ? '认识我' : 'A little about me'} ↓</a></div>
       <div className="person-character-scene">
         <div className="character-halo" aria-hidden="true" />
-        <button className={`hello-character ${hello ? 'said-hello' : ''}`} onClick={()=>setHello(!hello)} aria-label={zh ? `和 ${p.short} 打招呼` : `Say hi to ${p.short}`} aria-pressed={hello}><img src={p.art} alt="" /></button>
+        <button className={`hello-character ${hello ? 'said-hello' : ''}`} onClick={()=>setHello(!hello)} aria-label={zh ? `和 ${p.short} 打招呼` : `Say hi to ${p.short}`} aria-pressed={hello}><Mascot species={who === 'jenny' ? 'shark' : 'rabbit'} spark={who === 'jenny' ? 'var(--jane)' : 'var(--jenny)'} /></button>
         <span className="character-speech" aria-live="polite">{hello ? (who === 'jenny' ? (zh ? '复杂的交给我。✳' : 'I’ll untangle it. ✳') : (zh ? '细节控，报到！✳' : 'Details are my thing. ✳')) : (zh ? 'psst… 点我一下' : 'psst… say hello')}</span>
         <p className="character-caption">{who === 'jenny' ? (zh ? '系统、AI，以及一点好奇心。' : 'systems, AI & a healthy dose of curiosity.') : (zh ? '体验、品牌，以及一点小执着。' : 'experience, identity & a little obsession.')}</p>
       </div>
