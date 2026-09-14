@@ -90,6 +90,13 @@
 .exhibition-title .work-ground { margin:18px 0 20px; font-size:20px; max-width:34ch; }
 
 .cabinet-preview .quiet-link { margin-top:15px; display:inline-block; }
+.cabinet-preview .quiet-link + .quiet-link { margin-left:22px; }
+/* The film plays inside the photo frame, at its own 16:9, where the cover sat. */
+.cabinet-photo iframe { width:100%; aspect-ratio:16/9; display:block; border:1px solid #d7c9d7; background:#000; }
+.cabinet-play { display:block; width:100%; text-align:inherit; cursor:pointer; }
+.cabinet-play .cabinet-type-cover strong { transition:transform .25s; }
+.cabinet-play:hover .cabinet-type-cover strong,.cabinet-play:focus-visible .cabinet-type-cover strong { transform:scale(1.08); }
+@media (prefers-reduced-motion:reduce) { .cabinet-play:hover .cabinet-type-cover strong { transform:none; } }
 .cabinet-type-cover { min-height:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#d6cbe5; text-align:center; padding:24px; }
 .cabinet-type-cover > span { font:10px ui-monospace,monospace; }
 .cabinet-type-cover strong { font:italic 95px/1.2 Georgia,serif; font-weight:400; }
@@ -373,3 +380,12 @@
 /* Replace the temporary monogram without changing the accepted hero layout. */
 .site-header .official-logo { display:block; width:62px; height:62px; object-fit:contain; margin-block:-12px; }
 @media(max-width:700px) { .site-header .official-logo { width:48px; height:48px; margin-block:-5px; } }
+
+/*
+ * The Kno demo is the app itself, not a picture of it — so the frame stops
+ * pretending to be a photograph: no tilt to drag against, and enough height
+ * that a canvas is worth panning around.
+ */
+.work-cabinet.cabinet-open { grid-template-columns:1fr; }
+.cabinet-photo.cabinet-live { transform:none; }
+.cabinet-photo.cabinet-live iframe { aspect-ratio:auto; height:min(70vh,600px); background:#fff; }

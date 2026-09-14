@@ -41,6 +41,9 @@ export const works = [
     stack: ["Gemini", "Knowledge graph", "Full-stack"],
     link: "https://knoko.space",
     embed: "https://knoko.space/", // unused while `image` stands in
+    // The real app, on a canvas of our own work, with nothing to sign into and
+    // nothing it can generate. It is only fetched once someone asks for it.
+    demo: "https://knoko.space/?demo=1",
     // A still for the same reason as the rest of the wall: three live frames on
     // one screen is three third-party page loads before anything is readable.
     image: "/ip/kno.webp",
@@ -118,7 +121,9 @@ export const works = [
     owner: "jenny",
     stack: ["Storyboard", "Animation", "Sound"],
     link: null,
-    embed: "https://youtu.be/3z5-F9V2XIQ?si=pfH0UMzDAd9pUwc1", // YouTube, embedded in Jenny's work section
+    // The film plays in the cabinet itself; the id is the one thing kept, and
+    // the watch link is built from it, so there is no second copy to forget.
+    film: { youtube: "3z5-F9V2XIQ" },
     address: "The 8th Annual Human Disturbance Championship — animated short",
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
@@ -165,7 +170,7 @@ export const works = [
     owner: "jenny",
     stack: ["n8n", "Gemini", "WeCom API", "AES"],
     link: null,
-    embed: "https://youtu.be/6UMtuA_LSOs?si=QnDXTTMBFvvPZO94", // YouTube, embedded in Jenny's work section
+    film: { youtube: "6UMtuA_LSOs" }, // plays in the cabinet, like the one above
     address: "Community Ticketing — workflow automation",
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {

@@ -14,19 +14,36 @@ export function WorkShelf({ items, id = 'all-work' }) {
   const { lang } = useLang()
   const zh = lang === 'zh'
   const [selected,setSelected] = useState(items[0]?.id)
+  // The player is swapped in only once it is asked for, so choosing a film in
+  // the list costs nothing until play is pressed — same rule as the gallery.
+  const [playing,setPlaying] = useState(false)
   const active = items.find(w=>w.id === selected) || items[0]
   if (!active) return null
-  // Whatever the work itself says it is reachable at. This used to be a map of
-  // two ids to two literal YouTube URLs, which were already sitting in works.js
-  // as `embed` — so the address existed twice and only one of the two would have
-  // been updated. `embed` is the address for the ones with no public homepage.
-  const link = active.link || active.embed || null
-  return <section id={id} className="work-cabinet">
-    <div className="cabinet-index"><p className="micro-label">{zh ? '还在桌上的那些点子' : 'ALSO ON THE DESK'}</p><h2>{zh ? <>继续，<em>随便翻翻。</em></> : <>A few more<br /><em>curiosities.</em></>}</h2><div className="cabinet-list" role="group" aria-label={zh ? '选择作品' : 'Choose a project'}>{items.map((w,i)=><button key={w.id} aria-pressed={active.id === w.id} aria-controls={`${id}-preview`} onClick={()=>setSelected(w.id)}><span>{String(i+1).padStart(2,'0')}</span><strong>{w[lang].name}</strong><span>↗</span></button>)}</div></div>
+  const film = active.film
+  const watch = film ? `https://youtu.be/${film.youtube}` : null
+  // A work that can be tried rather than only seen. Same rule as the film: the
+  // frame is not fetched until someone presses the button.
+  const demo = active.demo
+  // Whatever the work itself says it is reachable at. Films have no homepage;
+  // they play here, and `watch` is the same cut on YouTube for anyone who wants it.
+  const link = active.link || (film ? null : active.embed) || null
+  const cover = <div className="cabinet-type-cover"><span>{active[lang].kind}</span><strong aria-hidden="true">{active.id === 'ticketing' ? '100+' : active.id === 'championship' ? '▶' : '✳'}</strong><p>{active[lang].name}</p></div>
+  return <section id={id} className={`work-cabinet${playing && demo ? ' cabinet-open' : ''}`}>
+    <div className="cabinet-index"><p className="micro-label">{zh ? '还在桌上的那些点子' : 'ALSO ON THE DESK'}</p><h2>{zh ? <>继续，<em>随便翻翻。</em></> : <>A few more<br /><em>curiosities.</em></>}</h2><div className="cabinet-list" role="group" aria-label={zh ? '选择作品' : 'Choose a project'}>{items.map((w,i)=><button key={w.id} aria-pressed={active.id === w.id} aria-controls={`${id}-preview`} onClick={()=>{setPlaying(false);setSelected(w.id)}}><span>{String(i+1).padStart(2,'0')}</span><strong>{w[lang].name}</strong><span>↗</span></button>)}</div></div>
     <div className={`cabinet-preview preview-${active.id}`} id={`${id}-preview`} aria-live="polite">
       <span className="cabinet-paperclip" aria-hidden="true" />
-      <div className="cabinet-photo" key={active.id}>{active.image ? <img src={active.image} alt={active[lang].name} loading="lazy" /> : <div className="cabinet-type-cover"><span>{active[lang].kind}</span><strong aria-hidden="true">{active.id === 'ticketing' ? '100+' : active.id === 'championship' ? '▶' : '✳'}</strong><p>{active[lang].name}</p></div>}<div className="cabinet-photo-caption"><span>{active[lang].name}</span><small>{active.owner === 'both' ? 'Jane + Jenny' : active.owner === 'jane' ? 'Jane' : 'Jenny'}</small></div></div>
-      {active[lang].ground && <p className="work-ground" style={ACCENT[active.owner] ? {'--ground-ink':ACCENT[active.owner]} : undefined}>{active[lang].ground}</p>}<p className="cabinet-description">{active[lang].what}</p>{link && <a className="quiet-link" href={link} target="_blank" rel="noreferrer">{active.id === 'ticketing' || active.id === 'championship' ? (zh ? '播放影片' : 'Watch the film') : (zh ? '打开作品' : 'Open the project')} ↗</a>}
+      <div className={`cabinet-photo${playing && demo ? ' cabinet-live' : ''}`} key={active.id}>{playing && film
+        ? <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${active[lang].name} — ${zh ? '影片' : 'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />
+        : playing && demo
+        ? <iframe src={demo} title={`${active[lang].name} — ${zh ? '可以上手的演示' : 'interactive demo'}`} />
+        : active.image ? <img src={active.image} alt={active[lang].name} loading="lazy" />
+        : film ? <button type="button" className="cabinet-play" onClick={()=>setPlaying(true)} aria-label={zh ? `播放 ${active[lang].name}` : `Play ${active[lang].name}`}>{cover}</button>
+        : cover}<div className="cabinet-photo-caption"><span>{active[lang].name}</span><small>{active.owner === 'both' ? 'Jane + Jenny' : active.owner === 'jane' ? 'Jane' : 'Jenny'}</small></div></div>
+      {active[lang].ground && <p className="work-ground" style={ACCENT[active.owner] ? {'--ground-ink':ACCENT[active.owner]} : undefined}>{active[lang].ground}</p>}<p className="cabinet-description">{active[lang].what}</p>
+      {film && !playing && <button type="button" className="quiet-link" onClick={()=>setPlaying(true)}>{zh ? '播放影片' : 'Play the film'} ▶</button>}
+      {demo && !playing && <button type="button" className="quiet-link" onClick={()=>setPlaying(true)}>{zh ? '在这里试试' : 'Try it here'} ↵</button>}
+      {film && <a className="quiet-link cabinet-elsewhere" href={watch} target="_blank" rel="noreferrer">{zh ? '也可以在 YouTube 上看' : 'Also on YouTube'} ↗</a>}
+      {link && <a className="quiet-link" href={link} target="_blank" rel="noreferrer">{zh ? '打开作品' : 'Open the project'} ↗</a>}
     </div>
   </section>
 }
@@ -46,7 +63,7 @@ export function AutomationReceipt() {
   const { lang } = useLang()
   const zh = lang === 'zh'
   const ticketing = works.find(w => w.id === 'ticketing')
-  return <section id="ticketing-proof" className="automation-scene"><div className="automation-story"><p className="micro-label">JENNY / {zh ? '社区智能工单' : 'COMMUNITY TICKETING'}</p><h2>{zh ? <>少一点手忙脚乱。<br /><em>多一点井井有条。</em></> : <>Less chasing.<br /><em>More living.</em></>}</h2><p>{ticketing[lang].what}</p><a href={ticketing.link || ticketing.embed} className="ink-button" target="_blank" rel="noreferrer">{zh ? '看看它怎么工作' : 'See it in motion'} ↗</a></div><div className="automation-receipt"><p className="micro-label">RABBITSHARK / DAILY OPERATIONS</p><strong>100<span>+</span></strong><p>{zh ? '条报修 / 每天自动处理' : 'maintenance requests / handled daily'}</p><div className="receipt-rule" />{(zh ? ['收到报修','分类与优先级','派给对应人员'] : ['Request received','Classified & prioritised','Assigned to the right team']).map((label,i)=><div className="receipt-step" key={label}><span>0{i+1}</span><span>{label}</span><span>✓</span></div>)}<div className="receipt-rule" /><div className="receipt-total"><span>{zh ? '响应时间' : 'RESPONSE TIME'}</span><strong>{zh ? '小时 → 秒' : 'hours → seconds'}</strong></div><span className="receipt-signature">a little less manual. — Jenny</span></div></section>
+  return <section id="ticketing-proof" className="automation-scene"><div className="automation-story"><p className="micro-label">JENNY / {zh ? '社区智能工单' : 'COMMUNITY TICKETING'}</p><h2>{zh ? <>少一点手忙脚乱。<br /><em>多一点井井有条。</em></> : <>Less chasing.<br /><em>More living.</em></>}</h2><p>{ticketing[lang].what}</p><a href={`https://youtu.be/${ticketing.film.youtube}`} className="ink-button" target="_blank" rel="noreferrer">{zh ? '看看它怎么工作' : 'See it in motion'} ↗</a></div><div className="automation-receipt"><p className="micro-label">RABBITSHARK / DAILY OPERATIONS</p><strong>100<span>+</span></strong><p>{zh ? '条报修 / 每天自动处理' : 'maintenance requests / handled daily'}</p><div className="receipt-rule" />{(zh ? ['收到报修','分类与优先级','派给对应人员'] : ['Request received','Classified & prioritised','Assigned to the right team']).map((label,i)=><div className="receipt-step" key={label}><span>0{i+1}</span><span>{label}</span><span>✓</span></div>)}<div className="receipt-rule" /><div className="receipt-total"><span>{zh ? '响应时间' : 'RESPONSE TIME'}</span><strong>{zh ? '小时 → 秒' : 'hours → seconds'}</strong></div><span className="receipt-signature">a little less manual. — Jenny</span></div></section>
 }
 
 export function Services() {
