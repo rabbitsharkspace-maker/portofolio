@@ -29,7 +29,7 @@ export function StudioDesk() {
   const [version, setVersion] = useState(0)
   return <div className={`studio-desk ${tidy ? "is-tidy" : ""}`} ref={bounds}>
     <span className="desk-orbit" aria-hidden="true" />
-    <span className="desk-handnote">{zh ? "好点子，从这里碰头。" : "a little mess. a lot of ideas."}<span>↴</span></span>
+    <span className="desk-handnote">{zh ? "好点子，从这里碰头" : "a little mess. a lot of ideas."}<span>↴</span></span>
     <DeskObject key={`mkr-${version}`} bounds={bounds} className="desk-monitor" angle={tidy ? 0 : -7} label={zh ? "拖动餐厅项目；方向键微调" : "Move restaurant project; arrow keys to nudge"}>
       <a href="#case-mkr"><img src="/ip/mkr.webp" alt="My Kitchen Rules" fetchPriority="high" /><div className="desk-object-caption"><span>My Kitchen Rules</span><span>OPEN ↗</span></div></a>
     </DeskObject>
@@ -63,7 +63,7 @@ export function TicketToy() {
       <p>{zh ? t.zh : t.en}</p><div className="ticket-perforation" /><span className="ticket-barcode" aria-hidden="true" />
     </div>
     <div className="routing-path" aria-hidden="true"><span />✳<span /></div>
-    <div className="routing-result" aria-live="polite">{routed ? <><span>✓ {zh ? '已分流（演示）' : 'ROUTED (DEMO)'}</span><strong>{t.team[zh ? 1 : 0]}</strong><small>{zh ? '优先级：' : 'Priority: '}{t.priority[zh ? 1 : 0]}</small></> : <><span>{zh ? '等待一条需求' : 'WAITING FOR AN INPUT'}</span><strong>{zh ? '让事情找到对的人。' : 'Right task. Right person.'}</strong><small>{zh ? '点下面的按钮，看看去哪里。' : 'Push the button. See where it goes.'}</small></>}</div>
+    <div className="routing-result" aria-live="polite">{routed ? <><span>✓ {zh ? '已分流（演示）' : 'ROUTED (DEMO)'}</span><strong>{t.team[zh ? 1 : 0]}</strong><small>{zh ? '优先级：' : 'Priority: '}{t.priority[zh ? 1 : 0]}</small></> : <><span>{zh ? '等待一条需求' : 'WAITING FOR AN INPUT'}</span><strong>{zh ? '让事情找到对的人' : 'Right task. Right person.'}</strong><small>{zh ? '点下面的按钮，看看去哪里' : 'Push the button. See where it goes.'}</small></>}</div>
     <button className="toy-action" onClick={() => { if(routed) {setIndex(i => (i+1)%tickets.length);setRouted(false)} else setRouted(true) }}>{routed ? (zh ? '再来一张 ↻' : 'Try another ↻') : (zh ? '分流这张工单 ↗' : 'Route this ticket ↗')}</button>
   </div>
 }
@@ -83,11 +83,11 @@ export function PaletteToy() {
     <div className="palette-preview" style={{'--preview-bg':p.bg,'--preview-ink':p.ink,'--preview-fill':p.fill,'--preview-radius':p.radius,fontFamily:p.font}}>
       <div className="palette-preview-top">little moments <span>↗</span></div>
       <span className="palette-flower" aria-hidden="true">✳</span>
-      <h3>{zh ? '给日常，留一点空白。' : <>A little room<br /><em>for yourself.</em></>}</h3>
+      <h3>{zh ? '给日常，留一点空白' : <>A little room<br /><em>for yourself.</em></>}</h3>
       <div className="palette-preview-button">{zh ? '慢慢来' : 'Take it slow'} ↗</div>
     </div>
     <div className="palette-choices" role="group" aria-label={zh ? '切换设计方案' : 'Choose a visual direction'}>{palettes.map((p,i)=><button key={p.name[0]} aria-pressed={index === i} onClick={()=>setIndex(i)}><span style={{background:p.fill,boxShadow:`inset 9px 0 ${p.bg}`}} />{p.name[zh?1:0]}</button>)}</div>
-    <p className="toy-footnote" aria-live="polite">{zh ? `试试「${p.name[1]}」：配色、字体、圆角一起改变。` : `${p.name[0]}: colour, type and shape change together.`}</p>
+    <p className="toy-footnote" aria-live="polite">{zh ? `试试「${p.name[1]}」：配色、字体、圆角一起改变` : `${p.name[0]}: colour, type and shape change together.`}</p>
   </div>
 }
 
@@ -99,14 +99,14 @@ export function PersonPlayground({ who }) {
   return <header className={`person-playground is-${who}`}>
     <div className="person-intro">
       <p className="micro-label">RABBITSHARK / {who === 'jenny' ? 'THE SYSTEMS HALF' : 'THE DESIGN HALF'}</p>
-      <h1 className="person-title">{p.short}<span>✳</span><i>{who === 'jenny' ? (zh ? '把复杂，变顺手。' : 'a method to the magic.') : (zh ? '给好点子，一点性格。' : 'a feeling for the details.')}</i></h1>
+      <h1 className="person-title">{p.short}<span>✳</span><i>{who === 'jenny' ? (zh ? '把复杂，变顺手' : 'a method to the magic.') : (zh ? '给好点子，一点性格' : 'a feeling for the details.')}</i></h1>
       <p className="person-intro-copy">{p[lang].line} {p[lang].sub}</p>
       <div className="person-intro-links"><a className="ink-button" href="#personal-work">{zh ? '打开我的作品' : 'Explore my work'} ↗</a><a className="quiet-link" href="#about-me">{zh ? '认识我' : 'A little about me'} ↓</a></div>
       <div className="person-character-scene">
         <div className="character-halo" aria-hidden="true" />
         <button className={`hello-character ${hello ? 'said-hello' : ''}`} onClick={()=>setHello(!hello)} aria-label={zh ? `和 ${p.short} 打招呼` : `Say hi to ${p.short}`} aria-pressed={hello}><Mascot species={who === 'jenny' ? 'shark' : 'rabbit'} spark={who === 'jenny' ? 'var(--jane)' : 'var(--jenny)'} /></button>
-        <span className="character-speech" aria-live="polite">{hello ? (who === 'jenny' ? (zh ? '复杂的交给我。✳' : 'I’ll untangle it. ✳') : (zh ? '细节控，报到！✳' : 'Details are my thing. ✳')) : (zh ? 'psst… 点我一下' : 'psst… say hello')}</span>
-        <p className="character-caption">{who === 'jenny' ? (zh ? '系统、AI，以及一点好奇心。' : 'systems, AI & a healthy dose of curiosity.') : (zh ? '体验、品牌，以及一点小执着。' : 'experience, identity & a little obsession.')}</p>
+        <span className="character-speech" aria-live="polite">{hello ? (who === 'jenny' ? (zh ? '复杂的交给我 ✳' : 'I’ll untangle it. ✳') : (zh ? '细节控，报到！✳' : 'Details are my thing. ✳')) : (zh ? 'psst… 点我一下' : 'psst… say hello')}</span>
+        <p className="character-caption">{who === 'jenny' ? (zh ? '系统、AI，以及一点好奇心' : 'systems, AI & a healthy dose of curiosity.') : (zh ? '体验、品牌，以及一点小执着' : 'experience, identity & a little obsession.')}</p>
       </div>
     </div>
     <div className="person-toy-column"><span className="toy-handnote">{zh ? '来，动手试试 ↴' : 'a small thing to play with ↴'}</span>{who === 'jenny' ? <TicketToy /> : <PaletteToy />}<p className="person-proof-note">{p[lang].evidence[0].proof}</p></div>

@@ -151,6 +151,6 @@ export default function SereneStory({ scenes, root }) {
         </div>
       </article>
     })}
-    <div className="serene-end"><span>✳</span><p>{zh ? '知道下一步该做什么。' : 'Knowing what to do next.'}</p><small>SERENE · BY JENNY</small></div>
+    <div className="serene-end"><span>✳</span><p>{zh ? '知道下一步该做什么' : 'Knowing what to do next.'}</p><small>SERENE · BY JENNY</small></div>
   </section>
 }

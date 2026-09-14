@@ -12,7 +12,7 @@ export default function Home() {
   return <>
     <FoundersHero />
     <div className="desk-body">
-      <section id="work" className="work-collection"><Chapter number="01" label={zh?'一些认真做成的事':'THINGS WE PUT INTO THE WORLD'} title={zh?<>点子，<em>有了着落。</em></>:<>Out of our heads.<br /><em>Into the world.</em></>} note={zh?'点开一件，走进展台。':'step inside. take your time.'} /><ProjectGallery items={cases} /></section>
+      <section id="work" className="work-collection"><Chapter number="01" label={zh?'一些认真做成的事':'THINGS WE PUT INTO THE WORLD'} title={zh?<>点子，<em>有了着落</em></>:<>Out of our heads.<br /><em>Into the world.</em></>} note={zh?'点开一件，走进展台':'step inside. take your time.'} /><ProjectGallery items={cases} /></section>
       <WorkShelf items={works.filter(w=>!featuredIds.includes(w.id))} />
       <Recognition />
       <AutomationReceipt />

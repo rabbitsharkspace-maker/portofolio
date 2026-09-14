@@ -29,7 +29,7 @@ export default function CaseStudy({ item, index, defaultView = "finished" }) {
         <button className="project-image-open" onClick={()=>dialog.current?.showModal()} aria-label={zh ? `放大查看 ${c.name}` : `Enlarge ${c.name}`}><img src={item.image} alt={`${c.name} — ${c.kind}`} loading="lazy" style={{aspectRatio:item.ratio}} /><span>{zh ? '放大看看 ↗' : 'Take a closer look ↗'}</span></button>
       </div>
       <div className="project-seal"><strong>{c.metric.value}</strong><span>{c.metric.label}</span></div>
-      <p className="project-pencil">{item.owner === 'both' ? (zh ? '两种脑回路，一件成品。' : 'two ways of thinking. one good thing.') : (zh ? '从一个问题，做成一个产品。' : 'one question, taken all the way.')}</p>
+      <p className="project-pencil">{item.owner === 'both' ? (zh ? '两种脑回路，一件成品' : 'two ways of thinking. one good thing.') : (zh ? '从一个问题，做成一个产品' : 'one question, taken all the way.')}</p>
     </div>
     <div className="project-story">
       <p className="micro-label">{c.kind}</p>

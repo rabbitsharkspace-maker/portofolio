@@ -25,7 +25,7 @@ export const META = {
     },
     zh: {
       title: "RabbitShark — AI 系统",
-      desc: "两个人的工作室。你拿到的是一支完整的产品团队——策略、工程、设计——但不用招人。八个产品已上线。",
+      desc: "两个人的工作室。你拿到的是一支完整的产品团队——策略、工程、设计——但不用招人。八个产品已上线",
     },
   },
   "/jenny": {
@@ -36,7 +36,7 @@ export const META = {
     },
     zh: {
       title: "Jenny Zhang — AI 产品工程师 · RabbitShark",
-      desc: "把复杂的问题，做成能用的产品。已上线七个产品，一套自动化每天处理 100 多条工单。",
+      desc: "把复杂的问题，做成能用的产品。已上线七个产品，一套自动化每天处理 100 多条工单",
     },
   },
   "/jane": {
@@ -47,7 +47,7 @@ export const META = {
     },
     zh: {
       title: "Jane Zhang — 产品与品牌设计 · RabbitShark",
-      desc: "产品体验、界面设计与品牌方向：一块屏，从第一张线框图做到上线的 React。",
+      desc: "产品体验、界面设计与品牌方向：一块屏，从第一张线框图做到上线的 React",
     },
   },
 }
