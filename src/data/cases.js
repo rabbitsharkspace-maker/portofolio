@@ -310,12 +310,20 @@ export const cases = [
       },
       {
         by: "jenny",
+        // A drawing, not a screen: the routing happens before anything is
+        // rendered, so there is no screenshot of it to take. Deliberately
+        // without the "eight in ten" figure that sits in the paragraph — the
+        // split is measured, the architecture is not, and a diagram states
+        // things more flatly than a sentence does.
+        shot: { en: "/ip/serene-models-en.webp", zh: "/ip/serene-models.webp" },
         en: {
           q: "Why three models",
+          shotNote: "Which model answers is decided before the request leaves the phone.",
           a: "Reading an image or checking a source goes to Gemini. Plain text goes to Gemma. Offline falls back to Gemini Nano on the phone, where it answers from constants and phrasing only and never guesses at a statute. Around eight in ten requests take the cheaper path. Building for harm is a low-resource setting by nature: no signal is low-resource, no English is low-resource, and three in the morning with nobody to ask is low-resource too.",
         },
         zh: {
           q: "为什么要三个模型",
+          shotNote: "用哪个模型，在请求离开手机之前就定了",
           a: "要读图、要联网核实的走 Gemini；纯文本走 Gemma；断网时走手机本地的 Gemini Nano——断网只答常量和话术，法条不猜。八成的请求走的是更省的那条。「善」这条赛道本来就是低资源环境：断网是，不会英文是，凌晨三点身边没人可问也是",
         },
       },
