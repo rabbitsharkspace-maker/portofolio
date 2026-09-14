@@ -234,7 +234,15 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
 
 /* ---- the scroll story inside a case ---------------------------------- */
 /* One beat, one scrollport — every other length here is derived from these two. */
-.case-scroller { --beat:min(70vh,600px); --port:94dvh; display:grid; grid-template-columns:minmax(240px,.78fr) 1fr; gap:5%; padding-top:8px; }
+/*
+ * The writing reads first and she answers it, so the text takes the left column
+ * and the stage the right — the mirror of Serene's acts, which put the scene on
+ * the left. Two cases, two directions, so neither reads as the other's template.
+ */
+.case-scroller { --beat:min(70vh,600px); --port:94dvh; --scene:#e4e1e9; display:grid; grid-template-columns:1fr minmax(240px,.78fr); gap:5%; padding-top:8px; }
+.scroller-stage { grid-column:2; grid-row:1; }
+.scroller-beats { grid-column:1; grid-row:1; }
+.exhibition-kno .case-scroller { --scene:#dee3ef; }
 /*
  * `grid-template-rows` has to be stated. Left implicit the row is `auto`, the
  * 1100px still sizes it, and the img's own `max-height:100%` then resolves
@@ -257,7 +265,17 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * and a CSS transition would be a second animation fighting it for the same
  * two properties. Compositor-only properties, so the frames stay cheap.
  */
-.scroller-stage img { grid-area:1/1; width:100%; height:var(--beat); object-fit:contain; opacity:0; will-change:opacity,transform; }
+.scroller-stage img { grid-area:1/1; width:100%; height:var(--beat); object-fit:contain; opacity:0; will-change:opacity,transform; filter:drop-shadow(0 12px 9px #2a213219); }
+/*
+ * She needs something to stand on. A tinted panel the height of one beat, with
+ * a faint ring behind her and a soft ellipse under her feet — the same three
+ * pieces Serene's scenes are built from, so the two cases read as one hand.
+ * Sized to the beat rather than the scrollport, or the tint would be a column
+ * of colour the whole height of the dialog.
+ */
+.scroller-stage::before,.scroller-stage::after { content:''; grid-area:1/1; pointer-events:none; }
+.scroller-stage::before { justify-self:stretch; align-self:center; height:calc(var(--beat) + 54px); background:radial-gradient(circle at 50% 44%, transparent calc(30% - 1px), #00000016 30%, transparent calc(30% + 1px)), var(--scene); border:1px solid #00000012; border-radius:5px; }
+.scroller-stage::after { align-self:center; width:52%; height:18px; margin-top:calc(var(--beat) / 2 - 34px); background:#2a213226; filter:blur(11px); border-radius:50%; }
 /*
  * Half a scrollport of air at each end. Without it the first and last beats
  * centre themselves while the stage is still in flow — sticky only bites once
@@ -280,6 +298,10 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
 .scroller-beats p { font-size:15px; line-height:1.9; color:#4e4456; max-width:36ch; }
 @media (max-width:760px) {
  .case-scroller { --beat:min(52vh,420px); grid-template-columns:1fr; gap:0; }
+ /* Stacked, so the stage goes back above the writing and the panel shrinks with it. */
+ .scroller-stage,.scroller-beats { grid-column:1; grid-row:auto; }
+ .scroller-stage::before { height:100%; }
+ .scroller-stage::after { margin-top:calc(var(--beat) / 2 - 26px); }
  .scroller-stage { top:50px; height:min(38vh,290px); }
  .scroller-stage img { height:100%; }
  /* Stacked on a phone: the stage is a band at the top, not the whole port. */
