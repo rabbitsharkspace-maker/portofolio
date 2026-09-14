@@ -4,7 +4,7 @@ import { gsap } from 'gsap'
 import { Flip } from 'gsap/Flip'
 
 gsap.registerPlugin(Flip)
-import { useLang } from '../lang'
+import { useLang, inLang } from '../lang'
 import { Byline } from './CaseStudy'
 import { ACCENT } from '../theme'
 import CaseScroller from './CaseScroller'
@@ -89,7 +89,7 @@ export default function ProjectGallery({ items }) {
     <div className="gallery-toolbar"><span>{zh?'精选展览':'SELECTED EXHIBITION'} / {String(items.length).padStart(2,'0')}</span><div role="group" aria-label={zh?'作品展示方式':'Gallery layout'}><button aria-pressed={mode==='world'} onClick={()=>setMode('world')}>{zh?'小世界':'World'} ✳</button><button aria-pressed={mode==='gallery'} onClick={()=>setMode('gallery')}>{zh?'画廊':'Gallery'} ▦</button><button aria-pressed={mode==='index'} onClick={()=>setMode('index')}>{zh?'索引':'Index'} ☰</button></div></div>
     {mode === 'world' ? <Suspense fallback={<div className="world-fallback"><p>{zh?'正在布置小展岛…':'Setting up the little world…'}</p>{items.map((p,i)=><button id={`case-${p.id}`} key={p.id} onClick={e=>open(i,e)}>{p[lang].name} ↗</button>)}</div>}><StudioWorld items={items} onOpen={open}/></Suspense> : <div className="gallery-grid">{items.map((project,i)=><motion.article key={project.id} id={`case-${project.id}`} className={`gallery-exhibit exhibit-${project.id}`} initial={reduced?false:{y:22}} whileInView={{y:0}} viewport={{once:true,amount:.1}} transition={{duration:.65,ease:[.2,.7,.2,1]}}>
       <button className="exhibit-open" onClick={e=>open(i,e)} aria-label={zh?`进入 ${project[lang].name} 展台`:`Explore ${project[lang].name}`} onPointerMove={tilt} onPointerLeave={e=>{e.currentTarget.style.setProperty('--art-x','0deg');e.currentTarget.style.setProperty('--art-y','0deg')}}>
-        <div className="exhibit-stage"><span className="exhibit-number">0{i+1}</span><span className="exhibit-medium">{project.owner==='both'?'JANE × JENNY':project.owner.toUpperCase()}</span><div className="exhibit-art"><img src={project.image} alt={`${project[lang].name} — ${project[lang].kind}`} loading="lazy" /></div><span className="exhibit-explore">{zh?'进入':'Explore'}<i>↗</i></span><div className="exhibit-ground" aria-hidden="true" /></div>
+        <div className="exhibit-stage"><span className="exhibit-number">0{i+1}</span><span className="exhibit-medium">{project.owner==='both'?'JANE × JENNY':project.owner.toUpperCase()}</span><div className="exhibit-art"><img src={inLang(project.image, lang)} alt={`${project[lang].name} — ${project[lang].kind}`} loading="lazy" /></div><span className="exhibit-explore">{zh?'进入':'Explore'}<i>↗</i></span><div className="exhibit-ground" aria-hidden="true" /></div>
         <div className="exhibit-label"><div><h3>{project[lang].name}</h3><p>{project[lang].kind}</p></div><span className="exhibit-result">{project[lang].metric.value}<small>{project[lang].metric.label}</small></span><span className="exhibit-arrow" aria-hidden="true">↗</span></div>
       </button>
     </motion.article>)}</div>}
@@ -106,7 +106,7 @@ export default function ProjectGallery({ items }) {
           ? (ourCut
             ? <video src={ourCut} poster={poster} controls autoPlay playsInline />
             : <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${item[lang].name} — ${zh?'影片':'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />)
-          : <><img src={poster || item.image} alt={poster ? `${item[lang].name} — ${zh?'影片封面':'film cover'}` : `${item[lang].name} — ${item[lang].kind}`} />{film && <button className="exhibition-play" onClick={()=>setPlaying(true)}><span aria-hidden="true">▶</span>{zh?'播放影片':'Play the film'}</button>}</>}</figure>
+          : <><img src={poster || inLang(item.image, lang)} alt={poster ? `${item[lang].name} — ${zh?'影片封面':'film cover'}` : `${item[lang].name} — ${item[lang].kind}`} />{film && <button className="exhibition-play" onClick={()=>setPlaying(true)}><span aria-hidden="true">▶</span>{zh?'播放影片':'Play the film'}</button>}</>}</figure>
         {film?.youtube && <p className="film-elsewhere"><a className="quiet-link" href={`https://youtu.be/${film.youtube}`} target="_blank" rel="noreferrer">{zh?'也可以在 YouTube 上看':'Also on YouTube'} ↗</a></p>}
         <div className="exhibition-story"><div><p className="micro-label">{zh?'起点 / 问题':'THE STARTING POINT'}</p><p>{item[lang].problem}</p></div><div><p className="micro-label">{zh?'交付 / 成品':'WHAT WE DELIVERED'}</p><p>{item[lang].did}</p>{item.link && <a href={item.link} target="_blank" rel="noreferrer" className="quiet-link">{zh?'体验产品':'Visit the product'} ↗</a>}</div><div className="exhibition-metric"><strong>{item[lang].metric.value}</strong><span>{item[lang].metric.label}</span></div></div>
         {item.id === 'serene' ? <SereneStory scenes={item.scenes} root={dialog} /> : <CaseScroller scenes={item.scenes} root={dialog} />}

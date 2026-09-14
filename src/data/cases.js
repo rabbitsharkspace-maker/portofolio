@@ -80,7 +80,10 @@ export const cases = [
   {
     id: "serene",
     owner: "jenny",
-    image: "/ip/serene.webp",
+    // The plate is a screenshot with words on it, so there is one per language.
+    // The English page was showing the Mandarin interface, which made the first
+    // thing a visitor saw an argument against the product working in English.
+    image: { en: "/ip/serene-en.webp", zh: "/ip/serene.webp" },
     // The live app sleeps on a free Render dyno, so the screenshot stands in for
     // it. The film does the job the live site can't — it is the artifact.
     //

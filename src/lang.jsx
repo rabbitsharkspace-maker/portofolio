@@ -36,6 +36,16 @@ export function useLang() {
 }
 
 /*
+ * An asset that exists in both languages. Most are one file for both — a
+ * product shot with no words in it, a photograph — so a plain string is still
+ * the common case and stays the shorter thing to write. Where the screen has
+ * words on it, the field becomes { en, zh } and this picks the right one.
+ */
+export function inLang(asset, lang) {
+  return typeof asset === "string" || !asset ? asset || null : asset[lang] ?? asset.en ?? null
+}
+
+/*
  * Toggle. Reads "中文 / English" with the inactive language dimmed — the same
  * wording the bios use.
  *

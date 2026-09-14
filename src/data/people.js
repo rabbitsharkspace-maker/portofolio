@@ -70,13 +70,13 @@ export const people = {
       ],
       awards: [
         /*
-         * Worded as the two certificates are printed, both of them for Serene.
-         * "Best of the Year" is the line they carry above the award's own name;
-         * "Top 30 Finalists Award" is printed in English on the certificate, so
-         * it stays in English on the Chinese side too.
+         * Two certificates, one line. Both are printed "Best of the Year", both
+         * are for Serene and both come from the same night, so listed separately
+         * the page said "Best of the Year" twice and read like a padded CV. The
+         * two award names stay exactly as printed — "Top 30 Finalists Award" is
+         * in English on the certificate, so it is English on the Chinese side too.
          */
-        "Best of the Year · Google AI Technology Application — Serene\nGoogle AI Vibe-a-thon 2026, run by GDG Hangzhou, awarded at the Google Developer Conference in Shanghai, 13 Aug 2026",
-        "Best of the Year · Top 30 Finalists Award — Serene\n395 entries → Top 100 → Top 30 → six winners",
+        "Best of the Year — Serene\nGoogle AI Technology Application · Top 30 Finalists Award\nGoogle AI Vibe-a-thon 2026, run by GDG Hangzhou, awarded at the Google Developer Conference in Shanghai, 13 Aug 2026 · 395 entries → Top 100 → Top 30 → six winners",
         "BAP × USYD × Monash × McKinsey Case Competition — Regional Round",
         "FMAA Management Consulting Case Competition 2024 — Campus Qualifier",
         "AMEB Grade 8 Piano (A)",
@@ -133,8 +133,7 @@ export const people = {
         { group: "创意", items: ["动画短片", "分镜", "UI 设计", "原创配乐"] },
       ],
       awards: [
-        "年度最佳 · Google AI 技术应用 —— 作品 Serene（安心副驾）\nGoogle AI 出海创想赛 Vibe-a-thon 2026 · GDG 杭州主办，颁奖于上海谷歌开发者大会 · 2026 年 8 月 13 日",
-        "年度最佳 · Top 30 Finalists Award —— 作品 Serene（安心副驾）\n395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位",
+        "年度最佳 —— 作品 Serene（安心副驾）\nGoogle AI 技术应用 · Top 30 Finalists Award\nGoogle AI 出海创想赛 Vibe-a-thon 2026 · GDG 杭州主办，颁奖于上海谷歌开发者大会 · 2026 年 8 月 13 日 · 395 队/人参赛 → Top 100 → Top 30 → 六个获奖席位",
         "BAP × USYD × Monash × McKinsey 案例赛 — 区域赛",
         "FMAA 管理咨询案例赛 2024 — 校园赛晋级",
         "AMEB 钢琴八级 A",

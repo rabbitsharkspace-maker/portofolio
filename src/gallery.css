@@ -36,6 +36,13 @@
 .gallery-mode-index .gallery-exhibit + .gallery-exhibit { margin-top:0; }
 .gallery-mode-index .exhibit-open { display:grid; grid-template-columns:180px 1fr; gap:30px; align-items:center; padding:20px 0; border-top:1px solid #4c414f; }
 .gallery-mode-index .exhibit-stage { min-height:0; aspect-ratio:1.5; padding:15px; }
+/*
+ * The first exhibit is the wide one in gallery mode, and that rule carries three
+ * classes to the index rule's two — so in a 180px index column it kept the 2.05
+ * ratio and the 10% padding, overflowed, and sat on top of its own title.
+ */
+.gallery-mode-index .gallery-exhibit:first-child .exhibit-stage { aspect-ratio:1.5; padding:15px; }
+.gallery-mode-index .exhibit-open > * { min-width:0; }
 .gallery-mode-index .exhibit-number,.gallery-mode-index .exhibit-medium,.gallery-mode-index .exhibit-explore { display:none; }
 .gallery-mode-index .exhibit-label { padding:0; }
 .gallery-mode-index .exhibit-result { display:block !important; }

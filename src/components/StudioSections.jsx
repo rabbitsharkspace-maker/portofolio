@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useLang } from '../lang'
+import { useLang, inLang } from '../lang'
 import { people, studio } from '../data/people'
 import { works } from '../data/works'
 import { ACCENT, BG_KINDS, BG_ORDER } from '../theme'
@@ -27,7 +27,7 @@ export function WorkShelf({ items, id = 'all-work' }) {
   // Our own cut and the film's own cover, both in the language the page reads
   // in. Falling back to the YouTube frame for the films we only have there.
   const ourCut = film?.[lang] || null
-  const still = active.poster?.[lang] || active.image || null
+  const still = active.poster?.[lang] || inLang(active.image, lang)
   // Whatever the work itself says it is reachable at. Films have no homepage;
   // they play here, and `watch` is the same cut on YouTube for anyone who wants it.
   const link = active.link || (film ? null : active.embed) || null

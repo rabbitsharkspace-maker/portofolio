@@ -3,7 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, RoundedBox, useTexture } from '@react-three/drei'
 import { MathUtils, SRGBColorSpace } from 'three'
 import { useReducedMotion } from 'motion/react'
-import { useLang } from '../lang'
+import { useLang, inLang } from '../lang'
 
 class SceneBoundary extends Component {
   state = { failed:false }
@@ -58,13 +58,13 @@ function Exhibit({item,index,position,onOpen,animated}){
         <Block position={[0,2.03,-.3]} size={[2.8,.2,1.15]} color="#f3e4cd"/>
         {[-1.15,1.15].map(x=><Block key={x} position={[x,1.42,-.5]} size={[.12,1.1,.12]} color="#ceb792"/>)}
         {Array.from({length:7},(_,i)=><Block key={i} position={[-1.2+i*.4,1.9,.21]} size={[.4,.3,.2]} radius={.03} color={i%2?'#f7efde':'#c78280'}/>)}
-        <group position={[0,1.06,.2]}><Block size={[2.24,1.24,.09]} color="#4a4550"/><Suspense fallback={null}><Screenshot src={item.image} width={2.12} height={1.12}/></Suspense></group>
+        <group position={[0,1.06,.2]}><Block size={[2.24,1.24,.09]} color="#4a4550"/><Suspense fallback={null}><Screenshot src={inLang(item.image, lang)} width={2.12} height={1.12}/></Suspense></group>
         <Block position={[0,.48,.52]} size={[2.8,.16,.45]} color="#d3b996"/>
       </> : item.id==='serene' ? <>
         <Block position={[0,.3,-.12]} size={[2.65,.25,1]} color="#e2e7d6"/>
-        <group position={[0,1.3,0]} rotation={[-.12,0,-.04]}><Block size={[2.55,1.85,.18]} color="#f7edd6"/><Suspense fallback={null}><Screenshot src={item.image} width={2.32} height={1.45}/></Suspense><Block position={[.95,.69,.12]} size={[.23,.22,.03]} color="#bbadc9" radius={.01}/></group>
+        <group position={[0,1.3,0]} rotation={[-.12,0,-.04]}><Block size={[2.55,1.85,.18]} color="#f7edd6"/><Suspense fallback={null}><Screenshot src={inLang(item.image, lang)} width={2.32} height={1.45}/></Suspense><Block position={[.95,.69,.12]} size={[.23,.22,.03]} color="#bbadc9" radius={.01}/></group>
       </> : <>
-        <group position={[0,1.22,0]} rotation={[0,.1,-.1]}><Block size={[2.38,2.12,.35]} color={color}/><Block position={[-1.13,0,.02]} size={[.14,2.1,.38]} color="#9583b6"/><Block position={[.09,0,.19]} size={[2.03,1.87,.05]} color="#f3ede5"/><group position={[.08,0,.22]}><Suspense fallback={null}><Screenshot src={item.image} width={1.95} height={1.22}/></Suspense></group></group>
+        <group position={[0,1.22,0]} rotation={[0,.1,-.1]}><Block size={[2.38,2.12,.35]} color={color}/><Block position={[-1.13,0,.02]} size={[.14,2.1,.38]} color="#9583b6"/><Block position={[.09,0,.19]} size={[2.03,1.87,.05]} color="#f3ede5"/><group position={[.08,0,.22]}><Suspense fallback={null}><Screenshot src={inLang(item.image, lang)} width={1.95} height={1.22}/></Suspense></group></group>
       </>}
     </group>
   </group>

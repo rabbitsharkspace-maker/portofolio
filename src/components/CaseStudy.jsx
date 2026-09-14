@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import { useLang } from "../lang"
+import { useLang, inLang } from "../lang"
 import { ui } from "../data/ui"
 import { ACCENT } from "../theme"
 
@@ -26,7 +26,7 @@ export default function CaseStudy({ item, index, defaultView = "finished" }) {
       <span className="project-tab">{String(index+1).padStart(2,'0')} / {zh ? '作品档案' : 'PROJECT FILE'}</span>
       <div className="project-window">
         <div className="project-window-bar"><span>● ● ●</span><span>{c.name}</span><span>↗</span></div>
-        <button className="project-image-open" onClick={()=>dialog.current?.showModal()} aria-label={zh ? `放大查看 ${c.name}` : `Enlarge ${c.name}`}><img src={item.image} alt={`${c.name} — ${c.kind}`} loading="lazy" style={{aspectRatio:item.ratio}} /><span>{zh ? '放大看看 ↗' : 'Take a closer look ↗'}</span></button>
+        <button className="project-image-open" onClick={()=>dialog.current?.showModal()} aria-label={zh ? `放大查看 ${c.name}` : `Enlarge ${c.name}`}><img src={inLang(item.image, lang)} alt={`${c.name} — ${c.kind}`} loading="lazy" style={{aspectRatio:item.ratio}} /><span>{zh ? '放大看看 ↗' : 'Take a closer look ↗'}</span></button>
       </div>
       <div className="project-seal"><strong>{c.metric.value}</strong><span>{c.metric.label}</span></div>
       <p className="project-pencil">{item.owner === 'both' ? (zh ? '两种脑回路，一件成品' : 'two ways of thinking. one good thing.') : (zh ? '从一个问题，做成一个产品' : 'one question, taken all the way.')}</p>
@@ -44,7 +44,7 @@ export default function CaseStudy({ item, index, defaultView = "finished" }) {
       </details>
       {item.link && <a className="project-visit" href={item.link} target="_blank" rel="noreferrer">{zh ? '去产品里逛逛' : 'Visit the live product'} ↗</a>}
     </div>
-    <dialog className="project-lightbox" ref={dialog} aria-label={c.name} onClick={e=>{if(e.target === e.currentTarget) dialog.current.close()}}><button className="lightbox-close" autoFocus onClick={()=>dialog.current.close()}>{zh ? '关闭' : 'Close'} ×</button><img src={item.image} alt={`${c.name} — ${c.kind}`} /><p>{c.name} / {c.kind}</p></dialog>
+    <dialog className="project-lightbox" ref={dialog} aria-label={c.name} onClick={e=>{if(e.target === e.currentTarget) dialog.current.close()}}><button className="lightbox-close" autoFocus onClick={()=>dialog.current.close()}>{zh ? '关闭' : 'Close'} ×</button><img src={inLang(item.image, lang)} alt={`${c.name} — ${c.kind}`} /><p>{c.name} / {c.kind}</p></dialog>
   </article>
 }
 
