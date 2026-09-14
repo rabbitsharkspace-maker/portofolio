@@ -410,6 +410,73 @@ export const cases = [
      * the films. Until then it is the landing page, sitting still.
      */
     demo: { en: "https://knoko.space/?demo=1", zh: "https://knoko.space/?demo=1&lang=zh" },
+    /*
+     * Five beats, in the order a visitor meets them in the demo above: the
+     * premise, then the four tools. The stills were rendered on one plate at one
+     * camera and are cropped to a single box anchored on the feet, so she holds
+     * her size and her place and the swap reads as one person moving.
+     *
+     * What each tool did here is what it actually did on that canvas — the
+     * Collider merge, the Spark connection and the audit are quoted from the
+     * output, not invented for the page.
+     */
+    scenes: [
+      {
+        art: "/ip/kno-ko.webp",
+        en: {
+          title: "It is all in here somewhere",
+          body: "A PDF, a link, a voice note at midnight. Saving is the easy half \u2014 six months on it is all still here, and none of it has been opened since.",
+        },
+        zh: {
+          title: "\u4e1c\u897f\u5168\u5728\u8fd9\u513f\uff0c\u53ea\u662f\u6ca1\u4eba\u518d\u6253\u5f00",
+          body: "\u4e00\u4efd PDF\u3001\u4e00\u6761\u94fe\u63a5\u3001\u534a\u591c\u968f\u624b\u5b58\u7684\u4e00\u6bb5\u8bed\u97f3\u3002\u5b58\u662f\u5bb9\u6613\u7684\u90a3\u4e00\u534a\u2014\u2014\u534a\u5e74\u540e\u5b83\u4eec\u90fd\u8fd8\u5728\uff0c\u4e00\u4e2a\u90fd\u6ca1\u88ab\u518d\u6253\u5f00\u8fc7",
+        },
+      },
+      {
+        art: "/ip/kno-alchemy.webp",
+        en: {
+          title: "Several notes, one idea",
+          body: "Put a few cards beside each other and Alchemy fuses them into one. Not a summary of each \u2014 a single thing that exists only because they were sitting together.",
+        },
+        zh: {
+          title: "\u51e0\u5f20\u5361\uff0c\u7194\u6210\u4e00\u4e2a\u60f3\u6cd5",
+          body: "\u628a\u51e0\u5f20\u5361\u6446\u5230\u4e00\u8d77\uff0cAlchemy \u628a\u5b83\u4eec\u7194\u6210\u4e00\u5f20\u3002\u4e0d\u662f\u9010\u6761\u6458\u8981\uff0c\u662f\u4e00\u4e2a\u53ea\u6709\u5f53\u5b83\u4eec\u633b\u5728\u4e00\u8d77\u65f6\u624d\u5b58\u5728\u7684\u4e1c\u897f",
+        },
+      },
+      {
+        art: "/ip/kno-collider.webp",
+        en: {
+          title: "Two, and what comes out",
+          body: "Collider takes exactly two and asks what a third would be. On our own canvas it merged a maintenance-ticket system with a r\u00e9sum\u00e9 generator, and proposed a career profile built from work that was actually done.",
+        },
+        zh: {
+          title: "\u4e24\u5f20\uff0c\u548c\u649e\u51fa\u6765\u7684\u7b2c\u4e09\u5f20",
+          body: "Collider \u53ea\u6536\u4e24\u5f20\uff0c\u95ee\u300c\u7b2c\u4e09\u5f20\u4f1a\u662f\u4ec0\u4e48\u300d\u3002\u5728\u6211\u4eec\u81ea\u5df1\u7684\u753b\u5e03\u4e0a\uff0c\u5b83\u628a\u4e00\u5957\u62a5\u4fee\u5de5\u5355\u548c\u4e00\u4e2a\u7b80\u5386\u751f\u6210\u5668\u5408\u5230\u4e00\u8d77\uff0c\u63d0\u51fa\u7528\u771f\u6b63\u505a\u8fc7\u7684\u4e8b\u6765\u957f\u51fa\u5c65\u5386",
+        },
+      },
+      {
+        art: "/ip/kno-spark.webp",
+        en: {
+          title: "The connection nobody asked for",
+          body: "Spark goes looking on its own. It read a care-work note beside a maintenance-ticket note and said they are the same system: shift handovers are ticket transfers, incident reports are late bug reports.",
+        },
+        zh: {
+          title: "\u6ca1\u4eba\u5f00\u53e3\u8981\u7684\u90a3\u4e2a\u5173\u8054",
+          body: "Spark \u662f\u81ea\u5df1\u53bb\u627e\u7684\u3002\u5b83\u8bfb\u4e86\u4e00\u5f20\u7167\u62a4\u7b14\u8bb0\u548c\u4e00\u5f20\u62a5\u4fee\u5de5\u5355\u7b14\u8bb0\uff0c\u8bf4\u8fd9\u4e24\u4ef6\u4e8b\u662f\u540c\u4e00\u5957\u7cfb\u7edf\uff1a\u4ea4\u63a5\u73ed\u5c31\u662f\u5de5\u5355\u8f6c\u6d3e\uff0c\u4e8b\u6545\u62a5\u544a\u5c31\u662f\u8fdf\u5230\u7684\u6545\u969c\u5355",
+        },
+      },
+      {
+        art: "/ip/kno-logicguard.webp",
+        en: {
+          title: "It audits us too",
+          body: "The first thing Logic Guard flagged on that canvas was our own copy: two performance numbers stated without evidence, and a write-up that gives the upside and skips the failure modes. It is still there, on purpose.",
+        },
+        zh: {
+          title: "\u5b83\u8fde\u6211\u4eec\u81ea\u5df1\u4e5f\u5ba1",
+          body: "Logic Guard \u5728\u90a3\u5757\u753b\u5e03\u4e0a\u6311\u51fa\u7684\u7b2c\u4e00\u6761\uff0c\u662f\u6211\u4eec\u81ea\u5df1\u7684\u6587\u6848\uff1a\u4e24\u4e2a\u6027\u80fd\u6570\u5b57\u6ca1\u7ed9\u4f9d\u636e\uff0c\u6574\u6bb5\u53ea\u8bb2\u597d\u7684\u4e00\u9762\u3001\u8df3\u8fc7\u4e86\u5931\u8d25\u6a21\u5f0f\u3002\u5b83\u8fd8\u7559\u5728\u90a3\u513f\uff0c\u662f\u6545\u610f\u7684",
+        },
+      },
+    ],
     en: {
       name: "Kno",
       kind: "Spatial knowledge OS · 2026",
