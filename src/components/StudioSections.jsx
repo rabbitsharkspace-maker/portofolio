@@ -24,6 +24,10 @@ export function WorkShelf({ items, id = 'all-work' }) {
   // A work that can be tried rather than only seen. Same rule as the film: the
   // frame is not fetched until someone presses the button.
   const demo = active.demo
+  // Our own cut and the film's own cover, both in the language the page reads
+  // in. Falling back to the YouTube frame for the films we only have there.
+  const ourCut = film?.[lang] || null
+  const still = active.poster?.[lang] || active.image || null
   // Whatever the work itself says it is reachable at. Films have no homepage;
   // they play here, and `watch` is the same cut on YouTube for anyone who wants it.
   const link = active.link || (film ? null : active.embed) || null
@@ -33,11 +37,13 @@ export function WorkShelf({ items, id = 'all-work' }) {
     <div className={`cabinet-preview preview-${active.id}`} id={`${id}-preview`} aria-live="polite">
       <span className="cabinet-paperclip" aria-hidden="true" />
       <div className={`cabinet-photo${playing && demo ? ' cabinet-live' : ''}`} key={active.id}>{playing && film
-        ? <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${active[lang].name} — ${zh ? '影片' : 'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />
+        ? (ourCut
+          ? <video src={ourCut} poster={active.poster?.[lang]} controls autoPlay playsInline />
+          : <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${active[lang].name} — ${zh ? '影片' : 'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />)
         : playing && demo
         ? <iframe src={demo} title={`${active[lang].name} — ${zh ? '可以上手的演示' : 'interactive demo'}`} />
-        : active.image ? <img src={active.image} alt={active[lang].name} loading="lazy" />
-        : film ? <button type="button" className="cabinet-play" onClick={()=>setPlaying(true)} aria-label={zh ? `播放 ${active[lang].name}` : `Play ${active[lang].name}`}>{cover}</button>
+        : film ? <button type="button" className="cabinet-play" onClick={()=>setPlaying(true)} aria-label={zh ? `播放 ${active[lang].name}` : `Play ${active[lang].name}`}>{still ? <img src={still} alt={`${active[lang].name} — ${zh ? '影片封面' : 'film cover'}`} loading="lazy" /> : cover}</button>
+        : still ? <img src={still} alt={active[lang].name} loading="lazy" />
         : cover}<div className="cabinet-photo-caption"><span>{active[lang].name}</span><small>{active.owner === 'both' ? 'Jane + Jenny' : active.owner === 'jane' ? 'Jane' : 'Jenny'}</small></div></div>
       {active[lang].ground && <p className="work-ground" style={ACCENT[active.owner] ? {'--ground-ink':ACCENT[active.owner]} : undefined}>{active[lang].ground}</p>}<p className="cabinet-description">{active[lang].what}</p>
       {film && !playing && <button type="button" className="quiet-link" onClick={()=>setPlaying(true)}>{zh ? '播放影片' : 'Play the film'} ▶</button>}

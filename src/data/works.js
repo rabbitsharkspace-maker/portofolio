@@ -170,9 +170,19 @@ export const works = [
     owner: "jenny",
     stack: ["n8n", "Gemini", "WeCom API", "AES"],
     link: null,
-    film: { youtube: "6UMtuA_LSOs" }, // plays in the cabinet, like the one above
+    // Our own cut, one per language, served from here. The YouTube id stays as
+    // the elsewhere link — nothing reaches YouTube until someone asks for it.
+    film: {
+      youtube: "6UMtuA_LSOs",
+      en: "/media/ticketing-en-1080p.mp4",
+      zh: "/media/ticketing-cn-1080p.mp4",
+    },
+    // The film's own cover: the 34-node graph it opens on, under the line each
+    // language tells it with. Kept at 1080p — the source is a screen recording
+    // of small labels, and 720p turns the node names to mush.
+    poster: { en: "/ip/ticketing-film.webp", zh: "/ip/ticketing-film-zh.webp" },
     address: "Community Ticketing — workflow automation",
-    image: null, // artwork for the gallery plate — drop a path in when there is one
+    image: null, // the poster above stands in for the gallery plate
     en: {
       name: "Community Ticketing",
       kind: "Workflow automation",

@@ -92,7 +92,16 @@
 .cabinet-preview .quiet-link { margin-top:15px; display:inline-block; }
 .cabinet-preview .quiet-link + .quiet-link { margin-left:22px; }
 /* The film plays inside the photo frame, at its own 16:9, where the cover sat. */
-.cabinet-photo iframe { width:100%; aspect-ratio:16/9; display:block; border:1px solid #d7c9d7; background:#000; }
+.cabinet-photo iframe,.cabinet-photo video { width:100%; aspect-ratio:16/9; display:block; border:1px solid #d7c9d7; background:#000; }
+/*
+ * A film cover is a photograph until you press it, so it gets the one mark a
+ * photograph never has. The badge sits on the still, not on the caption below.
+ */
+.cabinet-play { position:relative; }
+.cabinet-play img { aspect-ratio:16/9; }
+.cabinet-play:has(img)::after { content:"\25B6"; position:absolute; top:50%; left:50%; width:56px; height:56px; margin:-28px 0 0 -28px; display:grid; place-items:center; border-radius:50%; background:#fffaf0f2; border:1px solid #c7b9c7; box-shadow:0 4px 14px #302b3a24; font-size:15px; color:#302b3a; padding-left:3px; transition:transform .25s; }
+.cabinet-play:has(img):hover::after,.cabinet-play:has(img):focus-visible::after { transform:scale(1.1); }
+@media (prefers-reduced-motion:reduce) { .cabinet-play:has(img):hover::after { transform:none; } }
 .cabinet-play { display:block; width:100%; text-align:inherit; cursor:pointer; }
 .cabinet-play .cabinet-type-cover strong { transition:transform .25s; }
 .cabinet-play:hover .cabinet-type-cover strong,.cabinet-play:focus-visible .cabinet-type-cover strong { transform:scale(1.08); }
