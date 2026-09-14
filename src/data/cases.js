@@ -389,6 +389,90 @@ export const cases = [
       },
     ],
   },
+
+  {
+    id: "kno",
+    owner: "jenny",
+    image: "/ip/kno.webp",
+    ratio: "1440 / 900",
+    split: { jane: 0, jenny: 100 },
+    link: "https://knoko.space",
+    /*
+     * The one work on this site you can use rather than read about.
+     *
+     * knoko.space with ?demo=1 is the real app in read-only: a canvas of the
+     * studio's own notes, the four tools wired to the results they actually
+     * produced, and nothing it can generate or save. Cards move, tools open
+     * their card, the audit opens. `lang` follows the page, so a Mandarin
+     * reader gets the Mandarin canvas and the Mandarin interface.
+     *
+     * The frame is not fetched until someone presses the button — same rule as
+     * the films. Until then it is the landing page, sitting still.
+     */
+    demo: { en: "https://knoko.space/?demo=1", zh: "https://knoko.space/?demo=1&lang=zh" },
+    en: {
+      name: "Kno",
+      kind: "Spatial knowledge OS · 2026",
+      ground: "I save everything and reopen none of it.",
+      problem: "Everything worth keeping gets saved somewhere — a PDF, a link, a voice note, a screenshot at midnight. Saving is the easy half. What never happens is the part where two things you kept six months apart turn out to be the same problem.",
+      did: "An infinite canvas you arrange by hand, and four tools that work on what you put on it. Alchemy fuses several notes into one idea. Collider merges two into a third. Spark goes looking for a connection you did not ask for. Logic Guard audits a claim on three axes — evidence, balance and reasoning — and says which one it fails.",
+      metric: { value: "0 accounts", label: "nothing to sign up for" },
+    },
+    zh: {
+      name: "Kno",
+      kind: "空间知识操作系统 · 2026",
+      ground: "我什么都存，但一个都不再打开",
+      problem: "值得留下的东西都会被存在某个地方——一份 PDF、一条链接、一段语音、半夜随手截的一张图。存是容易的那一半。从来没发生的是：相隔半年存下的两件东西，其实说的是同一个问题",
+      did: "一块无限大、自己动手摆的画布，加四个作用在你摆上去的东西上的工具。Alchemy 把几张卡熔成一个想法；Collider 把两张撞成第三张；Spark 去找你没开口要的那种关联；Logic Guard 从三个轴审一条说法——依据、平衡、推理——并指出它在哪一轴上站不住",
+      metric: { value: "0 个账号", label: "不用注册就能用" },
+    },
+    notes: [
+      {
+        by: "jenny",
+        en: {
+          q: "Why a canvas and not a list",
+          a: "A list decides the order for you, and the order is almost always the order you happened to save things in. On a canvas the arrangement is the thought: two cards sit next to each other because you put them there, and the tools only ever work on what you have already grouped.",
+        },
+        zh: {
+          q: "为什么是画布，不是列表",
+          a: "列表替你定了顺序，而那个顺序几乎总是你当初随手存下的顺序。在画布上，摆法本身就是想法：两张卡挻在一起，是因为你把它们放在了一起；而工具只对你已经归在一起的东西动手",
+        },
+      },
+      {
+        by: "jenny",
+        en: {
+          q: "Logic Guard audits us too",
+          a: "The demo canvas holds our own project notes, and the first thing Logic Guard flagged was our own copy: “response goes from hours to seconds” and “eight in ten requests take the cheaper path”, both stated without evidence, and a write-up that gives the upside and skips the failure modes. That line is printed elsewhere on this site. It was the most useful thing the tool could have said, and it is left in the demo on purpose.",
+        },
+        zh: {
+          q: "Logic Guard 连我们自己也审",
+          a: "演示画布上放的就是我们自己的项目笔记，而 Logic Guard 挑出的第一条，正是我们自己的文案：「响应从几小时变成几秒」和「八成的请求走更省的那条」，两句都没给依据，而且整段只讲好的一面、跳过了失败模式。那句话就印在这个网站的另一处。这是它能说出的最有用的一句话，所以故意留在演示里",
+        },
+      },
+      {
+        by: "jenny",
+        en: {
+          q: "Why the demo cannot generate",
+          a: "Kno runs on the visitor's own Gemini key, so a demo that generated would either need ours or ask a stranger for theirs before they know what the thing does. The four results on the canvas are real output, produced once and kept. Read-only stops at authoring: cards still move, tools still open their result, the audit still opens. Nothing is created, nothing is saved, no request is made.",
+        },
+        zh: {
+          q: "为什么演示不能生成",
+          a: "Kno 跑的是访客自己的 Gemini key。一个能生成的演示，要么花我们的 key，要么在人家还不知道这东西是干什么的时候就向他要 key。画布上那四个结果是真实输出，跑过一次，留下来。只读只拦在「创作」这一步：卡片照样拖，工具照样把它的结果调出来，审计照样展开。不新建、不保存、不发请求",
+        },
+      },
+      {
+        by: "jenny",
+        en: {
+          q: "Where the notes live",
+          a: "In the browser — IndexedDB, with localStorage underneath it when IndexedDB is unavailable, which happens more often than you would think. There is no account to make and nothing to upload. It also means a cleared browser is a cleared library, which is the honest trade and is said on the way in.",
+        },
+        zh: {
+          q: "笔记存在哪",
+          a: "存在浏览器里——IndexedDB，IndexedDB 用不了时落到 localStorage，而这种情况比想象中多。没有账号要注册，也没有东西要上传。这也意味着浏览器一清，库就没了——这是这笔交易诚实的那一面，进门时就写着",
+        },
+      },
+    ],
+  },
 ]
 
 export const featuredIds = cases.map((c) => c.id)

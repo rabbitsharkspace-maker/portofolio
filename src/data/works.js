@@ -41,9 +41,6 @@ export const works = [
     stack: ["Gemini", "Knowledge graph", "Full-stack"],
     link: "https://knoko.space",
     embed: "https://knoko.space/", // unused while `image` stands in
-    // The real app, on a canvas of our own work, with nothing to sign into and
-    // nothing it can generate. It is only fetched once someone asks for it.
-    demo: "https://knoko.space/?demo=1",
     // A still for the same reason as the rest of the wall: three live frames on
     // one screen is three third-party page loads before anything is readable.
     image: "/ip/kno.webp",

@@ -32,6 +32,9 @@ export default function ProjectGallery({ items }) {
   const film = item?.film
   const ourCut = film?.[lang]
   const poster = typeof item?.poster === 'string' ? item.poster : item?.poster?.[lang]
+  // The one case you can use instead of read about. Same rule as the films:
+  // the frame is not fetched until someone presses the button.
+  const demo = inLang(item?.demo, lang)
   /*
    * The case opens out of the card that was clicked.
    *
@@ -102,11 +105,13 @@ export default function ProjectGallery({ items }) {
       <AnimatePresence mode="wait" initial={false}>{item && <motion.div key={item.id} className={`exhibition-content exhibition-${item.id}`} initial={reduced?false:{opacity:0}} animate={{opacity:1}} exit={reduced?{}:{opacity:0}} transition={{duration:.2}}>
         <header className="exhibition-title"><p className="micro-label">{item[lang].kind}</p><h2>{item[lang].name}</h2>{item[lang].ground && <p className="work-ground" style={ACCENT[item.owner] ? {'--ground-ink':ACCENT[item.owner]} : undefined}>{item[lang].ground}</p>}<Byline split={item.split} /></header>
         {/* Cover and cut both follow the page's language. */}
-        <figure ref={figure} className={`exhibition-image${film ? ' has-film' : ''}`}>{playing && film
+        <figure ref={figure} className={`exhibition-image${film || demo ? ' has-film' : ''}${playing && demo ? ' is-live' : ''}`}>{playing && film
           ? (ourCut
             ? <video src={ourCut} poster={poster} controls autoPlay playsInline />
             : <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${item[lang].name} — ${zh?'影片':'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />)
-          : <><img src={poster || inLang(item.image, lang)} alt={poster ? `${item[lang].name} — ${zh?'影片封面':'film cover'}` : `${item[lang].name} — ${item[lang].kind}`} />{film && <button className="exhibition-play" onClick={()=>setPlaying(true)}><span aria-hidden="true">▶</span>{zh?'播放影片':'Play the film'}</button>}</>}</figure>
+          : playing && demo
+          ? <iframe src={demo} title={`${item[lang].name} — ${zh?'可以上手的演示':'interactive demo'}`} />
+          : <><img src={poster || inLang(item.image, lang)} alt={poster ? `${item[lang].name} — ${zh?'影片封面':'film cover'}` : `${item[lang].name} — ${item[lang].kind}`} />{film && <button className="exhibition-play" onClick={()=>setPlaying(true)}><span aria-hidden="true">▶</span>{zh?'播放影片':'Play the film'}</button>}{demo && <button className="exhibition-play" onClick={()=>setPlaying(true)}><span aria-hidden="true">↵</span>{zh?'在这里试试':'Try it here'}</button>}</>}</figure>
         {film?.youtube && <p className="film-elsewhere"><a className="quiet-link" href={`https://youtu.be/${film.youtube}`} target="_blank" rel="noreferrer">{zh?'也可以在 YouTube 上看':'Also on YouTube'} ↗</a></p>}
         <div className="exhibition-story"><div><p className="micro-label">{zh?'起点 / 问题':'THE STARTING POINT'}</p><p>{item[lang].problem}</p></div><div><p className="micro-label">{zh?'交付 / 成品':'WHAT WE DELIVERED'}</p><p>{item[lang].did}</p>{item.link && <a href={item.link} target="_blank" rel="noreferrer" className="quiet-link">{zh?'体验产品':'Visit the product'} ↗</a>}</div><div className="exhibition-metric"><strong>{item[lang].metric.value}</strong><span>{item[lang].metric.label}</span></div></div>
         {item.id === 'serene' ? <SereneStory scenes={item.scenes} root={dialog} /> : <CaseScroller scenes={item.scenes} root={dialog} />}

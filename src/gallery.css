@@ -12,6 +12,7 @@
 .gallery-exhibit:first-child .exhibit-stage { aspect-ratio:2.05; padding:58px 10% 68px; }
 .exhibit-serene .exhibit-stage { background:#d9e1cf; color:#53654e; }
 .exhibit-fastresume .exhibit-stage { background:#eacfbf; color:#805f50; }
+.exhibit-kno .exhibit-stage { background:#dee3ef; color:#4d5369; }
 .exhibit-number,.exhibit-medium { position:absolute; top:20px; font:9px ui-monospace,monospace; letter-spacing:.15em; z-index:2; }
 .exhibit-number { left:23px; }
 .exhibit-medium { right:23px; }
@@ -59,11 +60,18 @@
 .exhibition-image { padding:35px 5%; background:#d9cfe3; border:1px solid #c5b5d2; border-radius:3px; }
 .exhibition-serene .exhibition-image { background:#dae0cc; border-color:#bfcaaa; }
 .exhibition-fastresume .exhibition-image { background:#e9cdbb; border-color:#d2b7a5; }
+.exhibition-kno .exhibition-image { background:#dee3ef; border-color:#c2c9dc; }
 .exhibition-image img { display:block; width:100%; height:auto; box-shadow:0 12px 28px #302b3a1a; }
 /* A still with a play button until asked; then the player, in the frame the
  * still was holding, so the dialog does not jump when the film arrives. */
 .exhibition-image.has-film { position:relative; }
 .exhibition-image iframe,.exhibition-image video { display:block; width:100%; aspect-ratio:16/9; border:0; background:#151119; box-shadow:0 12px 28px #302b3a1a; }
+/*
+ * The demo is a thing to use, not a thing to watch: it gets the whole plate and
+ * a height worth panning a canvas in, and a white ground because the app has one.
+ */
+.exhibition-image.is-live { padding:14px; }
+.exhibition-image.is-live iframe { aspect-ratio:auto; height:min(72vh,640px); background:#fff; }
 /* The cover is the film's own 16:9, so pressing play swaps the player in without
  * the page jumping under the button that was just pressed. */
 .exhibition-image.has-film img { aspect-ratio:16/9; object-fit:cover; }
