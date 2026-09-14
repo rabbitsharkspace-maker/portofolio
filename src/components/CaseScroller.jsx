@@ -25,6 +25,7 @@ export default function CaseScroller({ scenes, root }) {
   const reduced = useReducedMotion()
   const [active,setActive] = useState(0)
   const arts = useRef([])
+  const marks = useRef([])
   const beats = useRef([])
 
   useEffect(()=>{
@@ -51,6 +52,13 @@ export default function CaseScroller({ scenes, root }) {
           // A quarter of the panel's travel: present in the scroll, a layer behind it.
           art.style.transform = reduced ? '' : `translate3d(0,${(-d * stride * 0.25).toFixed(1)}px,0) scale(${(1 - Math.abs(d) * 0.03).toFixed(4)})`
         }
+        // The word and the caption sit a layer behind her and travel less, so
+        // the scene has depth rather than two things sliding at one speed.
+        const mark = marks.current[i]
+        if (mark) {
+          mark.style.opacity = reduced ? (Math.round(p) === i ? 1 : 0) : near
+          mark.style.transform = reduced ? '' : `translate3d(0,${(-d * stride * 0.12).toFixed(1)}px,0)`
+        }
         panel.style.opacity = reduced ? 1 : 0.26 + 0.74 * near
       })
       setActive(Math.round(p))
@@ -71,6 +79,10 @@ export default function CaseScroller({ scenes, root }) {
   return <section className="case-scroller">
     {/* The panels carry the words; the stage is the same story in a picture. */}
     <div className="scroller-stage" aria-hidden="true">
+      {scenes.map((s,i)=>(s[lang].word || s[lang].caption) && <div key={`${s.art}-mark`} ref={el=>{marks.current[i]=el}} className="scroller-mark">
+        {s[lang].word && <span className="scroller-word">{s[lang].word}</span>}
+        {s[lang].caption && <p className="scroller-caption">{s[lang].caption}</p>}
+      </div>)}
       {scenes.map((s,i)=><img key={s.art} ref={el=>{arts.current[i]=el}} src={s.art} alt="" loading={i===0?'eager':'lazy'} />)}
     </div>
     <ol className="scroller-beats">

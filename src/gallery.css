@@ -274,7 +274,17 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * of colour the whole height of the dialog.
  */
 .scroller-stage::before,.scroller-stage::after { content:''; grid-area:1/1; pointer-events:none; }
-.scroller-stage::before { justify-self:stretch; align-self:center; height:calc(var(--beat) + 54px); background:radial-gradient(circle at 50% 44%, transparent calc(30% - 1px), #00000016 30%, transparent calc(30% + 1px)), var(--scene); border:1px solid #00000012; border-radius:5px; }
+.scroller-stage::before { justify-self:stretch; align-self:center; height:calc(var(--beat) + 54px); background:radial-gradient(circle at 50% 44%, transparent calc(30% - 1px), #00000016 30%, transparent calc(30% + 1px)), radial-gradient(#00000026 1.4px, transparent 1.4px) 0 0/20px 20px, var(--scene); border:1px solid #00000012; border-radius:5px; }
+/*
+ * One word and one caption per beat, in the panel behind her. The word is
+ * what the tool does; the caption is the title of the card it actually
+ * produced on the canvas above, so the story and the demo quote each other.
+ * Without them all five beats had an identical background and the only thing
+ * that changed down the whole case was her arms.
+ */
+.scroller-mark { grid-area:1/1; justify-self:stretch; align-self:center; position:relative; height:calc(var(--beat) + 54px); opacity:0; pointer-events:none; will-change:opacity,transform; }
+.scroller-word { position:absolute; top:16px; left:22px; right:22px; font:italic clamp(40px,5.4vw,76px)/1 Georgia,"Songti SC",serif; letter-spacing:-.06em; color:#2a2132; opacity:.13; }
+.scroller-caption { position:absolute; left:18px; right:18px; bottom:16px; background:#fffdf6e6; border:1px solid #ffffffcc; border-radius:3px; padding:9px 13px; box-shadow:0 5px 15px #2a213214; transform:rotate(-1.4deg); font:italic 13px/1.45 Georgia,"Songti SC",serif; color:#3d3547; max-width:none; }
 .scroller-stage::after { align-self:center; width:52%; height:18px; margin-top:calc(var(--beat) / 2 - 34px); background:#2a213226; filter:blur(11px); border-radius:50%; }
 /*
  * Half a scrollport of air at each end. Without it the first and last beats
@@ -300,7 +310,9 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  .case-scroller { --beat:min(52vh,420px); grid-template-columns:1fr; gap:0; }
  /* Stacked, so the stage goes back above the writing and the panel shrinks with it. */
  .scroller-stage,.scroller-beats { grid-column:1; grid-row:auto; }
- .scroller-stage::before { height:100%; }
+ .scroller-stage::before,.scroller-mark { height:100%; }
+ .scroller-word { font-size:34px; top:10px; left:14px; }
+ .scroller-caption { left:10px; right:10px; bottom:10px; font-size:11px; padding:7px 10px; }
  .scroller-stage::after { margin-top:calc(var(--beat) / 2 - 26px); }
  .scroller-stage { top:50px; height:min(38vh,290px); }
  .scroller-stage img { height:100%; }
