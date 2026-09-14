@@ -20,6 +20,27 @@ import { useLang } from '../lang'
  * scroll at a fraction of its travel, so it sits a layer behind the words
  * instead of moving at a second speed for decoration.
  */
+/*
+ * Each tool's own mark, traced from the same lucide icons the Kno toolbar
+ * draws, in the colour that tool wears there. Quoting the product's own
+ * vocabulary rather than inventing a second one for the page.
+ */
+const TOOL = {
+  note:       { tint: '#3B82F6', d: ['M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z'] },
+  alchemy:    { tint: '#10B981', d: ['M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2', 'M6.453 15h11.094', 'M8.5 2h7'] },
+  collider:   { tint: '#A855F7', d: ['M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z'] },
+  spark:      { tint: '#F59E0B', d: ['M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z', 'M20 2v4', 'M22 4h-4'] },
+  logicguard: { tint: '#EF4444', d: ['M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z'] },
+}
+
+const ToolIcon = ({ tool, className }) => {
+  const t = TOOL[tool]
+  if (!t) return null
+  return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {t.d.map(d=><path key={d} d={d} />)}
+  </svg>
+}
+
 export default function CaseScroller({ scenes, root }) {
   const { lang } = useLang()
   const reduced = useReducedMotion()
@@ -79,9 +100,14 @@ export default function CaseScroller({ scenes, root }) {
   return <section className="case-scroller">
     {/* The panels carry the words; the stage is the same story in a picture. */}
     <div className="scroller-stage" aria-hidden="true">
-      {scenes.map((s,i)=>(s[lang].word || s[lang].caption) && <div key={`${s.art}-mark`} ref={el=>{marks.current[i]=el}} className="scroller-mark">
-        {s[lang].word && <span className="scroller-word">{s[lang].word}</span>}
-        {s[lang].caption && <p className="scroller-caption">{s[lang].caption}</p>}
+      {scenes.map((s,i)=>s[lang].card && <div key={`${s.art}-mark`} ref={el=>{marks.current[i]=el}} className="scroller-mark" style={TOOL[s.tool] ? {'--tint':TOOL[s.tool].tint} : undefined}>
+        <ToolIcon tool={s.tool} className="scroller-watermark" />
+        {/* The card the tool actually left on the canvas above, in its own colours. */}
+        <div className="scroller-card">
+          <p className="scroller-card-label"><ToolIcon tool={s.tool} className="scroller-card-icon" />{s[lang].card.label}</p>
+          <h5>{s[lang].card.title}</h5>
+          <p>{s[lang].card.body}</p>
+        </div>
       </div>)}
       {scenes.map((s,i)=><img key={s.art} ref={el=>{arts.current[i]=el}} src={s.art} alt="" loading={i===0?'eager':'lazy'} />)}
     </div>
