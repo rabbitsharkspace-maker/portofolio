@@ -71,7 +71,7 @@
  * a height worth panning a canvas in, and a white ground because the app has one.
  */
 .exhibition-image.is-live { padding:14px; }
-.exhibition-image.is-live iframe { aspect-ratio:auto; height:min(72vh,640px); background:#fff; }
+.exhibition-image.is-live iframe { aspect-ratio:auto; height:min(78vh,740px); background:#fff; }
 /* The cover is the film's own 16:9, so pressing play swaps the player in without
  * the page jumping under the button that was just pressed. */
 .exhibition-image.has-film img { aspect-ratio:16/9; object-fit:cover; }
