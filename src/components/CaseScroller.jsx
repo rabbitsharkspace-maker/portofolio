@@ -100,9 +100,6 @@ export default function CaseScroller({ scenes, root }) {
   return <section className="case-scroller">
     {/* The panels carry the words; the stage is the same story in a picture. */}
     <div className="scroller-stage" aria-hidden="true">
-      {/* The field she stands on. A real element, not a ::before — as a pseudo
-          element in this grid it never took its height and painted nothing. */}
-      <div className="stage-field" />
       {scenes.map((s,i)=>s[lang].card && <div key={`${s.art}-mark`} ref={el=>{marks.current[i]=el}} className="scroller-mark" style={TOOL[s.tool] ? {'--tint':TOOL[s.tool].tint} : undefined}>
         <ToolIcon tool={s.tool} className="scroller-watermark" />
         {/* The card the tool actually left on the canvas above, in its own colours. */}

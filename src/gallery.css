@@ -239,7 +239,9 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * and the stage the right — the mirror of Serene's acts, which put the scene on
  * the left. Two cases, two directions, so neither reads as the other's template.
  */
-.case-scroller { --beat:min(70vh,600px); --port:94dvh; --scene:#e4e1e9; display:grid; grid-template-columns:1fr minmax(240px,.78fr); gap:5%; padding-top:8px; }
+/* --scene is mixed from the accent, so the panel is Jane's on her page and
+ * Jenny's on hers without a rule per case; Kno below keeps its own. */
+.case-scroller { --beat:min(70vh,600px); --port:94dvh; --scene:color-mix(in srgb, var(--accent) 12%, #fff); display:grid; grid-template-columns:1fr minmax(240px,.78fr); gap:5%; padding-top:8px; }
 .scroller-stage { grid-column:2; grid-row:1; }
 .scroller-beats { grid-column:1; grid-row:1; }
 .exhibition-kno .case-scroller { --scene:#dee3ef; }
@@ -265,26 +267,7 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * and a CSS transition would be a second animation fighting it for the same
  * two properties. Compositor-only properties, so the frames stay cheap.
  */
-/*
- * The field she stands on, and the only value step in the spread.
- *
- * At --wash it was #fbeae2 against #f5f2e8 paper — a difference you had to look
- * for, so the panel read as nothing and the whole page sat at one tone. Mixed
- * from the accent instead it is quiet but actually there, and it carries each
- * person's colour without a second variable.
- *
- * Shorter than the stage and pushed down, so she stands past its top edge rather
- * than inside a rectangle. That overlap is what gives the left half depth; flush
- * inside the box she read as a sticker on a card.
- */
-.stage-field {
-  grid-area:1/1; align-self:center; width:100%;
-  height:calc(var(--beat) - 130px); transform:translateY(64px);
-  background:color-mix(in srgb, var(--accent) 13%, #fff)
-             radial-gradient(#00000014 1px, transparent 1.7px) 0 0/23px 23px;
-  border-radius:20px;
-}
-.scroller-stage img { grid-area:1/1; width:100%; height:var(--beat); object-fit:contain; opacity:0; will-change:opacity,transform; position:relative; filter:drop-shadow(0 12px 9px #2a213219); }
+.scroller-stage img { grid-area:1/1; width:100%; height:var(--beat); object-fit:contain; opacity:0; will-change:opacity,transform; filter:drop-shadow(0 12px 9px #2a213219); }
 /*
  * She needs something to stand on. A tinted panel the height of one beat, with
  * a faint ring behind her and a soft ellipse under her feet — the same three
