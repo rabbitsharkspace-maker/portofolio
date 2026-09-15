@@ -19,8 +19,6 @@
 .world-controls button:hover { background:#dce5c9; transform:translateY(-2px); }
 .world-controls button > span { font:8px ui-monospace,monospace; color:#92a484; }
 .world-controls > div:last-child button { border-color:transparent; background:transparent; font-size:9px; padding-inline:6px; }
-.world-speech { position:absolute; top:100px; left:50%; transform:translateX(-50%) rotate(-2deg); display:flex; gap:15px; align-items:center; width:max-content; max-width:85%; background:#fff8e9; border:1px solid #c4b5ce; box-shadow:4px 5px 0 #69755e14; border-radius:20px 20px 20px 2px; padding:13px 15px; font:italic 14px/1.5 Georgia,"Songti SC",serif; color:#80718a; }
-.world-speech button { font:20px Arial,sans-serif; min-width:28px; min-height:28px; }
 .world-loading { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#849678; }
 .world-loading > span { font-size:60px; }
 .world-loading p { font:italic 15px Georgia,"Songti SC",serif; margin-top:20px; }
@@ -41,7 +39,6 @@
  .world-controls > div {gap:5px}
  .world-controls button > span {display:none}
  .world-instructions {bottom:20px;width:87%;font-size:8px;padding:8px 12px}
- .world-speech {top:95px;font-size:12px;padding:9px 12px}
  .world-expanded .world-canvas {height:75dvh;min-height:470px}
  .world-fallback {min-height:400px;padding:20px}
 }

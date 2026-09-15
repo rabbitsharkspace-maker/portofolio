@@ -17,7 +17,6 @@ export const people = {
     realName: "Enyu Zhang",
     short: "Jenny",
     en: {
-      animal: "Shark",
       line: "I build the system your business actually needs.",
       sub: "Clients arrive with a feature request. I find the operational problem underneath it.",
       /*
@@ -99,7 +98,6 @@ export const people = {
       replyNote: "Tell us what's happening and what should change. We'll reply within 24 hours with clear next steps.",
     },
     zh: {
-      animal: "鲨鱼",
       line: "把复杂的问题，做成能用的产品",
       sub: "客户带来的是一个功能需求；我找出它下面真正拖慢生意的那个问题",
       evidence: [
@@ -162,7 +160,6 @@ export const people = {
     realName: "Xinyu Zhang",
     short: "Jane",
     en: {
-      animal: "Rabbit",
       line: "I make technology clear, human and memorable.",
       sub: "So users understand it faster, trust it sooner and keep using it.",
       evidence: [
@@ -232,7 +229,6 @@ export const people = {
       replyNote: "We reply within 24 hours.",
     },
     zh: {
-      animal: "兔子",
       line: "我让技术变得清晰、自然，也值得被记住",
       sub: "让用户更快理解、更早信任，并愿意持续使用",
       evidence: [
