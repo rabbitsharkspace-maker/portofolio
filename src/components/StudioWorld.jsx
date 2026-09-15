@@ -45,7 +45,7 @@ function Mascot({kind,position,onHello,active,animated}){
     </group>
   </group>
 }
-function Exhibit({item,index,position,onOpen,animated}){
+function Exhibit({item,index,position,onOpen,animated,lang}){
   const hover=useRef(false)
   const object=useRef(null)
   const color=item.id==='mkr'?'#dab3ac':item.id==='serene'?'#b4cabb':'#c1b4dc'
@@ -77,7 +77,7 @@ function Balloon({animated}){
   useFrame(({clock})=>{if(ref.current)ref.current.position.y=animated?Math.sin(clock.elapsedTime*.7)*.15:0})
   return <group position={[3.8,2.7,-2.1]}><group ref={ref}><Ball scale={[.43,.57,.43]} color="#d7c2dc"/><Block position={[0,-.79,0]} size={[.012,.49,.012]} color="#a08e99"/><Block position={[0,-1.13,0]} size={[.28,.22,.28]} color="#d6bfa2"/></group></group>
 }
-function Diorama({items,onOpen,onHello,hello,animated,revision}){
+function Diorama({items,onOpen,onHello,hello,animated,revision,lang}){
   const controls=useRef(null)
   const {camera,size}=useThree()
   useEffect(()=>{
@@ -94,7 +94,7 @@ function Diorama({items,onOpen,onHello,hello,animated,revision}){
       <Block position={[0,-.32,0]} size={[10.5,.65,6.8]} radius={.3} color="#bdccbc"/>
       <Block position={[0,.005,0]} size={[10.35,.08,6.65]} radius={.2} color="#e5e6d2"/>
       <Block position={[-.8,.065,1.6]} size={[5.5,.055,.65]} color="#d1d5c1"/>
-      {items.map((item,i)=><Exhibit key={item.id} item={item} index={i} position={positions[i]} onOpen={onOpen} animated={animated}/>)}
+      {items.map((item,i)=><Exhibit key={item.id} item={item} index={i} position={positions[i]} onOpen={onOpen} animated={animated} lang={lang}/>)}
       <Mascot kind="jane" position={[-2.6,.06,1.6]} animated={animated} active={hello==='jane'} onHello={onHello}/>
       <Mascot kind="jenny" position={[.2,.06,2.15]} animated={animated} active={hello==='jenny'} onHello={onHello}/>
       <Plant position={[-4.3,.05,-2.3]}/><Plant position={[4.5,.05,2.25]} color="#bdc38c"/><Plant position={[-4.3,.05,2.45]} color="#b8a7c9"/>
@@ -129,7 +129,7 @@ export default function StudioWorld({items,onOpen}){
   return <div ref={box} tabIndex={-1} className={`studio-world ${expanded?'world-expanded':''}`}>
     <div className="world-heading"><div><p>RABBITSHARK / LITTLE WORLD</p><h3>{zh?'欢迎，随便逛':'A small world of our own.'}</h3></div><span>{zh?'每个点子，都有自己的住处':'every idea has a place here.'}</span></div>
     <div className="world-canvas" aria-label={zh?'可拖动旋转的双人工作室展岛':'A rotatable miniature studio island'}>
-      {near ? <SceneBoundary fallback={fallback}><Canvas orthographic shadows dpr={[1,1.5]} camera={{position:[7,8,12],zoom:60,near:.1,far:100}} gl={{antialias:true,alpha:true}} frameloop={animated?'always':'demand'} fallback={fallback}><Diorama items={items} onOpen={index=>{box.current?.focus({preventScroll:true});onOpen(index,{currentTarget:box.current})}} hello={hello} onHello={who=>setHello(h=>h===who?null:who)} animated={animated} revision={revision}/></Canvas></SceneBoundary> : fallback}
+      {near ? <SceneBoundary fallback={fallback}><Canvas orthographic shadows dpr={[1,1.5]} camera={{position:[7,8,12],zoom:60,near:.1,far:100}} gl={{antialias:true,alpha:true}} frameloop={animated?'always':'demand'} fallback={fallback}><Diorama items={items} onOpen={index=>{box.current?.focus({preventScroll:true});onOpen(index,{currentTarget:box.current})}} hello={hello} onHello={who=>setHello(h=>h===who?null:who)} animated={animated} revision={revision} lang={lang}/></Canvas></SceneBoundary> : fallback}
       {hello && <div className="world-speech" role="status">{hello==='jane'?(zh?'Jane：欢迎来到兔子的设计角':'Jane: welcome to my design corner.'):(zh?'Jenny：每个小机关，都有它的道理':'Jenny: a little method behind the magic.')}<button onClick={()=>setHello(null)} aria-label={zh?'关闭问候':'Close greeting'}>×</button></div>}
       <div className="world-instructions">{zh?'拖动转一转 · 点作品进去看 · 和兔子鲨鱼打个招呼':'Drag to orbit · Tap a project · Say hello to the rabbit & shark'}</div>
     </div>
