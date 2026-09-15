@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import { motion, useDragControls, useReducedMotion } from "motion/react"
 import { useLang } from "../lang"
 import { people, studio } from "../data/people"
-import Mascot from "./Mascot"
 
 function DeskObject({ children, className, bounds, angle, label }) {
   const controls = useDragControls()
@@ -95,19 +94,13 @@ export function PersonPlayground({ who }) {
   const { lang } = useLang()
   const zh = lang === 'zh'
   const p = people[who]
-  const [hello,setHello] = useState(false)
   return <header className={`person-playground is-${who}`}>
     <div className="person-intro">
       <p className="micro-label">RABBITSHARK / {who === 'jenny' ? 'THE SYSTEMS HALF' : 'THE DESIGN HALF'}</p>
       <h1 className="person-title">{p.short}<span>✳</span><i>{who === 'jenny' ? (zh ? '把复杂，变顺手' : 'a method to the magic.') : (zh ? '给好点子，一点性格' : 'a feeling for the details.')}</i></h1>
       <p className="person-intro-copy">{p[lang].line} {p[lang].sub}</p>
       <div className="person-intro-links"><a className="ink-button" href="#personal-work">{zh ? '打开我的作品' : 'Explore my work'} ↗</a><a className="quiet-link" href="#about-me">{zh ? '认识我' : 'A little about me'} ↓</a></div>
-      <div className="person-character-scene">
-        <div className="character-halo" aria-hidden="true" />
-        <button className={`hello-character ${hello ? 'said-hello' : ''}`} onClick={()=>setHello(!hello)} aria-label={zh ? `和 ${p.short} 打招呼` : `Say hi to ${p.short}`} aria-pressed={hello}><Mascot species={who === 'jenny' ? 'shark' : 'rabbit'} spark={who === 'jenny' ? 'var(--jane)' : 'var(--jenny)'} /></button>
-        <span className="character-speech" aria-live="polite">{hello ? (who === 'jenny' ? (zh ? '复杂的交给我 ✳' : 'I’ll untangle it. ✳') : (zh ? '细节控，报到！✳' : 'Details are my thing. ✳')) : (zh ? 'psst… 点我一下' : 'psst… say hello')}</span>
-        <p className="character-caption">{who === 'jenny' ? (zh ? '系统、AI，以及一点好奇心' : 'systems, AI & a healthy dose of curiosity.') : (zh ? '体验、品牌，以及一点小执着' : 'experience, identity & a little obsession.')}</p>
-      </div>
+      <p className="character-caption">{who === 'jenny' ? (zh ? '系统、AI，以及一点好奇心' : 'systems, AI & a healthy dose of curiosity.') : (zh ? '体验、品牌，以及一点小执着' : 'experience, identity & a little obsession.')}</p>
     </div>
     <div className="person-toy-column"><span className="toy-handnote">{zh ? '来，动手试试 ↴' : 'a small thing to play with ↴'}</span>{who === 'jenny' ? <TicketToy /> : <PaletteToy />}<p className="person-proof-note">{p[lang].evidence[0].proof}</p></div>
   </header>
