@@ -78,6 +78,26 @@ export function Services() {
   return <section className="service-folder"><div className="service-title"><p className="micro-label">{zh ? '从哪里开始' : 'WHERE DO WE START?'}</p><h2>{zh ? <>把你的<br /><em>「要不试试」</em><br />带来</> : <>Bring your<br /><em>“what if”.</em></>}</h2><span className="service-asterisk" aria-hidden="true">✳</span><p>{zh ? '先聊问题，再一起确定要做成什么' : 'Start with the problem. We’ll find the shape of it together.'}</p></div><div className="service-sheets">{studio[lang].offers.map((o,i)=><details key={o.title} open={i === 0}><summary><span>0{i+1}</span><h3>{o.title}</h3><span className="notebook-plus" aria-hidden="true">＋</span></summary><div><p>{o.body}</p><a className="quiet-link" href={o.case === 'ticketing' ? '#ticketing-proof' : `#case-${o.case}`}>{o.proof} ↗</a></div></details>)}</div></section>
 }
 
+/*
+ * A client in her own words. The rest of the page is the studio talking about
+ * the studio; this is the one block where somebody who paid for the work says
+ * what it was like, so it is quoted and attributed and links to the live site
+ * rather than being folded into our own copy.
+ *
+ * It sits directly after Services on purpose. The first offer promises "a
+ * deployed product with the keys handed over, no ongoing dependency on us" —
+ * a claim that until now had only our word behind it. Hers is the receipt.
+ */
+export function ClientVoice() {
+  const { lang } = useLang()
+  const v = studio[lang].voice
+  if (!v) return null
+  return <section id="client-voice" className="client-voice">
+    <div className="voice-quote"><p className="micro-label">{v.label}</p><h2>{v.title[0]}<br /><em>{v.title[1]}</em></h2><blockquote>{v.quote}</blockquote><p className="voice-by">{v.by}<span>{v.role}</span></p><a className="quiet-link" href={v.link} target="_blank" rel="noreferrer">{v.linkLabel} ↗</a></div>
+    <div className="voice-notes"><span className="voice-pin" aria-hidden="true" />{v.notes.map((n,i)=><div className="voice-note" key={n.q}><span>0{i+1}</span><h3>{n.q}</h3><p>{n.a}</p></div>)}</div>
+  </section>
+}
+
 export function PersonNotebook({ who }) {
   const { lang } = useLang()
   const zh = lang === 'zh'

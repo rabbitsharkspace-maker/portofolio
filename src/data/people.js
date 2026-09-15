@@ -355,6 +355,37 @@ export const studio = {
         case: "fastresume",
       },
     ],
+    /*
+     * The only words on this site that a client said about us. Everything else
+     * is the studio describing its own work, which is why this one is quoted
+     * rather than paraphrased — her sentences, not ours.
+     *
+     * She was asked four questions. Three are here. The fourth asked for
+     * numbers — how long live, how many courses, how many students — and the
+     * honest answer was that she has not started promoting it yet and expects
+     * it to go well. An expectation is not a result, so it is not on the page.
+     * When she has run it for a season, ask again and put the figure in `stat`.
+     */
+    voice: {
+      label: "WHAT A CLIENT SAID",
+      title: ["The keys,", "actually handed over."],
+      quote: "No long approval queue to sit through. It goes the way I want it to go. The say is mine.",
+      by: "Sharon",
+      role: "Sharon ECC — culture and leadership education",
+      link: "https://sharonecc.com",
+      linkLabel: "Open Sharon ECC",
+      notes: [
+        {
+          q: "Before this, how did sign-ups and payment work?",
+          a: "I used Xiaoe-tong, and plenty of other platforms for running courses online. They all let you plug WeChat payment in.",
+        },
+        {
+          q: "Something you could not do before, and can now?",
+          a: "I had a company website before, made for me by someone else. I could not edit a single button on it — every part was a fixed block they had built. Now I edit each module directly, like stacking blocks. Whichever one I feel like, whenever. It feels great.",
+        },
+      ],
+      stat: null,
+    },
   },
   zh: {
     recognition: {
@@ -389,5 +420,25 @@ export const studio = {
         case: "fastresume",
       },
     ],
+    voice: {
+      label: "一位客户说的话",
+      title: ["钥匙", "真的交到了手里"],
+      quote: "不用等审核机制的冗长，我想怎样就怎样，主动权在自己手上",
+      by: "Sharon",
+      role: "Sharon ECC 沙仑创库中心 · 文化与领导力教育",
+      link: "https://sharonecc.com",
+      linkLabel: "打开 Sharon ECC",
+      notes: [
+        {
+          q: "做这个平台之前，报名和收款是怎么弄的？",
+          a: "在这之前我用过小鹅通，也用过很多可以做网课的平台，这些平台都可以植入微信收款",
+        },
+        {
+          q: "有没有一件事，是以前做不到、现在能做的？",
+          a: "以前我有自己的企业网站，请别人做的，我自己无法编辑网页的任何按钮，都是别人做好的固定模块。现在我可以直接编辑每个模块，就像搭积木一样，想弄哪个就弄哪个，爽！",
+        },
+      ],
+      stat: null,
+    },
   },
 }

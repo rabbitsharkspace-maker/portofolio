@@ -26,7 +26,7 @@ export const ui = {
     caseProblem: "The problem",
     caseDid: "What we did",
     close: "Close",
-    allWork: "All eight projects →",
+    allWork: "All nine projects →",
 
     // ——— recognition ———
     recognition: "Recognition",
@@ -103,7 +103,7 @@ export const ui = {
     caseProblem: "要解决的问题",
     caseDid: "我们做了什么",
     close: "收起",
-    allWork: "全部八个项目 →",
+    allWork: "全部九个项目 →",
 
     // ——— 外部核验 ———
     recognition: "外部核验",

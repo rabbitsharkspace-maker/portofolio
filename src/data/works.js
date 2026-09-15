@@ -163,6 +163,35 @@ export const works = [
     },
   },
   {
+    id: "sharonecc",
+    owner: "jenny",
+    /*
+     * From the shipped bundle and the page itself, not from a spec: the app is
+     * served as a Vite/React build behind Cloudflare, and the site advertises
+     * WeChat Pay and Alipay at the till. Correct this line if the build moved.
+     */
+    stack: ["React", "WeChat Pay", "Alipay"],
+    link: "https://sharonecc.com",
+    embed: "https://sharonecc.com/", // unused while `image` stands in
+    address: "Sharon ECC — course platform for a culture and leadership educator",
+    // The home page as it stands, at the width the rest of the wall is shot at.
+    image: "/ip/sharonecc.webp",
+    en: {
+      name: "Sharon ECC",
+      kind: "Course and membership platform",
+      ground: "Her last site was built for her. She could not move a single button on it.",
+      what: "Courses with free preview chapters, WeChat Pay and Alipay at the till, and a member area that keeps what you bought. She rearranges the modules herself.",
+      who: "For an educator who had been renting shelf space on somebody else's platform.",
+    },
+    zh: {
+      name: "Sharon ECC · 沙仑创库中心",
+      kind: "课程与会员平台",
+      ground: "上一个网站是别人做给她的,她连一个按钮都动不了",
+      what: "课程可以免费试看,微信和支付宝直接收款,买过的永久留在会员中心。模块她自己排",
+      who: "给一位一直把课寄放在别人平台上的讲师",
+    },
+  },
+  {
     id: "ticketing",
     owner: "jenny",
     stack: ["n8n", "Gemini", "WeCom API", "AES"],

@@ -1,7 +1,7 @@
 import FoundersHero from '../components/FoundersHero'
 import Founders from '../components/Founders'
 import ProjectGallery from '../components/ProjectGallery'
-import { Chapter, WorkShelf, Recognition, AutomationReceipt, Services, ContactLetter, StudioFooter } from '../components/StudioSections'
+import { Chapter, WorkShelf, Recognition, AutomationReceipt, Services, ClientVoice, ContactLetter, StudioFooter } from '../components/StudioSections'
 import { cases, featuredIds } from '../data/cases'
 import { works } from '../data/works'
 import { useLang } from '../lang'
@@ -18,6 +18,7 @@ export default function Home() {
       <AutomationReceipt />
       <Founders />
       <Services />
+      <ClientVoice />
       <ContactLetter />
       <StudioFooter />
     </div>
