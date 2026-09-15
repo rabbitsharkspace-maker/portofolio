@@ -273,6 +273,32 @@
 .voice-note > span { font:10px ui-monospace,monospace; color:#4a6b4f; }
 .voice-note h3 { margin-top:8px; font-size:15px; line-height:1.4; }
 .voice-note p { margin-top:10px; font-size:13px; line-height:1.9; color:var(--dim); }
+
+/*
+ * The cinema. Only a work whose film carries `cinema: true` gets it, which
+ * today is the animated short and nothing else — a product film with a theatre
+ * curtain in front of it is wearing a costume.
+ *
+ * The panels sit over the picture and part when it is ready to play, so the
+ * half second they take is spent on a load that was happening anyway. The
+ * house lights go down behind the cabinet, and anywhere outside it gives the
+ * page back.
+ */
+.cinema-dim { position:fixed; inset:0; z-index:40; border:0; padding:0; cursor:default; background:#14101a; opacity:0; animation:house-lights .75s ease forwards; }
+@keyframes house-lights { to { opacity:.88; } }
+.cabinet-cinema { position:relative; z-index:41; }
+/* The dim is a child of the cabinet so it leaves with it. That puts it in the
+   cabinet's own stacking context, where the list and the picture have to be
+   lifted over it or the cabinet dims itself along with the page. */
+.cabinet-cinema > *:not(.cinema-dim) { position:relative; z-index:41; }
+.cabinet-cinema .cabinet-index { opacity:.5; transition:opacity .75s ease; }
+.cinema-house { position:relative; overflow:hidden; }
+.curtain-panel { position:absolute; top:0; bottom:0; width:51%; z-index:2; pointer-events:none; background:linear-gradient(90deg,#5e1420,#8d2233 38%,#6b1826 62%,#4a0f1a); box-shadow:inset 0 0 40px #2a0710; transition:transform .55s cubic-bezier(.65,0,.35,1); }
+.curtain-left { left:0; }
+.curtain-right { right:0; }
+.curtain-open .curtain-left { transform:translateX(-100%); }
+.curtain-open .curtain-right { transform:translateX(100%); }
+@media (prefers-reduced-motion:reduce) { .curtain-panel { display:none; } .cinema-dim { animation:none; opacity:.88; } }
 @media(max-width:1000px) {
  .desk-chapter { grid-template-columns:110px 1fr 140px; }
  .project-spread,.project-spread:nth-child(even) { gap:35px; }

@@ -120,7 +120,9 @@ export const works = [
     link: null,
     // The film plays in the cabinet itself; the id is the one thing kept, and
     // the watch link is built from it, so there is no second copy to forget.
-    film: { youtube: "3z5-F9V2XIQ" },
+    // The one work on this site that is actually a film, so the one that gets
+    // the curtain. Product films do not.
+    film: { youtube: "3z5-F9V2XIQ", cinema: true },
     address: "The 8th Annual Human Disturbance Championship — animated short",
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
