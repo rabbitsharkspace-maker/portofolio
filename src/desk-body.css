@@ -252,6 +252,27 @@
 .footer-bottom { grid-column:1/-1; display:flex; justify-content:space-between; gap:15px; font:8px/1.5 ui-monospace,monospace; color:var(--dim); border-top:1px solid var(--line); padding-top:20px; }
 .missing-page { max-width:900px; margin:100px auto; padding:24px; }
 .missing-page h1 { font:50px Georgia,serif; margin-bottom:30px; }
+
+/*
+ * The client-voice block. Paper on the studio wash, her sentence set in the
+ * same italic Georgia the founders sign their bios in, and the two answers
+ * pinned beside it as a clipping.
+ */
+.client-voice { margin-top:115px; padding:55px 50px; display:grid; grid-template-columns:1.05fr .95fr; gap:70px; align-items:center; background:#e4eadd; border:1px solid #bfcbb5; border-radius:6px; }
+.voice-quote h2 { font-size:clamp(36px,4vw,52px); line-height:1.07; margin-top:20px; }
+.voice-quote h2 em { color:#4a6b4f; }
+.voice-quote blockquote { margin:32px 0 0; font:italic clamp(20px,2.1vw,27px)/1.5 Georgia,"Songti SC",serif; max-width:26ch; }
+.voice-quote blockquote::before { content:'“'; }
+.voice-quote blockquote::after { content:'”'; }
+.voice-by { font:italic 24px Georgia,"Songti SC",serif; margin-top:28px; }
+.voice-by span { display:block; margin-top:9px; font:9px ui-monospace,monospace; letter-spacing:.06em; color:var(--dim); }
+.voice-quote .quiet-link { display:inline-block; margin-top:20px; font-size:11px; }
+.voice-notes { position:relative; padding:30px 28px; background:#fffcf3; border:1px solid #bfcbb5; box-shadow:5px 6px 0 #302b3a10; transform:rotate(-1.2deg); }
+.voice-pin { position:absolute; top:-6px; left:50%; width:12px; height:12px; border-radius:50%; background:#4a6b4f; box-shadow:2px 2px 0 #302b3a18; }
+.voice-note + .voice-note { margin-top:24px; padding-top:24px; border-top:1px solid var(--line); }
+.voice-note > span { font:10px ui-monospace,monospace; color:#4a6b4f; }
+.voice-note h3 { margin-top:8px; font-size:15px; line-height:1.4; }
+.voice-note p { margin-top:10px; font-size:13px; line-height:1.9; color:var(--dim); }
 @media(max-width:1000px) {
  .desk-chapter { grid-template-columns:110px 1fr 140px; }
  .project-spread,.project-spread:nth-child(even) { gap:35px; }
@@ -272,6 +293,7 @@
  .pass-portrait { height:160px; }
  .pass-portrait img { height:210px; }
  .service-folder { gap:45px; }
+ .client-voice { gap:40px; padding:40px 35px; }
  .person-notebook { gap:35px; padding:40px 35px; }
  .evidence-deck { padding:20px; }
  .evidence-page { min-height:365px; }
@@ -366,6 +388,8 @@
  .background-entries summary { padding:19px 0; }
  .background-entries summary h3 { font-size:23px; }
  .background-entries li { font-size:11px; }
+ .client-voice { margin-top:60px; grid-template-columns:1fr; gap:32px; padding:32px 24px; }
+ .voice-notes { transform:none; }
  .contact-letter { margin-top:60px; grid-template-columns:1fr; gap:25px; padding-top:20px; }
  .contact-invitation h2 { font-size:45px; margin-top:18px; }
  .contact-invitation > p:not(.micro-label) { margin-top:18px; }
