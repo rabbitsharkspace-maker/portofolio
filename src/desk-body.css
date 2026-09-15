@@ -273,6 +273,31 @@
 .voice-note > span { font:10px ui-monospace,monospace; color:#4a6b4f; }
 .voice-note h3 { margin-top:8px; font-size:15px; line-height:1.4; }
 .voice-note p { margin-top:10px; font-size:13px; line-height:1.9; color:var(--dim); }
+
+/*
+ * The cinema. Only a work whose film carries `cinema: true` gets it, which
+ * today is the animated short and nothing else — a product film with a theatre
+ * curtain in front of it is wearing a costume.
+ *
+ * The film leaves the cabinet and takes the whole screen. The stage is also
+ * the element handed to the fullscreen API, so the curtain and the exit are
+ * inside it whether the browser grants real fullscreen or not, and there is
+ * only ever one layout.
+ *
+ * The panels part when the picture is ready, so the half second they take is
+ * spent on a load that was happening anyway.
+ */
+.cinema-stage { position:fixed; inset:0; z-index:90; background:#08060b; display:grid; place-items:center; overflow:hidden; animation:house-lights .5s ease backwards; }
+@keyframes house-lights { from { opacity:0; } }
+.cinema-picture { width:100%; height:100%; max-width:100vw; max-height:100vh; border:0; display:block; object-fit:contain; background:#08060b; }
+.curtain-panel { position:absolute; top:0; bottom:0; width:51%; z-index:2; pointer-events:none; background:linear-gradient(90deg,#5e1420,#8d2233 38%,#6b1826 62%,#4a0f1a); box-shadow:inset 0 0 90px #2a0710; transition:transform .55s cubic-bezier(.65,0,.35,1); }
+.curtain-left { left:0; }
+.curtain-right { right:0; }
+.curtain-open .curtain-left { transform:translateX(-100%); }
+.curtain-open .curtain-right { transform:translateX(100%); }
+.cinema-exit { position:absolute; top:20px; right:24px; z-index:3; width:44px; height:44px; border-radius:50%; border:1px solid #ffffff2e; background:#ffffff14; color:#f4eee6; font:22px/1 Arial,sans-serif; cursor:pointer; transition:background .25s; }
+.cinema-exit:hover,.cinema-exit:focus-visible { background:#ffffff2e; }
+@media (prefers-reduced-motion:reduce) { .curtain-panel { display:none; } .cinema-stage { animation:none; } }
 @media(max-width:1000px) {
  .desk-chapter { grid-template-columns:110px 1fr 140px; }
  .project-spread,.project-spread:nth-child(even) { gap:35px; }
