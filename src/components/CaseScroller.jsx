@@ -100,6 +100,9 @@ export default function CaseScroller({ scenes, root }) {
   return <section className="case-scroller">
     {/* The panels carry the words; the stage is the same story in a picture. */}
     <div className="scroller-stage" aria-hidden="true">
+      {/* The field she stands on. A real element, not a ::before — as a pseudo
+          element in this grid it never took its height and painted nothing. */}
+      <div className="stage-field" />
       {scenes.map((s,i)=>s[lang].card && <div key={`${s.art}-mark`} ref={el=>{marks.current[i]=el}} className="scroller-mark" style={TOOL[s.tool] ? {'--tint':TOOL[s.tool].tint} : undefined}>
         <ToolIcon tool={s.tool} className="scroller-watermark" />
         {/* The card the tool actually left on the canvas above, in its own colours. */}
@@ -113,9 +116,35 @@ export default function CaseScroller({ scenes, root }) {
     </div>
     <ol className="scroller-beats">
       {scenes.map((s,i)=><li key={s.art} ref={el=>{beats.current[i]=el}} className={i===active?'is-current':''}>
-        <span className="beat-index">{String(i+1).padStart(2,'0')}<small> / {String(scenes.length).padStart(2,'0')}</small></span>
+        {/*
+          * The counter is the product's own unit, not the page's. FastResume
+          * runs on an ATS score, so its beats are 34% -> 96%; RealHeart makes
+          * you wait fifteen days, so its rail has fifteen segments and fills a
+          * day at a time. "01 / 04" only ever said which picture you were on.
+          *
+          * A case that sets neither falls back to counting its beats, so the
+          * cases written before this read exactly as they did.
+          *
+          * Number left, label right, the full width of the column between them:
+          * the measure below is narrow, and the header and the rail are what
+          * give the block its edges.
+          */}
+        <div className="beat-head">
+          <span className="beat-index">
+            {s[lang].meter ?? String(i+1).padStart(2,'0')}
+            <small>{s[lang].meterCap ?? ` / ${String(scenes.length).padStart(2,'0')}`}</small>
+          </span>
+          {s[lang].label && <span className="beat-label">{s[lang].label}</span>}
+        </div>
+        <span className="beat-rail" aria-hidden="true">{(()=>{
+          const segs = s.segments ?? scenes.length
+          const lit = Math.round((s.fill ?? (i + 1) / scenes.length) * segs)
+          return Array.from({length:segs},(_,n)=><i key={n} className={n<lit?'is-done':undefined} />)
+        })()}</span>
         <h4>{s[lang].title}</h4>
         <p>{s[lang].body}</p>
+        {/* The beat's one word, stamped under it. Optional, like the label. */}
+        {s[lang].word && <span className="beat-word">{s[lang].word}</span>}
       </li>)}
     </ol>
   </section>

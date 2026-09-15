@@ -337,6 +337,102 @@ export const cases = [
     ratio: "1600 / 1000",
     split: { jane: 100, jenny: 0 },
     link: "https://fastresume.xyz",
+    /*
+     * Four beats, same rule as Serene's: one magenta plate, one camera, one
+     * shared crop box, so she holds her size and her place while the scene
+     * changes. `scripts/make-plates.py` takes the box from the whole set at once
+     * for that reason. The third beat breaks the camera on purpose — it is over
+     * her shoulder onto the screen, because an interview is the one beat a
+     * front-on figure cannot say by itself.
+     *
+     * The counter is the ATS score the product runs on, not a beat number.
+     */
+    scenes: [
+      {
+        art: "/ip/fastresume-01-openings.webp",
+        fill: 0.34,
+        segments: 20,
+        en: {
+          meter: "34%",
+          meterCap: "ATS match",
+          label: "Forty tabs open",
+          word: "Unread",
+          title: "Forty postings, forty CVs",
+          body: "Every posting wants the same experience said a different way — its keywords, its filter, its language. The work is not writing one CV. It is writing forty, and never knowing which one a machine actually read.",
+        },
+        zh: {
+          meter: "34%",
+          meterCap: "ATS 匹配分",
+          label: "开着四十个标签页",
+          word: "没人读",
+          title: "四十个岗位，四十份简历",
+          body: "每个岗位都要求同一段经历换一种说法——它的关键词、它的筛选规则、它的语言。难的不是写一份简历，是写四十份，而且永远不知道机器读的是哪一份",
+        },
+      },
+      {
+        art: "/ip/fastresume-02-handover.webp",
+        fill: 0.71,
+        segments: 20,
+        en: {
+          meter: "71%",
+          meterCap: "ATS match",
+          label: "Read and rewritten",
+          word: "Scored",
+          title: "One CV in, scored against the posting",
+          body: "The CV and the job description go in together. It returns an ATS score, then rewrites each line in STAR form — situation, task, action, result — against that posting rather than in general.",
+        },
+        zh: {
+          meter: "71%",
+          meterCap: "ATS 匹配分",
+          label: "读一遍，改一遍",
+          word: "有分数",
+          title: "投进去一份，对着岗位打分",
+          body: "简历和职位描述一起传进去。它给出 ATS 匹配分，再按 STAR 结构逐条改写——情境、任务、行动、结果——是对着这个岗位改，不是泛泛地改",
+        },
+      },
+      {
+        art: "/ip/fastresume-03-interview.webp",
+        fill: 0.88,
+        segments: 20,
+        en: {
+          meter: "88%",
+          meterCap: "ATS match",
+          label: "Said out loud",
+          word: "Rehearsed",
+          title: "Practise while it doesn't count",
+          body: "The mock interview runs by voice. It asks, you answer out loud, and it comes back on what you actually said — so the first time you say it is not in the real room.",
+        },
+        zh: {
+          meter: "88%",
+          meterCap: "ATS 匹配分",
+          label: "先说出口",
+          word: "练过了",
+          title: "在不算数的时候先说一遍",
+          body: "模拟面试是语音的。它问，你出声答，它针对你真正说出口的内容给回应——这样第一次说出这段话，不是在真的面试里",
+        },
+      },
+      {
+        art: "/ip/fastresume-04-walkin.webp",
+        fill: 0.96,
+        segments: 20,
+        en: {
+          meter: "96%",
+          meterCap: "ATS match",
+          label: "Sent anywhere",
+          word: "Ready",
+          title: "Walk in with one you trust",
+          body: "Eight languages out of one rewrite. The version that goes to Berlin and the version that goes to Singapore are the same experience, said the way each market reads it.",
+        },
+        zh: {
+          meter: "96%",
+          meterCap: "ATS 匹配分",
+          label: "投到哪都能用",
+          word: "能走了",
+          title: "带着一份信得过的走进去",
+          body: "一次改写，输出八种语言。投去柏林的那份和投去新加坡的那份是同一段经历，只是按各自的读法说了出来",
+        },
+      },
+    ],
     en: {
       name: "FastResume",
       kind: "AI career suite · 2025",
@@ -591,6 +687,148 @@ export const cases = [
         zh: {
           q: "笔记存在哪",
           a: "存在浏览器里——IndexedDB，IndexedDB 用不了时落到 localStorage，而这种情况比想象中多。没有账号要注册，也没有东西要上传。这也意味着浏览器一清，库就没了——这是这笔交易诚实的那一面，进门时就写着",
+        },
+      },
+    ],
+  },
+  {
+    id: "realheart",
+    owner: "jane",
+    image: "/ip/realheart-04-together.webp",
+    ratio: "760 / 1294",
+    split: { jane: 100, jenny: 0 },
+    link: null,
+    /*
+     * The other person is a flat silhouette in three of the four beats and is
+     * never given a face — which is the product, not a shortcut around drawing
+     * one. The arc is carried by distance rather than by a reveal: answering
+     * alone, matched to a shape, talking across it, standing beside it.
+     *
+     * The counter is the fifteen-day wait itself, one segment a day.
+     */
+    scenes: [
+      {
+        art: "/ip/realheart-01-question.webp",
+        fill: 0,
+        segments: 15,
+        en: {
+          meter: "Day 0",
+          meterCap: "of fifteen",
+          label: "Before any photograph",
+          word: "Honest",
+          title: "Answer it properly, or not at all",
+          body: "No photograph, no height, no job title. The first thing RealHeart asks for is an answer to something that takes a minute to think about — and it will not take a one-word reply.",
+        },
+        zh: {
+          meter: "第 0 天",
+          meterCap: "聊满 15 天",
+          label: "在任何照片之前",
+          word: "说真话",
+          title: "要么好好答，要么别答",
+          body: "没有照片，没有身高，没有职业。真心先问你一个要想一分钟才答得上来的问题——而且它不收一个词的答复",
+        },
+      },
+      {
+        art: "/ip/realheart-02-matched.webp",
+        fill: 0.0667,
+        segments: 15,
+        en: {
+          meter: "Day 1",
+          meterCap: "of fifteen",
+          label: "Matched",
+          word: "Unseen",
+          title: "Someone is there. You can't see them.",
+          body: "A match arrives as a shape. You know they answered the same question and you know what they said. You do not know what they look like, and for fifteen days you will not.",
+        },
+        zh: {
+          meter: "第 1 天",
+          meterCap: "聊满 15 天",
+          label: "匹配上了",
+          word: "看不见",
+          title: "有个人在那儿，但你看不见他",
+          body: "匹配到的人先是一个轮廓。你知道他答了同一个问题，也知道他答了什么。你不知道他长什么样，而且十五天里都不会知道",
+        },
+      },
+      {
+        art: "/ip/realheart-03-typing.webp",
+        fill: 0.6,
+        segments: 15,
+        en: {
+          meter: "Day 9",
+          meterCap: "of fifteen",
+          label: "Fifteen days",
+          word: "Talking",
+          title: "Fifteen days of typing",
+          body: "A counter fills one heart a day, and nobody can pay to skip it. The people who stop talking on day four were never going to make it to the photograph anyway.",
+        },
+        zh: {
+          meter: "第 9 天",
+          meterCap: "聊满 15 天",
+          label: "十五天",
+          word: "在聊",
+          title: "十五天，只有字",
+          body: "一个计数器每天点亮一颗心，没人能花钱跳过。第四天就不聊了的人，本来也走不到看脸那一步",
+        },
+      },
+      {
+        art: "/ip/realheart-04-together.webp",
+        fill: 1,
+        segments: 15,
+        en: {
+          meter: "Day 15",
+          meterCap: "of fifteen",
+          label: "Then the face",
+          word: "Known",
+          title: "By the time you see them, you know them",
+          body: "On the fifteenth day the photograph opens. By then you have a fortnight of what they actually say — and the face is the last thing you learn about someone, not the first.",
+        },
+        zh: {
+          meter: "第 15 天",
+          meterCap: "聊满 15 天",
+          label: "然后才是脸",
+          word: "认识了",
+          title: "等你看见他，你已经认识他了",
+          body: "第十五天，照片才打开。那时候你已经有了两周他真正说过的话——脸是你最后知道的事，不是第一件",
+        },
+      },
+    ],
+    en: {
+      name: "RealHeart",
+      kind: "Honest matching · 2025",
+      problem:
+        "Dating apps sort by photograph. You swipe on a face, talk for three days, and find out on the first date that there was nothing to talk about — the part that decides it was never on the card.",
+      did: "Product concept, the matching flow, interface design and brand.",
+      metric: { value: "15 days", label: "before you see a face" },
+    },
+    zh: {
+      name: "真心",
+      kind: "真心匹配 · 2025",
+      problem:
+        "交友软件按照片排序。你划过一张脸，聊三天，第一次见面才发现根本没话说——真正决定结果的那部分，卡片上从来没有。",
+      did: "产品概念、匹配流程、界面设计与品牌。",
+      metric: { value: "15 天", label: "聊满了才看见脸" },
+    },
+    notes: [
+      {
+        by: "jane",
+        en: {
+          q: "The counter, not a paywall",
+          a: "The fifteen days are shown as a row of hearts that fills one a day. It is the same control for everyone and there is no button that shortens it, so the wait reads as the rule of the place rather than as something being withheld until you pay.",
+        },
+        zh: {
+          q: "计数器，不是付费墙",
+          a: "十五天显示成一排每天点亮一颗的心。所有人是同一套规则，也没有任何按钮能缩短它——所以这段等待读起来是这个地方的规矩，而不是「不付钱就不给你」。",
+        },
+      },
+      {
+        by: "jane",
+        en: {
+          q: "A shape, not a blurred photo",
+          a: "The unseen person is drawn as a flat silhouette rather than a blurred or pixelated portrait. A blur says a picture is being kept from you; a silhouette says there is no picture yet, which is what is actually true.",
+        },
+        zh: {
+          q: "是轮廓，不是打码的照片",
+          a: "还看不见的那个人画成扁平剪影，而不是模糊或马赛克的头像。打码的意思是「有照片但不给你看」，剪影的意思是「还没到看照片的时候」——后者才是实际情况。",
         },
       },
     ],

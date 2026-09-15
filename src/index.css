@@ -27,12 +27,12 @@
   --jane: #d1552b;
 }
 
-[data-world="jenny"] {
+html[data-world="jenny"] {
   --accent: #1d5fb5;
   --wash: #e8effa;
 }
 
-[data-world="jane"] {
+html[data-world="jane"] {
   --accent: #d1552b;
   --wash: #fbeae2;
 }
@@ -194,9 +194,18 @@ body {
   }
 }
 
-/* Shared editorial grid: Jane's warm half, Jenny's cool half. */
+/*
+ * Shared editorial grid: Jane's warm half, Jenny's cool half.
+ *
+ * `data-world` sits on <html>, which is also what `:root` selects — so these
+ * rules and the `:root` block in playful.css were competing for the same
+ * element at the same specificity, and the later stylesheet won. Every
+ * `var(--accent)` on a person's page rendered in the neutral #565044 instead of
+ * theirs. Qualifying with `html` breaks the tie by intent rather than by which
+ * file main.jsx happens to import last.
+ */
 :root { --jane:#b84627; }
-[data-world="jane"] { --accent:#b84627; }
+html[data-world="jane"] { --accent:#b84627; }
 html { scroll-behavior:smooth; scroll-padding-top:24px; }
 body { overflow-wrap:break-word; word-break:normal; }
 button, summary, a { -webkit-tap-highlight-color:transparent; }

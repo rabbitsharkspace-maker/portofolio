@@ -265,7 +265,26 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * and a CSS transition would be a second animation fighting it for the same
  * two properties. Compositor-only properties, so the frames stay cheap.
  */
-.scroller-stage img { grid-area:1/1; width:100%; height:var(--beat); object-fit:contain; opacity:0; will-change:opacity,transform; filter:drop-shadow(0 12px 9px #2a213219); }
+/*
+ * The field she stands on, and the only value step in the spread.
+ *
+ * At --wash it was #fbeae2 against #f5f2e8 paper — a difference you had to look
+ * for, so the panel read as nothing and the whole page sat at one tone. Mixed
+ * from the accent instead it is quiet but actually there, and it carries each
+ * person's colour without a second variable.
+ *
+ * Shorter than the stage and pushed down, so she stands past its top edge rather
+ * than inside a rectangle. That overlap is what gives the left half depth; flush
+ * inside the box she read as a sticker on a card.
+ */
+.stage-field {
+  grid-area:1/1; align-self:center; width:100%;
+  height:calc(var(--beat) - 130px); transform:translateY(64px);
+  background:color-mix(in srgb, var(--accent) 13%, #fff)
+             radial-gradient(#00000014 1px, transparent 1.7px) 0 0/23px 23px;
+  border-radius:20px;
+}
+.scroller-stage img { grid-area:1/1; width:100%; height:var(--beat); object-fit:contain; opacity:0; will-change:opacity,transform; position:relative; filter:drop-shadow(0 12px 9px #2a213219); }
 /*
  * She needs something to stand on. A tinted panel the height of one beat, with
  * a faint ring behind her and a soft ellipse under her feet — the same three
@@ -306,9 +325,23 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * so the wheel, the trackpad, Page Down and the scrollbar all still behave.
  */
 .scroller-beats li { min-height:var(--beat); display:flex; flex-direction:column; justify-content:center; opacity:.26; scroll-snap-align:center; scroll-snap-stop:always; }
-.beat-index { font:10px ui-monospace,monospace; letter-spacing:.14em; color:var(--accent); }
-.beat-index small { color:#8b7d93; }
-.scroller-beats h4 { font:400 clamp(23px,2.6vw,33px)/1.25 Georgia,"Songti SC",serif; letter-spacing:-.03em; margin:13px 0 15px; }
+/*
+ * The header and the rail run the full width of the column; the writing under
+ * them keeps its 36ch measure. Before this the whole block was one 300px stack
+ * against 550px of empty paper, which is what made four beats of it read as the
+ * same picture four times.
+ */
+.beat-head { display:flex; align-items:baseline; justify-content:space-between; gap:20px; }
+.beat-index { font:400 clamp(34px,4vw,50px)/1 Georgia,"Songti SC",serif; letter-spacing:-.04em; color:var(--accent); }
+.beat-index small { font:10px ui-monospace,monospace; letter-spacing:.14em; color:#8b7d93; }
+.beat-label { font:10px ui-monospace,monospace; letter-spacing:.18em; text-transform:uppercase; color:#8b7d93; text-align:right; }
+.beat-rail { display:flex; gap:6px; margin-top:14px; }
+.beat-rail i { flex:1; height:2px; border-radius:2px; background:#ded5dd; }
+.beat-rail i.is-done { background:var(--accent); }
+.scroller-beats h4 { font:400 clamp(23px,2.6vw,33px)/1.25 Georgia,"Songti SC",serif; letter-spacing:-.03em; margin:28px 0 15px; }
+/* The beat's one word, stamped under it — a rule, then the state it leaves her in. */
+.beat-word { display:flex; align-items:center; gap:14px; margin-top:30px; font:400 clamp(26px,3.2vw,40px)/1 Georgia,"Songti SC",serif; letter-spacing:-.02em; color:var(--accent); }
+.beat-word::before { content:""; width:46px; height:1px; background:currentColor; opacity:.45; }
 .scroller-beats p { font-size:15px; line-height:1.9; color:#4e4456; max-width:36ch; }
 @media (max-width:760px) {
  .case-scroller { --beat:min(52vh,420px); grid-template-columns:1fr; gap:0; }
