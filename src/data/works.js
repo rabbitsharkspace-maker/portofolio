@@ -118,24 +118,41 @@ export const works = [
     owner: "jenny",
     stack: ["Storyboard", "Animation", "Sound"],
     link: null,
-    // The film plays in the cabinet itself; the id is the one thing kept, and
-    // the watch link is built from it, so there is no second copy to forget.
-    // The one work on this site that is actually a film, so the one that gets
-    // the curtain. Product films do not.
-    film: { youtube: "3z5-F9V2XIQ", cinema: true },
+    /*
+     * The one work on this site that is actually a film, so the one that gets
+     * the curtain. Product films do not.
+     *
+     * Served from here rather than through the YouTube frame. The frame asks a
+     * share of visitors to sign in and prove they are not a bot before it will
+     * play anything, and it reaches nobody in mainland China at all, which is
+     * half of who this page is written for. The YouTube id stays as the
+     * elsewhere link, and as the place to go for the full-rate picture.
+     *
+     * 720p30 at about 800 kbps: the master is 1080p60 and 609MB, and Cloudflare
+     * Pages will not serve a file over 25MiB. Frame rate went before resolution
+     * did — at this bitrate 60fps turns the whole picture to mush, where 30fps
+     * costs only the motion.
+     */
+    film: {
+      youtube: "3z5-F9V2XIQ",
+      cinema: true,
+      en: "/media/championship-en-720p.mp4",
+      zh: "/media/championship-cn-720p.mp4",
+    },
+    poster: { en: "/ip/championship-film.webp", zh: "/ip/championship-film-zh.webp" },
     address: "The 8th Annual Human Disturbance Championship — animated short",
     image: null, // artwork for the gallery plate — drop a path in when there is one
     en: {
       name: "The 8th Annual Human Disturbance Championship",
       kind: "Animated short",
       what: "An insect stadium under an overturned flower pot. They compete to startle a human.",
-      who: "3 min 48 sec · 1080P · 2026",
+      who: "3 min 48 sec · 2026",
     },
     zh: {
       name: "第八届人类干扰锦标赛",
       kind: "动画短片",
       what: "花盆底下的昆虫运动会,比谁能吓到人类",
-      who: "3 分 48 秒 · 1080P · 2026",
+      who: "3 分 48 秒 · 2026",
     },
   },
   {

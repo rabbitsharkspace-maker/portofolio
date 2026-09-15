@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang, inLang } from '../lang'
 import { people, studio } from '../data/people'
@@ -38,20 +38,45 @@ export function WorkShelf({ items, id = 'all-work' }) {
    * theatre away from the people most likely to want the page to hold still.
    */
   const cinema = Boolean(active?.film?.cinema)
+  const stage = useRef(null)
   const open = useCallback(()=>setCurtain('open'),[])
+  const leave = useCallback(()=>{
+    if (document.fullscreenElement) document.exitFullscreen?.()
+    setPlaying(false)
+  },[])
   useEffect(()=>{
     if (!playing || !cinema) return
     const bail = setTimeout(open, 2500)
     return ()=>clearTimeout(bail)
   },[playing,cinema,open])
-  // The film holds the page while it runs; anywhere outside it, and Escape,
-  // gives the page back.
+  /*
+   * Real fullscreen where the browser allows it, and the fixed stage
+   * underneath it everywhere else. The stage is the element handed to the
+   * fullscreen API, so the curtain and the exit ride along inside it either
+   * way and there is no second layout to keep in step.
+   *
+   * iOS Safari will not take an arbitrary element fullscreen. It gets the
+   * stage, which already covers the viewport, and the video's own control
+   * takes it the rest of the way.
+   */
+  useEffect(()=>{
+    if (!playing || !cinema || !stage.current) return
+    stage.current.requestFullscreen?.().catch(()=>{})
+  },[playing,cinema])
+  // Leaving fullscreen by any route the browser owns — Escape, the system
+  // gesture, the toolbar — should close the film too, not drop somebody onto
+  // a stage they thought they had just left.
   useEffect(()=>{
     if (!playing || !cinema) return
-    const leave = e=>{ if (e.key === 'Escape') setPlaying(false) }
-    document.addEventListener('keydown',leave)
-    return ()=>document.removeEventListener('keydown',leave)
-  },[playing,cinema])
+    const back = ()=>{ if (!document.fullscreenElement) setPlaying(false) }
+    const key = e=>{ if (e.key === 'Escape') leave() }
+    document.addEventListener('fullscreenchange',back)
+    document.addEventListener('keydown',key)
+    return ()=>{
+      document.removeEventListener('fullscreenchange',back)
+      document.removeEventListener('keydown',key)
+    }
+  },[playing,cinema,leave])
   if (!active) return null
   const film = active.film
   const watch = film ? `https://youtu.be/${film.youtube}` : null
@@ -66,15 +91,21 @@ export function WorkShelf({ items, id = 'all-work' }) {
   // they play here, and `watch` is the same cut on YouTube for anyone who wants it.
   const link = active.link || (film ? null : active.embed) || null
   const cover = <div className="cabinet-type-cover"><span>{active[lang].kind}</span><strong aria-hidden="true">{active.id === 'ticketing' ? '100+' : active.id === 'championship' ? '▶' : '✳'}</strong><p>{active[lang].name}</p></div>
-  return <section id={id} className={`work-cabinet${playing && demo ? ' cabinet-open' : ''}${playing && cinema ? ' cabinet-cinema' : ''}`}>
-    {playing && cinema && <button type="button" className="cinema-dim" onClick={()=>setPlaying(false)} aria-label={zh ? '退出放映' : 'Leave the film'} />}
+  return <section id={id} className={`work-cabinet${playing && demo ? ' cabinet-open' : ''}`}>
+    {playing && cinema && <div className={`cinema-stage curtain-${curtain}`} ref={stage}>
+      {ourCut
+        ? <video className="cinema-picture" src={ourCut} poster={active.poster?.[lang]} controls autoPlay playsInline onCanPlay={open} onEnded={leave} />
+        : <iframe className="cinema-picture" src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${active[lang].name} — ${zh ? '影片' : 'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen onLoad={open} />}
+      <span className="curtain-panel curtain-left" aria-hidden="true" /><span className="curtain-panel curtain-right" aria-hidden="true" />
+      <button type="button" className="cinema-exit" onClick={leave} aria-label={zh ? '退出放映' : 'Leave the film'}>×</button>
+    </div>}
     <div className="cabinet-index"><p className="micro-label">{zh ? '还在桌上的那些点子' : 'ALSO ON THE DESK'}</p><h2>{zh ? <>继续，<em>随便翻翻</em></> : <>A few more<br /><em>curiosities.</em></>}</h2><div className="cabinet-list" role="group" aria-label={zh ? '选择作品' : 'Choose a project'}>{items.map((w,i)=><button key={w.id} aria-pressed={active.id === w.id} aria-controls={`${id}-preview`} onClick={()=>{setPlaying(false);setCurtain('shut');setSelected(w.id)}}><span>{String(i+1).padStart(2,'0')}</span><strong>{w[lang].name}</strong><span>↗</span></button>)}</div></div>
     <div className={`cabinet-preview preview-${active.id}`} id={`${id}-preview`} aria-live="polite">
       <span className="cabinet-paperclip" aria-hidden="true" />
-      <div className={`cabinet-photo${playing && demo ? ' cabinet-live' : ''}`} key={active.id}>{playing && film
-        ? <div className={`cinema-house${cinema ? ` curtain-${curtain}` : ''}`}>{ourCut
-          ? <video src={ourCut} poster={active.poster?.[lang]} controls autoPlay playsInline onCanPlay={open} onEnded={()=>setPlaying(false)} />
-          : <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${active[lang].name} — ${zh ? '影片' : 'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen onLoad={open} />}{cinema && <><span className="curtain-panel curtain-left" aria-hidden="true" /><span className="curtain-panel curtain-right" aria-hidden="true" /></>}</div>
+      <div className={`cabinet-photo${playing && demo ? ' cabinet-live' : ''}`} key={active.id}>{playing && film && !cinema
+        ? (ourCut
+          ? <video src={ourCut} poster={active.poster?.[lang]} controls autoPlay playsInline />
+          : <iframe src={`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`} title={`${active[lang].name} — ${zh ? '影片' : 'film'}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />)
         : playing && demo
         ? <iframe src={demo} title={`${active[lang].name} — ${zh ? '可以上手的演示' : 'interactive demo'}`} />
         : film ? <button type="button" className="cabinet-play" onClick={()=>{setCurtain('shut');setPlaying(true)}} aria-label={zh ? `播放 ${active[lang].name}` : `Play ${active[lang].name}`}>{still ? <img src={still} alt={`${active[lang].name} — ${zh ? '影片封面' : 'film cover'}`} loading="lazy" /> : cover}</button>
