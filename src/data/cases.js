@@ -15,63 +15,76 @@ export const cases = [
     link: null,
     en: {
       name: "My Kitchen Rules",
-      kind: "Restaurant operations · 2025",
+      kind: "Restaurant operations · 2026",
       problem:
-        "A small restaurant owner is the cashier, the kitchen manager, the bookkeeper and the rosterer. Four jobs, four systems, and the day is spent carrying numbers between them.",
-      did: "Product flow, three role-based interfaces, engineering and deployment.",
-      metric: { value: "4 → 1", label: "four jobs, one system" },
+        "A small restaurant owner rosters, orders, checks invoices against what arrived, and carries the compliance underneath all of it — visas, tax numbers, super, food safety. Four jobs in four places, and the day goes into moving numbers between them.",
+      did: "Product flow, six role-based views and a staff phone app, the Australian compliance spine, engineering and deployment. Piloted at a Sydney trattoria.",
+      metric: { value: "6", label: "roles, one system" },
     },
     zh: {
       name: "My Kitchen Rules",
-      kind: "餐厅运营系统 · 2025",
+      kind: "餐厅运营系统 · 2026",
       problem:
-        "小餐厅的老板同时是收银、后厨管理、记账和排班。四份活、四套系统，一天的时间花在把数字从一个地方搬到另一个地方",
-      did: "产品流程、三套角色界面、开发与部署",
-      metric: { value: "4 → 1", label: "四份活，一套系统" },
+        "小餐厅的老板要排班、下单、拿发票对到货，底下还扑着一层合规——签证、税号、养老金、食品安全。四份活散在四个地方，一天的时间花在把数字从一处搬到另一处",
+      did: "产品流程、六套角色界面加一个员工手机端、澳洲合规链路、开发与部署。在悉尼一家餐厅试点",
+      metric: { value: "6", label: "个角色，一套系统" },
     },
+    /*
+     * Rewritten from the MKR deck (v0.1, April 2026, Bondi Trattoria pilot)
+     * rather than reverse-engineered from one screenshot. Every one of these
+     * four is a thing the deck actually shows.
+     *
+     * The `by` split below is a proposal, not a record. It follows subject
+     * matter — the compliance chain and the escalation clock read as systems
+     * work, the role checklist and the staff phone read as experience work —
+     * and neither of us has confirmed it. Move a note to the other name if it
+     * was the other way round, and say these in your own words when you get to
+     * them. That last part is the whole value: nobody can copy the reason a
+     * thing was built this way.
+     */
     notes: [
       {
         by: "jenny",
         en: {
-          q: "Sync status",
-          a: "The header includes an offline-safe indicator and a queued-write count. These make connection and synchronisation status visible beside the operational controls.",
+          q: "Compliance sits inside hiring",
+          a: "Onboarding a starter is six steps, and three of them are the visa check, the tax declaration and the super choice. They happen while the person is being hired, not filed somewhere afterwards.",
         },
         zh: {
-          q: "同步状态",
-          a: "顶部展示离线状态与待同步数量，让连接和同步进度与操作入口一起可见",
+          q: "合规长在招人流程里",
+          a: "招一个新人是六步，其中三步是查签证、报税号、选养老金。这些事在人入职的过程里就做完了，不是事后另外补一份档案",
         },
       },
       {
         by: "jenny",
         en: {
-          q: "Price comparison",
-          a: "The cost view places price changes alongside delivery records, giving the reader a dated reference for the comparison.",
+          q: "Severity sets the clock",
+          a: "Every incident carries a level, and the level decides how long the owner has to acknowledge it: seven days for routine, three for important, thirty minutes for anything touching revenue, safety or compliance. The countdown lives on the record instead of in somebody's memory.",
         },
         zh: {
-          q: "价格对照",
-          a: "成本视图把价格变化与送货记录放在一起，为对比提供具体日期的参照",
+          q: "严重度决定时限",
+          a: "每条事故都带一个等级，等级决定老板多久之内必须确认：常规七天，重要三天，碰到营收、安全或合规的三十分钟。倒计时挂在这条记录上，而不是靠谁记着",
         },
       },
       {
         by: "jane",
         en: {
-          q: "Role switching",
-          a: "The role-switching control sits in the navigation rail. It provides a visible entry point to the different operational views.",
+          q: "The checklist belongs to the position",
+          a: "Tasks are owned by a role, not a name. Hire a new waiter and the waiter checklist is already theirs on the first shift — nobody rebuilds it, and nobody has to remember what the last waiter used to do.",
         },
         zh: {
-          q: "角色切换",
-          a: "侧栏保留切换视角的入口，便于找到不同角色的运营界面",
+          q: "清单属于岗位，不属于人",
+          a: "任务挂在岗位上，不挂在名字上。新招一个服务员，第一个班上服务员那套清单就已经是他的了——不用有人重新配一遍，也不用有人记得上一个服务员平时都做什么",
         },
       },
       {
         by: "jane",
         en: {
-          q: "Familiar document structure",
-          a: "The docket view groups supplier information and delivery details above the line items, following the structure of a delivery document.",
+          q: "What a waiter actually gets",
+          a: "Staff open a phone, not the dashboard: today's shift, when the pre-shift briefing is, a clock-in button, and the week ahead. Free time goes in before the Saturday cutoff and the roster publishes Sunday, so nobody is being asked \u201ccan you come in tonight?\u201d",
         },
         zh: {
-          q: "熟悉的单据结构",
-          a: "单据视图把供应商和送货信息放在明细上方，沿用送货单的信息结构",
+          q: "服务员真正拿到的东西",
+          a: "员工打开的是手机，不是那块仪表盘：今天的班、班前会几点、一个打卡按钮、这一周的排班。有空的时间在周六截止前填，排班周日发出来，所以不会再有人被一条条问「今晚能来吗」",
         },
       },
     ],
