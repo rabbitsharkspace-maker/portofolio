@@ -701,8 +701,10 @@ export const cases = [
     // The live app, behind a button: it sleeps on a free Render dyno, so the
     // still holds the frame until someone asks for it and is prepared to wait.
     demo: { en: "https://realheart.onrender.com", zh: "https://realheart.onrender.com" },
-    image: "/ip/realheart-04-together.webp",
-    ratio: "760 / 1294",
+    // The landing page as it is — the headline is the product's own argument,
+    // and the "15 天" tile on it is the number the beats below count in.
+    image: "/ip/realheart-home.webp",
+    ratio: "1440 / 810",
     split: { jane: 100, jenny: 0 },
     // Linked, not embedded: the app sleeps on a free Render dyno, and a cold
     // visit would hang the frame on a loading state for most of a minute.
@@ -848,11 +850,15 @@ export const cases = [
     owner: "jane",
     // The three-card spread, turned face-up as the reading goes.
     mark: "card",
-    image: "/ip/tarot-04-forward.webp",
-    ratio: "548 / 1096",
+    // The landing page: the two entrances, analysis then cards, and the spread
+    // fanned at the foot — the same three cards the beats below turn over.
+    image: "/ip/tarot-home.webp",
+    ratio: "1440 / 810",
     split: { jane: 100, jenny: 0 },
-    // The name and the link are placeholders until the product has both.
-    link: null,
+    // The name is still a placeholder; the app is live under a RealHeart-era
+    // address, so both link and demo point there until it has its own.
+    link: "https://realheart-25k8.onrender.com",
+    demo: { en: "https://realheart-25k8.onrender.com", zh: "https://realheart-25k8.onrender.com" },
     /*
      * Three cards, and the counter is how many are turned: none while it still
      * hurts, one once the question is asked, all three read, and all three at
