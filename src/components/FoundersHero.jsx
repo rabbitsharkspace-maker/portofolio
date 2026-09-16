@@ -8,8 +8,8 @@ export default function FoundersHero() {
     <div className="playful-hero-copy">
       <p className="micro-label"><span className="status-led" /> INDEPENDENT BY NATURE · MELBOURNE & EVERYWHERE</p>
       <h1>{zh ? <>认真做事<br /><em>有趣一点</em></> : <>Serious work.<br /><em>Curious minds.</em></>}</h1>
-      <p className="playful-intro">{zh ? '我们是 Jane 和 Jenny，把设计、AI 和工程放在同一张桌上，让好点子真的跑起来' : 'We’re Jane and Jenny — design, AI and engineering at one desk, so a good idea actually gets built.'}</p>
-      <div className="playful-hero-links"><a className="ink-button" href="#work">{zh ? '翻翻我们的作品' : 'Open the good stuff'} ↗</a><a className="quiet-link" href="#founders">{zh ? '认识两位主人' : 'Meet the two of us'} ↓</a></div>
+      <p className="playful-intro">{zh ? '我们是 Jane 和 Jenny。把设计、AI 和工程放在同一张桌上，亲自把一个想法从问题梳理做到上线。' : 'We’re Jane and Jenny. We bring design, AI and engineering together, and take ideas from the real problem through to a live product.'}</p>
+      <div className="playful-hero-links"><a className="ink-button" href="#work">{zh ? '看精选作品' : 'View selected work'} ↗</a><a className="quiet-link" href="#founders">{zh ? '认识 Jane 和 Jenny' : 'Meet Jane + Jenny'} ↓</a></div>
       <p className="hero-margin-note"><span>↳</span> {zh ? '两个人，从「要不试试」做到上线' : 'Two people. From “what if” to out in the world.'}</p>
     </div>
     <StudioDesk />

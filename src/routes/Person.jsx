@@ -24,7 +24,7 @@ export default function Person() {
   return <>
     <PersonPlayground key={who} who={who} />
     <div className={`desk-body desk-body-${who}`}>
-      <section id="personal-work" className="work-collection"><Chapter number="01" label={zh?`${p.short} 的作品档案`:`FROM ${p.short.toUpperCase()}’S DESK`} title={who==='jane'?(zh?<>让点子，<em>有自己的样子</em></>:<>Ideas with<br /><em>a personality.</em></>):(zh?<>把复杂，<em>理出头绪</em></>:<>Making sense<br /><em>of the moving parts.</em></>)} note={zh?'作品在这里，细节在笔记里':'the work, and the notes behind it.'}/><ProjectGallery key={who} items={mine} /></section>
+      <section id="personal-work" className="work-collection"><Chapter number="01" label={zh?`${p.short} 的作品档案`:`${p.short.toUpperCase()}’S SELECTED WORK`} title={who==='jane'?(zh?<>让点子，<em>有自己的样子</em></>:<>Ideas with<br /><em>a personality.</em></>):(zh?<>把复杂，<em>理出头绪</em></>:<>Making sense<br /><em>of the moving parts.</em></>)} note={zh?'每个项目都讲清楚：做了什么、为什么这样做、谁参与了':'Every project shows what we made, why it works that way and who contributed.'}/><ProjectGallery key={who} items={mine} initialMode="gallery" /></section>
       <WorkShelf key={who} items={other} />
       <PersonNotebook key={`notebook-${who}`} who={who} />
       <Recognition who={who} />

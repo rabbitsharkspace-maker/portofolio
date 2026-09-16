@@ -12,7 +12,7 @@ import SereneStory from './SereneStory'
 
 const StudioWorld = lazy(() => import('./StudioWorld'))
 
-export default function ProjectGallery({ items }) {
+export default function ProjectGallery({ items, initialMode = 'gallery' }) {
   const { lang } = useLang()
   const zh = lang === 'zh'
   const reduced = useReducedMotion()
@@ -22,7 +22,7 @@ export default function ProjectGallery({ items }) {
   const cameFrom = useRef(null)
   const figure = useRef(null)
   const [selected,setSelected] = useState(null)
-  const [mode,setMode] = useState('world')
+  const [mode,setMode] = useState(initialMode)
   const [notes,setNotes] = useState('all')
   // The film loads only once it is asked for: a third-party player on every open
   // would be a YouTube request for readers who never press play.
@@ -89,14 +89,14 @@ export default function ProjectGallery({ items }) {
     e.currentTarget.style.setProperty('--art-y',`${-((e.clientY-r.top)/r.height-.5)*5}deg`)
   }
   return <div className={`project-gallery gallery-mode-${mode}`}>
-    <div className="gallery-toolbar"><span>{zh?'精选展览':'SELECTED EXHIBITION'} / {String(items.length).padStart(2,'0')}</span><div role="group" aria-label={zh?'作品展示方式':'Gallery layout'}><button aria-pressed={mode==='world'} onClick={()=>setMode('world')}>{zh?'小世界':'World'} ✳</button><button aria-pressed={mode==='gallery'} onClick={()=>setMode('gallery')}>{zh?'画廊':'Gallery'} ▦</button><button aria-pressed={mode==='index'} onClick={()=>setMode('index')}>{zh?'索引':'Index'} ☰</button></div></div>
+    <div className="gallery-toolbar"><span>{zh?'精选展览':'SELECTED WORK'} / {String(items.length).padStart(2,'0')}</span><div role="group" aria-label={zh?'选择浏览方式':'Choose how to browse'}><button aria-pressed={mode==='world'} onClick={()=>setMode('world')}>{zh?'小世界':'Playground'} ✳</button><button aria-pressed={mode==='gallery'} onClick={()=>setMode('gallery')}>{zh?'画廊':'Gallery'} ▦</button><button aria-pressed={mode==='index'} onClick={()=>setMode('index')}>{zh?'索引':'Project list'} ☰</button></div></div>
     {mode === 'world' ? <Suspense fallback={<div className="world-fallback"><p>{zh?'正在布置小展岛…':'Setting up the little world…'}</p>{items.map((p,i)=><button id={`case-${p.id}`} key={p.id} onClick={e=>open(i,e)}>{p[lang].name} ↗</button>)}</div>}><StudioWorld items={items} onOpen={open}/></Suspense> : <div className="gallery-grid">{items.map((project,i)=><motion.article key={project.id} id={`case-${project.id}`} className={`gallery-exhibit exhibit-${project.id}`} initial={reduced?false:{y:22}} whileInView={{y:0}} viewport={{once:true,amount:.1}} transition={{duration:.65,ease:[.2,.7,.2,1]}}>
       <button className="exhibit-open" onClick={e=>open(i,e)} aria-label={zh?`进入 ${project[lang].name} 展台`:`Explore ${project[lang].name}`} onPointerMove={tilt} onPointerLeave={e=>{e.currentTarget.style.setProperty('--art-x','0deg');e.currentTarget.style.setProperty('--art-y','0deg')}}>
         <div className="exhibit-stage"><span className="exhibit-number">0{i+1}</span><span className="exhibit-medium">{project.owner==='both'?'JANE × JENNY':project.owner.toUpperCase()}</span><div className="exhibit-art"><img src={inLang(project.image, lang)} alt={`${project[lang].name} — ${project[lang].kind}`} loading="lazy" /></div><span className="exhibit-explore">{zh?'进入':'Explore'}<i>↗</i></span><div className="exhibit-ground" aria-hidden="true" /></div>
         <div className="exhibit-label"><div><h3>{project[lang].name}</h3><p>{project[lang].kind}</p></div><span className="exhibit-result">{project[lang].metric.value}<small>{project[lang].metric.label}</small></span><span className="exhibit-arrow" aria-hidden="true">↗</span></div>
       </button>
     </motion.article>)}</div>}
-    <p className="gallery-endnote">{zh?'点开一件作品，让细节慢慢展开':'Step inside a project. Stay for the details.'}<span>RABBITSHARK — SELECTED WORKS</span></p>
+    <p className="gallery-endnote">{zh?'打开一个作品，了解问题、交付和成果':'Open a project to see the problem, the build and the result.'}<span>RABBITSHARK — SELECTED WORK</span></p>
     <dialog ref={dialog} className="gallery-dialog" aria-label={zh?'作品展台':'Project exhibition'} onClose={()=>{setSelected(null);opener.current?.focus()}} onClick={e=>{if(e.target===e.currentTarget)close()}} onKeyDown={e=>{
       if (e.target instanceof HTMLElement && e.target.closest('input,textarea,select,summary')) return
       if(e.key==='ArrowRight' || e.key==='ArrowLeft'){e.preventDefault();move(e.key==='ArrowRight'?1:-1)}

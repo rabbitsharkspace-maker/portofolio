@@ -113,7 +113,7 @@ export function WorkShelf({ items, id = 'all-work' }) {
       <span className="curtain-panel curtain-left" aria-hidden="true" /><span className="curtain-panel curtain-right" aria-hidden="true" />
       <button type="button" className="cinema-exit" onClick={leave} aria-label={zh ? '退出放映' : 'Leave the film'}>×</button>
     </div>}
-    <div className="cabinet-index"><p className="micro-label">{zh ? '还在桌上的那些点子' : 'ALSO ON THE DESK'}</p><h2>{zh ? <>继续，<em>随便翻翻</em></> : <>A few more<br /><em>curiosities.</em></>}</h2><div className="cabinet-list" role="group" aria-label={zh ? '选择作品' : 'Choose a project'}>{items.map((w,i)=><button key={w.id} aria-pressed={active.id === w.id} aria-controls={`${id}-preview`} onClick={()=>{setPlaying(false);setCurtain('shut');setSelected(w.id)}}><span>{String(i+1).padStart(2,'0')}</span><strong>{w[lang].name}</strong><span>↗</span></button>)}</div></div>
+    <div className="cabinet-index"><p className="micro-label">{zh ? '更多作品' : 'MORE PROJECTS'}</p><h2>{zh ? <>继续，<em>随便翻翻</em></> : <>More things<br /><em>we’ve made.</em></>}</h2><div className="cabinet-list" role="group" aria-label={zh ? '选择作品' : 'Choose a project'}>{items.map((w,i)=><button key={w.id} aria-pressed={active.id === w.id} aria-controls={`${id}-preview`} onClick={()=>{setPlaying(false);setCurtain('shut');setSelected(w.id)}}><span>{String(i+1).padStart(2,'0')}</span><strong>{w[lang].name}</strong><span>↗</span></button>)}</div></div>
     <div className={`cabinet-preview preview-${active.id}`} id={`${id}-preview`} aria-live="polite">
       <span className="cabinet-paperclip" aria-hidden="true" />
       <div className={`cabinet-photo${playing && demo ? ' cabinet-live' : ''}`} key={active.id}>{playing && film && !cinema
