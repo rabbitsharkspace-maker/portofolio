@@ -41,7 +41,32 @@ const ToolIcon = ({ tool, className }) => {
   </svg>
 }
 
-export default function CaseScroller({ scenes, root }) {
+/*
+ * What a case counts in, drawn on the stage as the thing itself.
+ *
+ * The rail beside the writing already fills per beat, but a rail is a rail
+ * whichever product it belongs to, and six cases with the same rail read as
+ * one template six times. Down here the count takes the product's own shape:
+ * RealHeart's fifteen days are fifteen hearts, the tarot spread is three cards,
+ * Sunrise is the three people who need the reading, Jane AI is the six things
+ * on the desk. Lit ones are filled in the accent; the rest wait as outlines.
+ *
+ * `figure` is the other kind — no row at all, the meter itself set large and
+ * faint behind her, for a case whose unit is a score rather than a count.
+ */
+const GLYPH = {
+  heart:  'M12 21s-7-4.6-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.4-9.5 9-9.5 9z',
+  card:   'M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z',
+  person: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0z',
+  box:    'M5 5h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z',
+}
+
+const litOf = (s, i, n) => {
+  const segs = s.segments ?? n
+  return { segs, lit: Math.round((s.fill ?? (i + 1) / n) * segs) }
+}
+
+export default function CaseScroller({ scenes, mark, root }) {
   const { lang } = useLang()
   const reduced = useReducedMotion()
   const [active,setActive] = useState(0)
@@ -109,6 +134,16 @@ export default function CaseScroller({ scenes, root }) {
           <p>{s[lang].card.body}</p>
         </div>
       </div>)}
+      {/* The count, in the product's own shape, on the same layer as a Kno card. */}
+      {GLYPH[mark] && scenes.map((s,i)=>{
+        const { segs, lit } = litOf(s, i, scenes.length)
+        return <div key={`${s.art}-tally`} ref={el=>{marks.current[i]=el}} className="scroller-mark scroller-tally" style={{'--glyph': `${Math.max(16, Math.min(40, Math.round(300 / segs)))}px`}}>
+          {Array.from({length:segs},(_,n)=><svg key={n} viewBox="0 0 24 24" className={n<lit?'is-lit':undefined}><path d={GLYPH[mark]} /></svg>)}
+        </div>
+      })}
+      {mark === 'figure' && scenes.map((s,i)=><div key={`${s.art}-figure`} ref={el=>{marks.current[i]=el}} className="scroller-mark scroller-figure">
+        <span>{s[lang].meter}</span>
+      </div>)}
       {scenes.map((s,i)=><img key={s.art} ref={el=>{arts.current[i]=el}} src={s.art} alt="" loading={i===0?'eager':'lazy'} />)}
     </div>
     <ol className="scroller-beats">
@@ -134,8 +169,7 @@ export default function CaseScroller({ scenes, root }) {
           {s[lang].label && <span className="beat-label">{s[lang].label}</span>}
         </div>
         <span className="beat-rail" aria-hidden="true">{(()=>{
-          const segs = s.segments ?? scenes.length
-          const lit = Math.round((s.fill ?? (i + 1) / scenes.length) * segs)
+          const { segs, lit } = litOf(s, i, scenes.length)
           return Array.from({length:segs},(_,n)=><i key={n} className={n<lit?'is-done':undefined} />)
         })()}</span>
         <h4>{s[lang].title}</h4>

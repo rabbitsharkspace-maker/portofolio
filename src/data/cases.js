@@ -333,6 +333,8 @@ export const cases = [
   {
     id: "fastresume",
     owner: "jane",
+    // The unit is a score, so the mark on the stage is the number itself.
+    mark: "figure",
     image: "/ip/fastresume-home.webp",
     ratio: "1600 / 1000",
     split: { jane: 100, jenny: 0 },
@@ -694,8 +696,15 @@ export const cases = [
   {
     id: "realheart",
     owner: "jane",
-    image: "/ip/realheart-04-together.webp",
-    ratio: "760 / 1294",
+    // Fifteen days as fifteen hearts along the foot of the stage, lit a day at a time.
+    mark: "heart",
+    // The live app, behind a button: it sleeps on a free Render dyno, so the
+    // still holds the frame until someone asks for it and is prepared to wait.
+    demo: { en: "https://realheart.onrender.com", zh: "https://realheart.onrender.com" },
+    // The landing page as it is — the headline is the product's own argument,
+    // and the "15 天" tile on it is the number the beats below count in.
+    image: "/ip/realheart-home.webp",
+    ratio: "1440 / 810",
     split: { jane: 100, jenny: 0 },
     // Linked, not embedded: the app sleeps on a free Render dyno, and a cold
     // visit would hang the frame on a loading state for most of a minute.
@@ -839,11 +848,17 @@ export const cases = [
   {
     id: "tarot",
     owner: "jane",
-    image: "/ip/tarot-04-forward.webp",
-    ratio: "548 / 1096",
+    // The three-card spread, turned face-up as the reading goes.
+    mark: "card",
+    // The landing page: the two entrances, analysis then cards, and the spread
+    // fanned at the foot — the same three cards the beats below turn over.
+    image: "/ip/tarot-home.webp",
+    ratio: "1440 / 810",
     split: { jane: 100, jenny: 0 },
-    // The name and the link are placeholders until the product has both.
-    link: null,
+    // The name is still a placeholder; the app is live under a RealHeart-era
+    // address, so both link and demo point there until it has its own.
+    link: "https://realheart-25k8.onrender.com",
+    demo: { en: "https://realheart-25k8.onrender.com", zh: "https://realheart-25k8.onrender.com" },
     /*
      * Three cards, and the counter is how many are turned: none while it still
      * hurts, one once the question is asked, all three read, and all three at
@@ -918,16 +933,16 @@ export const cases = [
         fill: 1,
         segments: 3,
         en: {
-          meter: "3",
-          meterCap: "read, and done",
+          meter: "1",
+          meterCap: "thing to do this week",
           label: "This week",
           word: "Clearer",
           title: "Not an answer. A next step.",
           body: "It ends with one thing to do this week — small enough to actually do. Nobody is told the cards say to text him. The point was never the future. It was getting you to say what you already knew.",
         },
         zh: {
-          meter: "3 张",
-          meterCap: "读完了",
+          meter: "1 件",
+          meterCap: "这周要做的事",
           label: "这一周",
           word: "清楚了",
           title: "不是答案，是下一步",
@@ -980,6 +995,10 @@ export const cases = [
   {
     id: "sunrise",
     owner: "jane",
+    // The three who need the reading — carer, care system, family — filled in as it reaches them.
+    mark: "person",
+    // The sign-in screen, live, behind a button — same address as the link.
+    demo: { en: "https://agecare-1.onrender.com/login", zh: "https://agecare-1.onrender.com/login" },
     image: "/ip/sunrise-01-arriving.webp",
     ratio: "548 / 1096",
     split: { jane: 100, jenny: 0 },
@@ -1104,6 +1123,8 @@ export const cases = [
   {
     id: "skills",
     owner: "jane",
+    // The six things on the desk, filled in as they are handed off.
+    mark: "box",
     image: "/ip/skills-04-highfive.webp",
     // Wider than the other sets: the floating objects sit either side of her.
     ratio: "548 / 961",
@@ -1142,16 +1163,16 @@ export const cases = [
         fill: 0,
         segments: 6,
         en: {
-          meter: "6",
-          meterCap: "in her head, still",
+          meter: "3",
+          meterCap: "with someone waiting",
           label: "Something turned up",
           word: "Noticed",
           title: "It asked one question",
           body: "Not \"how can I help\" — \"which of these has a person waiting on it?\" Three did. That was the first time all day the six had an order.",
         },
         zh: {
-          meter: "6 件",
-          meterCap: "还在脑子里",
+          meter: "3 件",
+          meterCap: "有人在等",
           label: "有东西出现了",
           word: "抬头了",
           title: "它只问了一句",
