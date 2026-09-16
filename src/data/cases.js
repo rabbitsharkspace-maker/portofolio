@@ -697,7 +697,9 @@ export const cases = [
     image: "/ip/realheart-04-together.webp",
     ratio: "760 / 1294",
     split: { jane: 100, jenny: 0 },
-    link: null,
+    // Linked, not embedded: the app sleeps on a free Render dyno, and a cold
+    // visit would hang the frame on a loading state for most of a minute.
+    link: "https://realheart.onrender.com",
     /*
      * The other person is a flat silhouette in three of the four beats and is
      * never given a face — which is the product, not a shortcut around drawing
@@ -829,6 +831,147 @@ export const cases = [
         zh: {
           q: "是轮廓，不是打码的照片",
           a: "还看不见的那个人画成扁平剪影，而不是模糊或马赛克的头像。打码的意思是「有照片但不给你看」，剪影的意思是「还没到看照片的时候」——后者才是实际情况。",
+        },
+      },
+    ],
+  },
+
+  {
+    id: "tarot",
+    owner: "jane",
+    image: "/ip/tarot-04-forward.webp",
+    ratio: "548 / 1096",
+    split: { jane: 100, jenny: 0 },
+    // The name and the link are placeholders until the product has both.
+    link: null,
+    /*
+     * Three cards, and the counter is how many are turned: none while it still
+     * hurts, one once the question is asked, all three read, and all three at
+     * the end — the reading does not keep going past the spread.
+     */
+    scenes: [
+      {
+        art: "/ip/tarot-01-broken.webp",
+        fill: 0,
+        segments: 3,
+        en: {
+          meter: "0",
+          meterCap: "of three cards",
+          label: "After the breakup",
+          word: "Broken",
+          title: "It ended, and the question didn't",
+          body: "The relationship is over. The question — what now — is not, and at two in the morning there is nobody to ask who will not say the same three things.",
+        },
+        zh: {
+          meter: "0 张",
+          meterCap: "三张牌",
+          label: "分手之后",
+          word: "碎了",
+          title: "关系结束了，问题没有",
+          body: "关系是结束了。「那现在怎么办」没有——凌晨两点，能问的人翻来覆去只会说那三句话",
+        },
+      },
+      {
+        art: "/ip/tarot-02-asking.webp",
+        fill: 0.34,
+        segments: 3,
+        en: {
+          meter: "1",
+          meterCap: "of three cards",
+          label: "Three cards",
+          word: "Asked",
+          title: "Say it out loud, then draw",
+          body: "You type the actual question — not 'will we get back together' but the one under it. Then you draw three cards, and the app does not pretend the cards decide anything.",
+        },
+        zh: {
+          meter: "1 张",
+          meterCap: "三张牌",
+          label: "三张牌",
+          word: "问出口",
+          title: "先把问题说出来，再抽",
+          body: "你打的是真正的问题——不是「我们会复合吗」，是它底下那个。然后抽三张，软件不假装是牌在做决定",
+        },
+      },
+      {
+        art: "/ip/tarot-03-reading.webp",
+        fill: 1,
+        segments: 3,
+        en: {
+          meter: "3",
+          meterCap: "of three cards",
+          label: "The reading",
+          word: "Read",
+          title: "What the three of them say together",
+          body: "Past, present, and the thing you keep circling. The reading is written to your question and to what you said about the last six months, not to the card's stock meaning — which is why it is allowed to be gentle without being vague.",
+        },
+        zh: {
+          meter: "3 张",
+          meterCap: "三张牌",
+          label: "解读",
+          word: "读懂了",
+          title: "三张牌放在一起说了什么",
+          body: "过去、现在、和你一直绕着走的那件事。解读是对着你的问题和你说的那六个月写的，不是对着牌的标准释义——所以它可以温和，但不含糊",
+        },
+      },
+      {
+        art: "/ip/tarot-04-forward.webp",
+        fill: 1,
+        segments: 3,
+        en: {
+          meter: "3",
+          meterCap: "read, and done",
+          label: "This week",
+          word: "Clearer",
+          title: "Not an answer. A next step.",
+          body: "It ends with one thing to do this week — small enough to actually do. Nobody is told the cards say to text him. The point was never the future. It was getting you to say what you already knew.",
+        },
+        zh: {
+          meter: "3 张",
+          meterCap: "读完了",
+          label: "这一周",
+          word: "清楚了",
+          title: "不是答案，是下一步",
+          body: "结尾是这周可以做的一件事——小到真的做得到。没人会被告知「牌说你该给他发消息」。重点从来不是未来，是让你把已经知道的事说出口",
+        },
+      },
+    ],
+    en: {
+      name: "Tarot & love reading",
+      kind: "Love-reading companion · 2025",
+      problem:
+        "After a breakup the question is not whether it hurts. It is what to do next — and everyone you could ask has already picked a side.",
+      did: "Product concept, the reading flow, interface design and brand.",
+      metric: { value: "3 cards", label: "one thing to do this week" },
+    },
+    zh: {
+      name: "塔罗恋爱分析",
+      kind: "恋爱解读 · 2025",
+      problem:
+        "分手之后，问题不是疼不疼，是接下来怎么办——而所有能问的人早就站好队了。",
+      did: "产品概念、解读流程、界面设计与品牌。",
+      metric: { value: "3 张牌", label: "这周做一件事" },
+    },
+    notes: [
+      {
+        by: "jane",
+        en: {
+          q: "The question comes before the cards",
+          a: "The reading cannot start until the question is typed in full. A one-line prompt with no minimum let people draw for \"him\" and get a reading about nobody; asking for the real question first is what makes the reading specific.",
+        },
+        zh: {
+          q: "先问，再抽牌",
+          a: "没把问题完整打出来，就抽不了牌。之前一行没有下限的输入框，让人打个「他」就抽，读出来是关于没有人的解读；先要真正的问题，解读才有对象。",
+        },
+      },
+      {
+        by: "jane",
+        en: {
+          q: "Ends on an action, not a forecast",
+          a: "The last screen is a single suggested step, dated this week, with a checkbox. A prediction leaves someone waiting to see whether it comes true; a small task leaves them with something to do on Tuesday.",
+        },
+        zh: {
+          q: "结尾是一件事，不是预言",
+          a: "最后一屏是一个建议的小步骤，标着本周，带一个勾选框。预言让人等着看会不会应验；一件小事让人周二有事可做。",
         },
       },
     ],
