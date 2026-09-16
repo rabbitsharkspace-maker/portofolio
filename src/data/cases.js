@@ -1100,6 +1100,148 @@ export const cases = [
       },
     ],
   },
+
+  {
+    id: "skills",
+    owner: "jane",
+    image: "/ip/skills-04-highfive.webp",
+    // Wider than the other sets: the floating objects sit either side of her.
+    ratio: "548 / 961",
+    split: { jane: 100, jenny: 0 },
+    link: null,
+    /*
+     * The counter is what she still has to hold in her head: six, six again
+     * once the helper turns up (arriving is not sorting), one when it is a
+     * list, none at four o'clock. The rail runs the other way — it fills as
+     * things are handed off — so it reads as relief, not as a pile.
+     */
+    scenes: [
+      {
+        art: "/ip/skills-01-hiding.webp",
+        fill: 0,
+        segments: 6,
+        en: {
+          meter: "6",
+          meterCap: "in her head",
+          label: "Tuesday",
+          word: "Under",
+          title: "Everything, at once, all of it hers",
+          body: "Six things are on her, none of them big, all of them due. The phone, the invoice, the friend she has owed a reply since March. The list is not long. It is that every item is a person.",
+        },
+        zh: {
+          meter: "6 件",
+          meterCap: "都在脑子里",
+          label: "周二",
+          word: "顶不住",
+          title: "什么都是，什么都得她",
+          body: "六件事压在她身上，没一件大，件件都到期了。电话、发票、三月起就欠着一句回复的朋友。清单不长。是每一条背后都是一个人",
+        },
+      },
+      {
+        art: "/ip/skills-02-helper.webp",
+        fill: 0,
+        segments: 6,
+        en: {
+          meter: "6",
+          meterCap: "in her head, still",
+          label: "Something turned up",
+          word: "Noticed",
+          title: "It asked one question",
+          body: "Not \"how can I help\" — \"which of these has a person waiting on it?\" Three did. That was the first time all day the six had an order.",
+        },
+        zh: {
+          meter: "6 件",
+          meterCap: "还在脑子里",
+          label: "有东西出现了",
+          word: "抬头了",
+          title: "它只问了一句",
+          body: "不是「我能帮什么」，是「这里面哪几件有人在等」。三件。这是一整天里六件事第一次有了先后",
+        },
+      },
+      {
+        art: "/ip/skills-03-sorted.webp",
+        fill: 0.834,
+        segments: 6,
+        en: {
+          meter: "1",
+          meterCap: "in her head — the list",
+          label: "One list",
+          word: "Sorted",
+          title: "Six things, one column, today's on top",
+          body: "The three with people waiting went first, with a draft reply already under each. The invoice moved to Thursday, because that is when it is actually due. Nothing was done for her. It was put where she could reach it.",
+        },
+        zh: {
+          meter: "1 件",
+          meterCap: "在脑子里——那张清单",
+          label: "一张清单",
+          word: "理顺了",
+          title: "六件事，一列，今天的在最上面",
+          body: "有人等着的三件排在前面，每件底下已经有一句草拟的回复。发票挪到了周四，因为它真正到期是周四。没有一件是替她做的。是放到了她伸手够得着的地方",
+        },
+      },
+      {
+        art: "/ip/skills-04-highfive.webp",
+        fill: 1,
+        segments: 6,
+        en: {
+          meter: "0",
+          meterCap: "in her head",
+          label: "Done by four",
+          word: "Done",
+          title: "Then the high five",
+          body: "Six sent, one of them the March reply. The assistant did not do her day; it made her day the right length. She has skills for this now — reminders that know which items are people, follow-ups that come back on their own — and a hand to slap at four o'clock.",
+        },
+        zh: {
+          meter: "0 件",
+          meterCap: "脑子里空了",
+          label: "四点前做完",
+          word: "做完了",
+          title: "然后击掌",
+          body: "六件都发出去了，包括三月欠的那句。助手没有替她过这一天，它把这一天变成了对的长度。现在她有了一套自己的 skills——分得清哪条背后是人的提醒、会自己回来的跟进——以及四点钟能击一下的手",
+        },
+      },
+    ],
+    en: {
+      name: "Jane AI Skills",
+      kind: "Personal assistant skills · 2025",
+      problem:
+        "The list is never long. It is that every item is a person — the reply owed, the follow-up promised, the parent to ring — and a to-do app treats them all like the invoice.",
+      did: "The skill set: reminders that know which items are people, follow-ups that return on their own, and a daily order that puts the waiting ones first.",
+      metric: { value: "6 → 0", label: "on her plate by four o'clock" },
+    },
+    zh: {
+      name: "Jane AI Skills",
+      kind: "个人助手 skills · 2025",
+      problem:
+        "清单从来不长。难的是每一条背后都是一个人——欠的回复、答应的跟进、该打给爸妈的电话——而待办软件把它们都当成发票。",
+      did: "一套 skills：分得清哪条背后是人的提醒、会自己回来的跟进、把有人在等的排在前面的每日顺序。",
+      metric: { value: "6 → 0", label: "四点前清空" },
+    },
+    notes: [
+      {
+        by: "jane",
+        en: {
+          q: "People first, by design",
+          a: "Every item can be tagged with who is waiting on it. The daily order sorts tagged items above untagged ones before it sorts by date, so a reply owed to a friend outranks a form due the same day.",
+        },
+        zh: {
+          q: "先人后事",
+          a: "每一条都可以标上是谁在等。每日排序先把标了人的放到没标的前面，再按日期排——所以欠朋友的一句回复，排在同一天到期的一张表格前面。",
+        },
+      },
+      {
+        by: "jane",
+        en: {
+          q: "Follow-ups that come back",
+          a: "A follow-up is set with a return date, not a reminder time. On that date it reappears at the top with the original thread attached, so nothing has to be searched for before it can be answered.",
+        },
+        zh: {
+          q: "会自己回来的跟进",
+          a: "跟进设的是回来的日期，不是提醒时间。到那天它带着原来的对话回到最上面，回复之前不用再翻找。",
+        },
+      },
+    ],
+  },
 ]
 
 export const featuredIds = cases.map((c) => c.id)
