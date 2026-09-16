@@ -74,6 +74,9 @@
 .cabinet-photo img { width:100%; display:block; aspect-ratio:1.45; object-fit:cover; object-position:top; border:1px solid #d7c9d7; }
 .cabinet-photo-caption { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:17px 3px; font:italic 18px Georgia,"Songti SC",serif; }
 .cabinet-photo-caption small { font:8px ui-monospace,monospace; white-space:nowrap; }
+/* The client sits on the attribution line but must not compete with the
+   maker's name, which is the thing being credited. */
+.cabinet-photo-caption small em { font-style:normal; color:var(--dim); }
 .cabinet-paperclip { width:22px; height:65px; border:2px solid #958692; border-radius:20px; position:absolute; top:-18px; right:25px; z-index:2; transform:rotate(13deg); box-shadow:inset 3px 0 0 #fff9; }
 .cabinet-description { font-size:13px; line-height:1.85; color:var(--dim); margin-top:30px; }
 /*

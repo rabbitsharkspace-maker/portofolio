@@ -90,6 +90,20 @@ export function WorkShelf({ items, id = 'all-work' }) {
   // Whatever the work itself says it is reachable at. Films have no homepage;
   // they play here, and `watch` is the same cut on YouTube for anyone who wants it.
   const link = active.link || (film ? null : active.embed) || null
+  /*
+   * Who made it, and for whom. A commissioned piece is usually named after the
+   * client, because the thing we built is their site — repeating that name on
+   * the credit line reads as a stutter, so it names the relationship instead
+   * and saves the name for the cases where it adds something.
+   */
+  const maker = active.owner === 'both' ? 'Jane + Jenny' : active.owner === 'jane' ? 'Jane' : 'Jenny'
+  const forWhom = active.client?.[lang]
+    // Contains, not equals: the Chinese title carries the English name beside
+    // the Chinese one, so the client is a part of it rather than all of it.
+    ? active[lang].name.includes(active.client[lang])
+      ? (zh ? '\u5ba2\u6237\u9879\u76ee' : 'client work')
+      : `${zh ? '\u53d7\u6258\u4e8e' : 'for '}${active.client[lang]}`
+    : null
   const cover = <div className="cabinet-type-cover"><span>{active[lang].kind}</span><strong aria-hidden="true">{active.id === 'ticketing' ? '100+' : active.id === 'championship' ? '▶' : '✳'}</strong><p>{active[lang].name}</p></div>
   return <section id={id} className={`work-cabinet${playing && demo ? ' cabinet-open' : ''}`}>
     {playing && cinema && <div className={`cinema-stage curtain-${curtain}`} ref={stage}>
@@ -110,7 +124,7 @@ export function WorkShelf({ items, id = 'all-work' }) {
         ? <iframe src={demo} title={`${active[lang].name} — ${zh ? '可以上手的演示' : 'interactive demo'}`} />
         : film ? <button type="button" className="cabinet-play" onClick={()=>{setCurtain('shut');setPlaying(true)}} aria-label={zh ? `播放 ${active[lang].name}` : `Play ${active[lang].name}`}>{still ? <img src={still} alt={`${active[lang].name} — ${zh ? '影片封面' : 'film cover'}`} loading="lazy" /> : cover}</button>
         : still ? <img src={still} alt={active[lang].name} loading="lazy" />
-        : cover}<div className="cabinet-photo-caption"><span>{active[lang].name}</span><small>{active.owner === 'both' ? 'Jane + Jenny' : active.owner === 'jane' ? 'Jane' : 'Jenny'}</small></div></div>
+        : cover}<div className="cabinet-photo-caption"><span>{active[lang].name}</span><small>{maker}{forWhom && <em> · {forWhom}</em>}</small></div></div>
       {active[lang].ground && <p className="work-ground" style={ACCENT[active.owner] ? {'--ground-ink':ACCENT[active.owner]} : undefined}>{active[lang].ground}</p>}<p className="cabinet-description">{active[lang].what}</p>
       {film && !playing && <button type="button" className="quiet-link" onClick={()=>{setCurtain('shut');setPlaying(true)}}>{zh ? '播放影片' : 'Play the film'} ▶</button>}
       {demo && !playing && <button type="button" className="quiet-link" onClick={()=>{setCurtain('shut');setPlaying(true)}}>{zh ? '在这里试试' : 'Try it here'} ↵</button>}
