@@ -302,6 +302,20 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
 .scroller-card-icon { width:11px; height:11px; flex:none; }
 .scroller-card h5 { font:600 13px/1.3 Arial,"PingFang SC",sans-serif; color:#241d2c; margin:6px 0 5px; }
 .scroller-card p:last-child { font:12px/1.55 Arial,"PingFang SC",sans-serif; color:#5a5165; }
+/*
+ * The count in the product's own shape, along the foot of the panel where a
+ * Kno card would sit: hearts, cards, people, boxes. Lit ones are solid accent,
+ * the rest are outlines at a whisper, so the row reads as "how far" before it
+ * reads as a picture. --glyph is set per case from how many there are — fifteen
+ * hearts have to be small to fit, three cards can afford to be large.
+ */
+.scroller-tally { display:flex; justify-content:center; align-items:flex-end; gap:calc(var(--glyph) * .28); padding:0 18px 22px; }
+.scroller-tally svg { width:var(--glyph); height:var(--glyph); fill:none; stroke:var(--accent); stroke-width:1.4; opacity:.28; }
+.scroller-tally svg.is-lit { fill:var(--accent); stroke:var(--accent); opacity:.92; }
+/* The score itself, set large and faint behind her — a case whose unit is a
+   percentage has nothing to count, so the number is the mark. */
+.scroller-figure { display:flex; align-items:flex-start; padding:10px 0 0 18px; }
+.scroller-figure span { font:400 clamp(96px,15vw,190px)/1 Georgia,"Songti SC",serif; letter-spacing:-.06em; color:var(--accent); opacity:.13; }
 .scroller-stage::after { align-self:center; width:52%; height:18px; margin-top:calc(var(--beat) / 2 - 34px); background:#2a213226; filter:blur(11px); border-radius:50%; }
 /*
  * Half a scrollport of air at each end. Without it the first and last beats
