@@ -195,19 +195,35 @@ export const works = [
     address: "Sharon ECC — course platform for a culture and leadership educator",
     // The home page as it stands, at the width the rest of the wall is shot at.
     image: "/ip/sharonecc.webp",
+    /*
+     * Whose it is. Printed next to the maker's name in the caption, because
+     * that line is where attribution already lives and "Jenny" alone read as
+     * though the studio owned the platform.
+     *
+     * Only this entry carries one so far. Other commissioned work on this wall
+     * could take the same field once we know what each client wants to be
+     * called in public.
+     */
+    client: { en: "Sharon ECC", zh: "沙仑创库中心" },
+    /*
+     * No `ground` here, on purpose. That field is the maker's own stake in a
+     * thing — Serene is a call Jenny has taken herself, Sunrise Care is the
+     * round Jane works — and it renders as a quotation in her own accent
+     * colour. This is commissioned work. Giving it the same line filed a
+     * client's platform alongside the two projects that came out of our own
+     * lives, and read as though the studio owned it.
+     */
     en: {
       name: "Sharon ECC",
       kind: "Course and membership platform",
-      ground: "Her last site was built for her. She could not move a single button on it.",
-      what: "Courses with free preview chapters, WeChat Pay and Alipay at the till, and a member area that keeps what you bought. She rearranges the modules herself.",
-      who: "For an educator who had been renting shelf space on somebody else's platform.",
+      what: "Courses with free preview chapters, WeChat Pay and Alipay at the till, a member area that keeps what was bought, and modules the owner edits herself.",
+      who: "Commissioned by Sharon ECC, a culture and leadership school.",
     },
     zh: {
       name: "Sharon ECC · 沙仑创库中心",
       kind: "课程与会员平台",
-      ground: "上一个网站是别人做给她的,她连一个按钮都动不了",
-      what: "课程可以免费试看,微信和支付宝直接收款,买过的永久留在会员中心。模块她自己排",
-      who: "给一位一直把课寄放在别人平台上的讲师",
+      what: "课程可以免费试看，微信和支付宝直接收款，买过的永久留在会员中心，模块由她自己编辑",
+      who: "受 Sharon ECC 沙仑创库中心之托而做",
     },
   },
   {
