@@ -246,6 +246,17 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
 .scroller-beats { grid-column:1; grid-row:1; }
 .exhibition-kno .case-scroller { --scene:#dee3ef; }
 /*
+ * On Jane's page she stands on the left and the writing runs down the right —
+ * the mirror of Jenny's. Same idea as the two-direction note above, applied to
+ * the two people rather than to two cases: her wall and his do not share a
+ * template. Desktop only; under 760px both stack, and the stage goes on top.
+ */
+@media (min-width:761px) {
+ html[data-world="jane"] .case-scroller { grid-template-columns:minmax(240px,.78fr) 1fr; }
+ html[data-world="jane"] .scroller-stage { grid-column:1; }
+ html[data-world="jane"] .scroller-beats { grid-column:2; }
+}
+/*
  * `grid-template-rows` has to be stated. Left implicit the row is `auto`, the
  * 1100px still sizes it, and the img's own `max-height:100%` then resolves
  * against that same 1100px — so she rendered at full size and overflowed the
