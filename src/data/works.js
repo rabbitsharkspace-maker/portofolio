@@ -19,7 +19,10 @@ export const works = [
      * cold visit hung the wall on a black rectangle for the better part of a
      * minute — the frame was showing a loading state, not the product.
      */
-    image: "/ip/serene.webp",
+    // Serene's interface is the one on this site that exists in two
+    // languages, so the plate has to as well. Paired here to match
+    // cases.js: unpaired, an English reader meets a Chinese screenshot.
+    image: { en: "/ip/serene-en.webp", zh: "/ip/serene.webp" },
     en: {
       name: "Serene",
       kind: "A landing copilot for newcomers",
