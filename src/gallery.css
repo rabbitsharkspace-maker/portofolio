@@ -116,11 +116,31 @@
 .notes-ui-language { font-size:12px; line-height:1.75; color:#6b5f72; max-width:62ch; margin:14px 0 -6px; }
 .exhibition-note-grid details.has-shot[open] { grid-column:1/-1; }
 .note-body { display:grid; gap:24px; }
-details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); align-items:start; }
+/*
+ * The capture is the evidence, so it gets the width.
+ *
+ * Two columns handed 530px to a paragraph 94px tall and squeezed a 1600px
+ * screenshot into 663px — 41% — which is below the size the thing the note
+ * points at survives: a visa subclass, a countdown, an hourly rate. The
+ * reader was being asked to take the sentence on trust while the proof sat
+ * next to it unreadable. Stacked, the same capture lands near 76%.
+ *
+ * The prose does not follow it out to full width. A 1200px measure is its
+ * own kind of unreadable.
+ */
+details.has-shot[open] .note-body { align-items:start; }
+details.has-shot[open] .note-body > p { max-width:68ch; }
 .note-shot { margin:0; }
 .note-shot figcaption { font-size:11px; line-height:1.7; color:#6b5f72; margin-top:9px; }
-.note-body img { display:block; width:100%; height:auto; border:1px solid #c5b5d2; border-radius:3px; box-shadow:0 10px 24px #302b3a1a; }
-@media (max-width:760px) { details.has-shot[open] .note-body { grid-template-columns:1fr; gap:16px; } }.exhibition-note-grid details { padding:19px; border-top:1px solid #a78cb9; background:#eee7f1; }
+/*
+ * Never upscale. `width:100%` would stretch a 1000px capture across a
+ * 1217px column and hand back a blurrier picture than the one we had —
+ * Serene's shots are 1000px and MKR's are 1600px, so a single percentage
+ * cannot serve both. `auto` with a cap downscales the big ones and leaves
+ * the small ones at native size.
+ */
+.note-body img { display:block; width:auto; max-width:100%; height:auto; border:1px solid #c5b5d2; border-radius:3px; box-shadow:0 10px 24px #302b3a1a; }
+@media (max-width:760px) { details.has-shot[open] .note-body { gap:16px; } }.exhibition-note-grid details { padding:19px; border-top:1px solid #a78cb9; background:#eee7f1; }
 .exhibition-note-grid summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1fr auto; align-items:center; gap:8px; }
 .exhibition-note-grid summary span { grid-column:1/-1; font:9px ui-monospace,monospace; color:#897095; }
 .exhibition-note-grid h4 { font:20px Georgia,"Songti SC",serif; }
