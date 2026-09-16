@@ -976,6 +976,130 @@ export const cases = [
       },
     ],
   },
+
+  {
+    id: "sunrise",
+    owner: "jane",
+    image: "/ip/sunrise-01-arriving.webp",
+    ratio: "548 / 1096",
+    split: { jane: 100, jenny: 0 },
+    // The sign-in screen, same as works.js: it is what a carer opens at seven
+    // in the morning, so the click lands where the picture promised.
+    link: "https://agecare-1.onrender.com/login",
+    /*
+     * Three beats, not four — the report reaching the family is not a picture
+     * of a tablet, it is the reason she has a hand free in the last one.
+     *
+     * The counter is who has the reading: nobody on arrival, the carer once it
+     * is written, and all three — carer, care system, family — by the time she
+     * sits down. That is the whole product in one number.
+     */
+    scenes: [
+      {
+        art: "/ip/sunrise-01-arriving.webp",
+        fill: 0,
+        segments: 3,
+        en: {
+          meter: "0",
+          meterCap: "of three told",
+          label: "The round",
+          word: "Here",
+          title: "Eight visits before lunch",
+          body: "A care round is a list of homes and a bag. The visit is twenty minutes; the notes on it used to be another ten, written in the car outside the next one.",
+        },
+        zh: {
+          meter: "0 方",
+          meterCap: "知道了",
+          label: "这一轮",
+          word: "到了",
+          title: "午饭前八家",
+          body: "一轮照护就是一张地址单和一个包。上门二十分钟，记录原来还要十分钟——坐在车里，在下一家门口写",
+        },
+      },
+      {
+        art: "/ip/sunrise-02-recording.webp",
+        fill: 0.34,
+        segments: 3,
+        en: {
+          meter: "1",
+          meterCap: "of three told",
+          label: "One reading, once",
+          word: "Logged",
+          title: "Say it once. It goes everywhere.",
+          body: "Blood pressure, meds taken, how she slept, what she ate. Entered once, on the spot. The care plan, the shift handover and the family update are filled from the same four lines — nobody types them again.",
+        },
+        zh: {
+          meter: "1 方",
+          meterCap: "知道了",
+          label: "只记一次",
+          word: "记下了",
+          title: "说一次，到处都有",
+          body: "血压、吃没吃药、睡得怎样、吃了什么。当场记一次。照护计划、交班记录、给家属的更新，都从这四行里生成——没人再打第二遍",
+        },
+      },
+      {
+        art: "/ip/sunrise-03-hands.webp",
+        fill: 1,
+        segments: 3,
+        en: {
+          meter: "3",
+          meterCap: "of three told",
+          label: "The time it gives back",
+          word: "Present",
+          title: "The paperwork is done. She isn't.",
+          body: "By the time she is sitting with her, the numbers are already with the care system and on her daughter's phone. That is what the ten minutes were for — not the form. This.",
+        },
+        zh: {
+          meter: "3 方",
+          meterCap: "知道了",
+          label: "省下的那十分钟",
+          word: "陪着",
+          title: "表格填完了，人还在",
+          body: "等她坐下来握着老人的手，数据已经到了养老系统，也到了女儿的手机上。省下的那十分钟就是为了这个——不是为了表格，是为了这一刻",
+        },
+      },
+    ],
+    en: {
+      name: "Sunrise Care",
+      kind: "AI caregiver support · 2025",
+      problem:
+        "A carer's day is twenty-minute visits and ten-minute forms, and the forms are the part that stays late. The same four numbers get typed into three places, and the daughter still rings to ask.",
+      did: "Product concept, the round-and-report flow, interface design and brand — built for the round Jane works herself.",
+      metric: { value: "1 → 3", label: "one entry, three places" },
+    },
+    zh: {
+      name: "Sunrise Care",
+      kind: "AI 照护支持平台 · 2025",
+      problem:
+        "护工的一天是二十分钟一家的上门和十分钟一家的表格，加班的永远是表格那部分。同样四个数字要敲进三个地方，女儿还是会打电话来问。",
+      did: "产品概念、上门与汇报流程、界面设计与品牌——做给 Jane 自己在跑的那一轮。",
+      metric: { value: "1 → 3", label: "记一次，三处都有" },
+    },
+    notes: [
+      {
+        by: "jane",
+        en: {
+          q: "One form, three readers",
+          a: "The visit note has one entry screen. Saving it writes the care plan line, the handover entry and the family notice at once, each in its own wording — the family gets \"slept well, ate lunch\", not the field names.",
+        },
+        zh: {
+          q: "一张表，三个读者",
+          a: "上门记录只有一个录入页。保存时同时写入照护计划、交班记录和家属通知，各用各的措辞——家属看到的是「睡得好，午饭吃了」，不是字段名。",
+        },
+      },
+      {
+        by: "jane",
+        en: {
+          q: "Sign-in is the front door",
+          a: "The wall links to the sign-in screen rather than a landing page, because that is the screen a carer actually opens at seven in the morning. The link lands where the picture promised.",
+        },
+        zh: {
+          q: "登录页就是正门",
+          a: "墙上链的是登录页而不是介绍页，因为护工早上七点打开的就是这一屏。点过去，落在图上承诺的那个地方。",
+        },
+      },
+    ],
+  },
 ]
 
 export const featuredIds = cases.map((c) => c.id)
