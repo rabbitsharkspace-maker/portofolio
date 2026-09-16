@@ -697,7 +697,9 @@ export const cases = [
     image: "/ip/realheart-04-together.webp",
     ratio: "760 / 1294",
     split: { jane: 100, jenny: 0 },
-    link: null,
+    // Linked, not embedded: the app sleeps on a free Render dyno, and a cold
+    // visit would hang the frame on a loading state for most of a minute.
+    link: "https://realheart.onrender.com",
     /*
      * The other person is a flat silhouette in three of the four beats and is
      * never given a face — which is the product, not a shortcut around drawing
@@ -829,6 +831,413 @@ export const cases = [
         zh: {
           q: "是轮廓，不是打码的照片",
           a: "还看不见的那个人画成扁平剪影，而不是模糊或马赛克的头像。打码的意思是「有照片但不给你看」，剪影的意思是「还没到看照片的时候」——后者才是实际情况。",
+        },
+      },
+    ],
+  },
+
+  {
+    id: "tarot",
+    owner: "jane",
+    image: "/ip/tarot-04-forward.webp",
+    ratio: "548 / 1096",
+    split: { jane: 100, jenny: 0 },
+    // The name and the link are placeholders until the product has both.
+    link: null,
+    /*
+     * Three cards, and the counter is how many are turned: none while it still
+     * hurts, one once the question is asked, all three read, and all three at
+     * the end — the reading does not keep going past the spread.
+     */
+    scenes: [
+      {
+        art: "/ip/tarot-01-broken.webp",
+        fill: 0,
+        segments: 3,
+        en: {
+          meter: "0",
+          meterCap: "of three cards",
+          label: "After the breakup",
+          word: "Broken",
+          title: "It ended, and the question didn't",
+          body: "The relationship is over. The question — what now — is not, and at two in the morning there is nobody to ask who will not say the same three things.",
+        },
+        zh: {
+          meter: "0 张",
+          meterCap: "三张牌",
+          label: "分手之后",
+          word: "碎了",
+          title: "关系结束了，问题没有",
+          body: "关系是结束了。「那现在怎么办」没有——凌晨两点，能问的人翻来覆去只会说那三句话",
+        },
+      },
+      {
+        art: "/ip/tarot-02-asking.webp",
+        fill: 0.34,
+        segments: 3,
+        en: {
+          meter: "1",
+          meterCap: "of three cards",
+          label: "Three cards",
+          word: "Asked",
+          title: "Say it out loud, then draw",
+          body: "You type the actual question — not 'will we get back together' but the one under it. Then you draw three cards, and the app does not pretend the cards decide anything.",
+        },
+        zh: {
+          meter: "1 张",
+          meterCap: "三张牌",
+          label: "三张牌",
+          word: "问出口",
+          title: "先把问题说出来，再抽",
+          body: "你打的是真正的问题——不是「我们会复合吗」，是它底下那个。然后抽三张，软件不假装是牌在做决定",
+        },
+      },
+      {
+        art: "/ip/tarot-03-reading.webp",
+        fill: 1,
+        segments: 3,
+        en: {
+          meter: "3",
+          meterCap: "of three cards",
+          label: "The reading",
+          word: "Read",
+          title: "What the three of them say together",
+          body: "Past, present, and the thing you keep circling. The reading is written to your question and to what you said about the last six months, not to the card's stock meaning — which is why it is allowed to be gentle without being vague.",
+        },
+        zh: {
+          meter: "3 张",
+          meterCap: "三张牌",
+          label: "解读",
+          word: "读懂了",
+          title: "三张牌放在一起说了什么",
+          body: "过去、现在、和你一直绕着走的那件事。解读是对着你的问题和你说的那六个月写的，不是对着牌的标准释义——所以它可以温和，但不含糊",
+        },
+      },
+      {
+        art: "/ip/tarot-04-forward.webp",
+        fill: 1,
+        segments: 3,
+        en: {
+          meter: "3",
+          meterCap: "read, and done",
+          label: "This week",
+          word: "Clearer",
+          title: "Not an answer. A next step.",
+          body: "It ends with one thing to do this week — small enough to actually do. Nobody is told the cards say to text him. The point was never the future. It was getting you to say what you already knew.",
+        },
+        zh: {
+          meter: "3 张",
+          meterCap: "读完了",
+          label: "这一周",
+          word: "清楚了",
+          title: "不是答案，是下一步",
+          body: "结尾是这周可以做的一件事——小到真的做得到。没人会被告知「牌说你该给他发消息」。重点从来不是未来，是让你把已经知道的事说出口",
+        },
+      },
+    ],
+    en: {
+      name: "Tarot & love reading",
+      kind: "Love-reading companion · 2025",
+      problem:
+        "After a breakup the question is not whether it hurts. It is what to do next — and everyone you could ask has already picked a side.",
+      did: "Product concept, the reading flow, interface design and brand.",
+      metric: { value: "3 cards", label: "one thing to do this week" },
+    },
+    zh: {
+      name: "塔罗恋爱分析",
+      kind: "恋爱解读 · 2025",
+      problem:
+        "分手之后，问题不是疼不疼，是接下来怎么办——而所有能问的人早就站好队了。",
+      did: "产品概念、解读流程、界面设计与品牌。",
+      metric: { value: "3 张牌", label: "这周做一件事" },
+    },
+    notes: [
+      {
+        by: "jane",
+        en: {
+          q: "The question comes before the cards",
+          a: "The reading cannot start until the question is typed in full. A one-line prompt with no minimum let people draw for \"him\" and get a reading about nobody; asking for the real question first is what makes the reading specific.",
+        },
+        zh: {
+          q: "先问，再抽牌",
+          a: "没把问题完整打出来，就抽不了牌。之前一行没有下限的输入框，让人打个「他」就抽，读出来是关于没有人的解读；先要真正的问题，解读才有对象。",
+        },
+      },
+      {
+        by: "jane",
+        en: {
+          q: "Ends on an action, not a forecast",
+          a: "The last screen is a single suggested step, dated this week, with a checkbox. A prediction leaves someone waiting to see whether it comes true; a small task leaves them with something to do on Tuesday.",
+        },
+        zh: {
+          q: "结尾是一件事，不是预言",
+          a: "最后一屏是一个建议的小步骤，标着本周，带一个勾选框。预言让人等着看会不会应验；一件小事让人周二有事可做。",
+        },
+      },
+    ],
+  },
+
+  {
+    id: "sunrise",
+    owner: "jane",
+    image: "/ip/sunrise-01-arriving.webp",
+    ratio: "548 / 1096",
+    split: { jane: 100, jenny: 0 },
+    // The sign-in screen, same as works.js: it is what a carer opens at seven
+    // in the morning, so the click lands where the picture promised.
+    link: "https://agecare-1.onrender.com/login",
+    /*
+     * Three beats, not four — the report reaching the family is not a picture
+     * of a tablet, it is the reason she has a hand free in the last one.
+     *
+     * The counter is who has the reading: nobody on arrival, the carer once it
+     * is written, and all three — carer, care system, family — by the time she
+     * sits down. That is the whole product in one number.
+     */
+    scenes: [
+      {
+        art: "/ip/sunrise-01-arriving.webp",
+        fill: 0,
+        segments: 3,
+        en: {
+          meter: "0",
+          meterCap: "of three told",
+          label: "The round",
+          word: "Here",
+          title: "Eight visits before lunch",
+          body: "A care round is a list of homes and a bag. The visit is twenty minutes; the notes on it used to be another ten, written in the car outside the next one.",
+        },
+        zh: {
+          meter: "0 方",
+          meterCap: "知道了",
+          label: "这一轮",
+          word: "到了",
+          title: "午饭前八家",
+          body: "一轮照护就是一张地址单和一个包。上门二十分钟，记录原来还要十分钟——坐在车里，在下一家门口写",
+        },
+      },
+      {
+        art: "/ip/sunrise-02-recording.webp",
+        fill: 0.34,
+        segments: 3,
+        en: {
+          meter: "1",
+          meterCap: "of three told",
+          label: "One reading, once",
+          word: "Logged",
+          title: "Say it once. It goes everywhere.",
+          body: "Blood pressure, meds taken, how she slept, what she ate. Entered once, on the spot. The care plan, the shift handover and the family update are filled from the same four lines — nobody types them again.",
+        },
+        zh: {
+          meter: "1 方",
+          meterCap: "知道了",
+          label: "只记一次",
+          word: "记下了",
+          title: "说一次，到处都有",
+          body: "血压、吃没吃药、睡得怎样、吃了什么。当场记一次。照护计划、交班记录、给家属的更新，都从这四行里生成——没人再打第二遍",
+        },
+      },
+      {
+        art: "/ip/sunrise-03-hands.webp",
+        fill: 1,
+        segments: 3,
+        en: {
+          meter: "3",
+          meterCap: "of three told",
+          label: "The time it gives back",
+          word: "Present",
+          title: "The paperwork is done. She isn't.",
+          body: "By the time she is sitting with her, the numbers are already with the care system and on her daughter's phone. That is what the ten minutes were for — not the form. This.",
+        },
+        zh: {
+          meter: "3 方",
+          meterCap: "知道了",
+          label: "省下的那十分钟",
+          word: "陪着",
+          title: "表格填完了，人还在",
+          body: "等她坐下来握着老人的手，数据已经到了养老系统，也到了女儿的手机上。省下的那十分钟就是为了这个——不是为了表格，是为了这一刻",
+        },
+      },
+    ],
+    en: {
+      name: "Sunrise Care",
+      kind: "AI caregiver support · 2025",
+      problem:
+        "A carer's day is twenty-minute visits and ten-minute forms, and the forms are the part that stays late. The same four numbers get typed into three places, and the daughter still rings to ask.",
+      did: "Product concept, the round-and-report flow, interface design and brand — built for the round Jane works herself.",
+      metric: { value: "1 → 3", label: "one entry, three places" },
+    },
+    zh: {
+      name: "Sunrise Care",
+      kind: "AI 照护支持平台 · 2025",
+      problem:
+        "护工的一天是二十分钟一家的上门和十分钟一家的表格，加班的永远是表格那部分。同样四个数字要敲进三个地方，女儿还是会打电话来问。",
+      did: "产品概念、上门与汇报流程、界面设计与品牌——做给 Jane 自己在跑的那一轮。",
+      metric: { value: "1 → 3", label: "记一次，三处都有" },
+    },
+    notes: [
+      {
+        by: "jane",
+        en: {
+          q: "One form, three readers",
+          a: "The visit note has one entry screen. Saving it writes the care plan line, the handover entry and the family notice at once, each in its own wording — the family gets \"slept well, ate lunch\", not the field names.",
+        },
+        zh: {
+          q: "一张表，三个读者",
+          a: "上门记录只有一个录入页。保存时同时写入照护计划、交班记录和家属通知，各用各的措辞——家属看到的是「睡得好，午饭吃了」，不是字段名。",
+        },
+      },
+      {
+        by: "jane",
+        en: {
+          q: "Sign-in is the front door",
+          a: "The wall links to the sign-in screen rather than a landing page, because that is the screen a carer actually opens at seven in the morning. The link lands where the picture promised.",
+        },
+        zh: {
+          q: "登录页就是正门",
+          a: "墙上链的是登录页而不是介绍页，因为护工早上七点打开的就是这一屏。点过去，落在图上承诺的那个地方。",
+        },
+      },
+    ],
+  },
+
+  {
+    id: "skills",
+    owner: "jane",
+    image: "/ip/skills-04-highfive.webp",
+    // Wider than the other sets: the floating objects sit either side of her.
+    ratio: "548 / 961",
+    split: { jane: 100, jenny: 0 },
+    link: null,
+    /*
+     * The counter is what she still has to hold in her head: six, six again
+     * once the helper turns up (arriving is not sorting), one when it is a
+     * list, none at four o'clock. The rail runs the other way — it fills as
+     * things are handed off — so it reads as relief, not as a pile.
+     */
+    scenes: [
+      {
+        art: "/ip/skills-01-hiding.webp",
+        fill: 0,
+        segments: 6,
+        en: {
+          meter: "6",
+          meterCap: "in her head",
+          label: "Tuesday",
+          word: "Under",
+          title: "Everything, at once, all of it hers",
+          body: "Six things are on her, none of them big, all of them due. The phone, the invoice, the friend she has owed a reply since March. The list is not long. It is that every item is a person.",
+        },
+        zh: {
+          meter: "6 件",
+          meterCap: "都在脑子里",
+          label: "周二",
+          word: "顶不住",
+          title: "什么都是，什么都得她",
+          body: "六件事压在她身上，没一件大，件件都到期了。电话、发票、三月起就欠着一句回复的朋友。清单不长。是每一条背后都是一个人",
+        },
+      },
+      {
+        art: "/ip/skills-02-helper.webp",
+        fill: 0,
+        segments: 6,
+        en: {
+          meter: "6",
+          meterCap: "in her head, still",
+          label: "Something turned up",
+          word: "Noticed",
+          title: "It asked one question",
+          body: "Not \"how can I help\" — \"which of these has a person waiting on it?\" Three did. That was the first time all day the six had an order.",
+        },
+        zh: {
+          meter: "6 件",
+          meterCap: "还在脑子里",
+          label: "有东西出现了",
+          word: "抬头了",
+          title: "它只问了一句",
+          body: "不是「我能帮什么」，是「这里面哪几件有人在等」。三件。这是一整天里六件事第一次有了先后",
+        },
+      },
+      {
+        art: "/ip/skills-03-sorted.webp",
+        fill: 0.834,
+        segments: 6,
+        en: {
+          meter: "1",
+          meterCap: "in her head — the list",
+          label: "One list",
+          word: "Sorted",
+          title: "Six things, one column, today's on top",
+          body: "The three with people waiting went first, with a draft reply already under each. The invoice moved to Thursday, because that is when it is actually due. Nothing was done for her. It was put where she could reach it.",
+        },
+        zh: {
+          meter: "1 件",
+          meterCap: "在脑子里——那张清单",
+          label: "一张清单",
+          word: "理顺了",
+          title: "六件事，一列，今天的在最上面",
+          body: "有人等着的三件排在前面，每件底下已经有一句草拟的回复。发票挪到了周四，因为它真正到期是周四。没有一件是替她做的。是放到了她伸手够得着的地方",
+        },
+      },
+      {
+        art: "/ip/skills-04-highfive.webp",
+        fill: 1,
+        segments: 6,
+        en: {
+          meter: "0",
+          meterCap: "in her head",
+          label: "Done by four",
+          word: "Done",
+          title: "Then the high five",
+          body: "Six sent, one of them the March reply. The assistant did not do her day; it made her day the right length. She has skills for this now — reminders that know which items are people, follow-ups that come back on their own — and a hand to slap at four o'clock.",
+        },
+        zh: {
+          meter: "0 件",
+          meterCap: "脑子里空了",
+          label: "四点前做完",
+          word: "做完了",
+          title: "然后击掌",
+          body: "六件都发出去了，包括三月欠的那句。助手没有替她过这一天，它把这一天变成了对的长度。现在她有了一套自己的 skills——分得清哪条背后是人的提醒、会自己回来的跟进——以及四点钟能击一下的手",
+        },
+      },
+    ],
+    en: {
+      name: "Jane AI Skills",
+      kind: "Personal assistant skills · 2025",
+      problem:
+        "The list is never long. It is that every item is a person — the reply owed, the follow-up promised, the parent to ring — and a to-do app treats them all like the invoice.",
+      did: "The skill set: reminders that know which items are people, follow-ups that return on their own, and a daily order that puts the waiting ones first.",
+      metric: { value: "6 → 0", label: "on her plate by four o'clock" },
+    },
+    zh: {
+      name: "Jane AI Skills",
+      kind: "个人助手 skills · 2025",
+      problem:
+        "清单从来不长。难的是每一条背后都是一个人——欠的回复、答应的跟进、该打给爸妈的电话——而待办软件把它们都当成发票。",
+      did: "一套 skills：分得清哪条背后是人的提醒、会自己回来的跟进、把有人在等的排在前面的每日顺序。",
+      metric: { value: "6 → 0", label: "四点前清空" },
+    },
+    notes: [
+      {
+        by: "jane",
+        en: {
+          q: "People first, by design",
+          a: "Every item can be tagged with who is waiting on it. The daily order sorts tagged items above untagged ones before it sorts by date, so a reply owed to a friend outranks a form due the same day.",
+        },
+        zh: {
+          q: "先人后事",
+          a: "每一条都可以标上是谁在等。每日排序先把标了人的放到没标的前面，再按日期排——所以欠朋友的一句回复，排在同一天到期的一张表格前面。",
+        },
+      },
+      {
+        by: "jane",
+        en: {
+          q: "Follow-ups that come back",
+          a: "A follow-up is set with a return date, not a reminder time. On that date it reappears at the top with the original thread attached, so nothing has to be searched for before it can be answered.",
+        },
+        zh: {
+          q: "会自己回来的跟进",
+          a: "跟进设的是回来的日期，不是提醒时间。到那天它带着原来的对话回到最上面，回复之前不用再翻找。",
         },
       },
     ],
