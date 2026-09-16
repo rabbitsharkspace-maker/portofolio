@@ -7,71 +7,156 @@ export const cases = [
   {
     id: "mkr",
     owner: "both",
-    image: "/ip/mkr.webp",
+    /*
+     * The owner's dashboard, which is the one screen that shows what the
+     * product is for: wage cost against budget, what is open, what is
+     * escalating, and who is actually on the floor tonight.
+     */
+    image: "/ip/mkr-dashboard.webp",
     // Held by the frame so the page does not jump when the shot loads.
-    ratio: "2260 / 1227",
+    ratio: "1600 / 1026",
     // Presence identifies contributors; values are not estimates of effort.
     split: { jane: 50, jenny: 50 },
     link: null,
     en: {
       name: "My Kitchen Rules",
-      kind: "Restaurant operations · 2025",
+      kind: "Restaurant operations · 2026",
       problem:
-        "A small restaurant owner is the cashier, the kitchen manager, the bookkeeper and the rosterer. Four jobs, four systems, and the day is spent carrying numbers between them.",
-      did: "Product flow, three role-based interfaces, engineering and deployment.",
-      metric: { value: "4 → 1", label: "four jobs, one system" },
+        "A small restaurant owner rosters, orders, checks invoices against what actually arrived, and carries the compliance underneath all of it — visas, tax numbers, super, food safety. Four jobs in four places, and the day goes into moving numbers between them. Miss one visa expiry and the fine is bigger than the week's profit.",
+      did: "One system, entered through six different front doors — owner, manager, head chef, sous, waiter, kitchen hand — plus a phone app for staff. Ten modules: roster, tasks, incidents, ordering, invoices, team, food safety, documents, resources and the dashboard that sits over them. Australian compliance runs underneath: VEVO, TFN, super, ATO, Fair Work. Product flow, the interfaces, engineering and deployment. Piloted at a Sydney trattoria.",
+      metric: { value: "6", label: "roles, one system" },
     },
     zh: {
       name: "My Kitchen Rules",
-      kind: "餐厅运营系统 · 2025",
+      kind: "餐厅运营系统 · 2026",
       problem:
-        "小餐厅的老板同时是收银、后厨管理、记账和排班。四份活、四套系统，一天的时间花在把数字从一个地方搬到另一个地方",
-      did: "产品流程、三套角色界面、开发与部署",
-      metric: { value: "4 → 1", label: "四份活，一套系统" },
+        "小餐厅的老板要排班、下单、拿发票对实际到的货，底下还扑着一层合规——签证、税号、养老金、食品安全。四份活散在四个地方，一天的时间花在把数字从一处搬到另一处。漏掉一个签证到期日，罚款比这一周的利润还多",
+      did: "一套系统，六个不同的入口——老板、经理、主厨、二厨、服务员、后厨帮工——另外给员工一个手机端。十个模块：排班、任务、事故、订货、发票、团队、食品安全、文档、资源，以及压在它们上面的那块仪表盘。澳洲合规长在底下：VEVO、TFN、养老金、ATO、Fair Work。产品流程、界面、开发与部署。在悉尼一家餐厅试点",
+      metric: { value: "6", label: "个角色，一套系统" },
     },
+    /*
+     * Eight notes, each pointing at one screen from the MKR deck (v0.1, April
+     * 2026, Bondi Trattoria pilot). Every claim below is visible in the shot
+     * beside it — no reverse-engineering this time.
+     *
+     * The `by` split is a proposal by subject matter, not a record. The chain
+     * of compliance, escalation, scheduling and reconciliation reads as systems
+     * work; how six roles stay legible and what each one is handed reads as
+     * experience work. Neither of us has confirmed it. Move a note to the other
+     * name if it was the other way round, and say these in your own words when
+     * you get to them — that is the part nobody can copy.
+     */
     notes: [
       {
         by: "jenny",
+        shot: "/ip/mkr-team.webp",
         en: {
-          q: "Sync status",
-          a: "The header includes an offline-safe indicator and a queued-write count. These make connection and synchronisation status visible beside the operational controls.",
+          q: "Compliance sits inside hiring",
+          a: "Onboarding a starter runs six steps, and three of them are the visa check, the tax declaration and the super choice. Two of those complete on their own. Every person on the team then carries their visa type on the roster — 482, 485, 500 student, 417 working holiday — and the two expiring inside ninety days surface without being asked for.",
+          shotNote: "Team · onboarding step 4 of 6, and the visa status the whole roster carries.",
         },
         zh: {
-          q: "同步状态",
-          a: "顶部展示离线状态与待同步数量，让连接和同步进度与操作入口一起可见",
+          q: "合规长在招人流程里",
+          a: "招一个新人是六步，其中三步是查签证、报税号、选养老金，其中两步自动完成。之后团队里每个人都带着自己的签证类型——482、485、500 学生签、417 打工度假签——九十天内到期的那两个不用谁去翻，自己会浮上来",
+          shotNote: "团队 · 入职第 4 步，以及整张花名册上挂着的签证状态",
         },
       },
       {
         by: "jenny",
+        shot: "/ip/mkr-incidents.webp",
         en: {
-          q: "Price comparison",
-          a: "The cost view places price changes alongside delivery records, giving the reader a dated reference for the comparison.",
+          q: "Severity sets the clock",
+          a: "Every incident carries a level, and the level decides how long the owner has to acknowledge it: seven days for routine, three for important, thirty minutes for anything touching revenue, safety or compliance. A cool room at 8.4°C is thirty minutes, and it re-notifies every ten until somebody answers. The countdown lives on the record instead of in somebody's memory.",
+          shotNote: "Incidents · a critical one with twenty-two minutes left on the owner's clock.",
         },
         zh: {
-          q: "价格对照",
-          a: "成本视图把价格变化与送货记录放在一起，为对比提供具体日期的参照",
+          q: "严重度决定时限",
+          a: "每条事故都带一个等级，等级决定老板多久之内必须确认：常规七天，重要三天，碰到营收、安全或合规的三十分钟。冷藏室 8.4°C 就是三十分钟那一档，没人应答就每十分钟再提醒一次。倒计时挂在这条记录上，而不是靠谁记着",
+          shotNote: "事故 · 一条 L3，老板那边还剩二十二分钟",
+        },
+      },
+      {
+        by: "jenny",
+        shot: "/ip/mkr-roster.webp",
+        en: {
+          q: "The roster arrives as a proposal",
+          a: "A week is drafted for the manager rather than by them — twenty-eight shifts, two hundred and thirty-four hours, an estimated wage bill attached before anyone agrees to it. The manager edits and publishes. Staff see the cost consequence of a roster at the moment it is still changeable.",
+          shotNote: "Roster · the week grid with its hours and wage estimate in the header.",
+        },
+        zh: {
+          q: "排班是先给出草案",
+          a: "一周的班是排给经理的，不是由经理从零排的——二十八个班、两百三十四小时，还没人点头之前就挂着一个预估工资。经理改完再发布。工资的后果在这张表还能改的时候就看得见",
+          shotNote: "排班 · 周视图，表头带着工时与预估工资",
+        },
+      },
+      {
+        by: "jenny",
+        shot: "/ip/mkr-invoices.webp",
+        en: {
+          q: "The invoice is read against the order",
+          a: "Supplier catalogues pull in by code, so a draft order is picked from real SKUs and splits itself across the suppliers it belongs to. When the bill arrives it is matched back to that order, and the one that disagrees is labelled a mismatch rather than quietly paid.",
+          shotNote: "Invoices · one flagged PO MISMATCH among the approved and the paid.",
+        },
+        zh: {
+          q: "发票拿去对订单",
+          a: "供应商目录按代码自动拉进来，草稿单是从真实 SKU 里挑的，再自己拆成几张发给对应的供应商。账单回来时和这张单对一遍，对不上的那张会被标成不符，而不是安安静静地付掉",
+          shotNote: "发票 · 一张被标记 PO MISMATCH，夹在已批准和已付款之间",
         },
       },
       {
         by: "jane",
+        shot: "/ip/mkr-tasks.webp",
         en: {
-          q: "Role switching",
-          a: "The role-switching control sits in the navigation rail. It provides a visible entry point to the different operational views.",
+          q: "The checklist belongs to the position",
+          a: "Tasks are owned by a role, not a name. Head chef carries eleven recurring items, waiter carries six. Hire a new waiter and the waiter checklist is already theirs on the first shift — nobody rebuilds it, and nobody has to remember what the last waiter used to do.",
+          shotNote: "Tasks · the day grouped by position, with the role templates beside it.",
         },
         zh: {
-          q: "角色切换",
-          a: "侧栏保留切换视角的入口，便于找到不同角色的运营界面",
+          q: "清单属于岗位，不属于人",
+          a: "任务挂在岗位上，不挂在名字上。主厨十一条循环任务，服务员六条。新招一个服务员，第一个班上服务员那套清单就已经是他的了——不用有人重新配一遍，也不用有人记得上一个服务员平时都做什么",
+          shotNote: "任务 · 一天的活按岗位分组，右边是岗位模板",
         },
       },
       {
         by: "jane",
+        shot: "/ip/mkr-manager.webp",
         en: {
-          q: "Familiar document structure",
-          a: "The docket view groups supplier information and delivery details above the line items, following the structure of a delivery document.",
+          q: "Same shift, a different desk",
+          a: "The manager opens the same night the owner does, and gets a narrower room: my team, my section, my tasks. Not a permissions screen laid over one dashboard — a different front door, so nobody has to read past the parts that are not theirs.",
+          shotNote: "Manager · the same evening, with the sidebar cut down to what a manager runs.",
         },
         zh: {
-          q: "熟悉的单据结构",
-          a: "单据视图把供应商和送货信息放在明细上方，沿用送货单的信息结构",
+          q: "同一个晚上，不同的桌子",
+          a: "经理打开的是老板打开的那个晚上，但房间更窄：我的班组、我的区域、我的任务。这不是在一块仪表盘上盖一层权限，而是另一个入口，省得谁去读跟自己无关的那一半",
+          shotNote: "经理 · 同一个晚上，侧栏收窄成经理要管的部分",
+        },
+      },
+      {
+        by: "jane",
+        shot: "/ip/mkr-staff.webp",
+        en: {
+          q: "What a waiter actually gets",
+          a: "Staff open a phone, not the dashboard: today's shift, when the pre-shift briefing is, a clock-in button, and the week ahead. Free time goes in before the Saturday cutoff and the roster publishes Sunday, so nobody is being rung up and asked \u201ccan you come in tonight?\u201d Turning up is the responsibility; swapping is self-service.",
+          shotNote: "Staff · the whole app a waiter ever sees.",
+        },
+        zh: {
+          q: "服务员真正拿到的东西",
+          a: "员工打开的是手机，不是那块仪表盘：今天的班、班前会几点、一个打卡按钮、这一周。有空的时间在周六截止前填，排班周日发出来，所以不会再有人被一条条问「今晚能来吗」。来上班是责任，换班自己去换",
+          shotNote: "员工端 · 服务员会看到的全部",
+        },
+      },
+      {
+        by: "jane",
+        shot: "/ip/mkr-documents.webp",
+        en: {
+          q: "The folder is already there",
+          a: "Every employee gets a folder the moment they are onboarded, and it fills itself: contract, position description, visa evidence, tax declaration, certificates with their expiry dates, reviews, pay letters. Nothing is filed by hand, so nothing is missing on the day an auditor asks.",
+          shotNote: "Documents · a hidden module, one folder per person, built on the way in.",
+        },
+        zh: {
+          q: "文件夹本来就在那儿",
+          a: "每个员工入职那一刻就有了自己的文件夹，而且是自己长满的：合同、岗位说明、签证凭证、税务申报、带到期日的证书、绩效、调薪信。没有一份是手工归档的，所以审计来问的那天不会缺哪一份",
+          shotNote: "文档中心 · 一个隐藏模块，一人一个文件夹，在入职路上就建好了",
         },
       },
     ],
