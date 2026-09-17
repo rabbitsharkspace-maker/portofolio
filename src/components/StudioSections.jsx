@@ -115,7 +115,6 @@ export function WorkShelf({ items, id = 'all-work' }) {
     </div>}
     <div className="cabinet-index"><p className="micro-label">{zh ? '更多作品' : 'MORE PROJECTS'}</p><h2>{zh ? <>继续，<em>随便翻翻</em></> : <>More things<br /><em>we’ve made.</em></>}</h2><div className="cabinet-list" role="group" aria-label={zh ? '选择作品' : 'Choose a project'}>{items.map((w,i)=><button key={w.id} aria-pressed={active.id === w.id} aria-controls={`${id}-preview`} onClick={()=>{setPlaying(false);setCurtain('shut');setSelected(w.id)}}><span>{String(i+1).padStart(2,'0')}</span><strong>{w[lang].name}</strong><span>↗</span></button>)}</div></div>
     <div className={`cabinet-preview preview-${active.id}`} id={`${id}-preview`} aria-live="polite">
-      <span className="cabinet-paperclip" aria-hidden="true" />
       <div className={`cabinet-photo${playing && demo ? ' cabinet-live' : ''}`} key={active.id}>{playing && film && !cinema
         ? (ourCut
           ? <video src={ourCut} poster={active.poster?.[lang]} controls autoPlay playsInline />
@@ -174,7 +173,7 @@ export function ClientVoice() {
   if (!v) return null
   return <section id="client-voice" className="client-voice">
     <div className="voice-quote"><p className="micro-label">{v.label}</p><h2>{v.title[0]}<br /><em>{v.title[1]}</em></h2><blockquote>{v.quote}</blockquote><p className="voice-by">{v.by}<span>{v.role}</span></p><a className="quiet-link" href={v.link} target="_blank" rel="noreferrer">{v.linkLabel} ↗</a></div>
-    <div className="voice-notes"><span className="voice-pin" aria-hidden="true" />{v.notes.map((n,i)=><div className="voice-note" key={n.q}><span>0{i+1}</span><h3>{n.q}</h3><p>{n.a}</p></div>)}</div>
+    <div className="voice-notes">{v.notes.map((n,i)=><div className="voice-note" key={n.q}><span>0{i+1}</span><h3>{n.q}</h3><p>{n.a}</p></div>)}</div>
   </section>
 }
 
@@ -184,7 +183,7 @@ export function PersonNotebook({ who }) {
   const p = people[who]
   const c = p[lang]
   const [selected,setSelected] = useState(0)
-  return <section id="about-me" className={`person-notebook notebook-${who}`}><div className="notebook-bio"><p className="micro-label">{zh ? '桌子另一边的我' : 'THE HUMAN BEHIND THE WORK'}</p><h2>{zh ? <>不止是<br /><em>一份履历</em></> : <>A person,<br /><em>not just a portfolio.</em></>}</h2><div className="bio-paragraphs">{c.about.map(line=><p key={line}>{line}</p>)}</div><p className="bio-signature">{p.name}<span>{zh ? '中英双语 / 全球远程' : 'English & Mandarin / Remote worldwide'}</span></p></div><div className="evidence-deck"><span className="evidence-pin" aria-hidden="true" /><p className="micro-label">{zh ? '我能带来什么' : 'WHAT I BRING TO THE TABLE'}</p><div className="evidence-page" aria-live="polite"><span className="evidence-number">0{selected+1}<small> / 04</small></span><h3>{c.evidence[selected].claim}</h3><p>{c.evidence[selected].proof}</p><span className="evidence-doodle" aria-hidden="true">{['✳','↗','⌘','✶'][selected]}</span></div><div className="evidence-pagination" role="group" aria-label={zh ? '翻阅能力与证据' : 'Browse capabilities and evidence'}>{c.evidence.map((e,i)=><button key={e.claim} aria-pressed={selected===i} onClick={()=>setSelected(i)} aria-label={`${i+1}. ${e.claim}`}>0{i+1}</button>)}</div><p className="evidence-hint">{zh ? '四张小卡片，点点看' : 'four little cards. take your pick.'} ↗</p></div></section>
+  return <section id="about-me" className={`person-notebook notebook-${who}`}><div className="notebook-bio"><p className="micro-label">{zh ? '桌子另一边的我' : 'THE HUMAN BEHIND THE WORK'}</p><h2>{zh ? <>不止是<br /><em>一份履历</em></> : <>A person,<br /><em>not just a portfolio.</em></>}</h2><div className="bio-paragraphs">{c.about.map(line=><p key={line}>{line}</p>)}</div><p className="bio-signature">{p.name}<span>{zh ? '中英双语 / 全球远程' : 'English & Mandarin / Remote worldwide'}</span></p></div><div className="evidence-deck"><p className="micro-label">{zh ? '我能带来什么' : 'WHAT I BRING TO THE TABLE'}</p><div className="evidence-page" aria-live="polite"><span className="evidence-number">0{selected+1}<small> / 04</small></span><h3>{c.evidence[selected].claim}</h3><p>{c.evidence[selected].proof}</p><span className="evidence-doodle" aria-hidden="true">{['✳','↗','⌘','✶'][selected]}</span></div><div className="evidence-pagination" role="group" aria-label={zh ? '翻阅能力与证据' : 'Browse capabilities and evidence'}>{c.evidence.map((e,i)=><button key={e.claim} aria-pressed={selected===i} onClick={()=>setSelected(i)} aria-label={`${i+1}. ${e.claim}`}>0{i+1}</button>)}</div><p className="evidence-hint">{zh ? '四张小卡片，点点看' : 'four little cards. take your pick.'} ↗</p></div></section>
 }
 
 export function BackgroundFolder({ who }) {
