@@ -8,7 +8,7 @@
 .chapter-meta > span { display:block; width:34px; height:34px; border:1px solid #ab9dac; border-radius:50%; text-align:center; line-height:32px; margin-bottom:15px; }
 .chapter-meta p { max-width:17ch; }
 .desk-chapter h2 { font-size:clamp(40px,4.6vw,63px); line-height:1.05; }
-.chapter-note { font:italic 15px/1.5 Georgia,"Songti SC",serif; transform:rotate(-8deg); color:#7d6c86; max-width:20ch; }
+.chapter-note { font:italic 15px/1.5 Georgia,"Songti SC",serif; color:#7d6c86; max-width:20ch; }
 .chapter-note span { display:block; font-size:38px; margin-left:25px; }
 .project-collection { display:flex; flex-direction:column; gap:88px; }
 .project-spread { display:grid; grid-template-columns:1.28fr 1fr; gap:64px; align-items:center; padding:20px 0; scroll-margin-top:38px; --project-paper:#ddd3e7; --seal-paper:#d8e290; }
@@ -70,14 +70,13 @@
 .cabinet-list button[aria-pressed=true] { color:#81578f; padding-left:12px; }
 .cabinet-list button[aria-pressed=true] > span:first-child { background:#d8c9e0; border-radius:50%; padding:4px; }
 .cabinet-preview { min-width:0; align-self:center; position:relative; padding-top:10px; }
-.cabinet-photo { border:1px solid #c7b9c7; padding:12px 12px 0; background:#fffaf0; box-shadow:8px 10px 0 #302b3a0d; transform:rotate(4deg); }
+.cabinet-photo { border:1px solid #c7b9c7; padding:12px 12px 0; background:#fffaf0; box-shadow:0 10px 26px #302b3a12; }
 .cabinet-photo img { width:100%; display:block; aspect-ratio:1.45; object-fit:cover; object-position:top; border:1px solid #d7c9d7; }
 .cabinet-photo-caption { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:17px 3px; font:italic 18px Georgia,"Songti SC",serif; }
 .cabinet-photo-caption small { font:8px ui-monospace,monospace; white-space:nowrap; }
 /* The client sits on the attribution line but must not compete with the
    maker's name, which is the thing being credited. */
 .cabinet-photo-caption small em { font-style:normal; color:var(--dim); }
-.cabinet-paperclip { width:22px; height:65px; border:2px solid #958692; border-radius:20px; position:absolute; top:-18px; right:25px; z-index:2; transform:rotate(13deg); box-shadow:inset 3px 0 0 #fff9; }
 .cabinet-description { font-size:13px; line-height:1.85; color:var(--dim); margin-top:30px; }
 /*
  * `ground` — why this person made this thing, in their own voice.
@@ -115,7 +114,7 @@
 .cabinet-type-cover p { font:20px/1.3 Georgia,"Songti SC",serif; }
 .preview-ticketing .cabinet-type-cover { background:#dbe2a7; }
 .preview-sunrise .cabinet-type-cover { background:#efc4a7; }
-.recognition-ticket { display:grid; grid-template-columns:280px 1fr; margin-top:110px; border:1px solid #b4ae8e; background:#e7e9c6; border-radius:14px; transform:rotate(-1deg); position:relative; }
+.recognition-ticket { display:grid; grid-template-columns:280px 1fr; margin-top:110px; border:1px solid #b4ae8e; background:#e7e9c6; border-radius:14px; position:relative; }
 .recognition-stub { border-right:1px dashed #999574; padding:35px 30px; text-align:center; position:relative; }
 .recognition-stub::before,.recognition-stub::after { content:''; position:absolute; right:-12px; width:24px; height:24px; border:1px solid #b4ae8e; border-radius:50%; background:var(--paper); }
 .recognition-stub::before { top:-13px; clip-path:inset(50% 0 0 0); }
@@ -137,7 +136,7 @@
 .automation-story h2 em { color:#cdb8e0; }
 .automation-story > p:not(.micro-label) { font-size:13px; line-height:1.9; color:#d3c9dc; margin:24px 0; max-width:42ch; }
 .automation-story .ink-button { background:#dce597; color:#343725; border-color:#dce597; }
-.automation-receipt { background:#fff9e9; color:#4c414e; padding:28px 25px 35px; transform:rotate(5deg); filter:drop-shadow(6px 8px 0 #201b2b66); clip-path:polygon(0 0,100% 0,100% 97%,95% 100%,90% 97%,85% 100%,80% 97%,75% 100%,70% 97%,65% 100%,60% 97%,55% 100%,50% 97%,45% 100%,40% 97%,35% 100%,30% 97%,25% 100%,20% 97%,15% 100%,10% 97%,5% 100%,0 97%); }
+.automation-receipt { background:#fff9e9; color:#4c414e; padding:28px 25px 35px; border-radius:4px; box-shadow:0 14px 34px #100b1a55; }
 .automation-receipt > .micro-label { font-size:8px; text-align:center; }
 .automation-receipt > strong { font:italic 83px/1.15 Georgia,serif; display:block; text-align:center; letter-spacing:-.06em; margin-top:14px; }
 .automation-receipt > strong span { font-size:50px; }
@@ -198,15 +197,14 @@
 .bio-paragraphs p { font-size:13px; line-height:1.9; color:#65586c; max-width:53ch; margin-top:14px; }
 .bio-signature { font:italic 30px Georgia,serif; margin-top:28px; }
 .bio-signature span { font:9px ui-monospace,monospace; display:block; color:var(--dim); margin-top:10px; }
-.evidence-deck { padding:25px; background:#fffbed; border:1px solid #c2b2c5; box-shadow:5px 6px 0 #f7f1e9,6px 7px 0 #c2b2c5,11px 12px 0 #f7f1e9,12px 13px 0 #c2b2c5; align-self:center; position:relative; transform:rotate(3deg); }
-.evidence-pin { position:absolute; width:12px; height:12px; border-radius:50%; top:10px; left:50%; background:#b89fc7; box-shadow:2px 2px 0 #302b3a18; }
+.evidence-deck { padding:25px; background:#fffbed; border:1px solid #c2b2c5; box-shadow:0 12px 30px #302b3a14; align-self:center; position:relative; }
 .evidence-deck > .micro-label { font-size:8px; margin-top:6px; }
 .evidence-page { min-height:330px; position:relative; padding-bottom:75px; }
 .evidence-number { display:block; font:italic 58px Georgia,serif; color:#9b80af; margin-top:20px; }
 .evidence-number small { font:10px ui-monospace,monospace; color:var(--dim); }
 .evidence-page h3 { font-size:28px; line-height:1.12; margin-top:12px; }
 .evidence-page > p { margin-top:16px; font-size:13px; line-height:1.8; color:var(--dim); }
-.evidence-doodle { position:absolute; bottom:0; right:0; font:60px Georgia,serif; color:#d8bea1; transform:rotate(-15deg); }
+.evidence-doodle { position:absolute; bottom:0; right:0; font:60px Georgia,serif; color:#d8bea1; }
 .evidence-pagination { display:flex; gap:8px; padding-top:15px; border-top:1px dashed var(--line-strong); }
 .evidence-pagination button { border:1px solid #c4b6c9; border-radius:50%; width:35px; height:35px; font:10px ui-monospace,monospace; }
 .evidence-pagination button[aria-pressed=true] { background:#dcd1e8; border-color:#9c83aa; }
@@ -215,7 +213,7 @@
 .personal-recognition .recognition-body h2 { font-size:35px; }
 .background-folder { margin-top:95px; display:grid; grid-template-columns:1fr 1.2fr; gap:70px; padding:30px 15px; }
 .background-folder h2 { font-size:clamp(36px,4vw,51px); line-height:1.08; margin-top:22px; }
-.background-stamp { width:150px; padding:15px; border:1px dashed #b59aac; text-align:center; font:9px/1.5 ui-monospace,monospace; transform:rotate(-9deg); color:#9b748c; margin:38px 0 0 20px; }
+.background-stamp { width:150px; padding:15px; border:1px dashed #b59aac; text-align:center; font:9px/1.5 ui-monospace,monospace; color:#9b748c; margin:38px 0 0 20px; }
 .background-stamp strong { font:italic 34px Georgia,serif; }
 .background-entries details { border-bottom:1px solid var(--line-strong); }
 .background-entries summary { display:flex; align-items:center; gap:18px; padding:20px 0; list-style:none; }
@@ -233,12 +231,12 @@
 .contact-characters img { width:70px; height:135px; object-fit:contain; transform:rotate(-6deg); }
 .contact-characters img:nth-child(2) { transform:rotate(7deg); margin-left:-8px; }
 .contact-characters span { font:italic 14px/1.4 Georgia,serif; color:#95809e; margin:0 0 35px 20px; transform:rotate(-8deg); }
-.letter-paper { padding:30px; background:#fffbef; border:1px solid #d1c4c8; border-radius:3px; box-shadow:7px 9px 0 #dcd3e0; transform:rotate(2deg); position:relative; }
+.letter-paper { padding:30px; background:#fffbef; border:1px solid #d1c4c8; border-radius:3px; box-shadow:0 12px 30px #302b3a14; position:relative; }
 .letter-paper::before { content:''; position:absolute; top:0; bottom:0; left:15px; width:1px; background:#dbaeb055; }
 .letter-heading { display:flex; justify-content:space-between; align-items:center; gap:15px; }
 .letter-heading > span { font:12px/1.6 ui-monospace,monospace; }
 .letter-heading small { display:block; font-size:8px; color:var(--dim); }
-.letter-stamp { width:85px; border:1px dashed #a593a8; background:#e4dceb; padding:5px; text-align:center; transform:rotate(8deg); }
+.letter-stamp { width:85px; border:1px dashed #a593a8; background:#e4dceb; padding:5px; text-align:center; }
 .letter-stamp img { width:100%; height:64px; object-fit:contain; }
 .letter-stamp > span { font:6px ui-monospace,monospace; display:block; margin-top:3px; }
 .letter-form { margin-top:25px; }
@@ -270,8 +268,7 @@
 .voice-by { font:italic 24px Georgia,"Songti SC",serif; margin-top:28px; }
 .voice-by span { display:block; margin-top:9px; font:9px ui-monospace,monospace; letter-spacing:.06em; color:var(--dim); }
 .voice-quote .quiet-link { display:inline-block; margin-top:20px; font-size:11px; }
-.voice-notes { position:relative; padding:30px 28px; background:#fffcf3; border:1px solid #bfcbb5; box-shadow:5px 6px 0 #302b3a10; transform:rotate(-1.2deg); }
-.voice-pin { position:absolute; top:-6px; left:50%; width:12px; height:12px; border-radius:50%; background:#4a6b4f; box-shadow:2px 2px 0 #302b3a18; }
+.voice-notes { position:relative; padding:30px 28px; background:#fffcf3; border:1px solid #bfcbb5; box-shadow:0 10px 26px #302b3a12; }
 .voice-note + .voice-note { margin-top:24px; padding-top:24px; border-top:1px solid var(--line); }
 .voice-note > span { font:10px ui-monospace,monospace; color:#4a6b4f; }
 .voice-note h3 { margin-top:8px; font-size:15px; line-height:1.4; }
@@ -378,7 +375,7 @@
  .automation-scene { margin-top:65px; grid-template-columns:1fr; gap:35px; padding:32px 28px 40px; }
  .automation-story h2 { font-size:40px; }
  .automation-story > p:not(.micro-label) { font-size:12px; }
- .automation-receipt { max-width:330px; width:100%; justify-self:center; transform:rotate(3deg); padding:25px 20px 32px; }
+ .automation-receipt { max-width:330px; width:100%; justify-self:center; padding:25px 20px 32px; }
  .founder-passes { margin-top:70px; grid-template-columns:1fr; gap:30px; }
  .founders-intro h2 { font-size:42px; }
  .founders-intro > p:last-child { max-width:42ch; margin-top:18px; }
@@ -397,7 +394,7 @@
  .service-folder { margin-top:70px; padding:35px 0; grid-template-columns:1fr; gap:28px; }
  .service-title h2 { font-size:48px; margin-top:16px; }
  .service-title > p:last-child { max-width:38ch; }
- .service-asterisk { position:absolute; right:10px; bottom:65px; transform:rotate(15deg); font-size:65px; }
+ .service-asterisk { position:absolute; right:10px; bottom:65px; font-size:65px; }
  .service-sheets summary { padding:18px 15px; gap:12px; }
  .service-sheets h3 { font-size:21px; }
  .service-sheets details > div { padding:0 18px 23px 40px; }
@@ -406,7 +403,7 @@
  .person-notebook::before { left:11px; }
  .notebook-bio h2 { font-size:39px; }
  .bio-paragraphs p { font-size:12px; }
- .evidence-deck { width:95%; justify-self:center; transform:rotate(2deg); }
+ .evidence-deck { width:95%; justify-self:center; }
  .evidence-page { min-height:295px; }
  .evidence-page h3 { font-size:29px; }
  .evidence-page > p { font-size:12px; }
@@ -423,7 +420,7 @@
  .contact-invitation > p:not(.micro-label) { margin-top:18px; }
  .contact-characters { height:115px; margin-top:20px; }
  .contact-characters img { height:110px; width:60px; }
- .letter-paper { padding:25px; transform:rotate(1deg); margin-right:7px; }
+ .letter-paper { padding:25px; }
  .letter-heading > span { font-size:10px; }
  .letter-stamp { width:70px; }
  .letter-stamp img { height:52px; }
