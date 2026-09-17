@@ -117,19 +117,20 @@
 .exhibition-note-grid details.has-shot[open] { grid-column:1/-1; }
 .note-body { display:grid; gap:24px; }
 /*
- * The capture is the evidence, so it gets the width.
+ * Text left, capture right, and the capture sized to be looked at rather
+ * than read.
  *
- * Two columns handed 530px to a paragraph 94px tall and squeezed a 1600px
- * screenshot into 663px — 41% — which is below the size the thing the note
- * points at survives: a visa subclass, a countdown, an hourly rate. The
- * reader was being asked to take the sentence on trust while the proof sat
- * next to it unreadable. Stacked, the same capture lands near 76%.
+ * This went stacked and full width first, to rescue a 1600px screenshot that
+ * was rendering at 41%. That fixed the legibility and cost the page its
+ * shape: every open note became a thousand pixels tall, so reading four of
+ * them was a scroll through four full-screen pictures. Beside the text, a
+ * note is one screenful again.
  *
- * The prose does not follow it out to full width. A 1200px measure is its
- * own kind of unreadable.
+ * The detail did not come back, so it lives one click away instead — every
+ * shot carries a full-size link. Small enough to glance at, one tap from
+ * large enough to read.
  */
-details.has-shot[open] .note-body { align-items:start; }
-details.has-shot[open] .note-body > p { max-width:68ch; }
+details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:28px; align-items:start; }
 .note-shot { margin:0; }
 .note-shot figcaption { font-size:11px; line-height:1.7; color:#6b5f72; margin-top:9px; }
 /*
@@ -140,23 +141,16 @@ details.has-shot[open] .note-body > p { max-width:68ch; }
  * the small ones at native size.
  */
 /*
- * Fit the whole shot on screen, and never upscale it.
- *
- * Width alone was not enough, because these are not one shape. MKR's
- * captures are landscape (1600x1026) and land inside the viewport; Serene's
- * are portrait, and one of them is 1000x1398 — at full width that is 500px
- * taller than the window, so a note about one detail made you scroll past
- * the picture to reach the next note.
- *
- * Capping the height lets the tall ones shrink to fit while the wide ones
- * keep the width they earned. `width:auto` with both caps means the browser
- * honours whichever bound bites first and the aspect ratio never changes.
+ * Never upscale, and never get tall. These are not one shape — MKR ships
+ * 1600x1026 landscape, Serene 1000x1398 portrait — so a single width would
+ * leave one of them the wrong size. Capping both bounds lets each keep its
+ * own proportions inside the same box.
  */
-.note-body img { display:block; width:auto; max-width:100%; height:auto; max-height:76vh; border:1px solid #c5b5d2; border-radius:3px; box-shadow:0 10px 24px #302b3a1a; }
+.note-body img { display:block; width:auto; max-width:100%; height:auto; max-height:360px; border:1px solid #c5b5d2; border-radius:3px; box-shadow:0 8px 20px #302b3a14; }
 /* A shrunk portrait shot is small enough to want a closer look. */
 .note-shot a { display:inline-block; }
 .note-shot-full { display:inline-block; margin-top:9px; font-size:11px; text-decoration:underline; text-underline-offset:5px; color:#6b5f72; }
-@media (max-width:760px) { details.has-shot[open] .note-body { gap:16px; } }.exhibition-note-grid details { padding:19px; border-top:1px solid #a78cb9; background:#eee7f1; }
+@media (max-width:760px) { details.has-shot[open] .note-body { grid-template-columns:1fr; gap:16px; } .note-body img { max-height:none; } }.exhibition-note-grid details { padding:19px; border-top:1px solid #a78cb9; background:#eee7f1; }
 .exhibition-note-grid summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1fr auto; align-items:center; gap:8px; }
 /*
  * The one place on the site where the two of them speak separately, and the
