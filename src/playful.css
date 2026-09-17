@@ -33,36 +33,25 @@ body { font-family:Arial,Helvetica,"PingFang SC","Microsoft YaHei",sans-serif; }
  */
 .hero-margin-note { font-size:12px; margin-top:32px; font-family:Georgia,"Songti SC",serif; font-style:italic; color:var(--dim); }
 .hero-margin-note span { font-size:25px; display:inline-block; margin-right:6px; }
-.studio-desk { min-width:0; height:515px; position:relative; isolation:isolate; background:#ded8e9; border-radius:48% 48% 18px 18px / 42% 42% 18px 18px; }
-.desk-orbit { position:absolute; inset:80px 30px 35px; border:1px dashed #aaa0ba; border-radius:50%; transform:rotate(-20deg); }
-.desk-handnote { position:absolute; left:14%; top:20px; font-family:Georgia,"Songti SC",serif; font-style:italic; font-size:17px; transform:rotate(-6deg); color:#625672; }
-.desk-handnote > span { display:block; font-size:45px; text-align:center; line-height:.8; }
-.desk-object { position:absolute; box-shadow:6px 11px 0 #302b3a10,0 16px 30px #302b3a15; border:1px solid #6b626f; }
-.drag-grip { display:flex; justify-content:space-between; align-items:center; width:100%; cursor:grab; touch-action:none; padding:2px 10px; height:28px; font-size:12px; border-bottom:1px solid #302b3a33; }
-.drag-grip:active { cursor:grabbing; }
-.desk-monitor { top:100px; left:9%; width:72%; background:#f3f4d8; border-radius:8px; z-index:3; }
-.desk-monitor img { display:block; padding:8px; width:100%; }
-.desk-object-caption { display:flex; justify-content:space-between; align-items:center; padding:9px 12px 12px; font-size:10px; font-family:ui-monospace,monospace; }
-.desk-polaroid { top:268px; right:5%; width:47%; background:#fffaf0; padding:0 5px 5px; z-index:4; }
-.desk-polaroid img { width:100%; aspect-ratio:1.65; object-fit:cover; object-position:top; padding:6px 0; }
-.desk-polaroid .desk-object-caption { font-family:Georgia,serif; font-style:italic; font-size:14px; padding:7px 6px; }
-.desk-award { position:absolute; right:0; top:60px; width:113px; height:113px; background:#d9e493; color:#3c462e; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:50%; transform:rotate(12deg); z-index:5; outline:1px dashed #687544; outline-offset:-7px; transition:transform .3s; }
-.desk-award:hover { transform:rotate(-8deg) scale(1.08); }
-.desk-award span { font-size:8px; letter-spacing:.04em; }
-.desk-award strong { font:italic 30px Georgia,serif; line-height:1.5; }
-.desk-person { position:absolute; display:block; bottom:46px; z-index:6; transition:transform .3s; }
-.desk-person:hover { transform:translateY(-14px) rotate(-5deg); }
-.desk-person img { height:180px; width:100px; object-fit:contain; filter:drop-shadow(0 10px 4px #302b3a24); }
-.desk-person span { display:block; background:#fffbef; border:1px solid #7c707f; border-radius:20px; padding:4px 12px; width:fit-content; margin:-2px auto 0; font:italic 14px Georgia,serif; }
-.desk-jane { left:0; transform:rotate(-7deg); }
-.desk-jenny { left:25%; transform:rotate(5deg); }
-.desk-sticker { position:absolute; top:303px; left:49%; width:75px; height:75px; background:#eea07f; border-radius:50%; font:11px/1.15 Georgia,serif; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; transform:rotate(-15deg); z-index:7; pointer-events:none; }
-/* Above the objects on the desk, not under them. The polaroid is z-index 4 and
-   hangs low enough to cover this bar, which left the tidy-up button visible but
-   not clickable — a hit test at its centre returned the polaroid's caption. */
-.desk-controls { position:absolute; z-index:7; bottom:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:9px 15px; border-top:1px solid #bfb4cc; gap:12px; }
-.desk-controls > span { font:8px ui-monospace,monospace; letter-spacing:.08em; }
-.desk-controls button { border:1px solid #9b8da6; border-radius:30px; background:#f4eff7; padding:7px 11px; font-size:11px; }
+/*
+ * One screen, straight. The panel is a flat rounded field on the paper, the
+ * frame is a plain window, and the only object left is the award, set down as
+ * a tag rather than spun at twelve degrees.
+ */
+.hero-shot { min-width:0; position:relative; background:#e9e4ef; border-radius:18px; padding:28px 26px 22px; }
+.hero-shot-frame { display:block; background:#fff; border:1px solid #6b626f; border-radius:8px; overflow:hidden; box-shadow:0 18px 40px #302b3a1a; transition:transform .3s,box-shadow .3s; }
+.hero-shot-frame:hover,.hero-shot-frame:focus-visible { transform:translateY(-3px); box-shadow:0 24px 48px #302b3a22; }
+.hero-shot-bar { display:flex; gap:6px; padding:9px 12px; border-bottom:1px solid #e6e2d8; background:#faf8f3; }
+.hero-shot-bar i { width:9px; height:9px; border-radius:50%; background:#d8d2df; }
+.hero-shot-frame img { display:block; width:100%; height:auto; }
+.hero-shot-caption { display:flex; justify-content:space-between; align-items:baseline; gap:18px; margin-top:16px; }
+.hero-shot-caption p { display:flex; flex-direction:column; gap:3px; min-width:0; }
+.hero-shot-caption strong { font:italic 16px Georgia,"Songti SC",serif; color:var(--ink); }
+.hero-shot-caption span { font:10px ui-monospace,monospace; letter-spacing:.03em; color:#625672; }
+.hero-shot-caption .quiet-link { font-size:11px; white-space:nowrap; }
+.hero-shot-award { position:absolute; top:-15px; right:26px; z-index:2; display:flex; align-items:baseline; gap:8px; padding:7px 13px; border-radius:30px; background:#d9e493; color:#3c462e; border:1px solid #687544; font:8px ui-monospace,monospace; letter-spacing:.06em; transition:transform .25s; }
+.hero-shot-award:hover,.hero-shot-award:focus-visible { transform:translateY(-2px); }
+.hero-shot-award strong { font:italic 15px Georgia,serif; letter-spacing:0; }
 .studio-ticker { grid-column:1/-1; margin-top:40px; border-block:1px solid var(--line-strong); padding:15px 0; display:flex; align-items:center; justify-content:space-around; gap:18px; font:10px ui-monospace,monospace; letter-spacing:.1em; }
 .studio-ticker i { font-size:22px; color:#d7765b; font-style:normal; }
 .person-playground { max-width:1320px; margin:15px auto 0; padding:30px 5% 0; display:grid; grid-template-columns:1fr 1fr; gap:65px; align-items:start; }
@@ -136,18 +125,11 @@ body { font-family:Arial,Helvetica,"PingFang SC","Microsoft YaHei",sans-serif; }
 .ticketing-number span { font:11px Arial,sans-serif; margin-top:12px; }
 #founders > div:last-child > div > div > div { border-radius:3px !important; box-shadow:4px 6px 0 #302b3a0b; }
 footer { margin-top:55px !important; padding-top:24px !important; border-top:1px solid var(--line); }
-@media(min-width:1450px) { .playful-hero { padding-top:55px; } .studio-desk { height:570px; } .desk-monitor { top:125px; } .desk-polaroid { top:320px; } .desk-person img { height:215px; width:120px; } }
+@media(min-width:1450px) { .playful-hero { padding-top:55px; } .hero-shot { padding:32px 30px 24px; } }
 @media(max-width:1000px) {
  .playful-hero { gap:0 20px; padding-top:25px; }
+ .hero-shot { padding:22px 18px 18px; }
  .playful-hero h1 { font-size:60px; }
- .studio-desk { height:480px; }
- .desk-monitor { top:105px; left:5%; width:81%; }
- .desk-polaroid { top:250px; width:51%; }
- .desk-person img { height:145px; width:80px; }
- .desk-sticker { left:40%; top:315px; width:60px; height:60px; }
- .desk-award { right:-5px; width:90px; height:90px; }
- .desk-award strong { font-size:25px; }
- .desk-award span { font-size:6px; }
  .person-playground { gap:35px; }
  .person-title { font-size:110px; }
  .person-intro-links { gap:14px; }
@@ -168,20 +150,14 @@ footer { margin-top:55px !important; padding-top:24px !important; border-top:1px
  .site-header > div { padding:0; gap:3px; }
  .site-header button { min-width:25px; }
  .playful-hero { grid-template-columns:1fr; padding:22px 6% 0; }
+ .hero-shot { margin-top:18px; padding:20px 14px 16px; }
+ .hero-shot-award { right:14px; }
+ .hero-shot-caption { flex-direction:column; gap:8px; }
  .playful-hero h1 { font-size:clamp(48px,10vw,68px); margin:18px 0; }
  .playful-hero .micro-label { font-size:8px; letter-spacing:.05em; }
  .playful-intro { font-size:14px; max-width:45ch; }
  .hero-margin-note { margin-top:15px; font-size:11px; }
  .playful-hero-copy { padding-bottom:15px; }
- .studio-desk { height:430px; max-width:490px; width:100%; margin:12px auto 0; }
- .desk-monitor { top:85px; width:72%; left:8%; }
- .desk-handnote { top:13px; font-size:15px; }
- .desk-polaroid { top:228px; width:45%; right:4%; }
- .desk-award { top:49px; right:0; }
- .desk-person { bottom:47px; }
- .desk-jenny { left:23%; }
- .desk-sticker { top:293px; left:44%; width:62px; height:62px; }
- .desk-controls { padding-inline:10px; }
  .studio-ticker { gap:8px; font-size:7px; letter-spacing:0; padding:12px 0; margin-top:28px; }
  .studio-ticker i { font-size:15px; }
  .studio-ticker span:last-of-type,.studio-ticker i:last-of-type { display:none; }
