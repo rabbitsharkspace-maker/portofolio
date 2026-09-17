@@ -139,7 +139,23 @@ details.has-shot[open] .note-body > p { max-width:68ch; }
  * cannot serve both. `auto` with a cap downscales the big ones and leaves
  * the small ones at native size.
  */
-.note-body img { display:block; width:auto; max-width:100%; height:auto; border:1px solid #c5b5d2; border-radius:3px; box-shadow:0 10px 24px #302b3a1a; }
+/*
+ * Fit the whole shot on screen, and never upscale it.
+ *
+ * Width alone was not enough, because these are not one shape. MKR's
+ * captures are landscape (1600x1026) and land inside the viewport; Serene's
+ * are portrait, and one of them is 1000x1398 — at full width that is 500px
+ * taller than the window, so a note about one detail made you scroll past
+ * the picture to reach the next note.
+ *
+ * Capping the height lets the tall ones shrink to fit while the wide ones
+ * keep the width they earned. `width:auto` with both caps means the browser
+ * honours whichever bound bites first and the aspect ratio never changes.
+ */
+.note-body img { display:block; width:auto; max-width:100%; height:auto; max-height:76vh; border:1px solid #c5b5d2; border-radius:3px; box-shadow:0 10px 24px #302b3a1a; }
+/* A shrunk portrait shot is small enough to want a closer look. */
+.note-shot a { display:inline-block; }
+.note-shot-full { display:inline-block; margin-top:9px; font-size:11px; text-decoration:underline; text-underline-offset:5px; color:#6b5f72; }
 @media (max-width:760px) { details.has-shot[open] .note-body { gap:16px; } }.exhibition-note-grid details { padding:19px; border-top:1px solid #a78cb9; background:#eee7f1; }
 .exhibition-note-grid summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1fr auto; align-items:center; gap:8px; }
 /*
