@@ -95,11 +95,11 @@ export const people = {
         },
       ],
       contactLine: "Bring us the problem worth solving.",
-      replyNote: "Tell us what's happening and what should change. We'll reply within 24 hours with clear next steps.",
+      replyNote: "Tell me what is happening and what should change. I reply within 24 hours with the next steps I would take.",
     },
     zh: {
-      line: "把复杂的问题，做成能用的产品",
-      sub: "客户带来的是一个功能需求；我找出它下面真正拖慢生意的那个问题",
+      line: "把复杂的问题，做成能用的产品。",
+      sub: "客户带来的是一个功能需求，我先找出它下面真正拖慢生意的那个问题。",
       evidence: [
         {
           claim: "AI 系统与自动化",
@@ -148,7 +148,7 @@ export const people = {
         { kind: "community", text: "Monash University｜国际学生大使、商学院大使 · 2023–2024" },
       ],
       contactLine: "带一个值得解决的问题来",
-      replyNote: "说清楚现在发生了什么、你希望它变成什么样。24 小时内回复，附具体的下一步",
+      replyNote: "说说现在是什么情况、你希望它变成什么样。我 24 小时内回复，会写上我打算怎么做。",
     },
   },
 
@@ -165,7 +165,7 @@ export const people = {
       evidence: [
         {
           claim: "Product & interface",
-          proof: "Three role-based interfaces for one restaurant system — owner, manager, floor — sharing one set of rules.",
+          proof: "Six role-based views for one restaurant system — owner, manager, head chef, sous, waiter, kitchen hand — on one set of rules.",
         },
         {
           claim: "Design to shipped code",
@@ -226,15 +226,15 @@ export const people = {
         },
       ],
       photoNote: "Interfaces, visuals, content — look at the work.",
-      replyNote: "We reply within 24 hours.",
+      replyNote: "Tell me what you are working on. I reply within 24 hours.",
     },
     zh: {
-      line: "我让技术变得清晰、自然，也值得被记住",
-      sub: "让用户更快理解、更早信任，并愿意持续使用",
+      line: "我让技术变得清晰、自然，也值得被记住。",
+      sub: "让用户更快理解、更早信任，并愿意持续使用。",
       evidence: [
         {
           claim: "产品与界面",
-          proof: "一套餐厅系统里的三套角色界面——老板、经理、员工——共用同一套规则",
+          proof: "一套餐厅系统，六个角色各有自己的界面——老板、经理、主厨、二厨、服务员、后厨帮工——共用同一套规则",
         },
         {
           claim: "从设计到上线的代码",
@@ -281,7 +281,7 @@ export const people = {
         },
       ],
       photoNote: "界面、视觉、内容 —— 看东西就好",
-      replyNote: "24 小时内回复",
+      replyNote: "说说你正在做的事。我 24 小时内回复。",
     },
   },
 }
@@ -364,7 +364,7 @@ export const studio = {
      */
     voice: {
       label: "WHAT A CLIENT SAID",
-      title: ["The keys,", "actually handed over."],
+      title: ["We hand over", "the keys."],
       quote: "No long approval queue to sit through. It goes the way I want it to go. The say is mine.",
       by: "Sharon",
       role: "Sharon ECC — culture and leadership education",
@@ -418,7 +418,7 @@ export const studio = {
     ],
     voice: {
       label: "一位客户说的话",
-      title: ["钥匙", "真的交到了手里"],
+      title: ["交付之后，", "东西是你自己的"],
       quote: "不用等审核机制的冗长，我想怎样就怎样，主动权在自己手上",
       by: "Sharon",
       role: "Sharon ECC 沙仑创库中心 · 文化与领导力教育",
