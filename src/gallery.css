@@ -278,10 +278,42 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  */
 /* --scene is mixed from the accent, so the panel is Jane's on her page and
  * Jenny's on hers without a rule per case; Kno below keeps its own. */
-.case-scroller { --beat:min(70vh,600px); --port:94dvh; --scene:color-mix(in srgb, var(--accent) 12%, #fff); display:grid; grid-template-columns:1fr minmax(240px,.78fr); gap:5%; padding-top:8px; }
+.case-scroller { --beat:min(70vh,600px); --port:94dvh; --scene:color-mix(in srgb, var(--accent) 12%, #fff); --scene-ink:#2a2132; display:grid; grid-template-columns:1fr minmax(240px,.78fr); gap:5%; padding-top:8px; }
 .scroller-stage { grid-column:2; grid-row:1; }
 .scroller-beats { grid-column:1; grid-row:1; }
 .exhibition-kno .case-scroller { --scene:#dee3ef; }
+/*
+ * Each case in its product's own colours, not the owner's. Five of Jane's cases
+ * on one accent read as one pink template five times; the products themselves
+ * do not look alike, and the wall should say so. Every value below is lifted
+ * from the live app's own screen — the indigo FastResume sets its headline in,
+ * RealHeart's black page and the coral of its one button, the parchment and
+ * wine of the tarot deck, the emerald Sunrise declares as its theme colour.
+ * Jane AI has no product to quote, so it keeps her amber.
+ *
+ * Scoped to the exhibition, so the rail, the number, the closing word, the
+ * marks on the stage and the top frame all change together.
+ */
+.exhibition-fastresume { --accent:#4f46e5; }
+.exhibition-fastresume .case-scroller { --scene:#e9e7fa; --scene-ink:#2b2670; }
+.exhibition-fastresume .exhibition-image { background:#e4e1f8; border-color:#cbc6ee; }
+
+.exhibition-realheart { --accent:#d9503a; }
+.exhibition-realheart .case-scroller { --scene:#1a1316; --scene-ink:#f6e2d8; }
+.exhibition-realheart .exhibition-image { background:#1a1316; border-color:#3c2b30; }
+.exhibition-realheart .scroller-tally svg { opacity:.36; }
+
+.exhibition-tarot { --accent:#8a1f3e; }
+.exhibition-tarot .case-scroller { --scene:#efe8da; --scene-ink:#4a2c33; }
+.exhibition-tarot .exhibition-image { background:#e9e1cf; border-color:#d4c8ae; }
+
+.exhibition-sunrise { --accent:#0b8a62; }
+.exhibition-sunrise .case-scroller { --scene:#e1f2ea; --scene-ink:#0f4d3a; }
+.exhibition-sunrise .exhibition-image { background:#d9eee4; border-color:#b8dccb; }
+
+.exhibition-skills { --accent:#b84627; }
+.exhibition-skills .case-scroller { --scene:#fbe8cf; --scene-ink:#5a3512; }
+.exhibition-skills .exhibition-image { background:#f4dcb4; border-color:#e0c090; }
 /*
  * On Jane's page she stands on the left and the writing runs down the right —
  * the mirror of Jenny's. Same idea as the two-direction note above, applied to
@@ -324,7 +356,7 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * of colour the whole height of the dialog.
  */
 .scroller-stage::before,.scroller-stage::after { content:''; grid-area:1/1; pointer-events:none; }
-.scroller-stage::before { justify-self:stretch; align-self:center; height:calc(var(--beat) + 54px); background:radial-gradient(circle at 50% 44%, transparent calc(30% - 1px), #00000016 30%, transparent calc(30% + 1px)), radial-gradient(#00000026 1.4px, transparent 1.4px) 0 0/20px 20px, var(--scene); border:1px solid #00000012; border-radius:5px; }
+.scroller-stage::before { justify-self:stretch; align-self:center; height:calc(var(--beat) + 54px); background:radial-gradient(circle at 50% 44%, transparent calc(30% - 1px), color-mix(in srgb, var(--scene-ink) 9%, transparent) 30%, transparent calc(30% + 1px)), radial-gradient(color-mix(in srgb, var(--scene-ink) 15%, transparent) 1.4px, transparent 1.4px) 0 0/20px 20px, var(--scene); border:1px solid color-mix(in srgb, var(--scene-ink) 7%, transparent); border-radius:5px; }
 /*
  * Each beat carries the tool's own icon and the card that tool actually left on
  * the canvas above — same icon, same colour, same label the app uses. Without
@@ -353,7 +385,7 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
    percentage has nothing to count, so the number is the mark. */
 .scroller-figure { display:flex; align-items:flex-start; padding:10px 0 0 18px; }
 .scroller-figure span { font:400 clamp(96px,15vw,190px)/1 Georgia,"Songti SC",serif; letter-spacing:-.06em; color:var(--accent); opacity:.13; }
-.scroller-stage::after { align-self:center; width:52%; height:18px; margin-top:calc(var(--beat) / 2 - 34px); background:#2a213226; filter:blur(11px); border-radius:50%; }
+.scroller-stage::after { align-self:center; width:52%; height:18px; margin-top:calc(var(--beat) / 2 - 34px); background:color-mix(in srgb, var(--scene-ink) 15%, transparent); filter:blur(11px); border-radius:50%; }
 /*
  * Half a scrollport of air at each end. Without it the first and last beats
  * centre themselves while the stage is still in flow — sticky only bites once
