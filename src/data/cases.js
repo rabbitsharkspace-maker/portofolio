@@ -1084,8 +1084,10 @@ export const cases = [
     mark: "person",
     // The sign-in screen, live, behind a button — same address as the link.
     demo: { en: "https://agecare-1.onrender.com/login", zh: "https://agecare-1.onrender.com/login" },
-    image: "/ip/sunrise-01-arriving.webp",
-    ratio: "548 / 1096",
+    // The sign-in screen as a carer meets it at seven in the morning — the
+    // same address the link and the demo open, so the still keeps its promise.
+    image: "/ip/sunrise-login.webp",
+    ratio: "1440 / 810",
     split: { jane: 100, jenny: 0 },
     // The sign-in screen, same as works.js: it is what a carer opens at seven
     // in the morning, so the click lands where the picture promised.

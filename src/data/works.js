@@ -167,8 +167,8 @@ export const works = [
     link: "https://agecare-1.onrender.com/login",
     embed: "https://agecare-1.onrender.com/login",
     address: "Sunrise Care",
-    // The first plate of the case set: her arriving on the round, bag in hand.
-    image: "/ip/sunrise-01-arriving.webp",
+    // The sign-in screen, same as the case frame and the link.
+    image: "/ip/sunrise-login.webp",
     en: {
       name: "Sunrise Care",
       kind: "AI caregiver support",
