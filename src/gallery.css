@@ -294,26 +294,114 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * Scoped to the exhibition, so the rail, the number, the closing word, the
  * marks on the stage and the top frame all change together.
  */
+/* ---- one case, one design ---------------------------------------------
+ *
+ * Colour alone was not enough: five cases on one grid, one panel, one type
+ * scale and one order of parts read as the same page five times however it is
+ * tinted. Each case below sets its own ground, its own counter face, its own
+ * way of standing the marks on the stage — taken from what the product is,
+ * not from a palette.
+ *
+ * Everything is scoped to `.exhibition-<id>`, so nothing here reaches Jenny's
+ * cases or Serene's acts.
+ */
+
+/* FastResume · a machine reading a page.
+ * A score, not a poem: the panel is ruled like a document being parsed, the
+ * counter is tabular rather than lettered, and the closing word is a status
+ * stamp. Indigo is the colour its own headline is set in. */
 .exhibition-fastresume { --accent:#4f46e5; }
-.exhibition-fastresume .case-scroller { --scene:#e9e7fa; --scene-ink:#2b2670; }
+.exhibition-fastresume .case-scroller { --scene:#eceafb; --scene-ink:#2b2670; }
+.exhibition-fastresume .scroller-stage::before {
+  background:repeating-linear-gradient(color-mix(in srgb, var(--scene-ink) 7%, transparent) 0 1px, transparent 1px 34px) 0 30px, var(--scene);
+  border-radius:3px;
+}
+.exhibition-fastresume .beat-index { font:500 clamp(40px,4.6vw,58px)/1 ui-monospace,"SF Mono",monospace; letter-spacing:-.05em; font-variant-numeric:tabular-nums; }
+.exhibition-fastresume .beat-rail { gap:2px; }
+.exhibition-fastresume .beat-rail i { height:4px; border-radius:0; }
+.exhibition-fastresume .beat-word { font:500 13px/1 ui-monospace,"SF Mono",monospace; letter-spacing:.22em; text-transform:uppercase; margin-top:34px; }
+.exhibition-fastresume .beat-word::before { width:9px; height:9px; background:currentColor; opacity:1; }
 .exhibition-fastresume .exhibition-image { background:#e4e1f8; border-color:#cbc6ee; }
 
-.exhibition-realheart { --accent:#d9503a; }
-.exhibition-realheart .case-scroller { --scene:#1a1316; --scene-ink:#f6e2d8; }
-.exhibition-realheart .exhibition-image { background:#1a1316; border-color:#3c2b30; }
-.exhibition-realheart .scroller-tally svg { opacity:.36; }
+/* RealHeart · a dark room.
+ * The one case that does not sit on paper. The band goes to the dialog's edge
+ * in the app's own near-black, the writing turns to light, and the fifteen
+ * hearts do the counting the rail does everywhere else. Italic and loose,
+ * because this is the case about waiting. */
+.exhibition-realheart { --accent:#e0614a; }
+.exhibition-realheart .case-scroller { --scene:#140e11; --scene-ink:#f6e2d8; --stage-w:.95fr; background:#140e11; margin-inline:-5%; padding:44px 5% 30px; }
+.exhibition-realheart .scroller-stage::before { background:radial-gradient(ellipse at 50% 42%, #2a1d22 0%, #140e11 72%); border:0; border-radius:0; }
+.exhibition-realheart .scroller-beats h4 { font-style:italic; font-size:clamp(25px,2.9vw,37px); line-height:1.3; color:#f7e7e0; }
+.exhibition-realheart .scroller-beats p { color:#cbb2ab; }
+.exhibition-realheart .beat-index { color:var(--accent); font-style:italic; }
+.exhibition-realheart .beat-index small,.exhibition-realheart .beat-label { color:#96736c; }
+.exhibition-realheart .beat-rail { display:none; }
+.exhibition-realheart .beat-word { font-style:italic; }
+.exhibition-realheart .beat-word::before { display:none; }
+.exhibition-realheart .scroller-tally { padding-bottom:30px; }
+.exhibition-realheart .scroller-tally svg { opacity:.3; }
+.exhibition-realheart .scroller-tally svg.is-lit { opacity:1; }
+.exhibition-realheart .exhibition-image { background:#140e11; border-color:#3c2b30; }
 
+/* Tarot · a spread on a table.
+ * Parchment with a card's double edge, and the three marks fanned the way a
+ * reader lays them down rather than lined up like a meter. Letterpress
+ * spacing on the headline; the closing word is bracketed like a card caption. */
 .exhibition-tarot { --accent:#8a1f3e; }
-.exhibition-tarot .case-scroller { --scene:#efe8da; --scene-ink:#4a2c33; }
+.exhibition-tarot .case-scroller { --scene:#efe7d7; --scene-ink:#4a2c33; --stage-w:.68fr; }
+.exhibition-tarot .scroller-stage::before {
+  background:radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--scene-ink) 4%, transparent) 0 60%, transparent 61%), var(--scene);
+  border:1px solid color-mix(in srgb, var(--scene-ink) 22%, transparent);
+  border-radius:2px; box-shadow:inset 0 0 0 4px var(--scene), inset 0 0 0 5px color-mix(in srgb, var(--scene-ink) 14%, transparent);
+}
+.exhibition-tarot .scroller-beats h4 { letter-spacing:.01em; font-size:clamp(22px,2.4vw,30px); }
+.exhibition-tarot .beat-rail { display:none; }
+.exhibition-tarot .beat-label { color:var(--accent); opacity:.75; }
+.exhibition-tarot .beat-word { margin-top:26px; padding-block:12px; border-block:1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+.exhibition-tarot .beat-word::before { display:none; }
+.exhibition-tarot .scroller-tally { gap:0; padding-bottom:26px; }
+.exhibition-tarot .scroller-tally svg { transform-origin:50% 100%; width:calc(var(--glyph) * 1.7); height:calc(var(--glyph) * 1.7); }
+.exhibition-tarot .scroller-tally svg:nth-child(1) { transform:rotate(-8deg) translateX(6px); }
+.exhibition-tarot .scroller-tally svg:nth-child(3) { transform:rotate(8deg) translateX(-6px); }
 .exhibition-tarot .exhibition-image { background:#e9e1cf; border-color:#d4c8ae; }
 
+/* Sunrise Care · a care record.
+ * Ruled like the chart it replaces, square-cornered, with the writing held
+ * inside a form's left margin. Sans headline and a stamped word: this is the
+ * one case that is a document, not an essay. Emerald is the theme colour the
+ * app declares in its own head. */
 .exhibition-sunrise { --accent:#0b8a62; }
-.exhibition-sunrise .case-scroller { --scene:#e1f2ea; --scene-ink:#0f4d3a; }
+.exhibition-sunrise .case-scroller { --scene:#e3f2ea; --scene-ink:#0f4d3a; --stage-w:.72fr; }
+.exhibition-sunrise .scroller-stage::before {
+  background:repeating-linear-gradient(color-mix(in srgb, var(--scene-ink) 10%, transparent) 0 1px, transparent 1px 28px) 0 20px, var(--scene);
+  border-radius:2px;
+}
+.exhibition-sunrise .scroller-beats li { border-left:2px solid color-mix(in srgb, var(--accent) 22%, transparent); padding-left:26px; }
+.exhibition-sunrise .scroller-beats h4 { font:600 clamp(21px,2.2vw,28px)/1.3 Arial,"PingFang SC","Microsoft YaHei",sans-serif; letter-spacing:-.01em; }
+.exhibition-sunrise .beat-index { font:500 clamp(34px,3.8vw,46px)/1 ui-monospace,"SF Mono",monospace; letter-spacing:-.03em; }
+.exhibition-sunrise .beat-rail i { height:5px; border-radius:0; }
+.exhibition-sunrise .beat-word { font:600 12px/1 ui-monospace,"SF Mono",monospace; letter-spacing:.2em; text-transform:uppercase; margin-top:30px; padding:9px 13px; border:1.5px solid currentColor; align-self:flex-start; }
+.exhibition-sunrise .beat-word::before { display:none; }
 .exhibition-sunrise .exhibition-image { background:#d9eee4; border-color:#b8dccb; }
 
-.exhibition-skills { --accent:#b84627; }
-.exhibition-skills .case-scroller { --scene:#fbe8cf; --scene-ink:#5a3512; }
+/* Jane AI Skills · her own desk.
+ * No product to quote, so this one stays closest to her: amber, soft corners,
+ * the dot grid kept and opened out, and the six things wrapped in two rows the
+ * way they would actually sit on a desk rather than in one line. */
+.exhibition-skills { --accent:#b8562a; }
+.exhibition-skills .case-scroller { --scene:#fbe6c9; --scene-ink:#5a3512; }
+.exhibition-skills .scroller-stage::before {
+  background:radial-gradient(color-mix(in srgb, var(--scene-ink) 13%, transparent) 1.8px, transparent 1.8px) 0 0/30px 30px, var(--scene);
+  border-radius:18px;
+}
+.exhibition-skills .scroller-tally { flex-wrap:wrap; max-width:62%; margin-inline:auto; row-gap:10px; padding-bottom:26px; }
 .exhibition-skills .exhibition-image { background:#f4dcb4; border-color:#e0c090; }
+
+@media (max-width:760px) {
+ /* The dark band keeps its bleed at the narrower page padding. */
+ .exhibition-realheart .case-scroller { margin-inline:-6%; padding:26px 6% 18px; }
+ .exhibition-sunrise .scroller-beats li { padding-left:16px; }
+}
 /*
  * On Jane's page she stands on the left and the writing runs down the right —
  * the mirror of Jenny's. Same idea as the two-direction note above, applied to
@@ -321,7 +409,7 @@ details.has-shot[open] .note-body { grid-template-columns:minmax(0,1fr) minmax(0
  * template. Desktop only; under 760px both stack, and the stage goes on top.
  */
 @media (min-width:761px) {
- html[data-world="jane"] .case-scroller { grid-template-columns:minmax(240px,.78fr) 1fr; }
+ html[data-world="jane"] .case-scroller { grid-template-columns:minmax(240px,var(--stage-w,.78fr)) 1fr; }
  html[data-world="jane"] .scroller-stage { grid-column:1; }
  html[data-world="jane"] .scroller-beats { grid-column:2; }
 }
