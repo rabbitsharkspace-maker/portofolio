@@ -92,12 +92,18 @@
  * on, so the ending slid straight past into the notes. Now it is one flick per
  * stop the whole way down: 01, 02, 03, 04, then here.
  *
- * The gap above is what makes the fourth beat an ending. At 30px the heading
- * sat 31px under the fold while the umbrella was still centred — the story and
- * what comes after it shared a screen, so nothing landed. Now the beat gets the
- * screen to itself, and the snap carries the empty stretch in one flick.
+ * The gap above is what makes the last beat an ending: the heading has to be
+ * off-screen while that beat is centred, or the story and what comes after it
+ * share a screen and nothing lands.
+ *
+ * 14dvh is what that costs, not 40. The beats column already carries half a
+ * scrollport of its own padding below the last beat — enough on its own to put
+ * the heading exactly on the fold — so 40dvh was a second full screen of
+ * nothing stacked on top of a gap that was already sufficient. At 14dvh the
+ * heading still clears the fold by about a hundred pixels, and the empty
+ * stretch is one flick instead of two.
  */
-.exhibition-notes { margin-top:40dvh; scroll-snap-align:start; scroll-snap-stop:always; scroll-margin-top:78px; }
+.exhibition-notes { margin-top:14dvh; scroll-snap-align:start; scroll-snap-stop:always; scroll-margin-top:78px; }
 .exhibition-notes-heading { display:flex; justify-content:space-between; gap:20px; align-items:center; }
 .exhibition-notes-heading h3 { font:italic 35px Georgia,"Songti SC",serif; }
 .exhibition-notes-heading > div { display:flex; gap:5px; }
