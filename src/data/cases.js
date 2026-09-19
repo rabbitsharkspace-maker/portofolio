@@ -1212,9 +1212,11 @@ export const cases = [
     owner: "jane",
     // The six things on the desk, filled in as they are handed off.
     mark: "box",
-    image: "/ip/skills-04-highfive.webp",
-    // Wider than the other sets: the floating objects sit either side of her.
-    ratio: "548 / 961",
+    // The product itself: the dashboard she actually opens, the one place on
+    // the wall where the thing being described is a tool she built for her own
+    // day rather than one with a public address to link to.
+    image: "/ip/skills-home.webp",
+    ratio: "1440 / 810",
     split: { jane: 100, jenny: 0 },
     link: null,
     /*
